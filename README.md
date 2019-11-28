@@ -14,7 +14,7 @@ http://cleaker.herokuapp.com/js/sub_c/cleaker.js
 - you can post stuff with your authenticity (cleaker.me)
 - you can post stuff with out authenticity.
 
-# HTTP WebSocket and NODE.JS SERVER -  INITIATION
+# HTTP WebSocket on node.js server -  INITIATION
 
 var wsServer = new webSocketServer({
  httpServer: server
