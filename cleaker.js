@@ -63,7 +63,6 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 				        }
 					}
 						});
-
 /*
 neutonsartntec
     								 .-. .-')             ('-.    .-')    
