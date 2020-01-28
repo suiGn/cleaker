@@ -2,10 +2,11 @@
 	- netget.me 
 	- cleaker.me
 	- Get your own data
-	- You run your own data.
-	- You manage your own data
-	- you can post stuff with your authenticity (cleaker.me)
-	- you can post stuff with out authenticity.
+	- Run your own data.
+	- Manage your own data
+	- Post stuff with your authenticity username.cleaker.me
+	- Post stuff without authenticity.
+	
 
 # To install cleaker client on your site use:
 <script src="https://cleaker.herokuapp.com/js/sub_c/cleaker.js"></script>
@@ -22,15 +23,15 @@ var wsServer = new webSocketServer({
 
 ## CODED BY 
 
-         _______
+         _______/
         |.-----.|
-        ||x . x||
-        ||_.-._||
+        ||0 . 0||
+        ||_._._||
         `--)-(--`
-       __[=== o]___
-      |:::::::::::|\
-      `-=========-`()
-	  SUI GN...
+       __[+++ s2]__
+      |:::::::::::|
+      '-=========-
+	  SUI GN.
 
 
 
