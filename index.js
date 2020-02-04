@@ -55,8 +55,8 @@ const server = express()
  	.use(bodyParser.urlencoded({ extended: false }))
  	.use(bodyParser.json())
 	.use(forceSecure(["cleaker.me","wwww.cleaker.me"])) // FORCE SSL
-	.use(express.static(path.join(__dirname, 'public')))
-	.set('views', path.join(__dirname, 'views'))
+	.use(express.static(path.join(__dirname, 'server/public')))
+	.set('views', path.join(__dirname, 'server/views'))
 	.set('view engine', 'ejs')
 	//ROUTING Cleaker 
 	.get('/', routes.home)
