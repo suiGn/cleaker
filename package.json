@@ -8,7 +8,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node test.js"
+    "test": "node server/test.js"
   },
   "dependencies": {
     "@okta/oidc-middleware": "^0.1.3",
