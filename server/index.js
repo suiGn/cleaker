@@ -70,7 +70,7 @@ const server = express()
 	.post('/openChannel', routes.openChannel)
 	.get('/publicChannel:channel', routes.publicChannel)
 	.listen(PORT, () => console.log(`Cleaker is on PORT: ${ PORT }
-		Welcome to a free land ${ unicorn }`));
+		Welcome to a free land ${ unicorn } ${ unicorn }`));
 		/*_      _____ ___ ___  ___   ___ _  _____ _____ 
 		 \ \    / / __| _ ) __|/ _ \ / __| |/ / __|_   _|
 	      \ \/\/ /| _|| _ \__ \ (_) | (__| ' <| _|  | |  
