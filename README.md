@@ -8,7 +8,7 @@
 	- Post stuff without authenticity.
 	
 
-# To install cleaker client on your site use:
+#Install your cleaker client site use:
 <script src="https://cleaker.herokuapp.com/js/sub_c/cleaker.js"></script>
 
 cleaker.js is hosted on:
@@ -24,6 +24,12 @@ var wsServer = new webSocketServer({
 			
 			-----------
 			netget MasterBranch
+			
+			
+			Art[iculos] de programaci[on]
+			
+			
+			Art On
 
 ## CODED BY 
 
