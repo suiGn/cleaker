@@ -42,6 +42,16 @@ var wsServer = new webSocketServer({
       |:::::::::::|
       '-=========-
 	  SUI GN.
+	  
+	  
+	  Git ++ Heroku
+	  - Pushing to staging:
+	  git push staging master
+	  
+	  https://frozen-basin-53622.herokuapp.com
+	  
+	  - Pushing to production:
+	  
 
 
 
