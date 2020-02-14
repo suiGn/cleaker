@@ -8,7 +8,7 @@
 	- Post stuff without authenticity.
 	
 
-#Install your cleaker client site use:
+# Install your cleaker client site use:
 <script src="https://cleaker.herokuapp.com/js/sub_c/cleaker.js"></script>
 
 cleaker.js is hosted on:
