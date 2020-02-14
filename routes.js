@@ -7,7 +7,7 @@ ______ _____ _   _ _____ _____ _____
 \_| \_|\___/ \___/  \_/ \____/\____/ 
 APP: CLEAKER
 CODED BY: SUI GENERIS 
-MASSIVE.
+SIMPLE AND MASSIVE.
 */
 
 const { Client } = require('pg');
