@@ -54,7 +54,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 					//wklyVisits: 'x',
 					//mnthlyVisits: 'x',
 					//CookiesOn: 'yes',
-					Monetization: 'yes',
+					mon: 'yes',
 					number: '000000000000000000001'
 				    };
 					var cookieCleaker = JSON.stringify(cleaker);
