@@ -26,7 +26,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 					uuid: myUUID,
 					onDate: new Date(),
 					timezone:(new Date()).getTimezoneOffset()/60,
-					sessionClosed: 'monday 12:12:45pm 06-16-2019',
+					sessionClosed: 'I am',
 					sessionDuration:'00:00:00',
 					pushNotifications: 'yes',
 					//img: 'https://pjreddie.com/darknet/',  //CONNECT TO YOLO
