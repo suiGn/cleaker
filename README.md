@@ -12,8 +12,8 @@
 # Install your cleaker client site use:
 <script src="https://cleaker.herokuapp.com/js/sub_c/cleaker.js"></script>
 
-cleaker.js is hosted on:
-http://cleaker.herokuapp.com/js/sub_c/cleaker.js
+cleaker.js ID is hosted on:
+http://cleaker.me/js/sub_c/cleaker.js
 
 
 # HTTP WebSocket on node.js server -  INITIATION
