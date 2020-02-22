@@ -1,14 +1,15 @@
 # CLEAKER
-	- netget.me 
 	- cleaker.me
-	- Get your own data
+		- netget.me 
+	- Get your own data.
 	- Run your own data.
-	- Manage your own data
+	- Manage your own data.
 	- Post stuff with your authenticity username.cleaker.me
 	- Post stuff without authenticity.
+	- Connect to theVault through your own channel and id.
 	
-			# ID
 	
+# I cleaker Array
 		var cleaker ={    
 				uuid: myUUID,
 				onDate: new Date(),
@@ -45,27 +46,15 @@
 				number: '000000000000000000001'
 				  };
 	
-
-# Client site Connection Installer:
+#JS Client site Connection Installer:
 <script src="https://cleaker.me/js/sub_c/cleaker.js"></script>
 
 
-# HTTP WebSocket on node.js server -  INITIATION
-
+# WebSocket -  INITIATION
 var wsServer = new webSocketServer({
  httpServer: server
 			});
 			
-			
-			-----------
-			netget MasterBranch
-			
-			
-			Art[iculos] de programaci[on]
-			
-			
-			Art On
-
 ## CODED BY 
 
          _______/
@@ -77,15 +66,10 @@ var wsServer = new webSocketServer({
       |:::::::::::|
       '-=========-
 	  SUI GN.
-	  
-	  
 	  Git ++ Heroku
-	  - Pushing to staging:
-	  git push staging master
-	  
-	  https://frozen-basin-53622.herokuapp.com
-	  
-	  - Pushing to production:
+	  	  
+  	Art[iculos] de programaci[on]
+  	Art On
 	  
 
 
