@@ -30,9 +30,9 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 					sessionDuration:'00:00:00',
 					pushNotifications: 'yes',
 					//img: 'https://pjreddie.com/darknet/',  //CONNECT TO YOLO
-					client: 'usrname',
-					cleakerurl: window.location.pathname,
-					urlOrigin: location.origin,
+					usrname: 'usrname',
+					locationPath: window.location.pathname,
+					locationOrigin: location.origin,
 					usrCountry: data.country,
 					usrRegion: data.region,
 					usrISP: data.isp,

@@ -17,10 +17,9 @@
 				sessionClosed: 'I am',
 				sessionDuration:'00:00:00',
 				pushNotifications: 'yes',
-				//img: 'https://pjreddie.com/darknet/',  //CONNECT TO YOLO
-				client: 'usrname',
-				cleakerurl: window.location.pathname,
-				urlOrigin: location.origin,
+				usrname: 'usrname',
+				locationPath: window.location.pathname,
+				locationOrigin: location.origin,
 				usrCountry: data.country,
 				usrRegion: data.region,
 				usrISP: data.isp,
@@ -49,11 +48,16 @@
 #JS Client site Connection Installer:
 <script src="https://cleaker.me/js/sub_c/cleaker.js"></script>
 
-
-# WebSocket -  INITIATION
+			-- client side ws connection to server.
+			var cookieCleaker = JSON.stringify(cleaker);
+								ws.send(JSON.stringify({clkcd: 'onCleaker' , cleaker: cleaker}));
+							        }
+# WebSocket - Server Initiation
 var wsServer = new webSocketServer({
  httpServer: server
 			});
+			
+			
 			
 ## CODED BY 
 
