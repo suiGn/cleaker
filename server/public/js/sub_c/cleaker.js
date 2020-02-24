@@ -5,7 +5,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 		var ws = new WebSocket("wss://cleaker.herokuapp.com");
 		//var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
-			 console.log('Conected to Cleaker');
+			 console.log('Conected to Cleaker. 000');
 			 //document.getElementById("occess").style = "color: #3ad1bb";	
 					}
 		//most important part - incoming messages
