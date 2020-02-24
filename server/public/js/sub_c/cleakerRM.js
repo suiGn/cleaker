@@ -4,7 +4,7 @@
 		└─┘┴─┘└─┘┴ ┴┴ ┴└─┘┴└─  
  codedBY suiGN
 Under MIT LICENSE
-cleaker analytics clientside code **/
+cleakerRM **/
 $(function () {
     "use strict";
 	var myUUID = "";
@@ -23,7 +23,7 @@ $(function () {
 	var HOST = location.origin.replace(/^http/, 'ws')
     var connection = new WebSocket(HOST);
     connection.onopen = function () {
-		//clkcd is the code used to know what kind of connection is it. CleakerRunMe is for the analytics.
+		//clkcd is the code used to know what kind of connection is it. CleakerRunMe is a type.
 		//runmeMasterMind is the code for our main survillance.
 	connection.send(JSON.stringify({clkcd: 'CleakerRunMe' , cleakerRoom: "runmeMasterMind", cleaker: "cleakerRunme"}));
 		console.log(`%c connected________________________________________
@@ -35,16 +35,11 @@ $(function () {
 			╚██████╗███████╗███████╗██║  ██║██║  ██╗███████╗██║  ██║
  		   	 ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
 `, "font-family:monospace")
-			
 			function foo() {
-
 			    connection.send(JSON.stringify({clkcd: 'keepMeAlive'}));
-
 			    setTimeout(foo, 55000);
-			}
-
+					}
 			foo();
-			
     };
 	
 	

@@ -123,19 +123,27 @@ const server = express()
 			   var index = clients.push(connection) - 1; //client index to remove them on 'close' event
 			   //A connection was acepted.
 			   console.log('1. wsOnRqstLog - Connection Accepted UUID: ' + uuid_numbr + ' Request.Origin: ' + request.origin);
-			    //starts - incoming comunication from user - connection.on message ready
-			   connection.sendUTF(JSON.stringify({ type:'cleakID', uuid: uuid_numbr}));
+			   
+			   
+			    //starts - comunication with user - connection.on 
+			   connection.sendUTF(JSON.stringify({ type:'cleaked', uuid: uuid_numbr})); // 'cleaked' -- cleaker.js handshake innitiation
+			   
+			   //Listening - on incoming comunication
 				  connection.on('message', function(message) {
 					if (message.type === 'utf8') { //IF TEXT
-						pckr = JSON.parse(message.utf8Data);
-	   					//Create room member to redirect to Cleaker Analaytics the information only.
-						if (pckr.clkcd === 'CleakerRunMe') {
+						pckr = JSON.parse(message.utf8Data); //parse to json
+						
+						
+	   					//Create room member for redirection.
+						if (pckr.clkcd === 'cleakerRunme') {
 	   					var analyticsMember = {
 	   						room: pckr.clkcd,
 	   						index: index,
 	   						client: connection,
 							uuid: uuid_numbr
 						}
+						
+						
 	   				//Push into the array
 	   				analyticsMembers.push(analyticsMember) - 1;// index to remove them on 'close' event;
 				} else if (pckr.clkcd === 'onCleaker'){

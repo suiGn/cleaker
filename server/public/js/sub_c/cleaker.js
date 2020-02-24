@@ -1,18 +1,18 @@
-// CLEAKER LOVE - EVOLVE
-
+//CLEAKER LOVE - EVOLVE
 $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", function(data) {
 		//SET DATA READY
 		//USE URL WS:// OR WSS:// (IF USING TLS)
 		var ws = new WebSocket("wss://cleaker.herokuapp.com");
 		//var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
-			 console.log('Conected to Cleaker. 000');
+			console.log('Conected to Cleaker. 001'); ON STAGE
+			//console.log('Conected to Cleaker. 000');
 			 document.getElementById("voice").style = "color: #cfafac";	
 					}
 		//most important part - incoming messages
 		ws.onmessage = function(message) {
-		 //try to parse JSON message. Because we know that the server always returns
-		 //JSON this should work without any problem but we should make sure that
+		 //parse JSON message. Server always returns JSON
+		 //Worka without any problem but we should make sure that
 		 //the message is not chunked or otherwise damaged.
 		 	 try {
 				  var json = JSON.parse(message.data);
@@ -20,10 +20,10 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 				    console.log('Not a valid JSON: ', message.data);
 				    return;
 				     }
-		 //TYPES OF WS PACKETS FROM SERVER
-			 if (json.type === 'cleakID'){ //first response from the server with user's color
-				var myUUID = json.uuid;
-				var cleaker ={    
+		 	 //RECEVING JSON.TYPE FROM INDEX
+			 if (json.type === 'cleaked'){ //first handshake with cleaker index
+				 var myUUID = json.uuid; //ID' the connection record
+				 var cleaker ={    
 						uuid: myUUID,
 						onDate: new Date(),
 						timezone:(new Date()).getTimezoneOffset()/60,
