@@ -1,11 +1,8 @@
 # CLEAKER
 	- cleaker.me
 		- netget.me 
-	- Get your own data.
-	- Run your own data.
-	- Manage your own data.
+	- get.Run/Manage your own data.
 	- Connect to theVault.
-	
 	
 # I cleaker Array
 		var cleaker ={    
