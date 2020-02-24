@@ -1,7 +1,7 @@
 # CLEAKER
 	- cleaker.me
 		- netget.me 
-	- get.Run/Manage your own data.
+	- get.run.manage your own data.
 	- Connect to theVault.
 	
 # I cleaker Array
