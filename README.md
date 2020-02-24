@@ -4,9 +4,7 @@
 	- Get your own data.
 	- Run your own data.
 	- Manage your own data.
-	- Post stuff with your authenticity username.cleaker.me
-	- Post stuff without authenticity.
-	- Connect to theVault through your own channel and id.
+	- Connect to theVault.
 	
 	
 # I cleaker Array
