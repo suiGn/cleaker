@@ -4,7 +4,15 @@
 	- get.run.manage your own data.
 	- Connect to theVault.
 	
-# I cleaker Array
+	
+	set user iq
+	userUniverse = userCount - the vault - DB select users with IQ SET
+	var averageIQ = userCount / iqSUM;
+	console.log("average IQ is:" averageIQ);
+	
+		
+	
+# I Array
 		var cleaker ={    
 				uuid: myUUID,
 				onDate: new Date(),
@@ -52,6 +60,10 @@ var wsServer = new webSocketServer({
  httpServer: server
 			});
 			
+#ELEMENTS
+	views/partials/elements :
+	 Inputs, buttons, icons, signals:
+			 <% include ../../partials/elements/input-c.ejs %>
 			
 			
 ## CODED BY 

@@ -82,11 +82,11 @@ const server = express()
 		// Port where we'll run the websocket server
 		var webSocketsServerPort = PORT;
 		var webSocketServer = require('websocket').server;
+		
 		//      _ ___   _  _  __
 		//  |V||_  ||_|/ \| \(_ 
 		//  | ||__ || |\_/|_/__)	
         /** Helper function for escaping input strings */
-			
 			function brdCstRight(room, obj){ //broadcast to room membrs Only
 			var BroadCastMembers = [ ];
 	     	//Filters only members belonging to the same room
@@ -114,6 +114,7 @@ const server = express()
 		var wsServer = new webSocketServer({
 	    httpServer: server
 			});
+			
 	// WebSocket server Starts from Here
 	wsServer.on('request', function(request) {
 			   var uuid_numbr = uuid.v4();

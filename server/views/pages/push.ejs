@@ -9,9 +9,9 @@
 				 </script>
         </head>
         <body>
-            <h1>Using Push.js to Display Web Browser Notifications</h1>
+            <h1>Push.js Web Notifications</h1>
 			
-            <p>This is a demo showcasing the use of web notifications using the open-source <a href="https://github.com/Nickersoft/push.js" target="_blank">Push.js</a> library.</p>
+            <p>open-source <a href="https://github.com/Nickersoft/push.js" target="_blank">Push.js</a> library.</p>
             <button class="request-button">Request permissions</button>
             <button class="show-button">Show notification</button>
 			<script>
@@ -34,8 +34,8 @@
 					 
 					 
 					 showButton.onclick = function() {
-					         Push.create("Hello from Sabe.io!", {
-					             body: "This is a web notification!",
+					         Push.create("Notifications", {
+					             body: "on",
 					             icon: "/icon.png",
 					             timeout: 5000,
 					             onClick: function() {

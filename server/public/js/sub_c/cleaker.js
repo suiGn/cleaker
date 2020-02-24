@@ -1,4 +1,5 @@
 // CLEAKER LOVE - EVOLVE
+
 $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", function(data) {
 		//SET DATA READY
 		//USE URL WS:// OR WSS:// (IF USING TLS)
@@ -6,7 +7,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 		//var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
 			 console.log('Conected to Cleaker. 000');
-			 //document.getElementById("occess").style = "color: #3ad1bb";	
+			 document.getElementById("voice").style = "color: #cfafac";	
 					}
 		//most important part - incoming messages
 		ws.onmessage = function(message) {
@@ -86,7 +87,7 @@ we get to remember;
 		
 	 
 	 
-	 // CLEAKER - THE VAULT - Handler
+// CLEAKER - THE VAULT - Handler
 						
 						
 					
