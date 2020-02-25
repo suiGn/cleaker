@@ -4,14 +4,7 @@
 	- get.run.manage your own data.
 	- Connect to theVault.
 	
-	
-	set user iq
-	userUniverse = userCount - the vault - DB select users with IQ SET
-	var averageIQ = userCount / iqSUM;
-	console.log("average IQ is:" averageIQ);
-	
 		
-	
 # I Array
 		var cleaker ={    
 				uuid: myUUID,

@@ -25,7 +25,6 @@ var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
 var clients = [ ];
 var analyticsMembers = [ ];
-
 //DATA BASE CONNECTION
 const { Client } = require('pg');
 const theVault = new Client({
@@ -49,7 +48,15 @@ theVault.connect();
 				})//closes query
 			} //closes else
 						}) 
+
+set user iq
+userUniverse = userCount - the vault - DB select users with IQ SET
+var averageIQ = userCount / iqSUM;
+console.log("average IQ is:" averageIQ);
+
 */
+
+
 const server = express()
 	//SETTING UP ROUTING SPECS
  	.use(bodyParser.urlencoded({ extended: false }))
