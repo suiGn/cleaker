@@ -7,7 +7,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 			ws.onopen = function(e){
 			console.log('Conected to Cleaker. 001'); //ON STAGE
 			//console.log('Conected to Cleaker. 000');
-			 document.getElementById("voice").style = "color: #cfafac";	
+			// document.getElementById("voice").style = "color: #cfafac";	
 					}
 		//most important part - incoming messages
 		ws.onmessage = function(message) {
