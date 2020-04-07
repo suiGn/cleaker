@@ -3,7 +3,7 @@
 		- netget.me 
 	- get.run.manage your own data.
 	- Connect to theVault.
-	- I'll be in rehab for 5 weeks. So expect no commits.
+	
 		
 # I Array
 		var cleaker ={    
