@@ -24,7 +24,7 @@ var routes = require('./routes');
 var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
 var clients = [ ];
-var analyticsMembers = [ ];
+var allMembers = [ ];
 //DATA BASE CONNECTION
 const { Client } = require('pg');
 const theVault = new Client({
@@ -53,7 +53,6 @@ set user iq
 userUniverse = userCount - the vault - DB select users with IQ SET
 var averageIQ = userCount / iqSUM;
 console.log("average IQ is:" averageIQ);
-
 */
 
 
@@ -93,16 +92,16 @@ const server = express()
 		//      _ ___   _  _  __
 		//  |V||_  ||_|/ \| \(_ 
 		//  | ||__ || |\_/|_/__)	
-        /** Helper function for escaping input strings */
 			function brdCstRight(room, obj){ //broadcast to room membrs Only
 			var BroadCastMembers = [ ];
 	     	//Filters only members belonging to the same room
-			const members = analyticsMembers.filter(goes => goes.room === room);
+			const members = allMembers.filter(goes => goes.room === room);
 			//Once filtered to only same room members to broadcast
 			members.forEach(function(element) {BroadCastMembers.push(element.client);});
 			// broadcast message to all connected clients in room
 			BroadCastMembers.forEach(function(EndClient){EndClient.sendUTF(obj);});	
 				};
+		/** Helper function for escaping input strings */
 		function htmlEntities(str) {
 			return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 						      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -131,7 +130,6 @@ const server = express()
 			   //A connection was acepted.
 			   console.log('1. wsOnRqstLog - Connection Accepted UUID: ' + uuid_numbr + ' Request.Origin: ' + request.origin);
 			   
-			   
 			    //starts - comunication with user - connection.on 
 			   connection.sendUTF(JSON.stringify({ type:'cleaked', uuid: uuid_numbr})); // 'cleaked' -- cleaker.js handshake innitiation
 			   
@@ -139,31 +137,29 @@ const server = express()
 				  connection.on('message', function(message) {
 					if (message.type === 'utf8') { //IF TEXT
 						pckr = JSON.parse(message.utf8Data); //parse to json
-						
-						
 	   					//Create room member for redirection.
-						if (pckr.clkcd === 'cleakerRunme') {
-	   					var analyticsMember = {
-	   						room: pckr.clkcd,
+						if (pckr.clkcd === 'CleakerRunMe') {
+	   					var runMeMember = {
+	   						room: pckr.cleakerRoom,
 	   						index: index,
 	   						client: connection,
 							uuid: uuid_numbr
-						}
-						
-						
-	   				//Push into the array
-	   				analyticsMembers.push(analyticsMember) - 1;// index to remove them on 'close' event;
-				} else if (pckr.clkcd === 'onCleaker'){
+						}	
+	   						//Push into the array
+	   						allMembers.push(runMeMember) - 1;// index to remove them on 'close' event;
+							
+				} else if (pckr.clkcd === 'onCleaker'){ // RECEIVING CLEAKER 
 					console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
-				   //packet - send Notification user logedIn to Room Members
-				   var packetLogIn = JSON.stringify({ type: "clkr_Start", cleaker: pckr.cleaker});
-				   brdCstRight("CleakerRunMe", packetLogIn);
+				   //packet - send INFORMATION TO RUNME
+				   var activeUser = JSON.stringify({ type: "clkr_Start", cleaker: pckr.cleaker});
+				   brdCstRight("runmeMasterMind", activeUser);
 					
 				}
 				else if (pckr.clkcd === 'keepMeAlive'){
 				 				   //packet - send Notification user logedIn to Room Members
+					console.log("keepme");
 				 				   var stayingAlive = JSON.stringify({ type: "stayingAlive", chorus: "A A A A"});
-				 				   brdCstRight("CleakerRunMe", stayingAlive);
+				 				   brdCstRight("runmeMasterMind", stayingAlive);
 								}
 				
 				}

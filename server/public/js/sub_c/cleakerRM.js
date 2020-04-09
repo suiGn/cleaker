@@ -8,6 +8,7 @@ cleakerRM **/
 $(function () {
     "use strict";
 	var myUUID = "";
+	var cleakedRow = $('#cleakedDiv');
     //if user is running mozilla then use it's built-in WebSocket
     window.WebSocket = window.WebSocket || window.MozWebSocket;
     //if browser doesn't support WebSocket, just show some notification and exit
@@ -55,8 +56,9 @@ $(function () {
             return;
         }
 		//TYPES OF WS PACKETS FROM SERVER
-        if (json.type === 'logIn'){ //first response from the server with user's color
+        if (json.type === 'clkr_Start'){ // Receiving Active User.
 			console.log(message.data);
+			addCleakedDiv(json.cleaker);
             //from now user can start sending messages
         } else if (json.type === 'stayingAlive'){
 			console.log("--");
@@ -76,5 +78,41 @@ $(function () {
 	//  LOVE & Memories AFTER ALL.
     /***/
 		
+		function addCleakedDiv(cleaked){
+		   	 	cleakedRow.append('<div class="pck w-clearfix">\
+          <div class="text-span-2 _111 lowest">O</div>\
+		  <div class="text-span-2 _111 _11">O</div>\
+          <div class="text-block-3 dataset">' + cleaked.uuid + '</div>\
+          <div class="text-block-3">' + cleaked.onDate + '</div>\
+          <div class="text-block-3 datatext">' + cleaked.usrname + ' - ' + cleaked.browser + '</div>\
+          <div class="text-block-3">' + cleaked.usrCity + '</div>\
+          <div class="pck-viewall" data-ix="vwmtd" onclick="viewElement()">[ view]</div>\
+          <div class="vwmtd" id=>\
+            <div class="scrollable-cleaker-text openconnection">\
+				Client: usrname,\
+				<br>Connection Time: 2:12:45pm 06-16-2019,\
+				<br>url:<a href="https://" class="link">https://www.ebul.com/</a>, \
+				<br>urlAuthor: David Delgadillo,\
+				<br>usrCountry: USA,\
+				<br>usrCity: \
+				<br> Closed: monday 12:12:45pm 06-16-2019,\
+				<br>dlyVisits: 8,\
+				<br>ystdy: 7,\
+				<br>wklyVisits: 34,\
+				<br>lstwk: 38,\
+				<br>mnthlyVisits: 144,\
+				<br>lstmnth: 132,\
+				<br>pushNotifications: No,\
+				<br>Cookies: yes,\
+				<br>Monetization:\
+			</div>\
+          </div>\
+        </div>');	
+						}
+		
 	
 });
+
+
+
+
