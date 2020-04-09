@@ -108,6 +108,8 @@ $(function () {
 			</div>\
           </div>\
         </div>');	
+		var scrollingDiv = document.getElementById("cleakedDiv"); 
+		  scrollingDiv.scrollIntoView(false); // Bottom
 						}
 		
 	
