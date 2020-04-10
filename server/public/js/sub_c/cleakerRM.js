@@ -23,6 +23,7 @@ $(function () {
     //open connection
 	var HOST = location.origin.replace(/^http/, 'ws')
     var connection = new WebSocket(HOST);
+	//var connection = new WebSocket("wss://cleaker.herokuapp.com");
     connection.onopen = function () {
 		//clkcd is the code used to know what kind of connection is it. CleakerRunMe is a type.
 		//runmeMasterMind is the code for our main survillance.
@@ -57,7 +58,6 @@ $(function () {
         }
 		//TYPES OF WS PACKETS FROM SERVER
         if (json.type === 'clkr_Start'){ // Receiving Active User.
-			console.log(message.data);
 			addCleakedDiv(json.cleaker);
             //from now user can start sending messages
         } else if (json.type === 'stayingAlive'){
@@ -78,8 +78,13 @@ $(function () {
 	//  LOVE & Memories AFTER ALL.
     /***/
 		
+		
+			
 		function addCleakedDiv(cleaked){
-		   	 	cleakedRow.append('<div class="pck w-clearfix">\
+			var cleakedDiv = document.getElementById("cleakedDiv");
+		    // allow 1px inaccuracy by adding 1
+		    var isScrolledToBottom = cleakedDiv.scrollHeight - cleakedDiv.clientHeight <= cleakedDiv.scrollTop + 1;
+			cleakedRow.append('<div class="pck w-clearfix">\
           <div class="text-span-2 _111 lowest">O</div>\
 		  <div class="text-span-2 _111 _11">O</div>\
           <div class="text-block-3 dataset">' + cleaked.uuid + '</div>\
@@ -108,10 +113,13 @@ $(function () {
 			</div>\
           </div>\
         </div>');	
-		var scrollingDiv = document.getElementById("cleakedDiv"); 
-		  scrollingDiv.scrollIntoView(false); // Bottom
+		//$('#cleakedDiv').animate({scrollTop: $('#cleakedDiv').prop("scrollHeight")}, 500);
+	    if(isScrolledToBottom){
+	      cleakedDiv.scrollTop = cleakedDiv.scrollHeight - cleakedDiv.clientHeight;
+	  }
+	   
 						}
-		
+						
 	
 });
 

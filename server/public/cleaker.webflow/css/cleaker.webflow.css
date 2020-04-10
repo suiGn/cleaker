@@ -1971,7 +1971,7 @@ a {
 
 .scrollable-content {
   display: block;
-  overflow: scroll;
+  overflow:auto;
   width: 89%;
   height: 377px;
   max-width: 777px;
