@@ -32,7 +32,7 @@ exports.openChannel = function(req,res){
 		const channel = req.body.channel; //INPUT CHANNEL 
 		const channelHash = req.body.channelHash; //INPUT CHANNEL-HASH
 		console.log('Channel Opened: ' + channel, channelHash); //JUST FOR DEVELOPMENT PURPOSES
-			res.render('pages/wtm/media', { channel: channel, channelHash: channelHash });				
+		res.render('pages/wtm/media', { channel: channel, channelHash: channelHash });				
 					}//ENDS POST FUNCTION
 //Open Public Channel - It GETS the channel and hash from
 exports.publicChannel = function(req,res){

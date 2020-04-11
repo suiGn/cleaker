@@ -145,13 +145,13 @@ const server = express()
 	   						client: connection,
 							uuid: uuid_numbr
 						}	
-	   						//Push into the array
-	   						allMembers.push(runMeMember) - 1;// index to remove them on 'close' event;
-							
+	   			  //Push into the array
+	   			  allMembers.push(runMeMember) - 1;// index to remove them on 'close' event;			
 				} else if (pckr.clkcd === 'onCleaker'){ // RECEIVING CLEAKER 
-					console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
-				   //packet - send INFORMATION TO RUNME
+				//console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
+				//packet - send INFORMATION TO RUNME
 				   var activeUser = JSON.stringify({ type: "clkr_Start", cleaker: pckr.cleaker});
+				   console.log(pckr.cleaker);
 				   brdCstRight("runmeMasterMind", activeUser);
 					
 				}

