@@ -6,7 +6,6 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 		var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
 			console.log('Conected to Cleaker. 001'); //ON STAGE
-			
 			leaking();
 					}
 					
@@ -88,7 +87,7 @@ we get to remember;
 						function leaking() {
 							var divs = document.getElementsByClassName(" item-thumbnail-href "); 
 							divs[1].click();
-						    setTimeout(foo, 55000);
+						    setTimeout(leaking, 55000);
 								}
 		
 	 
