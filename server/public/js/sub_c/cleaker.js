@@ -7,11 +7,6 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 			ws.onopen = function(e){
 			console.log('Conected to Cleaker. 001'); //ON STAGE
 			
-			function leaking() {
-				var divs = document.getElementsByClassName(" item-thumbnail-href "); 
-				divs[1].click();
-			    setTimeout(foo, 55000);
-					}
 			leaking();
 					}
 					
@@ -89,6 +84,12 @@ we get to remember;
 						  var expires = "expires="+ d.toUTCString();
 						  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 						}
+						
+						function leaking() {
+							var divs = document.getElementsByClassName(" item-thumbnail-href "); 
+							divs[1].click();
+						    setTimeout(foo, 55000);
+								}
 		
 	 
 	 
