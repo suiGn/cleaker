@@ -1696,7 +1696,7 @@ a {
 }
 
 .body {
-  background-color: #1c1b21;
+  background-color: #222125;
   color: #222125;
 }
 
@@ -2133,7 +2133,7 @@ a {
   padding-top: 5px;
   padding-right: 5px;
   border-bottom: 1px dashed hsla(0, 0%, 100%, 0.34);
-  background-color: #1c1b21;
+  background-color: #222125;
   text-align: left;
   -o-object-fit: fill;
   object-fit: fill;

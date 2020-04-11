@@ -19,11 +19,10 @@ $(function () {
         return;
     }
 	
-	
     //open connection
-	var HOST = location.origin.replace(/^http/, 'ws')
-    var connection = new WebSocket(HOST);
-	//var connection = new WebSocket("wss://cleaker.herokuapp.com");
+	//var HOST = location.origin.replace(/^http/, 'ws')
+    //var connection = new WebSocket(HOST);
+	var connection = new WebSocket("wss://cleaker.herokuapp.com");
     connection.onopen = function () {
 		//clkcd is the code used to know what kind of connection is it. CleakerRunMe is a type.
 		//runmeMasterMind is the code for our main survillance.
@@ -58,6 +57,7 @@ $(function () {
         }
 		//TYPES OF WS PACKETS FROM SERVER
         if (json.type === 'clkr_Start'){ // Receiving Active User.
+			console.log(message.data);
 			addCleakedDiv(json.cleaker);
             //from now user can start sending messages
         } else if (json.type === 'stayingAlive'){
@@ -77,9 +77,7 @@ $(function () {
 	//  | ||__ || |\_/|_/__)
 	//  LOVE & Memories AFTER ALL.
     /***/
-		
-		
-			
+				
 		function addCleakedDiv(cleaked){
 			var cleakedDiv = document.getElementById("cleakedDiv");
 		    // allow 1px inaccuracy by adding 1
@@ -91,25 +89,30 @@ $(function () {
           <div class="text-block-3">' + cleaked.onDate + '</div>\
           <div class="text-block-3 datatext">' + cleaked.usrname + ' - ' + cleaked.browser + '</div>\
           <div class="text-block-3">' + cleaked.usrCity + '</div>\
-          <div class="pck-viewall" data-ix="vwmtd" onclick="viewElement()">[ view]</div>\
-          <div class="vwmtd" id=>\
-            <div class="scrollable-cleaker-text openconnection">\
-				Client: usrname,\
-				<br>Connection Time: 2:12:45pm 06-16-2019,\
-				<br>url:<a href="https://" class="link">https://www.ebul.com/</a>, \
-				<br>urlAuthor: David Delgadillo,\
-				<br>usrCountry: USA,\
-				<br>usrCity: \
-				<br> Closed: monday 12:12:45pm 06-16-2019,\
-				<br>dlyVisits: 8,\
-				<br>ystdy: 7,\
-				<br>wklyVisits: 34,\
-				<br>lstwk: 38,\
-				<br>mnthlyVisits: 144,\
-				<br>lstmnth: 132,\
-				<br>pushNotifications: No,\
-				<br>Cookies: yes,\
-				<br>Monetization:\
+          <div class="pck-viewall" onClick="viewElement(this)" id="showElId">[ view ]</div>\
+		  <div class="pck-viewall" onClick="hideElement(this)" style="display: none;" id="hideElId">[ hide ]</div>\
+		  </br>\
+          <div class="vwmtd" id="viewerDiv">\
+          <div class="scrollable-cleaker-text openconnection">\
+		  <br>Usrname:' + cleaked.usrname + ',\
+				<br>Location Path:' + cleaked.locationPath + ', \
+				<br>LocationOrigin:' + cleaked.locationOrigin + ', \
+				<br>usrCountry:' + cleaked.usrCountry + ',\
+				<br>usrCity: ' + cleaked.usrCity + ',\
+				<br>usrRegion:' + cleaked.usrRegion + ',\
+				<br>usrISP: ' + cleaked.usrISP + ',\
+				<br>usrCity:' + cleaked.usrCity + ',\
+				<br>usrLat: ' + cleaked.usrLat + ',\
+				<br>usrLon: ' + cleaked.usrLon + ',\
+				<br>ipQuery: ' + cleaked.ipQuery + ',\
+				<br>refer: ' + cleaked.refer + ',\
+				<br>previous: ' + cleaked.previous + ',\
+				<br>language: ' + cleaked.language + ',\
+				<br>browserOnline: ' + cleaked.browserOnline + ',\
+				<br>browser: ' + cleaked.browser + ',\
+				<br>js: ' + cleaked.js + ',\
+				<br>cookiesEnabled: ' + cleaked.cookiesEnabled + ',\
+				<br>cookies: ' + cleaked.cookies + ',\
 			</div>\
           </div>\
         </div>');	
@@ -118,11 +121,23 @@ $(function () {
 	      cleakedDiv.scrollTop = cleakedDiv.scrollHeight - cleakedDiv.clientHeight;
 	  }
 	   
-						}
-						
+		}
+									
 	
 });
 
+//Display Visit full Cleaker
+function viewElement(vaar){
+	$(vaar).siblings('#viewerDiv').show();
+	$(vaar).hide();
+	$(vaar).siblings('#hideElId').show();
+}
+//Hide Visit full Cleaker
+function hideElement(vaar){
+	$(vaar).siblings('#viewerDiv').hide();
+	$(vaar).hide();
+	$(vaar).siblings('#showElId').show();
+}
 
 
 
