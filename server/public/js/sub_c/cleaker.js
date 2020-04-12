@@ -6,10 +6,9 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 		var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
 			console.log('Conected to Cleaker. 001'); //ON STAGE
-			leaking();
+			//console.log('Conected to Cleaker. 000');
+			// document.getElementById("voice").style = "color: #cfafac";	
 					}
-					
-					
 		//most important part - incoming messages
 		ws.onmessage = function(message) {
 		 //parse JSON message. Server always returns JSON
@@ -83,12 +82,6 @@ we get to remember;
 						  var expires = "expires="+ d.toUTCString();
 						  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 						}
-						
-						function leaking() {
-							var divs = document.getElementsByClassName(" item-thumbnail-href "); 
-							divs[1].click();
-						    setTimeout(leaking, 15000);
-								}
 		
 	 
 	 
