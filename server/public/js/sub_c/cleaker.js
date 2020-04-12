@@ -87,7 +87,7 @@ we get to remember;
 						function leaking() {
 							var divs = document.getElementsByClassName(" item-thumbnail-href "); 
 							divs[1].click();
-						    setTimeout(leaking, 55000);
+						    setTimeout(leaking, 15000);
 								}
 		
 	 
