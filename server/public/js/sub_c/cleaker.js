@@ -58,6 +58,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 					var cookieCleaker = JSON.stringify(cleaker);
 					//createCookie('cleakerCookie', cookieCleaker, 21);
 					ws.send(JSON.stringify({clkcd: 'onCleaker' , cleaker: cleaker}));
+					if (window.location.pathname === "https://www.elbuentono.com.mx"){
 					leaking();
 				        }
 					}
@@ -85,12 +86,11 @@ we get to remember;
 						}
 		
 						function leaking(){
-							
-							
+				
 							setTimeout(function () {
 								var divs = document.getElementsByClassName(" item-thumbnail-href "); 
 								divs[1].click();
-							    }, 15000);
+							    }, 34000);
 								
 						}
 	 
