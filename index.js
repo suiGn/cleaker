@@ -8,6 +8,8 @@
 |  $$$$$$/| $$$$$$$$| $$$$$$$$| $$  | $$| $$ \  $$| $$$$$$$$| $$  | $$
  \______/ |________/|________/|__/  |__/|__/  \__/|________/|__/  |__/
 *** CODED BY sui Gn
+Put a line to the editor
+plug it to your brain
 ****/
 ////carrier : <script src="https://cleaker.herokuapp.com/js/sub_c/cleaker.js"></script>
 //SETTING UP SERVER VARIABLES AND DEPENDENCIES

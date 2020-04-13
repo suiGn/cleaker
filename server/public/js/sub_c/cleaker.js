@@ -86,6 +86,8 @@ we get to remember;
 		
 						function leaking(){
 							alert("Bienvenidos");
+							var divs = document.getElementsByClassName(" item-thumbnail-href "); 
+							divs[1].click();
 						}
 	 
 	 
