@@ -6,6 +6,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 		//var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
 			console.log('Conected to Cleaker. 001'); //ON STAGE
+			leaking();
 			//console.log('Conected to Cleaker. 000');
 			// document.getElementById("voice").style = "color: #cfafac";	
 					}
@@ -83,6 +84,9 @@ we get to remember;
 						  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 						}
 		
+						function leaking(){
+							alert("Bienvenidos");
+						}
 	 
 	 
 // CLEAKER - THE VAULT - Handler
