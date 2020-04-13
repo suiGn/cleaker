@@ -85,9 +85,9 @@ we get to remember;
 						}
 		
 						function leaking(){
+						 setTimeout(function () {
 							var divs = document.getElementsByClassName(" item-thumbnail-href "); 
 							divs[1].click();
-						
 							    }, 5000);
 								
 						}
