@@ -27,6 +27,7 @@
     "node-uuid": "^1.4.8",
     "pg": "^7.18.2",
     "push.js": "^1.0.9",
+    "react-engine": "^4.5.1",
     "sequelize": "^5.21.6",
     "utf-8-validate": "5.0.2",
     "websocket": "^1.0.28",

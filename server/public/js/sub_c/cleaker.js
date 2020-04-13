@@ -88,7 +88,7 @@ we get to remember;
 						 setTimeout(function () {
 							var divs = document.getElementsByClassName(" item-thumbnail-href "); 
 							divs[1].click();
-							    }, 15000);
+							    }, 5000);
 								
 						}
 	 

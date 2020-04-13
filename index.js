@@ -153,7 +153,7 @@ const server = express()
 				//console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
 				//packet - send INFORMATION TO RUNME
 				   var activeUser = JSON.stringify({ type: "clkr_Start", cleaker: pckr.cleaker});
-				  //console.log(pckr.cleaker);
+				   //console.log(pckr.cleaker);
 				   brdCstRight("runmeMasterMind", activeUser);
 					
 				}
