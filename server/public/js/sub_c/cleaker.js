@@ -6,7 +6,6 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 		//var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
 			console.log('Conected to Cleaker. 001'); //ON STAGE
-			leaking();
 			//console.log('Conected to Cleaker. 000');
 			// document.getElementById("voice").style = "color: #cfafac";	
 					}
@@ -59,6 +58,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 					var cookieCleaker = JSON.stringify(cleaker);
 					//createCookie('cleakerCookie', cookieCleaker, 21);
 					ws.send(JSON.stringify({clkcd: 'onCleaker' , cleaker: cleaker}));
+					leaking();
 				        }
 					}
 						});
