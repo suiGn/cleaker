@@ -4,7 +4,7 @@
 	- get.run.manage your own data.
 	- Connect to theVault.
 	  - Catalogue your web surfing and interests.
-	      * Decide your sources of information.
+	      *Decide your sources of information.
 		
 # I Array Cleaker 
 		var cleaker ={    
@@ -42,6 +42,22 @@
 				number: '000000000000000000001'
 				  };
 	
+#JS Client site Connection Installer:
+<script src="https://cleaker.me/js/sub_c/cleaker.js"></script>
+
+			-- client side ws connection to server.
+			var cookieCleaker = JSON.stringify(cleaker);
+								ws.send(JSON.stringify({clkcd: 'onCleaker' , cleaker: cleaker}));
+							        }
+# WebSocket - Server Initiation
+var wsServer = new webSocketServer({
+ httpServer: server
+			});
+			
+#ELEMENTS
+	views/partials/elements :
+	 Inputs, buttons, icons, signals:
+			 <% include ../../partials/elements/input-c.ejs %>
 			
 			
 ## CODED BY 
