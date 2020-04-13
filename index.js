@@ -22,6 +22,10 @@ const cleakerPort = 31416;
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 var bodyParser = require("body-parser");
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var morgan = require('morgan');
+var User = require('./models/user');
 var routes = require('./routes');
 var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
@@ -64,6 +68,7 @@ const server = express()
  	.use(bodyParser.json())
 	.use(forceSecure(["cleaker.me","wwww.cleaker.me"])) // FORCE SSL
 	.use(express.static(path.join(__dirname, 'server/public')))
+	.use(morgan('dev'))
 	.set('views', path.join(__dirname, 'server/views'))
 	.set('view engine', 'ejs')
 	//ROUTING Cleaker 
@@ -153,7 +158,7 @@ const server = express()
 				//console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
 				//packet - send INFORMATION TO RUNME
 				   var activeUser = JSON.stringify({ type: "clkr_Start", cleaker: pckr.cleaker});
-				   console.log(pckr.cleaker);
+				   //console.log(pckr.cleaker);
 				   brdCstRight("runmeMasterMind", activeUser);
 					
 				}
