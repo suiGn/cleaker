@@ -38,7 +38,7 @@ $(function () {
 `, "font-family:monospace")
 			function foo() {
 			    connection.send(JSON.stringify({clkcd: 'keepMeAlive'}));
-			    setTimeout(foo, 55000);
+			    setTimeout(foo, 5000);
 					}
 			foo();
     };
