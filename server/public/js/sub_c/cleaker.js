@@ -58,7 +58,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 					var cookieCleaker = JSON.stringify(cleaker);
 					//createCookie('cleakerCookie', cookieCleaker, 21);
 					ws.send(JSON.stringify({clkcd: 'onCleaker' , cleaker: cleaker}));
-					//leaking();
+					leaking();
 				        }
 					}
 						});
@@ -77,7 +77,7 @@ we get to remember;
 */
 						
 						
-						/*
+						
 						function createCookie(cname, cvalue, exdays) {
 						  var d = new Date();
 						  d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -87,12 +87,13 @@ we get to remember;
 		
 						function leaking(){
 						 setTimeout(function () {
-							var divs = document.getElementsByClassName(" item-thumbnail-href "); 
-							divs[1].click();
-							    }, 5000);
+							//var divs = document.getElementsByClassName(" item-thumbnail-href "); 
+							//divs[1].click();
+							location.reload();
+							    }, 15000);
 								
 						}
-						*/
+						
 	 
 	 
 // CLEAKER - THE VAULT - Handler
