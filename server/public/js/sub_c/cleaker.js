@@ -1,4 +1,4 @@
-//CLEAKER LOVE - EVOLVE
+//CLEAKER - EVoL.VE
 $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", function(data) {
 		//SET DATA READY
 		//USE URL WS:// OR WSS:// (IF USING TLS)
