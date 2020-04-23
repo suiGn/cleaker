@@ -150,7 +150,7 @@ const server = express()
 	   			  //Push into the array
 	   			  allMembers.push(runMeMember) - 1;// index to remove them on 'close' event;			
 				} else if (pckr.clkcd === 'onCleaker'){ // RECEIVING CLEAKER 
-				//console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
+				console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
 				//packet - send INFORMATION TO RUNME
 				   var activeUser = JSON.stringify({ type: "clkr_Start", cleaker: pckr.cleaker});
 				   //console.log(pckr.cleaker);
