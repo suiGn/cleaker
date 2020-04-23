@@ -25,6 +25,8 @@
     "force-secure-express": "^1.0.1",
     "morgan": "^1.10.0",
     "node-uuid": "^1.4.8",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "pg": "^7.18.2",
     "push.js": "^1.0.9",
     "react-engine": "^4.5.1",

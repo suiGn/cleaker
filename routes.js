@@ -10,12 +10,12 @@ CODED BY: SUI GENERIS
 SIMPLE AND MASSIVE.
 */
 
-var passport = require(“passport”);
-var request = require(‘request’);
-const { Pool, Client } = require(‘pg’)
-const bcrypt = require(‘bcrypt’)
-const uuidv4 = require(‘uuid/v4’);
-const LocalStrategy = require(‘passport-local’).Strategy;
+var passport = require("passport");
+var request = require('request');
+const { Pool, Client } = require('pg')
+const bcrypt = require('bcrypt')
+const uuidv4 = require('uuid/v4');
+const LocalStrategy = require('passport-local').Strategy;
 const pool = new Pool({
 	user: "csicplnifqncpc",//process.env.PGUSER,
 	host: "ec2-174-129-253-53.compute-1.amazonaws.com",//process.env.PGHOST,
@@ -33,7 +33,7 @@ exports.home = function(req, res){res.render('pages/main/index')};
 exports.shadow = function(req, res){res.render('pages/main/shadow')};
 //CLEAKER ANALYTICS ROUTES
 exports.runme = function(req, res){res.render('pages/main/runme')};
-theVault.connect();
+//theVault.connect();
 
 //WTM ROUTES
 exports.wtm = function(req, res){res.render('pages/wtm/index')};
@@ -41,13 +41,13 @@ exports.wtmTemplate = function(req, res){res.render('pages/template')};
 exports.push = function(req, res){res.render('pages/push')};
 exports.www = function(req, res, next){res.send('respond with a resource')};
 
-app.post('/join', async function (req, res) {
+exports.join = function (req, res) {
 	
  try{
- const client = await pool.connect()
- await client.query('BEGIN')
- var pwd = await bcrypt.hash(req.body.password, 5);
- await JSON.stringify(client.query('SELECT id FROM “users” WHERE “email”=$1', [req.body.username], function(err, result) {
+ const client = pool.connect()
+ client.query('BEGIN')
+ var pwd = bcrypt.hash(req.body.password, 5);
+ JSON.stringify(client.query('SELECT id FROM “users” WHERE “email”=$1', [req.body.username], function(err, result) {
  if(result.rows[0]){
  res.redirect('/join');
  }
@@ -67,7 +67,7 @@ app.post('/join', async function (req, res) {
  client.release();
  } 
  catch(e){throw(e)}
- });
+ };
 
 
 
