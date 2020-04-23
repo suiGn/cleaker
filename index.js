@@ -160,7 +160,7 @@ const server = express()
 					console.log(pckr.cleaker);
 				}else if (pckr.clkcd === 'keepMeAlive'){
 				 				   //packet - send Notification user logedIn to Room Members
-					console.log("keepme");
+					console.log("keepme1");
 				 				   var stayingAlive = JSON.stringify({ type: "stayingAlive", chorus: "A A A A"});
 				 				   brdCstRight("runmeMasterMind", stayingAlive);
 								}

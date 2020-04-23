@@ -61,7 +61,7 @@ $(function () {
 			addCleakedDiv(json.cleaker);
             //from now user can start sending messages
         } else if (json.type === 'stayingAlive'){
-			console.log("--");
+			console.log("--1");
         	
         }
 	};
