@@ -49,7 +49,6 @@ app.post('/join', async function (req, res) {
  var pwd = await bcrypt.hash(req.body.password, 5);
  await JSON.stringify(client.query('SELECT id FROM “users” WHERE “email”=$1', [req.body.username], function(err, result) {
  if(result.rows[0]){
- req.flash('warning', "This email address is already registered. <a href='/login'>Log in!</a>");
  res.redirect('/join');
  }
  else{
@@ -59,7 +58,6 @@ app.post('/join', async function (req, res) {
  
  client.query('COMMIT')
  console.log(result)
- req.flash('success','User created.')
  res.redirect('/runme');
  return;
  }
