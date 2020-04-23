@@ -41,8 +41,11 @@ e.exports=function(){var e={VERSION:"1.6.0-Webflow"},t={},n=Array.prototype,r=Ob
  */
 Webflow.require('ix').init([
   {"slug":"vwmtd","name":"vwMTD","value":{"style":{},"triggers":[{"type":"click","selector":".vwmtd","siblings":true,"stepsA":[{"display":"none"}],"stepsB":[{"wait":"10000ms","display":"flex"}]}]}},
-  {"slug":"openclntinput","name":"openclntInput","value":{"style":{},"triggers":[{"type":"click","selector":".clnt-input-div","siblings":true,"stepsA":[{"display":"block"}],"stepsB":[]}]}},
-  {"slug":"new-interaction","name":"New Interaction","value":{"style":{},"triggers":[{"type":"click","selector":".clnt-input-div","stepsA":[{"display":"none"}],"stepsB":[]}]}}
+  {"slug":"openclntLogIn","name":"openclntLogIn","value":{"style":{},"triggers":[{"type":"click","selector":".clnt-input-div","siblings":true,"stepsA":[{"display":"block"}],"stepsB":[]}]}},
+  {"slug":"openclntSignUp","name":"openclntSignUp","value":{"style":{},"triggers":[{"type":"click","selector":".clnt-signUp-div","stepsA":[{"display":"block"}],"stepsB":[]}]}},
+  {"slug":"new-interaction","name":"New Interaction","value":{"style":{},"triggers":[{"type":"click","selector":".clnt-input-div","stepsA":[{"display":"none"}],"stepsB":[]}]}},
+  {"slug":"closeSignUp","name":"closeSignUp","value":{"style":{},"triggers":[{"type":"click","selector":".clnt-signUp-div","stepsA":[{"display":"none"}],"stepsB":[]}]}}
+	
 ]);
 /**
  * ----------------------------------------------------------------------

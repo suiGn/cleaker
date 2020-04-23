@@ -170,7 +170,7 @@ const server = express()
 															
 				// User disconnected
 				connection.on('close', function(connection) {
-						console.log(".disconnected - UUID:" + uuid_numbr);//logoutRecord
+						//console.log(".disconnected - UUID:" + uuid_numbr);//logoutRecord
 						clients.splice(index, 1);// remove user from the list of connected clients
 						}); 
 					}); // FINISHES WEB SERVER ON

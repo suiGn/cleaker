@@ -2491,6 +2491,24 @@ a {
   border-width: 1px;
   border-color: hsla(0, 0%, 100%, 0.12);
 }
+.clnt-signUp-div {
+  display: none;
+  width: 89%;
+  margin-top: 8px;
+  padding: 8px;
+  float: right;
+  clear: none;
+  grid-auto-columns: 1fr;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: auto auto;
+  grid-template-rows: auto auto;
+  border-style: dotted;
+  border-width: 1px;
+  border-color: hsla(0, 0%, 100%, 0.12);
+}
 
 .mnd_pck-block {
   margin-top: 8px;
@@ -3260,6 +3278,16 @@ a {
     border-width: 1px;
     border-color: hsla(0, 0%, 100%, 0.12);
   }
+  
+  .clnt-signUp-div {
+    display: none;
+    width: 98%;
+    padding: 8px;
+    border-style: dotted;
+    border-width: 1px;
+    border-color: hsla(0, 0%, 100%, 0.12);
+  }
+  
   .mnd_pck-block {
     display: block;
     padding: 5px 8px 21px 34px;
