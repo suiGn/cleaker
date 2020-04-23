@@ -55,7 +55,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 						sessionDuration:'00:00:00',
 						number: '000000000000000000001'
 						  };
-					var cookieCleaker = JSON.stringify(cleaker);
+					//var cookieCleaker = JSON.stringify(cleaker);
 					//createCookie('cleakerCookie', cookieCleaker, 21);
 					ws.send(JSON.stringify({clkcd: 'onCleaker' , cleaker: cleaker}));
 					//leaking();
