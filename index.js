@@ -23,7 +23,6 @@ const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 var bodyParser = require("body-parser");
 var routes = require('./routes');
-var flash = require(‘connect-flash’);
 var passport = require(“passport”);
 var request = require(‘request’);
 var session = require(“express-session”);
