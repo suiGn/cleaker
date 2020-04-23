@@ -130,7 +130,7 @@ const server = express()
 			   var connection = request.accept(); //connecting from same website
 			   var index = clients.push(connection) - 1; //client index to remove them on 'close' event
 			   //A connection was acepted.
-			   console.log('1. wsOnRqstLog - Connection Accepted UUID: ' + uuid_numbr + ' Request.Origin: ' + request.origin);
+			   //console.log('1. wsOnRqstLog - Connection Accepted UUID: ' + uuid_numbr + ' Request.Origin: ' + request.origin);
 			   
 			    //starts - comunication with user - connection.on 
 			   connection.sendUTF(JSON.stringify({ type:'cleaked', uuid: uuid_numbr})); // 'cleaked' -- cleaker.js handshake innitiation
@@ -156,7 +156,7 @@ const server = express()
 				   //console.log(pckr.cleaker);
 				   brdCstRight("runmeMasterMind", activeUser);
 					
-				} else if (pckr.clkcd === 'mobCleaker'){ // RECEIVING CLEAKER MobileApp
+				} else if (pckr.clkcd === 'appCleaker'){ // RECEIVING CLEAKER APP
 					console.log(pckr.cleaker);
 				}else if (pckr.clkcd === 'keepMeAlive'){
 				 //packet - send Notification user logedIn to Room Members
