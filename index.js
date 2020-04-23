@@ -23,20 +23,17 @@ const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 var bodyParser = require("body-parser");
 var routes = require('./routes');
-var passport = require("passport");
-var request = require('request');
-var session = require("express-session");
 var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
 var clients = [ ];
 var allMembers = [ ];
 //DATA BASE CONNECTION
-//const { Client } = require('pg');
-//const theVault = new Client({
-//connectionString: "postgres://csicplnifqncpc:ce12c51c83e437148779a4f7e0d508722f0a5ce9f05f894f9b6f88b9f2d9b3f9@ec2-174-129-253-53.compute-1.amazonaws.com:5432/d70qi6m3chd89a",
-//ssl: true,
-//});
-//theVault.connect();
+const { Client } = require('pg');
+const theVault = new Client({
+connectionString: "postgres://csicplnifqncpc:ce12c51c83e437148779a4f7e0d508722f0a5ce9f05f894f9b6f88b9f2d9b3f9@ec2-174-129-253-53.compute-1.amazonaws.com:5432/d70qi6m3chd89a",
+ssl: true,
+});
+theVault.connect();
 
 /* POSTGRES QUERY , VERIFICATION AND SAVING DATA FUNCTION TO THE VAULT 
 	//Verifies if the channel doesn't already exists
@@ -79,7 +76,6 @@ const server = express()
 	.get('/push', routes.push)
 	.get('/www', routes.www)									 
 	.post('/openChannel', routes.openChannel)
-    .post('/join', routes.join)
 	.get('/publicChannel:channel', routes.publicChannel)
 	.listen(PORT, () => console.log(`Cleaker is on PORT: ${ PORT }
 		Welcome to a free land ${ unicorn }`));
@@ -154,7 +150,7 @@ const server = express()
 	   			  //Push into the array
 	   			  allMembers.push(runMeMember) - 1;// index to remove them on 'close' event;			
 				} else if (pckr.clkcd === 'onCleaker'){ // RECEIVING CLEAKER 
-				//console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
+				console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
 				//packet - send INFORMATION TO RUNME
 				   var activeUser = JSON.stringify({ type: "clkr_Start", cleaker: pckr.cleaker});
 				   //console.log(pckr.cleaker);
