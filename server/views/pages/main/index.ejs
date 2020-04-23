@@ -5,8 +5,14 @@
 <head>
  <% include ../../partials/main/header.webflow.ejs %>
  
+<script>
+    function miniCleaker() {
+		var theDate = new Date();
+      document.getElementById("theDate").innerHTML = theDate;
+    }
+  </script>
 </head>
-<body data-w-id="55a4bf10f836a7146d18c92f" class="body welcome">
+<body data-w-id="55a4bf10f836a7146d18c92f" class="body welcome" onload="miniCleaker()">
    
   <div data-collapse="medium" data-animation="default" data-duration="400" class="cleaker-navbar w-nav">
     <div class="container-2 w-container">
@@ -16,15 +22,18 @@
       </a>
     </div>
     <div class="cl-data">
+		
       <div class="text-block-15">
-		  onDate: new Date(),<br>
-		  usrname: no_usrname,<br> 
+		  onDate: <span id="theDate"></span><br>
+		  usrname: no_session,<br> 
 		  usrCountry: data.country,<br> 
 		  usrCity: data.city,<br>
 		  theVault: 075443,<br>
 	  </div>
     </div>
   </div>
+
+		
   
   
   <div class="div-block-5">
@@ -43,14 +52,14 @@
 			<a href="#" class="text-span-12 w-button" data-ix="openclntinput">Log In</a>
       <div class="clnt-input-div">   
       <div class="w-form">
-      <form class="form w-clearfix">
-		   <a style="color:white;">Can I see your face?</a>
-		   <div style="position: relative" class="margin">
-		     <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
-		     <canvas id="overlay" />
-		   </div>
-      
-	  <input type="submit" value="Acess" data-wait="Please wait..." class="text-span-12 w-button">
+		   <!-- ><a style="color:white;">Can I see your face?</a><!-->
+		  <form class="form w-clearfix" action="/join" method="post">
+		<input type="text" class="text-field w-input" maxlength="56" placeholder="Name" id="firstName">
+	 	<input type="text" class="text-field w-input" maxlength="56" placeholder="Last Name" id="lastName">
+		<input type="text" class="text-field w-input" maxlength="56" placeholder="Email" id="username">
+		<input type="password" class="text-field w-input" maxlength="56" placeholder="Password" id="pwd">
+		<input type="submit" value="Acess" class="text-span-12">
+	  </div>
 	  </form>
 	  <div class="text-block-9" data-ix="new-interaction">x Close</div>
                 <div class="success-message w-form-done">
