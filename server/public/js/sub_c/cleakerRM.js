@@ -57,7 +57,7 @@ $(function () {
         }
 		//TYPES OF WS PACKETS FROM SERVER
         if (json.type === 'clkr_Start'){ // Receiving Active User.
-			console.log(message.data);
+			//console.log(message.data);
 			addCleakedDiv(json.cleaker);
             //from now user can start sending messages
         } else if (json.type === 'stayingAlive'){
