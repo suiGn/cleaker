@@ -1,3 +1,12 @@
+	  __        __      
+     /\ \      /\ \ 
+    /  \ \    /  \ \ 
+   / /\ \ \  / /\ \ \ 
+  / / /\ \ \/ / /\ \ \  
+ / / /__\_\/ / /__\_\ \ 
+/ / /______\/ /________\
+\/_____________________/
+	Building a collective consciousness...
 # SUM
 	- cleaker.me
 	- What do you want to want?

@@ -1,4 +1,4 @@
-On the nature of elements
+On the nature of elements according to EUCLIDs.
 
 For that which is the means of obtaining is an element of that which is obtained.
 

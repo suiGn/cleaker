@@ -1,11 +1,12 @@
 /*
+
 ______ _____ _   _ _____ _____ _____ 
 | ___ \  _  | | | |_   _|  ___/  ___|
 | |_/ / | | | | | | | | | |__ \ `--. 
 |    /| | | | | | | | | |  __| `--. \
 | |\ \\ \_/ / |_| | | | | |___/\__/ /
 \_| \_|\___/ \___/  \_/ \____/\____/ 
-APP: CLEAKER
+							CLEAKER
 CODED BY: SUI GENERIS 
 SIMPLE AND MASSIVE.
 */
@@ -22,24 +23,6 @@ exports.shadow = function(req, res){res.render('pages/main/shadow')};
 exports.runme = function(req, res){res.render('pages/main/runme')};
 theVault.connect();
 
-//WTM ROUTES
-exports.wtm = function(req, res){res.render('pages/wtm/index')};
-exports.wtmTemplate = function(req, res){res.render('pages/template')};
-exports.push = function(req, res){res.render('pages/push')};
-exports.www = function(req, res, next){res.send('respond with a resource')};
-//Open Channel - It queries if the channel and channel hash already exists, if not it creates a new channel
-exports.openChannel = function(req,res){
-		const channel = req.body.channel; //INPUT CHANNEL 
-		const channelHash = req.body.channelHash; //INPUT CHANNEL-HASH
-		console.log('Channel Opened: ' + channel, channelHash); //JUST FOR DEVELOPMENT PURPOSES
-		res.render('pages/wtm/media', { channel: channel, channelHash: channelHash });				
-					}//ENDS POST FUNCTION
-//Open Public Channel - It GETS the channel and hash from
-exports.publicChannel = function(req,res){
-		const channel = req.params.channel; //INPUT CHANNEL 
-		const channelHash = "wtm-public-fuckoff-Hash" //INPUT CHANNEL-HASH
-		console.log('0. ChannelOn::::' + channel, channelHash); //JUST FOR DEVELOPMENT PURPOSES
-					res.render('pages/wtm/media', { channel: channel, channelHash: channelHash });				
-			}//ENDS POST FUNCTION
+
 
 
