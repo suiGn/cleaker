@@ -16,38 +16,64 @@ plug it to your brain
 /** Global variables */
 const forceSecure = require("force-secure-express");
 const express = require('express');
-var app = express();
 const path = require('path');
 const PORT = process.env.PORT || 3000;
+const cleakerPort = 31416;
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 var bodyParser = require("body-parser");
 var routes = require('./routes');
 var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
-module.exports = app;
+var clients = [ ];
+var allMembers = [ ];
+//DATA BASE CONNECTION
+const { Client } = require('pg');
+const theVault = new Client({
+connectionString: "postgres://csicplnifqncpc:ce12c51c83e437148779a4f7e0d508722f0a5ce9f05f894f9b6f88b9f2d9b3f9@ec2-174-129-253-53.compute-1.amazonaws.com:5432/d70qi6m3chd89a",
+ssl: true,
+});
+theVault.connect();
 
-/* 
+/* POSTGRES QUERY , VERIFICATION AND SAVING DATA FUNCTION TO THE VAULT 
+	//Verifies if the channel doesn't already exists
+	theVault.query('SELECT channel, channelhash FROM wtmchannels WHERE channel = $1 AND channelhash = $2', [channel, channelHash], (err, res) => {
+	if(res.rowCount == 1){
+		console.log("Channel Already in The Vault Database Records!");
+			}else{
+	//STORES DATA INTO WTM CHANNELS
+	theVault.query('INSERT INTO wtmchannels (channel, channelhash) VALUES ($1, $2)', [channel, channelHash], (error, results) => {
+		     if (error) {
+		     throw error
+		     	 }
+			console.log("New Channel saved!")
+				})//closes query
+			} //closes else
+						}) 
+
 set user iq
 userUniverse = userCount - the vault - DB select users with IQ SET
 var averageIQ = userCount / iqSUM;
 console.log("average IQ is:" averageIQ);
 */
-//SETTING UP ROUTING SPECS
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(forceSecure(["cleaker.me","wwww.cleaker.me"])); // FORCE SSL
-app.use(express.static(path.join(__dirname, 'server/public')));
-app.set('views', path.join(__dirname, 'server/views'));
-app.set('view engine', 'ejs');
+
+
+const server = express()
+	//SETTING UP ROUTING SPECS
+ 	.use(bodyParser.urlencoded({ extended: false }))
+ 	.use(bodyParser.json())
+	.use(forceSecure(["cleaker.me","wwww.cleaker.me"])) // FORCE SSL
+	.use(express.static(path.join(__dirname, 'server/public')))
+	.set('views', path.join(__dirname, 'server/views'))
+	.set('view engine', 'ejs')
 	//ROUTING Cleaker 
-app.get('/', routes.home);
+	.get('/', routes.home)
 	//Shadow
-app.get('/shadow', routes.shadow);
-app.get('/runme', routes.runme);
+	.get('/shadow', routes.shadow)
+	.get('/runme', routes.runme)
 	//Routing WTM
 	
-	app.listen(PORT, () => console.log(`Cleaker is on PORT: ${ PORT }
+	.listen(PORT, () => console.log(`Cleaker is on PORT: ${ PORT }
 		Welcome to a free land ${ unicorn }`));
 		/*_      _____ ___ ___  ___   ___ _  _____ _____ 
 		 \ \    / / __| _ ) __|/ _ \ / __| |/ / __|_   _|
@@ -58,9 +84,6 @@ app.get('/runme', routes.runme);
 					└─┘┴─┘└─┘┴ ┴┴ ┴└─┘┴└─    
 				serverside websocket managment **/
 		// Port where we'll run the websocket server
-		const server = express();
-		var clients = [ ];
-		var allMembers = [ ];
 		var webSocketsServerPort = PORT;
 		var webSocketServer = require('websocket').server;
 		

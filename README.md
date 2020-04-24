@@ -67,6 +67,17 @@ var wsServer = new webSocketServer({
 	views/partials/elements :
 	 Inputs, buttons, icons, signals:
 			 <% include ../../partials/elements/input-c.ejs %>
+			 
+			 
+#POSTULATES
+Map intelectual criteria for accurate individual value on collective desicions.	
+ISAAC ASIMOV - DEMOCRACY MEANS MY IGNORANCE IS AS VALUABLE AS YOUR KNOWLEDGE.	 
+ /* 
+set user iq
+userUniverse = userCount - the vault - DB select users with IQ SET
+var averageIQ = userCount / iqSUM;
+console.log("average IQ is:" averageIQ);
+*/
 			
 			
 ## CODED BY 
