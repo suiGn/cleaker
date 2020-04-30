@@ -25,8 +25,6 @@ var bodyParser = require("body-parser");
 var routes = require('./routes');
 var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
-var clients = [ ];
-var allMembers = [ ];
 //DATA BASE CONNECTION
 const { Client } = require('pg');
 const theVault = new Client({
@@ -86,10 +84,13 @@ const server = express()
 		// Port where we'll run the websocket server
 		var webSocketsServerPort = PORT;
 		var webSocketServer = require('websocket').server;
+		var clients = [ ];
+		var allMembers = [ ];
 		
 		//      _ ___   _  _  __
 		//  |V||_  ||_|/ \| \(_ 
 		//  | ||__ || |\_/|_/__)	
+			
 			function brdCstRight(room, obj){ //broadcast to room membrs Only
 			var BroadCastMembers = [ ];
 	     	//Filters only members belonging to the same room
@@ -99,6 +100,7 @@ const server = express()
 			// broadcast message to all connected clients in room
 			BroadCastMembers.forEach(function(EndClient){EndClient.sendUTF(obj);});	
 				};
+				
 		/** Helper function for escaping input strings */
 		function htmlEntities(str) {
 			return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -110,11 +112,14 @@ const server = express()
 								'#735260', '#af4173', '#822e50', '#e64c40', '#bf3a30','#fc7d64','#49647b'];
 		// ... in random order
 		colors.sort(function(a,b) { return Math.random() > 0.5; } );
+		
+		
 			     /** WebSocket code o       o                                
 									|       |                               
 									o   o   o  
  	   								 \ / \ / 
  	   								  o   o  */
+		
 		var wsServer = new webSocketServer({
 	    httpServer: server
 			});

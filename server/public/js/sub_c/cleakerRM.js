@@ -20,9 +20,9 @@ $(function () {
     }
 	
     //open connection
-	var HOST = location.origin.replace(/^http/, 'ws')
-    var connection = new WebSocket(HOST);
-	//var connection = new WebSocket("wss://cleaker.herokuapp.com");
+	//var HOST = location.origin.replace(/^http/, 'ws')
+    //var connection = new WebSocket(HOST);
+	var connection = new WebSocket("wss://cleaker.herokuapp.com");
     connection.onopen = function () {
 		//clkcd is the code used to know what kind of connection is it. CleakerRunMe is a type.
 		//runmeMasterMind is the code for our main survillance.
