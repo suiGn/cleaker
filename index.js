@@ -18,13 +18,16 @@ const forceSecure = require("force-secure-express");
 const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 3000;
-const cleakerPort = 31416;
+const cleakerPort = 31416; //not in use
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
+var app = express();
 var bodyParser = require("body-parser");
 var routes = require('./routes');
-var unicorn = "🍺🦄🍺";
+var session = require('express-session');
 var uuid = require('node-uuid');
+var unicorn = "🍺🦄🍺";
+
 //DATA BASE CONNECTION
 const { Client } = require('pg');
 const theVault = new Client({
@@ -48,31 +51,26 @@ theVault.connect();
 				})//closes query
 			} //closes else
 						}) 
-
-set user iq
-userUniverse = userCount - the vault - DB select users with IQ SET
-var averageIQ = userCount / iqSUM;
-console.log("average IQ is:" averageIQ);
 */
 
+//Specs
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(forceSecure(["cleaker.me","wwww.cleaker.me"])); // FORCE SSL
+app.use(express.static(path.join(__dirname, 'server/public')));
+app.use(session({secret: "Shh, its a secret!"}));
+app.set('views', path.join(__dirname, 'server/views'));
+app.set('view engine', 'ejs');
+//ROUTING Cleaker 
+app.get('/', routes.home);
+//Shadow
+app.get('/shadow', routes.shadow);
+app.get('/runme', routes.runme);
 
-const server = express()
-	//SETTING UP ROUTING SPECS
- 	.use(bodyParser.urlencoded({ extended: false }))
- 	.use(bodyParser.json())
-	.use(forceSecure(["cleaker.me","wwww.cleaker.me"])) // FORCE SSL
-	.use(express.static(path.join(__dirname, 'server/public')))
-	.set('views', path.join(__dirname, 'server/views'))
-	.set('view engine', 'ejs')
-	//ROUTING Cleaker 
-	.get('/', routes.home)
-	//Shadow
-	.get('/shadow', routes.shadow)
-	.get('/runme', routes.runme)
-	//Routing WTM
-	
-	.listen(PORT, () => console.log(`Cleaker is on PORT: ${ PORT }
+	app.listen(PORT, () => console.log(`Cleaker is on PORT: ${ PORT }
 		Welcome to a free land ${ unicorn }`));
+		
+		
 		/*_      _____ ___ ___  ___   ___ _  _____ _____ 
 		 \ \    / / __| _ ) __|/ _ \ / __| |/ / __|_   _|
 	      \ \/\/ /| _|| _ \__ \ (_) | (__| ' <| _|  | |  
@@ -81,7 +79,9 @@ const server = express()
 					│  │  ├┤ ├─┤├┴┐├┤ ├┬┘
 					└─┘┴─┘└─┘┴ ┴┴ ┴└─┘┴└─    
 				serverside websocket managment **/
+		
 		// Port where we'll run the websocket server
+		const server = express();
 		var webSocketsServerPort = PORT;
 		var webSocketServer = require('websocket').server;
 		var clients = [ ];
