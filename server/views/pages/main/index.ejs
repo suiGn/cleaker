@@ -55,7 +55,7 @@
       <div class="clnt-input-div">   
       <div class="w-form">
 		   <!-- ><a style="color:white;">Can I see your face?</a><!-->
-		  <form class="form w-clearfix" action="/join" method="post">
+		  <form class="form w-clearfix" action="/login" method="post">
 		<input type="text" class="text-field w-input" maxlength="56" placeholder="usrname" id="firstName">
 	 	<input type="password" class="text-field w-input" maxlength="56" placeholder="password" id="lastName">
 		<input type="submit" value="Acess" class="text-span-12">
@@ -73,15 +73,16 @@
 			   </div>
 			 </div>
 			 
-			<!-- SIGNUP DIV--> 
-	         <div class="clnt-signUp-div">   
-	         <div class="w-form">
-	   		   <!-- ><a style="color:white;">Can I see your face?</a><!-->
-	   		  <form class="form w-clearfix" action="/join" method="post">
-	   		<input type="text" class="text-field w-input" maxlength="56" placeholder="Name" id="firstName">
-	   	 	<input type="text" class="text-field w-input" maxlength="56" placeholder="Last Name" id="lastName">
-	   		<input type="text" class="text-field w-input" maxlength="56" placeholder="Email" id="username">
-	   		<input type="password" class="text-field w-input" maxlength="56" placeholder="Password" id="pwd">
+	<!-- SIGNUP DIV--> 
+	      <div class="clnt-signUp-div">   
+	      <div class="w-form">
+	<!-- ><a style="color:white;">Can I see your face?</a><!-->
+	<form class="form w-clearfix" action="/subscribing" method="post">
+   	<input type="text" class="text-field w-input" maxlength="56" placeholder="Name" name="subName">
+	<input type="text" class="text-field w-input" maxlength="56" placeholder="Username" name="subUsername">
+   	<input type="text" class="text-field w-input" maxlength="56" placeholder="Email" name="subEmail">
+  	<input type="password" class="text-field w-input" maxlength="56" placeholder="Password" name="subPwd">
+	<input type="password" class="text-field w-input" maxlength="56" placeholder="RetypePassword" name="subRtPwd">
 	   		<input type="submit" value="Acess" class="text-span-12">
 	   	  </div>
 	   	  </form>

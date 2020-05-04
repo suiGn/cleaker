@@ -68,7 +68,7 @@ $(function () {
 	
     connection.onerror = function (error) {
         //just in case there were some problems with connection...
-        content.html($('<p>', { text: 'i am Error -  ' + 'Connection.onERROR' } ));
+        alert('i am Error - ' + connection.onERROR);
     };
 	
 	
