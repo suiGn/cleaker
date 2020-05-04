@@ -80,7 +80,7 @@
 			      <div class="clnt-signUp-div" id="subscribeDiv">   
 			      <div class="w-form">
 			<!-- ><a style="color:white;">Can I see your face?</a><!-->
-			<form class="form w-clearfix" action="/subscribing" method="post">
+			<form class="form w-clearfix" action="/subscribing" name="subForm" method="post" onsubmit="return validateForm()">
 		   	<input type="text" class="text-field w-input" maxlength="56" placeholder="Name" name="subName">
 			<input type="text" class="text-field w-input" maxlength="56" placeholder="Username" name="subUsername">
 		   	<input type="text" class="text-field w-input" maxlength="56" placeholder="Email" name="subEmail">

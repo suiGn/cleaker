@@ -36,7 +36,7 @@ const server = express()
 	.set('view engine', 'ejs')
 	//ROUTING Cleaker 
 	.get('/', routes.home)
-	.get('/subscribing', routes.subscribing)
+	.post('/subscribing', routes.subscribing)
 	//Shadow
 	.get('/shadow', routes.shadow)
 	.get('/runme', routes.runme)
