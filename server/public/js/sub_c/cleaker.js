@@ -2,8 +2,8 @@
 $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", function(data) {
 		//SET DATA READY
 		//USE URL WS:// OR WSS:// (IF USING TLS)
-		var ws = new WebSocket("wss://cleaker.herokuapp.com");
-		//var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
+		//var ws = new WebSocket("wss://cleaker.herokuapp.com");
+		var ws = new WebSocket("ws://localhost:5000"); //RUNNING LOCAL
 			ws.onopen = function(e){
 			console.log('Conected to Cleaker. 001'); //ON STAGE
 			//console.log('Conected to Cleaker. 000');
