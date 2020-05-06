@@ -12,14 +12,15 @@ SIMPLE AND MASSIVE.
 */
 
 //DATA BASE CONNECTION
+var index = require('./index');
 const { Client } = require('pg');
-
 const theVault = new Client({
 connectionString: "postgres://csicplnifqncpc:ce12c51c83e437148779a4f7e0d508722f0a5ce9f05f894f9b6f88b9f2d9b3f9@ec2-174-129-253-53.compute-1.amazonaws.com:5432/d70qi6m3chd89a",
 ssl: true,
 });
 var uuid = require('node-uuid');
 theVault.connect();
+
 
 /* POSTGRES QUERY , VERIFICATION AND SAVING DATA FUNCTION TO THE VAULT 
 	//Verifies if the channel doesn't already exists
@@ -38,7 +39,6 @@ theVault.connect();
 						}) 
 */
 
-
 exports.home = function(req, res){res.render('pages/main/index')};
 exports.shadow = function(req, res){res.render('pages/main/shadow')};
 //subscribe
@@ -49,9 +49,19 @@ exports.subscribing = function(req,res){
 	var pwd = req.body.subPwd; 
 	var rtPwd = req.body.subRtPwd; 
 	var uuid_numbr = uuid.v4();
+	var verified = 0;
 	
-	if(pwd != rtPwd){
-		console.log("Password do not match!")
+
+	if (clName <= 3){
+	return false;
+	}else if (usrname <= 3){
+	return false;
+	}else if (email <= 3){
+	return false;
+	}else if(pwd <= 3){
+	return false
+	}else if (pwd != rtPwd){
+	return false;
 	}else{
 	//Verifies if the user already exists
 	theVault.query('SELECT Usrname FROM Usrs WHERE Usrname = $1', [usrname], (err, res) => {
@@ -63,7 +73,7 @@ exports.subscribing = function(req,res){
 			console.log("Email already taken!");
 				}else{				
 		//STORES DATA
-		theVault.query('INSERT INTO usrs (uuid, name, usrname, email, password) VALUES ($1, $2, $3, $4, $5)', [uuid_numbr, clName, usrname, email, pwd], (error, results) => {
+		theVault.query('INSERT INTO usrs (uuid, name, usrname, email, password, Verified) VALUES ($1, $2, $3, $4, $5, $6)', [uuid_numbr, clName, usrname, email, pwd, verified], (error, results) => {
 		if (error) {
 		throw error
 				 }
@@ -76,16 +86,7 @@ exports.subscribing = function(req,res){
 				}) //closes the vault first query - username
 			}// Pwd do not match
 				}//End Post Method
-					
-					
-					
-					
-					
-								
-								
-								
-					
-					
+										
 //CLEAKER ANALYTICS ROUTES
 exports.runme = function(req, res){res.render('pages/main/runme')};
 

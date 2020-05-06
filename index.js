@@ -25,7 +25,12 @@ var bodyParser = require("body-parser");
 var routes = require('./routes');
 var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
-
+const { Client } = require('pg');
+const theVault = new Client({
+connectionString: "postgres://csicplnifqncpc:ce12c51c83e437148779a4f7e0d508722f0a5ce9f05f894f9b6f88b9f2d9b3f9@ec2-174-129-253-53.compute-1.amazonaws.com:5432/d70qi6m3chd89a",
+ssl: true,
+});
+theVault.connect();
 const server = express()
 	//SETTING UP ROUTING SPECS
  	.use(bodyParser.urlencoded({ extended: false }))
@@ -41,7 +46,6 @@ const server = express()
 	.get('/shadow', routes.shadow)
 	.get('/runme', routes.runme)
 	//Routing WTM
-	
 	.listen(PORT, () => console.log(`Cleaker on PORT: ${ PORT }
 	freelanding ${ unicorn }`));
 		/*_      _____ ___ ___  ___   ___ _  _____ _____ 
@@ -52,7 +56,7 @@ const server = express()
 					│  │  ├┤ ├─┤├┴┐├┤ ├┬┘
 					└─┘┴─┘└─┘┴ ┴┴ ┴└─┘┴└─    
 				serverside websocket managment **/
-		// Port where we'll run the websocket server
+		
 		var webSocketServer = require('websocket').server;
 		var clients = [ ];
 		var allMembers = [ ];
@@ -93,6 +97,8 @@ const server = express()
 		var wsServer = new webSocketServer({
 	    httpServer: server
 			});
+			exports.wsServer;
+			
 			
 	// WebSocket server Starts from Here
 	wsServer.on('request', function(request) {
@@ -105,7 +111,7 @@ const server = express()
 			   
 			    //starts - comunication with user - connection.on 
 			   connection.sendUTF(JSON.stringify({ type:'cleaked', uuid: uuid_numbr})); // 'cleaked' -- cleaker.js handshake innitiation
-			   
+			 
 			   //Listening - on incoming comunication
 				  connection.on('message', function(message) {
 					if (message.type === 'utf8') { //IF TEXT
@@ -134,7 +140,19 @@ const server = express()
 					console.log("keepme");
 				 	 var stayingAlive = JSON.stringify({ type: "stayingAlive", chorus: "A A A A"});
 				 	 brdCstRight("runmeMasterMind", stayingAlive);
-								}
+					 
+				}else if (pckr.clkcd == 'verEmEx'){
+					console.log(pckr.email);
+					theVault.query('SELECT Email FROM Usrs WHERE Email = $1', [pckr.email], (err, res) => {
+					if(res.rowCount >= 1){
+					connection.sendUTF(JSON.stringify({ type:'gemEx', status: "Email already taken!"}));
+					console.log("Email already taken!");
+						}else{	
+							console.log("good");
+						}
+					});
+				}
+								
 				
 				}
 								});//END CONNECTION.ON MESSAGE		
