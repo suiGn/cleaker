@@ -17,8 +17,8 @@ plug it to your brain
 const forceSecure = require("force-secure-express");
 const express = require('express');
 const path = require('path');
-//const PORT = process.env.PORT || 3000;
-const PORT = 31416; //Cleaking
+const PORT = process.env.PORT || 3000;
+//const PORT = 31416; //Cleaking
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 var bodyParser = require("body-parser");
@@ -80,25 +80,34 @@ const server = express()
 			return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 						      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 								}			
-		// Array with some colors
-		var colors = [ '#a8d069', '#30ad64', '#25ccbf', '#20ac99', '#f8c740', '#e2a62b',
+								// Array with some colors
+								var colors = [ '#a8d069', '#30ad64', '#25ccbf', '#20ac99', '#f8c740', '#e2a62b',
 								 '#face6a', '#e4b962', '#fd7072', '#cf404d', '#d39f9a', 
 								'#735260', '#af4173', '#822e50', '#e64c40', '#bf3a30','#fc7d64','#49647b'];
 		// ... in random order
 		colors.sort(function(a,b) { return Math.random() > 0.5; } );
 		
+		//REGEXS
+		function emailRegex(email) { //EMAIL REGEX
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
+		}
 		
-			     /** WebSocket code o       o                                
-									|       |                               
-									o   o   o  
- 	   								 \ / \ / 
- 	   								  o   o  */
+		function usrnmRegex(usrname){ //USERNAME REGEX
+			var re = /^(?=[a-zA-Z0-9._]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+			return re.test(usrname);
+		}
+		
+	   /** WebSocket code o       o                                
+						  |       |                               
+						  o   o   o  
+ 	   					   \ / \ / 
+ 	   					    o   o  */
 		
 		var wsServer = new webSocketServer({
 	    httpServer: server
 			});
 			exports.wsServer;
-			
 			
 	// WebSocket server Starts from Here
 	wsServer.on('request', function(request) {
@@ -108,16 +117,13 @@ const server = express()
 			   var index = clients.push(connection) - 1; //client index to remove them on 'close' event
 			   //A connection was acepted.
 			   //console.log('1. wsOnRqstLog - Connection Accepted UUID: ' + uuid_numbr + ' Request.Origin: ' + request.origin);
-			   
 			    //starts - comunication with user - connection.on 
 			   connection.sendUTF(JSON.stringify({ type:'cleaked', uuid: uuid_numbr})); // 'cleaked' -- cleaker.js handshake innitiation
-			 
 			   //Listening - on incoming comunication
 				  connection.on('message', function(message) {
-					if (message.type === 'utf8') { //IF TEXT
+					if (message.type === 'utf8') { //IF TEXT. 
 						pckr = JSON.parse(message.utf8Data); //parse to json
-	   					//Create room member for redirection.
-						if (pckr.clkcd === 'CleakerRunMe') {
+						if (pckr.clkcd === 'CleakerRunMe') { //Create rooms for Broadcast Redirection.
 	   					var runMeMember = {
 	   						room: pckr.cleakerRoom,
 	   						index: index,
@@ -126,35 +132,56 @@ const server = express()
 						}	
 	   			  //Push into the array
 	   			  allMembers.push(runMeMember) - 1;// index to remove them on 'close' event;			
-				} else if (pckr.clkcd === 'onCleaker'){ // RECEIVING CLEAKER 
+				} 
+				else if (pckr.clkcd === 'onCleaker'){ // RECEIVING CLEAKER TO RUN NETWORK MONITORING
 				//console.log(pckr.cleaker); //for dev purposes, remove to not saturate the console.
 				//packet - send INFORMATION TO RUNME
 				   var activeUser = JSON.stringify({ type: "clkr_Start", cleaker: pckr.cleaker});
 				   //console.log(pckr.cleaker);
 				   brdCstRight("runmeMasterMind", activeUser);
-					
-				} else if (pckr.clkcd === 'appCleaker'){ // RECEIVING CLEAKER APP
+				} //ACTIVE USERS - RUNME CLOSURE
+				else if (pckr.clkcd === 'appCleaker'){ // RECEIVING CLEAKER FROM A MOBILE APP
 					console.log(pckr.cleaker);
-				}else if (pckr.clkcd === 'keepMeAlive'){
-				 //packet - send Notification user logedIn to Room Members
+				}//MOBILE APP CLOSURE
+				else if (pckr.clkcd === 'keepMeAlive'){ // TIMER TO KEEP SESSIONS ALIVE
 					console.log("keepme");
 				 	 var stayingAlive = JSON.stringify({ type: "stayingAlive", chorus: "A A A A"});
 				 	 brdCstRight("runmeMasterMind", stayingAlive);
-					 
-				}else if (pckr.clkcd == 'verEmEx'){
-					console.log(pckr.email);
+				}// KEEP ME ALIVE CLOSURE
+				else if (pckr.clkcd == 'gUsrRes'){//Verify Username
+					console.log(pckr.usrname); //for dev
+					if (usrnmRegex(pckr.usrname)) { //Validate Username
+						theVault.query('SELECT Usrname FROM Usrs WHERE Usrname = $1', [pckr.usrname], (err, res) => {
+						if(res.rowCount >= 1){
+						connection.sendUTF(JSON.stringify({ type:'hipUser', status: "Username already taken.", rcolor:"#ff6666"}));
+						console.log("Username already taken!"); //for dev 
+						 }else{	
+						console.log("valid Username"); // for dev
+						connection.sendUTF(JSON.stringify({ type:'hipUser', status: "", rcolor:"#39D1BB"}));
+							}})}
+						 else {
+							 console.log("invalid Username");
+						connection.sendUTF(JSON.stringify({ type:'hipUser', status: "Invalid Username.", rcolor:"#ff6666"}));
+							}    
+						}// VERIFY USERNAME CLOSURE
+				else if (pckr.clkcd == 'verEmEx'){//verify Email Entry
+					console.log(pckr.email); //for dev 
+					if (emailRegex(pckr.email)) {
 					theVault.query('SELECT Email FROM Usrs WHERE Email = $1', [pckr.email], (err, res) => {
 					if(res.rowCount >= 1){
-					connection.sendUTF(JSON.stringify({ type:'gemEx', status: "Email already taken!"}));
+					connection.sendUTF(JSON.stringify({ type:'gemEx', status: "Email already taken.", rcolor:"#ff6666"}));
 					console.log("Email already taken!");
 						}else{	
-							console.log("good");
-						}
-					});
-				}
-								
-				
-				}
+					console.log("valid Email"); // for dev
+					connection.sendUTF(JSON.stringify({ type:'gemEx', status: "", rcolor:"#39D1BB"}));
+						}})}
+					else{
+					connection.sendUTF(JSON.stringify({ type:'gemEx', status: "Invalid Email.", rcolor:"#ff6666"}));
+								}
+							}//VERIFY if pckr.clkcd == 'verEmEx' EMAIL CLOSURE
+							
+			
+						}//IF MESSAGE.TYPE CLOSURE
 								});//END CONNECTION.ON MESSAGE		
 															
 				// User disconnected
