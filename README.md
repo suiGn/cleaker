@@ -22,17 +22,17 @@
 	________________________-------------------------______________________
 		
 		Profile [Inf.]		- 	   Followers 			- 	 Following 	
-		  |							  |							|
+		  |							|							|
 	The Vault					 See public					See public
 	|						  && custom Vaults			&& custom Vaults
 	See All			
 	|
 	Default			
-	|					------->> Pinn Vaults
+	|						------->> Pinn Vaults
 	collection/1-Private	<<------  ""
 	|
 	collection/2-Public		------------------------------>> Pinn Vaults
-	|					<<-----------------------------   ""
+	|						<<-----------------------------   ""
 	collection/3-Custom
 	
 	---------------------------____________________---------------------------
