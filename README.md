@@ -6,6 +6,7 @@
  / / /__\_\/ / /__\_\ \ 
 / / /______\/ /________\
 \/_____________________/
+	
 	collective consciousness...
 	
 	
@@ -17,13 +18,13 @@
 	  - Catalogue your web surfing and interests.
 	      *Decide your sources of information.
 		
-									GUI MAP
+                                    GUI MAP
 	________________________-------------------------______________________
 		
-		Profile [Inf.]		- 	 Followers 			- 		Following 	
-		  |							|							|
-	The Vault					See public					See public
-	|						&& custom Vaults			&& custom Vaults
+		Profile [Inf.]		- 	   Followers 			- 	 Following 	
+		  |							  |							|
+	The Vault					 See public					See public
+	|						  && custom Vaults			&& custom Vaults
 	See All			
 	|
 	Default			
