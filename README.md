@@ -6,15 +6,38 @@
  / / /__\_\/ / /__\_\ \ 
 / / /______\/ /________\
 \/_____________________/
-	Building a collective consciousness...
+	collective consciousness...
+	
+	
 # SUM
 	- cleaker.me
 	- What do you want to want?
 	- get.run.manage your own data.
-	- Connect to theVault.
+	- Connect to 
 	  - Catalogue your web surfing and interests.
 	      *Decide your sources of information.
 		
+									GUI MAP
+	________________________-------------------------______________________
+		
+		Profile [Inf.]		- 	 Followers 			- 		Following 	
+		  |							|							|
+	The Vault					See public					See public
+	|						&& custom Vaults			&& custom Vaults
+	See All			
+	|
+	Default			
+	|					------->> Pinn Vaults
+	noname/1-Private	<<------  ""
+	|
+	noname/2-Public		------------------------------>> Pinn Vaults
+	|					<<-----------------------------   ""
+	noname/3-Custom
+	
+	---------------------------____________________---------------------------
+	
+	
+   
 # I Array Cleaker 
 		var cleaker ={    
 				uuid: myUUID,
@@ -52,6 +75,7 @@
 				  };
 	
 #JS Client site Connection Installer:
+
 <script src="https://cleaker.me/js/sub_c/cleaker.js"></script>
 
 			-- client side ws connection to server.
