@@ -23,21 +23,27 @@
                                     GUI MAP
 	________________________-------------------------______________________
 		
-	Profile [Inf.]     -           Followers 	 -     Following 	
-	|			 	 |			   |
-	The Vault		     See public		       See public
-	|			   && custom Vaults	      && custom Vaults
+	Profile [Inf.]     -           Followers 	 -        Following 	
+	|			 	 |			      |
+	The Vault		     See public		           See public
+	|			   && custom Collections.     	&& custom Collections
 	See All			
 	|
 	Default			
-	|			------->> Pinn Vaults
+	|			------->> Pin Vaults
 	collection/1-Private	<<------  ""
 	|
-	collection/2-Public	------------------------------>> Pinn Vaults
+	collection/2-Public	------------------------------>> Pin Vaults
 	|			<<-----------------------------   ""
 	collection/3-Custom
 	
 	---------------------------____________________---------------------------
+	Messages && Channels
+	Profiles
+	Vault Likes and Pins
+	Custom Searches:
+	              Search in all cleaker -> m.L suggestions.
+		      Search in scope -> Set by user.
 	
 	
    
