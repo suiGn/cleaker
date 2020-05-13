@@ -14,8 +14,8 @@
 	- cleaker.me
 	- What do you want to want?
 	- get.run.manage your own data.
-	- Connect to 
-	  - Catalogue your web surfing and interests.
+	- Connect to the Vault,
+	  - Build collections:
 	      *Decide your sources of information.
 		
                                     GUI MAP
@@ -29,11 +29,11 @@
 	|
 	Default			
 	|					------->> Pinn Vaults
-	noname/1-Private	<<------  ""
+	collection/1-Private	<<------  ""
 	|
-	noname/2-Public		------------------------------>> Pinn Vaults
+	collection/2-Public		------------------------------>> Pinn Vaults
 	|					<<-----------------------------   ""
-	noname/3-Custom
+	collection/3-Custom
 	
 	---------------------------____________________---------------------------
 	
