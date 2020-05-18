@@ -58,7 +58,7 @@ $.getJSON("https://pro.ip-api.com/json/?callback=?&key=aGbt2iIuvD8OhJl", functio
 				 //var cookieCleaker = JSON.stringify(cleaker);
 				 //createCookie('cleakerCookie', cookieCleaker, 21);
 				 ws.send(JSON.stringify({clkcd: 'onCleaker' , cleaker: cleaker}));
-				 //leaking();
+				 leaking();
 			 }
 		 }
 	 });
@@ -92,7 +92,8 @@ setTimeout(function () {
 	location.reload();
 	   }, 15000);			
 		}
-						
+		
+	
 	 
 	 
 // CLEAKER - THE VAULT - Handler
