@@ -4,41 +4,33 @@
 <html data-wf-page="5e2fabb0ac279fb26491cbac" data-wf-site="5ce9d28d5d0f4701ba9bbbe0">
 <head>
  <% include ../../partials/main/header.webflow.ejs %>
- 
+
 <script>
     function miniCleaker() {
 		var theDate = new Date();
       document.getElementById("theDate").innerHTML = theDate;
     }
+	</script>
+      
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId            : '847287435755171',
+	      autoLogAppEvents : true,
+	      xfbml            : false,
+	      version          : 'v7.0'
+	    });
+		
+		FB.ui({
+		  method: 'share',
+		  href: 'https://developers.facebook.com/docs/'
+		}, function(response){});
+	  };
+	</script>
+	<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
 	
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '847287435755171',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v7.0'
-      });
-      
-      FB.AppEvents.logPageView();   
-      
-    };
 
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-	 
 
-	 FB.getLoginStatus(function(response) {
-	     statusChangeCallback(response);
-	 });
-	 
-	 
-
-  </script>
 </head>
 <body data-w-id="55a4bf10f836a7146d18c92f" class="body welcome" onload="miniCleaker()">
    
