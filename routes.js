@@ -20,8 +20,6 @@ ssl: true,
 });
 var uuid = require('node-uuid');
 theVault.connect();
-
-
 /* POSTGRES QUERY , VERIFICATION AND SAVING DATA FUNCTION TO THE VAULT 
 	//Verifies if the channel doesn't already exists
 	theVault.query('SELECT channel, channelhash FROM wtmchannels WHERE channel = $1 AND channelhash = $2', [channel, channelHash], (err, res) => {
@@ -38,7 +36,6 @@ theVault.connect();
 			} //closes else
 						}) 
 */
-
 exports.home = function(req, res){res.render('pages/main/index')};
 exports.shadow = function(req, res){res.render('pages/main/shadow')};
 //subscribe
@@ -50,8 +47,7 @@ exports.subscribing = function(req,res){
 	var rtPwd = req.body.subRtPwd; 
 	var uuid_numbr = uuid.v4();
 	var verified = 0;
-	
-
+	var dt = new Date();
 	if (clName <= 3){
 	return false;
 	}else if (usrname <= 3){
@@ -73,7 +69,7 @@ exports.subscribing = function(req,res){
 			console.log("Email already taken!");
 				}else{				
 		//STORES DATA
-		theVault.query('INSERT INTO usrs (uuid, name, usrname, email, password, Verified) VALUES ($1, $2, $3, $4, $5, $6)', [uuid_numbr, clName, usrname, email, pwd, verified], (error, results) => {
+		theVault.query('INSERT INTO usrs (uuid, name, usrname, email, password, Verified, last_update) VALUES ($1, $2, $3, $4, $5, $6, $7)', [uuid_numbr, clName, usrname, email, pwd, verified, dt], (error, results) => {
 		if (error) {
 		throw error
 				 }
@@ -85,8 +81,9 @@ exports.subscribing = function(req,res){
 				} //closes else first query 
 				}) //closes the vault first query - username
 			}// Pwd do not match
-				}//End Post Method
-										
+			res.render('pages/main/runme');
+				}//End Post Method	
+							
 //CLEAKER ANALYTICS ROUTES
 exports.runme = function(req, res){res.render('pages/main/runme')};
 
