@@ -17,9 +17,7 @@ plug it to your brain
 const forceSecure = require("force-secure-express");
 const express = require('express');
 const path = require('path');
-const jwt = require('jsonwebtoken');
-const config = require('./configs/config');
-var nodemailer = require('nodemailer');
+var session = require('express-session');
 const PORT = process.env.PORT || 3000;
 //const PORT = 31416; //Cleaking
 const { body,validationResult } = require('express-validator/check');
@@ -30,10 +28,11 @@ var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
 const { Client } = require('pg');
 const theVault = new Client({
-connectionString: "postgres://zpcddlrwpqkpoz:f8de23bbcc2f6cfc036026f2e60336403e07cefcec02a87c3f4275d457fa2bcb@ec2-54-165-36-134.compute-1.amazonaws.com:5432/d3tj0bqbdrq8ji",
+connectionString: "postgres://csicplnifqncpc:ce12c51c83e437148779a4f7e0d508722f0a5ce9f05f894f9b6f88b9f2d9b3f9@ec2-174-129-253-53.compute-1.amazonaws.com:5432/d70qi6m3chd89a",
 ssl: true,
 });
 theVault.connect();
+
 const rutasProtegidas = express.Router(); 
 rutasProtegidas.use((req, res, next) => {
     const token = req.headers['access-token'];
@@ -54,21 +53,20 @@ rutasProtegidas.use((req, res, next) => {
     }
  });
  
+ 
 const server = express()
-//Middleware session
 	//SETTING UP ROUTING SPECS
  	.use(bodyParser.urlencoded({ extended: false }))
  	.use(bodyParser.json())
-	.use(forceSecure(["cleaker.me", "wwww.cleaker.me"])) // FORCE SSL
+	.use(forceSecure(["cleaker.me","wwww.cleaker.me"])) // FORCE SSL
 	.use(express.static(path.join(__dirname, 'server/public')))
 	.set('views', path.join(__dirname, 'server/views'))
 	.set('view engine', 'ejs')
-	.set('llave', config.llave)
 	//ROUTING Cleaker 
 	.get('/', routes.home)
-	.post('/login', routes.login)
-	.get('/datos', rutasProtegidas, routes.datos)
 	.post('/subscribing', routes.subscribing)
+ 	.post('/login', routes.login)
+ 	.get('/datos', rutasProtegidas, routes.datos)
 	//Shadow
 	.get('/shadow', routes.shadow)
 	.get('/runme', routes.runme)
@@ -76,7 +74,6 @@ const server = express()
 	.listen(PORT, () => console.log(`Cleaker on PORT: ${ PORT }
 	freelanding ${ unicorn }`));
 	
-
 	
 		//      _ ___   _  _  __
 		//  |V||_  ||_|/ \| \(_ 
@@ -118,7 +115,6 @@ const server = express()
 			return re.test(subname);
 		}	
 		
-		//NODE.JS EMAILS
 		
 		
 	   /** 				  o       o                                
@@ -134,9 +130,11 @@ const server = express()
 					│  │  ├┤ ├─┤├┴┐├┤ ├┬┘
 					└─┘┴─┘└─┘┴ ┴┴ ┴└─┘┴└─    
 				serverside websocket managment **/
+		
+		var webSocketServer = require('websocket').server;
 		var clients = [ ];
 		var allMembers = [ ];
-		var webSocketServer = require('websocket').server;		
+		
 		var wsServer = new webSocketServer({
 	    httpServer: server
 			});

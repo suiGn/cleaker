@@ -42,26 +42,21 @@ const config = require('./configs/config');
 exports.home = function(req, res){res.render('pages/main/index')};
 exports.shadow = function(req, res){res.render('pages/main/shadow')};
 exports.login = function(req, res){
-	theVault.query('SELECT Usrname, Password FROM Usrs WHERE Usrname = $1 && Password = $2', [req.body.usrname, req.body.pwd], (err, res) => {
-	if(res.rowCount >= 1){
-		res.redirect('/');
-		}
-    if(req.body.usrname === "asfo" && req.body.pwd === "holamundo") {
-  const payload = {
-   check:  true
-  };
-  const token = jwt.sign(payload, config.llave, {
-   expiresIn: 1440
-  });
-  res.json({
-   mensaje: 'Logged In!',
-   token: token
-  });
-    } else {
-        res.json({ mensaje: "Incorrect username or password!"})
-    }
-})
-}
+	 if(req.body.usrname === "asfo" && req.body.pwd === "holamundo") {
+	     const payload = {
+	      check:  true
+	     };
+	     const token = jwt.sign(payload, config.llave, {
+	      expiresIn: 1440
+	     });
+	     res.json({
+	      mensaje: 'Autenticación correcta',
+	      token: token
+	     });
+	       } else {
+	           res.json({ mensaje: "Usuario o contraseña incorrectos"})
+	       }
+	   };
 
 exports.datos = function(req, res){
  const datos = [
