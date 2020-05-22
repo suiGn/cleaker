@@ -42,7 +42,7 @@
   <div data-collapse="medium" data-animation="default" data-duration="400" class="cleaker-navbar w-nav">
     <div class="container-2 w-container">
       <a href="#" class="brand w-nav-brand">
-        <h1 class="heading-5 aaa">cleaker.me</h1>
+        <h1 class="heading-5 aaa">cleaker1.me</h1>
         <div class="text-block introname welcome cleakercashlogo shadow"> /$$$$$$  /$$       /$$$$$$$$  /$$$$$$  /$$   /$$ /$$$$$$$$ /$$$$$$$ <br> /$$__  $$| $$      | $$_____/ /$$__  $$| $$  /$$/| $$_____/| $$__  $$<br>| $$  \__/| $$      | $$      | $$  \ $$| $$ /$$/ | $$      | $$  \ $$<br>| $$      | $$      | $$$$$   | $$$$$$$$| $$$$$/  | $$$$$   | $$$$$$$/<br>| $$      | $$      | $$__/   | $$__  $$| $$  $$  | $$__/   | $$__  $$<br>| $$    $$| $$      | $$      | $$  | $$| $$\  $$ | $$      | $$  \ $$<br>|  $$$$$$/| $$$$$$$$| $$$$$$$$| $$  | $$| $$ \  $$| $$$$$$$$| $$  | $$<br> \______/ |________/|________/|__/  |__/|__/  \__/|________/|__/  |__/</div>
       </a>
     </div>
@@ -81,8 +81,8 @@
       		<div class="w-form">
 		   	<!-- ><a style="color:white;">Can I see your face?</a><!-->
 		  	<form class="form w-clearfix" action="/login" method="post">
-			<input type="text" class="text-field w-input" maxlength="56" placeholder="usrname" id="firstName">
-	 		<input type="password" class="text-field w-input" maxlength="56" placeholder="password" id="lastName">
+			<input type="text" class="text-field w-input" maxlength="56" placeholder="usrname" name="usrname">
+	 		<input type="password" class="text-field w-input" maxlength="56" placeholder="password" name="pwd">
 			<input type="submit" value="Login" class="text-span-12">
 			</form>
 	  		</div><!-- w-form close div-->
@@ -100,7 +100,7 @@
 			<!-- ><a style="color:white;">Can I see your face?</a><!-->
 			<form class="form w-clearfix" action="/subscribing" name="subForm" method="post" onsubmit="return validateForm()">
 			<a style="color:#ff6666;" id="labelName"></a>
-		   	<input type="text" class="text-field w-input" maxlength="56" placeholder="First and last name" name="subName" id="inputName"onchange="validData('vName', this.value)" required>
+		   	<input type="text" class="text-field w-input" maxlength="56" placeholder="First and last name" name="subName" id="inputName" onchange="validData('vName', this.value)" required>
 			<a style="color:#ff6666;" id="labelUsername"></a>
 			<input type="text" class="text-field w-input" maxlength="56" placeholder="Username" name="subUsername" id="inputUsername" onchange="validData('vUser', this.value)" required>
 			<a style="color:#ff6666;" id="labelEmail"></a>

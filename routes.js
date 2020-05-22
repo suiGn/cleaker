@@ -1,5 +1,4 @@
 /*
-
 ______ _____ _   _ _____ _____ _____ 
 | ___ \  _  | | | |_   _|  ___/  ___|
 | |_/ / | | | | | | | | | |__ \ `--. 
@@ -20,6 +19,9 @@ ssl: true,
 });
 var uuid = require('node-uuid');
 theVault.connect();
+const jwt = require('jsonwebtoken');
+const config = require('./configs/config');
+//theVault.connect();
 /* POSTGRES QUERY , VERIFICATION AND SAVING DATA FUNCTION TO THE VAULT 
 	//Verifies if the channel doesn't already exists
 	theVault.query('SELECT channel, channelhash FROM wtmchannels WHERE channel = $1 AND channelhash = $2', [channel, channelHash], (err, res) => {
@@ -35,9 +37,42 @@ theVault.connect();
 				})//closes query
 			} //closes else
 						}) 
-*/
+				*/
+ 
 exports.home = function(req, res){res.render('pages/main/index')};
 exports.shadow = function(req, res){res.render('pages/main/shadow')};
+exports.login = function(req, res){
+	theVault.query('SELECT Usrname, Password FROM Usrs WHERE Usrname = $1 && Password = $2', [req.body.usrname, req.body.pwd], (err, res) => {
+	if(res.rowCount >= 1){
+		res.redirect('/');
+		}
+    if(req.body.usrname === "asfo" && req.body.pwd === "holamundo") {
+  const payload = {
+   check:  true
+  };
+  const token = jwt.sign(payload, config.llave, {
+   expiresIn: 1440
+  });
+  res.json({
+   mensaje: 'Logged In!',
+   token: token
+  });
+    } else {
+        res.json({ mensaje: "Incorrect username or password!"})
+    }
+})
+}
+
+exports.datos = function(req, res){
+ const datos = [
+  { id: 1, nombre: "Asfo" },
+  { id: 2, nombre: "Denisse" },
+  { id: 3, nombre: "Carlos" }
+ ];
+ 
+ res.json(datos);
+};
+
 //subscribe
 exports.subscribing = function(req,res){
 	var clName = req.body.subName; 
@@ -83,7 +118,8 @@ exports.subscribing = function(req,res){
 			}// Pwd do not match
 			res.render('pages/main/runme');
 				}//End Post Method	
-							
+				
+				
 //CLEAKER ANALYTICS ROUTES
 exports.runme = function(req, res){res.render('pages/main/runme')};
 
