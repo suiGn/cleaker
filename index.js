@@ -23,7 +23,8 @@ const PORT = process.env.PORT || 3000;
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 var bodyParser = require("body-parser");
-var routes = require('./routes');
+const routes = require('./routes');
+const method = require('./methods');
 var unicorn = "🍺🦄🍺";
 var uuid = require('node-uuid');
 const { Client } = require('pg');
@@ -52,7 +53,6 @@ rutasProtegidas.use((req, res, next) => {
       });
     }
  });
- 
  
 const server = express()
 	//SETTING UP ROUTING SPECS
@@ -100,23 +100,9 @@ const server = express()
 								'#735260', '#af4173', '#822e50', '#e64c40', '#bf3a30','#fc7d64','#49647b'];
 		// ... in random order
 		colors.sort(function(a,b) { return Math.random() > 0.5; } );
+	
 		
-		//REGEXS
-		function emailRegex(email) { //EMAIL REGEX
-			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			return re.test(email);
-		}
-		function usrnmRegex(usrname){ //USERNAME REGEX
-			var re = /^(?=[a-zA-Z0-9._]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-			return re.test(usrname);
-		}
-		function nameRegex(subname){ //NAME REGEX
-			var re = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
-			return re.test(subname);
-		}	
-		
-		
-		
+				
 	   /** 				  o       o                                
 						  |       |                               
 						  o   o   o  
@@ -142,6 +128,7 @@ const server = express()
 	// WebSocket server Starts from Here
 	wsServer.on('request', function(request) {
 			   var uuid_numbr = uuid.v4();
+			  
 			//accept connection if check 'request.origin'
 			   var connection = request.accept(); //connecting from same website
 			   var index = clients.push(connection) - 1; //client index to remove them on 'close' event
@@ -178,48 +165,13 @@ const server = express()
 				 	 	var stayingAlive = JSON.stringify({ type: "stayingAlive", chorus: "A A A A"});
 				 	 	brdCstRight("runmeMasterMind", stayingAlive);
 						}// KEEP ME ALIVE CLOSURE
-				else if (pckr.clkcd == 'vName'){//Verify Name
-						//console.log(pckr.value); //for dev
-						if (nameRegex(pckr.value)) { //Validate name
-						//console.log("Valid Name"); // for dev
-						connection.sendUTF(JSON.stringify({ type:'validDataRes', value: "", rcolor:"#39D1BB",input: "inputName",label:"#labelName"}));
-						} else {
-						//console.log("Invalid Name");
-						connection.sendUTF(JSON.stringify({type:'validDataRes', value: "Invalid Name.", rcolor:"#ff6666",input: "inputName",label:"#labelName"}));
-							}    
-						}// VERIFY NAME CLOSURE
-				else if (pckr.clkcd == 'vUser'){//Verify Username
-						//console.log(pckr.value); //for dev
-						if (usrnmRegex(pckr.value)) { //Regex Username
-						theVault.query('SELECT Usrname FROM Usrs WHERE Usrname = $1', [pckr.value], (err, res) => {
-						if(res.rowCount >= 1){
-							connection.sendUTF(JSON.stringify({ type:'validDataRes', value: "Username already taken.", rcolor:"#ff6666",input: "inputUsername", label: "#labelUsername"}));
-						//console.log("Username already taken!"); //for dev 
-						 }else{	
-						//console.log("valid Username"); // for dev
-						connection.sendUTF(JSON.stringify({type:'validDataRes', value: "", rcolor:"#39D1BB", input: "inputUsername", label: "#labelUsername"}));
-							}})}
-						else{
-						//console.log("invalid Username");
-						connection.sendUTF(JSON.stringify({ type:'validDataRes', value: "Invalid Username.", rcolor:"#ff6666", input: "inputUsername", label: "#labelUsername"}));
-							}    
-						}// VERIFY USERNAME CLOSURE		
-				else if (pckr.clkcd == 'vEmail'){//verify Email Entry
-						//console.log(pckr.value); //for dev 
-						if (emailRegex(pckr.value)) {
-						theVault.query('SELECT Email FROM Usrs WHERE Email = $1', [pckr.value], (err, res) => {
-						if(res.rowCount >= 1){
-						connection.sendUTF(JSON.stringify({type:'validDataRes', value: "Email already taken.", rcolor: "#ff6666", input: "inputEmail", label: "#labelEmail"}));
-						//console.log("Email already taken!");
-						}else{	
-						//console.log("valid Email"); // for dev
-						connection.sendUTF(JSON.stringify({ type:'validDataRes', value: "", rcolor:"#39D1BB",input: "inputEmail",label: "#labelEmail"}));
-						}})}
-						else{
-						connection.sendUTF(JSON.stringify({type:'validDataRes', value: "Invalid Email.", rcolor:"#ff6666", input: "inputEmail", label: "#labelEmail"}));
-								}
-							}//VERIFY if pckr.clkcd == 'verEmEx' EMAIL CLOSURE
-
+						
+						else if (pckr.clkcd == "subVer"){//submit Data Verification
+ 			  exports.subVerificationRes = function(type, value, color, input, label, check){
+ 			 		connection.sendUTF(JSON.stringify({ type:type, value: value, rcolor:color ,input: input,label: label, check: check}));
+ 			 			   }
+							method.dataSubmitVerification(pckr);
+						}//subVer
 
 
 						}//IF MESSAGE.TYPE CLOSURE

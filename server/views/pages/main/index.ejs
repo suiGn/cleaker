@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--  This site was created in Webflow. http://www.webflow.com  -->
-<!--  Last Published: Sun Feb 23 2020 23:51:43 GMT+0000 (Coordinated Universal Time)  -->
 <html data-wf-page="5e2fabb0ac279fb26491cbac" data-wf-site="5ce9d28d5d0f4701ba9bbbe0">
 <head>
  <% include ../../partials/main/header.webflow.ejs %>
@@ -58,9 +56,7 @@
     </div>
   </div>
 
-		
-  
-  
+
   <div class="div-block-5">
     <div class="container w-container" data-ix="openclntinput">
       <div>
@@ -70,7 +66,7 @@
 			 
            <h1 class="mnd-stmnt">Hello,</h1>
            <h1 class="mnd-stmnt" id="mndTlks">Please choose:</h1>
-		   
+			 <h1 class="mnd-stmnt" id="mndTlks" style="color: #ff6666"><%= opt %></h1>
            <div class="mnd_pck-block">
              <div class="option w-clearfix">
 			<a href="#" class="text-span-12 w-button" id="subOpen" onclick="onSubscribe(this.id)">Sign Up</a>
@@ -94,20 +90,21 @@
             <div class="text-block-11">Oops! Something went wrong.</div>
             </div><!--div error-message w-form-fail-->
 			</div><!-- clnt-input-div  -->
-			
-			      <div class="clnt-signUp-div" id="subscribeDiv">   
-			      <div class="w-form">
-			<!-- ><a style="color:white;">Can I see your face?</a><!-->
-			<form class="form w-clearfix" action="/subscribing" name="subForm" method="post" onsubmit="return validateForm()">
-			<a style="color:#ff6666;" id="labelName"></a>
-		   	<input type="text" class="text-field w-input" maxlength="56" placeholder="First and last name" name="subName" id="inputName" onchange="validData('vName', this.value)" required>
-			<a style="color:#ff6666;" id="labelUsername"></a>
-			<input type="text" class="text-field w-input" maxlength="56" placeholder="Username" name="subUsername" id="inputUsername" onchange="validData('vUser', this.value)" required>
-			<a style="color:#ff6666;" id="labelEmail"></a>
-		   	<input type="text" class="text-field w-input" maxlength="56" placeholder="Email" name="subEmail" id="inputEmail" onchange="validData('vEmail', this.value)" required>
-		  	<input type="password" class="text-field w-input" maxlength="56" placeholder="Password" name="subPwd" required>
-			<input type="password" class="text-field w-input" maxlength="56" placeholder="RetypePassword" name="subRtPwd" required>
-			   		<input type="submit" value="Sign Up" class="text-span-12">
+		
+<div class="clnt-signUp-div" id="subscribeDiv">   
+<div class="w-form">
+<!-- ><a style="color:white;">Can I see your face?</a><!-->
+<form class="form w-clearfix" action="/subscribing" name="subForm" method="post" onsubmit="return validateForm()">
+<a style="color:#ff6666;" id="labelName"></a>
+<input type="text" class="text-field w-input" maxlength="21" data-check="u" placeholder="First and last name" name="subName" id="inputName" onchange="validData('vName', this.value)" required>
+<a style="color:#ff6666;" id="labelUsername"></a>
+<input type="text" class="text-field w-input" maxlength="11" data-check="u" placeholder="Username" name="subUsername" id="inputUsername" onchange="validData('vUser', this.value)" required>
+<a style="color:#ff6666;" id="labelEmail"></a>
+<input type="text" class="text-field w-input" maxlength="21" data-check="u" placeholder="Email" name="subEmail" id="inputEmail" onchange="validData('vEmail', this.value)" required>
+<input type="password" class="text-field w-input" maxlength="11" placeholder="Password" name="subPwd" onChange="pwdMatch()" required>
+<input type="password" class="text-field w-input" maxlength="11" placeholder="RetypePassword" name="subRtPwd" onChange="pwdMatch()" required>
+
+			   		<input type="submit" id="submit" value="Sign Up" class="text-span-12" />
 			   	  </div>
 			   	  </form>
 			   	  <div class="text-block-9" data-ix="" onclick="xSubscribe()">x Close</div>
@@ -118,7 +115,10 @@
 			                   <div class="text-block-11">Oops! Something went wrong.</div>
 			                      </div>
 			   				 </div>
-							 				 
+							 	<script>
+						   	
+							 </script>
+							 			 
             </div><!-- option w-clearfix -->
 			</div><!--mnd_pck-block-->
 			</div><!-- div-block-9 w-clearfix -->

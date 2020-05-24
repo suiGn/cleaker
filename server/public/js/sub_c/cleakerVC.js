@@ -43,7 +43,7 @@ cleakerRM **/
         }
 		//TYPES OF WS PACKETS FROM SERVER
          if (json.type === 'validDataRes'){
-        	validDataRes(json.value, json.rcolor, json.input, json.label);
+        	validDataRes(json.value, json.rcolor, json.input, json.label, json.check);
         }
 			};// ON Incoming Messages Closure
 	
@@ -59,26 +59,46 @@ cleakerRM **/
 	//  LOVE & Memories AFTER ALL.
     /***/
 		
-				
-		
 		function validData(data, value){
-		connection.send(JSON.stringify({clkcd: data , value: value}));
+		connection.send(JSON.stringify({clkcd: "subVer" , value: value , code: data}));
 		}
-		function validDataRes(value, rcolor, input, label){
+		function validDataRes(value, rcolor, input, label, check){
 		$(label).text(value);
-		document.getElementById(input).style.borderColor = rcolor;	
+		document.getElementById(input).style.borderColor = rcolor;
+		document.getElementById(input).dataset.check = check;		
 		}
 		
-	 function validateForm() {
-		 var subPwd = document.forms["subForm"]["subPwd"].value;
-		 var subRtPwd = document.forms["subForm"]["subRtPwd"].value;
-	   if (subRtPwd != subPwd){
-		   alert("Password does not match!");
+   	 function validateForm() {
+		 var subName = document.forms["subForm"]["subName"];
+		 var subUsername = document.forms["subForm"]["subUsername"];
+		 var subEmail = document.forms["subForm"]["subEmail"];
+   		 var subPwd = document.forms["subForm"]["subPwd"];
+   		 var subRtPwd = document.forms["subForm"]["subRtPwd"];
+   	   if (subRtPwd.value != subPwd.value){
+   		   alert("Password does not match!");
+   		   return false;
+   	   }else if (subPwd.length <= 5) {
+		   alert("Password most be 5 characters or more.");
 		   return false;
-	   }else {
-		   return true;		
-		 }  
-	 }
+		}else if (subName.dataset.check === "ni") {
+		   alert("Invalid Name!");
+		   return false;
+		}else if (subUsername.dataset.check === "ui") {
+		   alert("Invalid Username!");
+		   return false;  	   
+   	   }else if (subUsername.dataset.check === "ut") {
+		   alert("Username already taken!");
+		   return false;
+   	   }else if (subEmail.dataset.check === "ei") {
+		   alert("Invalid Email!");
+		   return false;
+	   }else if (subEmail.dataset.check === "et") {
+		   alert("Email already taken!");
+		   return false;
+	   }else{
+   		   return true;		
+   		 }  
+   	 }
 	 
 	 var i = 0;
 	 var speed = 50; /* The speed/duration of the effect in milliseconds */
@@ -90,6 +110,19 @@ cleakerRM **/
 	     setTimeout(typeWriter, speed);
 	   }
 	 }
+	 
+	 
+	function pwdMatch(){
+	 	//var subPwd = document.forms["subForm"]["subPwd"];
+	 	//var subRtPwd = document.forms["subForm"]["subRtPwd"];
+	 		//if (subPwd.value === subRtPwd.value){
+	 			//subPwd.style.borderColor = "#39D1BB";
+	 		    //subRtPwd.style.borderColor = "#39D1BB";
+	 			 //}else if (subPwd.value != subRtPwd.value){
+	 			 //subPwd.style.borderColor = "#ff6666";
+	 			 //subRtPwd.style.borderColor = "#ff6666";
+	 			//}
+	 				}
 	 
 	 function onSubscribe(val){
 		 if (val == "subOpen"){
