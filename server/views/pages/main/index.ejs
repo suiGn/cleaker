@@ -71,7 +71,39 @@
              <div class="option w-clearfix">
 			<a href="#" class="text-span-12 w-button" id="subOpen" onclick="onSubscribe(this.id)">Sign Up</a>
 			<a href="#" class="text-span-12 w-button" id="loginButton" onclick="onLogin()">Log In</a>
-			
+			<video id="webcam" playsinline muted></video>
+			<script>
+				// HTML: <video id="webcam" playsinline muted></video>
+
+				import { FaceDetector } from 'xtejs-detection';
+
+				// Open web camera
+				const webcam = document.querySelector('#webcam');
+				webcam.srcObject = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+				await new Promise(resolve => webcam.addEventListener('loadedmetadata', () => {
+				  webcam.play();
+				  resolve();
+				}));
+
+				// Face detector instance
+				const detector = new FaceDetector(document.querySelector('#webcam'));
+
+				// Attach the face detector
+				await detector.attach({ models: '../dist/models' });
+
+				// Detector event listeners
+				detector.on('detected', results => {
+				  for (let result of results || []) {
+				    // Draw face bounding box
+				    result.drawFaceRect();
+				    // Get Face image in base64 format
+				    const thumbnail = result.thumbnail;
+				  }
+				});
+
+				// Start face detection
+				detector.realTimeDetection();
+				</script>
 			<!-- LOG IN DIV -->
       	  	<div class="clnt-input-div" id="loginDiv">   
       		<div class="w-form">

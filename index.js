@@ -30,7 +30,7 @@ var uuid = require('node-uuid');
 const { Client } = require('pg');
 const theVault = new Client({
 connectionString: "postgres://csicplnifqncpc:ce12c51c83e437148779a4f7e0d508722f0a5ce9f05f894f9b6f88b9f2d9b3f9@ec2-174-129-253-53.compute-1.amazonaws.com:5432/d70qi6m3chd89a",
-ssl: true,
+ssl: { rejectUnauthorized: false }
 });
 theVault.connect();
 
