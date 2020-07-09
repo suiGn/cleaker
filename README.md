@@ -9,7 +9,7 @@
       [/-.^.-\]jgs(_|
      .'{  ~  }'-._/| \
     /  {     }  . || |
-	collective consciousness...
+	collective consciousness.
 	
 # SUM
 	- cleaker.me
