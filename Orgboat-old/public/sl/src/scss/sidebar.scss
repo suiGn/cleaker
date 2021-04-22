@@ -1,0 +1,148 @@
+.sidebar-group {
+
+	display: flex;
+	flex-direction: column;
+
+	.sidebar {
+		&:not(.active) {
+			display: none;
+		}
+
+		background: white;
+		border-radius: 5px;
+		overflow: hidden;
+		width: 350px;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+
+		& > header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 30px;
+			height: 80px;
+			font-weight: 600;
+			border-radius: 0;
+
+			& > span {
+				font-size: 22px;
+			}
+
+			ul {
+				margin-bottom: 0;
+
+				li {
+					margin-bottom: 0;
+				}
+
+				a {
+
+				}
+			}
+		}
+
+		& > form {
+			padding: 17px 30px;
+
+			.form-control {
+				border-radius: 5px;
+				height: auto;
+				border: 1px solid $style-color;
+				padding: 10px 15px;
+			}
+		}
+
+		& .sidebar-body {
+			flex: 1;
+			overflow: auto;
+		}
+
+		.list-group-item {
+			padding: 17px 30px;
+			display: flex;
+			cursor: pointer;
+
+			&.open-chat {
+				background-color: $style-color + 10;
+
+				.users-list-body {
+					p {
+						font-weight: 600;
+						color: black + 100
+					}
+				}
+			}
+
+			figure {
+				margin-right: 1rem;
+			}
+
+			.users-list-body {
+				flex: 1;
+				position: relative;
+				min-width: 0px;
+				display: flex;
+
+				& > div:first-child {
+					min-width: 0;
+					display: flex;
+					flex-direction: column;
+					flex: 1;
+				}
+
+				h5 {
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					font-size: $default-font-size + 2;
+					font-weight: 500;
+					margin-bottom: .2rem;
+				}
+
+				p {
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					margin-bottom: 0;
+					color: black + 150
+				}
+
+				.users-list-action {
+					padding-left: 15px;
+
+					[data-toggle="dropdown"] {
+						i {
+							font-size: $default-font-size + 4;
+						}
+					}
+
+					.new-message-count {
+						width: 23px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						line-height: 0;
+						font-size: $default-font-size - 1;
+						height: 23px;
+						background-color: $color-primary;
+						color: white;
+						border-radius: 50%;
+						margin-left: auto;
+					}
+
+					.action-toggle {
+						opacity: 0;
+						text-align: right;
+					}
+				}
+			}
+
+			&:hover {
+				.users-list-action .action-toggle {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}

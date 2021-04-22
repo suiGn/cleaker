@@ -1,133 +1,68 @@
-                  .---.
-                 /.'-'.\
-                 \\ c ||
-         /^\    ._).-'.'
-       .'_|_'.     ()`
-      <   |   >    ||
-       \_____/     ||
-       [/0 0\]     ||
-      [/-.^.-\]jgs(_|
-     .'{  ~  }'-._/| \
-    /  {     }  . || |
-	collective consciousness.
-	
-# SUM
-	- cleaker.me
-	- What do you want to want?
-	- get.run.manage your own data.
-	- Connect to the Vault,
-	  - Build collections:
-	      *Decide your sources of information.
-		
-                                    GUI MAP
-	________________________-------------------------______________________
-		
-	Profile [Inf.]     -           Followers 	 -        Following 	
-	|			 	 |			      |
-	The Vault		     See public		           See public
-	|			   && custom Collections.     	&& custom Collections
-	See All			
-	|
-	Default			
-	|			------->> Pin Vaults
-	collection/1-Private	<<------  ""
-	|
-	collection/2-Public	------------------------------>> Pin Vaults
-	|			<<-----------------------------   ""
-	collection/3-Custom
-	
-	---------------------------____________________---------------------------
-	Messages && Channels
-	Profiles
-	Vault Likes and Pins
-	Custom Searches:
-	              Search in all cleaker -> m.L suggestions.
-		      Search in scope -> Set by user.
-	
-	
-   
-# I Array Cleaker 
-		var cleaker ={    
-				uuid: myUUID,
-				onDate: new Date(),
-				timezone:(new Date()).getTimezoneOffset()/60,
-				returningVisitor: "no",
-				//tdyvisits: 0,
-				//ystvisits: 'x',
-				//wklyVisits: 'x',
-				//mnthlyVisits: 'x',
-				//CookiesOn: 'yes',
-				usrname: 'usrname',
-				pushNotifications: 'yes',
-				locationPath: window.location.pathname,
-				locationOrigin: location.origin,
-				usrCountry: data.country,
-				usrRegion: data.region,
-				usrISP: data.isp,
-				usrCity: data.city,
-				usrLat: data.lat,
-				usrLon: data.lon,
-				ipQuery: data.query,
-				refer: document.referrer,
-				previous: history.length,
-				language: navigator.language,
-				browserOnline: navigator.onLine,
-				browser: navigator.platform,
-				js: navigator.javaEnabled(),
-				cookiesEnabled: navigator.cookieEnabled,
-				cookies: document.cookie,
-				mon: 'yes',
-				sessionClosed: 'I am',
-				sessionDuration:'00:00:00',
-				number: '000000000000000000001'
-				  };
-	
-#JS Client site Connection Installer:
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-<script src="https://cleaker.me/js/sub_c/cleaker.js"></script>
+## Available Scripts
 
-			-- client side ws connection to server.
-			var cookieCleaker = JSON.stringify(cleaker);
-								ws.send(JSON.stringify({clkcd: 'onCleaker' , cleaker: cleaker}));
-							        }
-# WebSocket - Server Initiation
-var wsServer = new webSocketServer({
- httpServer: server
-			});
-			
-#ELEMENTS
-	views/partials/elements :
-	 Inputs, buttons, icons, signals:
-			 <% include ../../partials/elements/input-c.ejs %>
-			 
-			 
-#POSTULATES
-Map intelectual criteria for accurate individual value on collective desicions.	
-ISAAC ASIMOV - DEMOCRACY MEANS MY IGNORANCE IS AS VALUABLE AS YOUR KNOWLEDGE.	 
- /* 
-set user iq
-userUniverse = userCount - the vault - DB select users with IQ SET
-var averageIQ = userCount / iqSUM;
-console.log("average IQ is:" averageIQ);
-*/
-			
-			
-## CODED BY 
+In the project directory, you can run:
 
-         _______/
-        |.-----.|
-        ||0 . 0||
-        ||_._._||
-        `--)-(--`
-       __[+++ s2]__
-      |:::::::::::|
-      '-=========-
-	  SUI GN.
-	  Git ++ Heroku
-	  	  
-  	Art[iculos] de programaci[on]
-  	Art On
-	  
+### `npm start`
 
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

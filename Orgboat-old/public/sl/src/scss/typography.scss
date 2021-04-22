@@ -1,0 +1,119 @@
+body {
+	background-color: white;
+	font-family: 'Inter', sans-serif;
+	font-size: $default-font-size;
+
+	&:not(.form-membership) {
+		overflow: hidden
+	}
+}
+
+.btn {
+	border-color: transparent;
+}
+
+.btn-primary {
+	background-color: $color-primary;
+}
+
+a {
+	color: $color-primary;
+
+	&:hover, &:focus {
+		text-decoration: none;
+		outline: none;
+		color: $color-primary - 30;
+	}
+}
+
+.form-control {
+	font-size: $default-font-size;
+}
+
+.page-loading {
+	position: fixed;
+	bottom: 0;
+	top: 0;
+	right: 0;
+	left: 0;
+	background-color: white;
+	z-index: 999;
+}
+
+.btn-icon {
+	margin-right: .5rem;
+}
+
+.list-group-item {
+	background-color: inherit;
+	border-color: white - 20
+}
+
+ul.list-inline {
+	.list-inline-item {
+		margin-bottom: .5rem;
+
+		&:not(:last-child) {
+			margin-right: 0;
+		}
+	}
+
+	&:not(.social-links) {
+		.list-inline-item {
+			margin-left: .5rem;
+		}
+	}
+
+	&.social-links {
+		.list-inline-item {
+			margin-right: .5rem;
+			margin-bottom: .6rem;
+		}
+	}
+}
+
+.files {
+	ul.list-inline {
+		display: flex;
+		overflow-x: auto;
+
+		.list-inline-item {
+			margin-left: 0;
+			margin-right: .5rem;
+		}
+	}
+}
+
+.connection-error {
+	svg {
+		margin: 30px 0;
+		height: 100px;
+		width: 100%;
+
+		path, circle, polygon {
+			fill: $color-danger;
+		}
+	}
+}
+
+.form-control {
+	border-radius: 5px;
+
+	&:focus {
+		box-shadow: none;
+		border-color: $color-primary !important;
+	}
+}
+
+.custom-control-label {
+	line-height: 25px;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+	background-color: $color-primary;
+	border-color: $color-primary;
+}
+
+.sticky-top {
+	position: sticky !important;
+}

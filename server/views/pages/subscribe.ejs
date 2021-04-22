@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Subscribe</title>
+     <% include ../partials/w_header.ejs %>
+	 <style>
+	     .form-label{
+	   	  padding-left: 42px;
+	   	  font-family: Roboto, sans-serif;
+	   	  font-size: 13px;
+	   	  font-weight:400;
+	   	  margin-bottom: 2px;
+		  color: #ff6666;
+	     }
+		 </style>
+</head>
+<body class="body-8">
+  <% include ../partials/w_nav_lgOut.ejs %>
+  
+<div class="sign-up-div-2">
+<h1 class="fingertipsslogan-2 login-head-form reg">SIGN UP</h1>
+<div class="w-form">
+	
+<form id="email-form-3" name="subForm" data-name="Subscribe Form" class="form-register-2" action="/subscribing" method="post" onsubmit="return validateForm()">
+	
+<label class="form-label" id="#labelName"></label>
+<input type="text" id="inputName" name="subName" placeholder="Full Name" maxlength="21" class="start-form-2 w-input" onchange="validData('vName', this.value)" required>
+
+<label class="form-label" id="labelEmail"></label>
+<input type="text" id="inputEmail" name="subEmail" placeholder="E-mail" maxlength="34" class="start-form-2 w-input" onchange="validData('vEmail', this.value)" required>
+
+<label class="form-label" id="labelUsername"></label>
+<input type="text" id="inputUsername" name="subUsername" placeholder="Username" maxlength="11" class="start-form-2 w-input" onchange="validData('vUser', this.value)" required>
+
+<label class="form-label"></label>
+<input type="password" id="pwd-2" name="subPwd" placeholder="Password" maxlength="21" class="start-form-2 w-input" required>
+
+<label class="form-label"></label>
+<input type="password" id="pwd-3" name="subRtPwd" placeholder="Re-type Password" maxlength="21" class="start-form-2 w-input" required>
+      
+<label class="form-label" id="labelUsername"><%= opt %></label>
+   
+<div class="login-form-footer-2">
+By registering you are agreeing to our terms and conditions.
+</div>
+<input type="submit" value="Register" data-wait="Please wait..." class="button w-button">
+</form>
+
+      <div class="w-form-done">
+        <div>Thank you! Your submission has been received!</div>
+      </div>
+     
+    </div>
+	
+	<img src="w/imgs/nat_logo.png" width="55" alt="" class="img-neurons">
+    <div class="login-form-footer-2 foot2">
+		<a href="#" class="login-form-footer-2 footer2">By Neurons Art &amp; Technology</a>
+	</div>
+  </div>
+ 
+  <% include ../partials/w_footer.ejs %>
+  
+  
+  <script>
+	  
+	   var socket = io(); 
+	    //socket.emit("subscribingData", data);	
+		socket.on('subData', function (json) { 
+		 var data = JSON.parse(json);
+		validDataRes(data.value, data.rcolor, data.input, data.label, data.check);
+			});
+		function validData(data, value){
+		socket.emit("subscribingData", JSON.stringify({value: value , code: data}));
+		}	
+		function validDataRes(value, rcolor, input, label, check){
+		$(label).text(value);
+		document.getElementById(input).style.borderColor = rcolor;
+		document.getElementById(input).dataset.check = check;		
+		}
+		
+		//VALIDATE FORM CLIENT SIDE
+    	 function validateForm() {
+ 		 var subName = document.forms["subForm"]["subName"];
+ 		 var subUsername = document.forms["subForm"]["subUsername"];
+ 		 var subEmail = document.forms["subForm"]["subEmail"];
+    		 var subPwd = document.forms["subForm"]["subPwd"];
+    		 var subRtPwd = document.forms["subForm"]["subRtPwd"];
+    	   if (subRtPwd.value != subPwd.value){
+    		   alert("Password does not match!");
+    		   return false;
+    	   }else if (subPwd.length <= 4) {
+ 		   alert("Password most be 5 characters or more.");
+ 		   return false;
+ 		}else if (subName.dataset.check === "ni") {
+ 		   alert("Invalid Name!");
+ 		   return false;
+ 		}else if (subUsername.dataset.check === "ui") {
+ 		   alert("Invalid Username!");
+ 		   return false;  	   
+    	   }else if (subUsername.dataset.check === "ut") {
+ 		   alert("Username already taken!");
+ 		   return false;
+    	   }else if (subEmail.dataset.check === "ei") {
+ 		   alert("Invalid Email!");
+ 		   return false;
+ 	   }else if (subEmail.dataset.check === "et") {
+ 		   alert("Email already taken!");
+ 		   return false;
+ 	   }else if (subName.length <= 3 || subUsername.length <= 5 || subEmail.length <= 3 ) {
+ 		   alert("Please fill out fields correctly.");
+ 		   return false;
+ 		}else{
+    		   return true;		
+    		 }  
+    	 }
+	 
+	 </script>
+</body>
+</html>

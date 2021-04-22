@@ -1,0 +1,89 @@
+nav {
+	&.navigation {
+		background: white;
+		border-right: 1px solid white - 20;
+
+		.nav-group {
+			width: 100px;
+		}
+
+		ul {
+			height: 100vh;
+			height: calc(var(--vh, 1vh) * 100);
+			display: flex;
+			flex-direction: column;
+			padding: 0;
+			margin: 0;
+
+			li {
+				list-style: none;
+
+				&:not(.logo) {
+					margin: 5px 20px;
+
+					& > a {
+						border-radius: 7px;
+					}
+				}
+
+				& > a {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: 15px 0;
+					color: black + 130;
+					position: relative;
+					transition: all .3s;
+
+					svg {
+						width: 18px;
+						height: 18px;
+					}
+
+					.badge {
+						content: '';
+						display: block;
+						width: 8px;
+						height: 8px;
+						padding: 0;
+						border-radius: 50%;
+						position: absolute;
+						top: 10px;
+						right: 10px;
+					}
+
+					&.active {
+						background-color: $style-color;
+						color: $color-primary;
+					}
+
+					&:hover, &:focus {
+						color: $color-primary
+					}
+
+					i {
+						font-size: $default-font-size + 5;
+					}
+				}
+
+				&.logo a {
+					margin-bottom: 1rem;
+					height: 80px;
+
+					svg {
+						width: 30px;
+						height: 30px;
+
+						path {
+							fill: $color-primary;
+						}
+					}
+				}
+
+				&.brackets {
+					flex: 1
+				}
+			}
+		}
+	}
+}

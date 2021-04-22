@@ -1,0 +1,45 @@
+body.form-membership {
+	padding: 3rem 0;
+
+
+	.form-wrapper {
+		border: 1px solid $style-color;
+		background-color: white;
+		padding: 3rem;
+		border-radius: 5px;
+		width: 430px;
+		margin: 50px auto;
+		text-align: center;
+
+		.logo {
+			background-color: white;
+			width: 100px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100px;
+			text-align: center;
+			margin-bottom: 2rem;
+			margin-top: -100px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 20px;
+		}
+
+		h5 {
+			text-align: center;
+			margin-bottom: 2rem;
+		}
+
+		form {
+			.form-control {
+				margin-bottom: 1.5rem;
+			}
+		}
+
+		hr {
+			margin: 2rem 0;
+		}
+	}
+}

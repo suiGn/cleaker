@@ -1,0 +1,335 @@
+$dark-mode: #212124;
+$dark-mode-light: $dark-mode + 15;
+$dark-mode-message: #f3c96e;
+$dark-mode-outgoing: #3cdbc3;
+
+body.dark {
+  background-color: $dark-mode;
+  color: rgba(white, 0.75);
+
+  .reactour__helper {
+    background: $dark-mode-light;
+  }
+
+  .text-muted {
+    color: rgba(white, 0.4) !important;
+  }
+
+  .btn {
+    &.btn-light {
+      background-color: $dark-mode;
+      border-color: $dark-mode-light + 20;
+      color: rgba(white, 0.75);
+
+      &:hover,
+      &:focus {
+        background-color: $dark-mode-light !important;
+        border-color: $dark-mode-light + 20 !important;
+        color: rgba(white, 0.75) !important;
+      }
+    }
+
+    &.btn-outline-light {
+      border-color: $dark-mode-light;
+      color: rgba(white, 0.75);
+
+      &:hover,
+      &:focus {
+        background-color: $dark-mode-light !important;
+        border-color: $dark-mode-light + 20 !important;
+        color: rgba(white, 0.75) !important;
+      }
+    }
+
+    &.btn-link {
+      color: $color-primary;
+    }
+  }
+
+  .form-control {
+    border-color: $dark-mode-light + 10 !important;
+    background-color: $dark-mode !important;
+
+    &:focus {
+      border-color: $color-primary !important;
+    }
+  }
+
+  nav.navigation {
+    background-color: $dark-mode;
+    border-right-color: $dark-mode-light;
+    border-left-color: $dark-mode-light;
+    border-top-color: $dark-mode-light;
+    border-bottom-color: $dark-mode-light;
+    ul {
+      li {
+        & > a {
+          color: rgba(white, 0.7);
+
+          &:hover,
+          &:focus {
+            background-color: #293145;
+          }
+
+          &.active {
+            background-color: #2c2b30;
+          }
+        }
+      }
+    }
+  }
+
+  .nav.nav-tabs .nav-item .nav-link {
+    color: rgba(white, 0.75);
+  }
+
+  .layout {
+    .content {
+      .sidebar-group {
+        .sidebar {
+          background-color: $dark-mode;
+
+          .list-group-item {
+            &.open-chat {
+              background-color: $dark-mode-light - 10;
+            }
+          }
+
+          .list-group-item .users-list-body {
+            p {
+              color: rgba(white, 0.4);
+            }
+          }
+        }
+      }
+
+      .sidebar-chat {
+        order: 2;
+        border-top: 1px solid $style-color;
+        border-bottom: 1px solid $style-color;
+        border-bottom-color: $dark-mode-light;
+        border-top-color: $dark-mode-light;
+      }
+      
+
+      .sidebar-profile {
+        border-top: 1px solid $style-color;
+        border-bottom: 1px solid $style-color;
+        border-right: 1px solid $style-color;
+        border-bottom-color: $dark-mode-light;
+        border-top-color: $dark-mode-light;
+        border-right-color: $dark-mode-light;
+      }
+
+      .chat {
+        border-right-color: $dark-mode-light;
+        //border-right-color: transparent;
+        border-left-color: $dark-mode-light;
+        border-bottom-color: $dark-mode-light;
+        border-top-color: $dark-mode-light;
+
+        .chat-header {
+          border-bottom-color: $dark-mode-light;
+          .chat-header-user {
+            color: rgba(white, 0.7);
+          }
+          .close-preview svg {
+            color: white;
+          }
+        }
+
+        .chat-body {
+          .messages {
+            .message-item {
+              .message-content {
+                background-color: $dark-mode;
+                border: 0.5px solid $dark-mode-message;
+                .favorite-message {
+                  svg {
+                    color: $dark-mode-message;
+                  }
+                }
+                .time {
+                  color: #828282;
+                }
+                .action-dropdown-chat:hover {
+                  .dropdown-view {
+                    display: block;
+                    background-color: rgba($dark-mode, 0.5);
+                  }
+                }
+              }
+              &:not(.outgoing-message) {
+                .message-content {
+                  border: 0.5px solid $dark-mode-outgoing;
+                  .favorite-message {
+                    svg {
+                      color: $dark-mode-outgoing;
+                    }
+                  }
+                }
+              }
+              &.messages-divider:before {
+                background-color: $dark-mode-light;
+              }
+              .found {
+                animation: found_message_dark 2s normal forwards ease-in-out;
+                border-radius: 8px;
+              }
+            }
+          }
+        }
+
+        .chat-footer {
+          border-top-color: $dark-mode-light;
+        }
+      }
+    }
+  }
+
+  &.rtl {
+    .navigation {
+      border-left-color: $dark-mode-light;
+    }
+
+    .layout {
+      .content {
+        .sidebar-group {
+          .sidebar {
+            .list-group-item .users-list-body {
+              .users-list-action {
+                box-shadow: 8px 1px 10px 5px $dark-mode !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .modal-content {
+    background-color: $dark-mode;
+  }
+
+  .list-group-item {
+    border-color: $dark-mode-light;
+  }
+
+  .dropdown-menu {
+    background-color: $dark-mode-light;
+    border-color: transparent;
+
+    .dropdown-divider {
+      border-color: $dark-mode-light + 15;
+    }
+
+    .dropdown-item {
+      color: rgba(white, 0.7);
+
+      &:focus,
+      &:hover,
+      &:active {
+        background-color: $dark-mode-light + 10;
+      }
+    }
+  }
+
+  .tooltip .tooltip-inner {
+    background-color: rgba(white, 0.3);
+  }
+
+  input[type="text"],
+  textarea,
+  select {
+    background-color: $dark-mode-light;
+    color: rgba(white, 0.7);
+    border-color: $dark-mode + 40;
+
+    &:focus {
+      color: rgba(white, 0.7);
+      background-color: $dark-mode-light;
+      border-color: $dark-mode + 100;
+    }
+
+    &::placeholder {
+      color: rgba(white, 0.5);
+    }
+  }
+
+  .custom-control-label::before {
+    background-color: $dark-mode-light;
+    border-color: $dark-mode + 40;
+  }
+
+  .input-group-text {
+    background-color: $dark-mode;
+    color: rgba(white, 0.7);
+    border-color: $dark-mode + 40;
+  }
+
+  .nav-tabs .nav-link.active {
+    border-color: $dark-mode-light;
+    border-bottom-color: $dark-mode;
+    background-color: $dark-mode;
+    color: rgba(white, 0.7);
+  }
+
+  .nav-tabs .nav-link:hover,
+  .nav-tabs .nav-link:focus {
+    border-color: $dark-mode-light;
+    border-bottom-color: $dark-mode;
+  }
+
+  .nav-tabs {
+    border-bottom-color: $dark-mode-light;
+  }
+
+  .custom-file-label {
+    background-color: $dark-mode-light;
+    border-color: $dark-mode + 40;
+    color: rgba(white, 0.7);
+
+    &:after {
+      background-color: $dark-mode;
+      color: rgba(white, 0.7);
+    }
+  }
+
+  figure.avatar.avatar-state-danger:before,
+  figure.avatar.avatar-state-dark:before,
+  figure.avatar.avatar-state-info:before,
+  figure.avatar.avatar-state-light:before,
+  figure.avatar.avatar-state-primary:before,
+  figure.avatar.avatar-state-secondary:before,
+  figure.avatar.avatar-state-success:before,
+  figure.avatar.avatar-state-warning:before {
+    border-color: $dark-mode;
+  }
+
+  .avatar-group {
+    .avatar {
+      border-color: $dark-mode-light;
+    }
+  }
+
+  .modal-content {
+    .avatar-group {
+      .avatar {
+        border-color: $dark-mode;
+      }
+    }
+  }
+}
+
+/* Animation */
+
+@keyframes found_message_dark {
+  from {
+    box-shadow: 0 0 17px 0px #ffffff29;
+    background-color: #303033;
+  }
+  to {
+    box-shadow: 0 0 0px 0px #ffffff29;
+    background-color: #212124;
+  }
+}

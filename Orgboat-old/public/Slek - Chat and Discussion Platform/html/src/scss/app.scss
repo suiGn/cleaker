@@ -1,0 +1,85 @@
+@import "../../dist/fonts/inter-ui/inter.css";
+@import url(../../dist/icons/themify/themify-icons.css);
+@import url(../../dist/icons/font-awesome/css/font-awesome.min.css);
+@import "vars";
+@import "color";
+@import "button";
+@import "typography";
+@import "dropdown-menu";
+@import "avatar";
+@import "modal";
+@import "tab";
+@import "badge";
+@import "navigation";
+@import "rtl";
+@import "dark";
+@import "membership";
+
+.alert {
+	border: none;
+}
+.enjoyhint {
+	z-index: 9999;
+}
+
+.enjoyhint_next_btn,
+.enjoyhint_skip_btn,
+.enjoyhint_close_btn {
+	border-color: $color-primary;
+	color: white;
+
+	&:hover, &:active, &:focus {
+		border-color: $color-primary;
+		background-color: $color-primary;
+	}
+}
+
+.input-group {
+	svg {
+		width: 16px;
+		height: 16px;
+	}
+
+	.input-group-text {
+		font-size: $default-font-size;
+	}
+}
+
+.tooltip {
+	.arrow {
+		display: none;
+	}
+
+	.tooltip-inner {
+		background-color: rgba(black, .5);
+	}
+}
+
+.sticky-top {
+	z-index: auto;
+}
+
+.tab-content {
+	padding-top: 30px;
+
+	.form-item {
+		margin-bottom: .8rem;
+	}
+}
+
+.layout {
+	height: 100vh;
+	height: calc(var(--vh, 1vh) * 100);
+	display: flex;
+
+	.content {
+		display: flex;
+		flex: 1;
+
+		@import "sidebar";
+
+		@import "chat";
+	}
+}
+
+@import "responsive";

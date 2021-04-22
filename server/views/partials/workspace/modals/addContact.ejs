@@ -1,0 +1,51 @@
+<div
+  class="modal fade"
+  id="addFriends"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-zoom"
+    role="document"
+  >
+    <div class="modal-content" id="modal-addcontact">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i data-feather="user-plus" class="mr-2"></i> Add Contact
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="ti-close"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--<div class="alert alert-info">Send invitations to Contact.</div>-->
+        <form>
+          <div class="form-group">
+            <label for="emails" class="col-form-label"
+              >Search by Email or Username</label
+            >
+            <input type="text" class="form-control" id="emails" />
+          </div>
+        </form>
+      </div>
+      <div>
+        <ul class="list-group list-group-flush" id="searchusers-list"></ul>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="SearchUserByEmailOrUserName()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
