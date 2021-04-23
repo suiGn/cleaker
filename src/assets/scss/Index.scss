@@ -308,7 +308,9 @@
 
       .chat-body {
         flex: 1;
-        padding: 5em;
+        padding-left: 5em;
+        padding-right: 5em;
+        padding-top: 5em;   
         .video-container-preview{
           width: 400px;
         }
@@ -577,8 +579,9 @@
 
       @media screen and (max-width: 1200px) {
         .chat-body {
-          padding: 4.5em;
-        }
+          padding-left: 4.5em;
+          padding-right: 4.5em;
+          padding-top: 4.5em;           }
       }
 
       @media screen and (max-width: 900px) {
@@ -751,8 +754,12 @@
       max-width: 80%;
       margin-top: 2em;
   }
+
+  #root {
+    margin: -1em;
+  }
   .layout {
-    height: calc(var(--vh, 1vh) * 93);
+    height: calc(var(--vh, 1vh) * 97);
   }
 
   .navigation ul {

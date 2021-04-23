@@ -157,11 +157,19 @@
   }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1200px) {
   body:not(.rtl),
   body {
     .sidebar-group {
       width: 45%;
+    }
+  }
+
+  .layout {
+    .content {
+      .chat {
+        height: calc(100% - 80px);
+      }
     }
   }
 }
