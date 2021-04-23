@@ -659,3 +659,4 @@
 {"message":"[Socket.io] - Connected user: jonm, u_id: 507999cf-3e47-41c8-97a3-c4c4f4107f51","level":"info"}
 {"message":"[Socket.io] - Connected user: jonm, u_id: 507999cf-3e47-41c8-97a3-c4c4f4107f51","level":"info"}
 {"message":"[Socket.io] - Connected user: jonm, u_id: 507999cf-3e47-41c8-97a3-c4c4f4107f51","level":"info"}
+{"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
