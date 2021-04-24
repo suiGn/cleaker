@@ -221,6 +221,7 @@ function Layout(props) {
           clicked={clicked}
           chat={chat}
           my_uid={my_uid}
+          setClicked={setClicked}
         />
         <TourModal />
         <DisconnectedModal />

@@ -224,6 +224,20 @@ function ProfileGroup(props) {
     )
   }
 
+  function ExitGroup(chat){
+    var remove = 
+    {
+      chat_uid: props.group.id,
+      u_id: props.my_uid.id
+    }
+    socket.emit("RemoveGroupMember", remove );
+    socket.once("retrive RemoveGroupMember", function (data) {
+      setOpenGroupProfile(!openGroupProfile);
+      socket.emit("get chats");
+      props.setClicked([]);
+    });
+  }
+
   return (
     <div
       className={`sidebar-group ${openGroupProfile ? "mobile-open" : ""}`}
@@ -378,6 +392,10 @@ function ProfileGroup(props) {
                           key={i}
                         />
                       ))}  
+                      <li  onClick={(e) => ExitGroup(e)} className="list-group-item">
+                      <FeatherIcon.LogOut />
+                        Exit group
+                      </li>
                       </ul>
                     </PerfectScrollbar>
                   </div>        
@@ -388,16 +406,16 @@ function ProfileGroup(props) {
                   </h6>
                   <div>
                     <ul className="list-group list-group-flush">
-                    {files.map((message, i) => (
-                      <li className="list-group-item">
-                        <ModalImage
-                          small={message.message}
-                          large={message.message}
-                          alt="image"
-                        />
-                      </li>
-                      ))
-                    }
+                      {files.map((message, i) => (
+                        <li className="list-group-item">
+                          <ModalImage
+                            small={message.message}
+                            large={message.message}
+                            alt="image"
+                          />
+                        </li>
+                        ))
+                      }
                     </ul>
                   </div>
                 </TabPane>
