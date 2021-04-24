@@ -12,6 +12,11 @@
 @import "Other";
 @import "Rtl";
 
+
+.h-100 {
+  height: 85%!important;        
+}
+
 .layout {
   height: 100vh;
   display: flex;
@@ -581,7 +586,8 @@
         .chat-body {
           padding-left: 4.5em;
           padding-right: 4.5em;
-          padding-top: 4.5em;           }
+          padding-top: 4.5em;           
+        }
       }
 
       @media screen and (max-width: 900px) {
