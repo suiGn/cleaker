@@ -126,6 +126,12 @@
           display: flex;
           cursor: pointer;
 
+          .group-member-list-dropdown{
+            position: absolute;
+            left: 260px;
+            bottom: 70px;
+          }
+
           &.open-chat {
             background-color: $style-color + 10;
 

@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from "reactstrap";
 import * as FeatherIcon from "react-feather";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { groupProfileAction } from "../../Store/Actions/groupProfileAction";
 import classnames from "classnames";
 import axios from "axios";
 import ModalImage from "react-modal-image";
+import ProfileDropdown from "./ProfileDropdown.js";
 
 function ProfileGroup(props) {
   const { socket } = props;
@@ -186,6 +186,7 @@ function ProfileGroup(props) {
 
   const MemberView = (props) => {
     const { chat } = props;
+    const { key } = props;
     let p = "";
     let chat_initial = chat.name.substring(0, 1);
     if (chat.pphoto === "" || chat.pphoto === null) {
@@ -204,12 +205,18 @@ function ProfileGroup(props) {
               <figure className="avatar">{p}</figure>
             </div>
             <div className="users-list-body">
-              <div i={chat.chat_uid}>
+              <div i={key}>
                 <h5
-                  i={chat.chat_uid}
+                  i={key}
                 >
                   {chat.name}
                 </h5>
+              </div>
+              <div className="group-member-list-dropdown">
+                <ProfileDropdown
+                  chat={chat}
+                  socket={socket}
+                />
               </div>
             </div>
           </div>

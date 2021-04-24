@@ -220,6 +220,7 @@ function Layout(props) {
           group={group}
           clicked={clicked}
           chat={chat}
+          my_uid={my_uid}
         />
         <TourModal />
         <DisconnectedModal />
