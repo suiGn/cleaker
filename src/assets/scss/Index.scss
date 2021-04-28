@@ -786,3 +786,12 @@
 }
 
 @import "Responsive";
+
+
+
+@media screen and (max-width: 900px) {
+  .nav-hide {
+    display: none;
+  } 
+}
+

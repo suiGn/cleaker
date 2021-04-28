@@ -108,6 +108,8 @@ function Index(props) {
   let my_uid = chatLists.my_uid;
 
   function setClickedValue(e, chat) {
+    var element = document.getElementById("menu-hide");
+    element.classList.add("nav-hide");
     e.preventDefault();
     chat.unread_messages = 0;
     setClicked(chat);
