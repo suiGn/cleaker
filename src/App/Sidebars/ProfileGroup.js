@@ -239,23 +239,21 @@ function ProfileGroup(props) {
     socket.emit("get group contacts");
     socket.once("retrieve groups", (contacts)=>{
       var chats = contacts.chats.filter((chats)=>{
-          return (
-            !chats.user_chat.includes(contacts.my_uid) && chats.chat_type != 1
-          );
-        })
-      var myArray = chats.filter( ( chat ) =>{
-        members.forEach(element => {
-          if(chat.user_chat==element.user_chat){
-            
-          }else{
-            return chat
-          }
-        });
+        return (
+          !chats.user_chat.includes(contacts.my_uid) && chats.chat_type != 1
+        );
+      })
+      var arrayMembers = chats.filter( function( item ) {
+        for( var i=0, len=members.length; i<len; i++ ){
+            if( members[i].user_chat == item.user_chat ) {
+                return false;
+            }
+        }
+        return true;
       });
-      //console.log(myArray)
       contacts.chats = chats;
       setUid(contacts.my_uid);
-      setChooseFriend(chats);
+      setChooseFriend(arrayMembers);
       setModalFriend(!modalFriend);
     });
   }
