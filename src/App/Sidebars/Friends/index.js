@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import * as FeatherIcon from "react-feather";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import AddFriendsModal from "../../Modals/AddFriendModal";
 import FriendsDropdown from "./FriendsDropdown";
 import { mobileSidebarAction } from "../../../Store/Actions/mobileSidebarAction";
 import { Button } from "reactstrap";

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from "reactstrap";
+import { TabContent, TabPane, Nav, NavItem, NavLink, Button,
+  Modal,ModalHeader,ModalBody,ModalFooter,FormGroup,CustomInput
+} from "reactstrap";
 import * as FeatherIcon from "react-feather";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import classnames from "classnames";
@@ -44,6 +46,11 @@ function ProfileGroup(props) {
   const nameRef = useRef();
   const aboutRef = useRef();
   const inputFile = useRef(null);
+  const [modalFriend, setModalFriend] = useState(false);
+  const modalToggleFriend = () => setModalFriend(!modalFriend);
+  const [chooseFriend, setChooseFriend] = useState([]);
+  const [my_uid, setUid] = useState("");
+  const [addFriends, setAddFriends] = useState([]);
 
   useEffect(() => {
     setActiveTab("1")
@@ -131,15 +138,6 @@ function ProfileGroup(props) {
     }
   };
 
-  const openPhoneEditableToggler = (save, e) => {
-    if (save) {
-      setOpenPhoneEditable(!openPhoneEditable);
-      SaveProfile();
-    } else {
-      setOpenPhoneEditable(!openPhoneEditable);
-    }
-  };
-
   function handleSetName(e) {
     e.preventDefault();
     setName(nameRef.current.innerText);
@@ -172,7 +170,6 @@ function ProfileGroup(props) {
     axios
       .post("/uploadpPhotoGroup", formData, config)
       .then((response) => {
-        //alert("The file is successfully uploaded");
         socket.emit("GetGrupo", props.group);
         socket.once("retrieve GetGrupo", ()=> {
           socket.emit("get chats");
@@ -238,10 +235,116 @@ function ProfileGroup(props) {
     });
   }
 
+  function OpenModal(){
+    socket.emit("get group contacts");
+    socket.once("retrieve groups", (contacts)=>{
+      var chats = contacts.chats.filter((chats)=>{
+          return (
+            !chats.user_chat.includes(contacts.my_uid) && chats.chat_type != 1
+          );
+        })
+      var myArray = chats.filter( ( chat ) =>{
+        members.forEach(element => {
+          if(chat.user_chat==element.user_chat){
+            
+          }else{
+            return chat
+          }
+        });
+      });
+      //console.log(myArray)
+      contacts.chats = chats;
+      setUid(contacts.my_uid);
+      setChooseFriend(chats);
+      setModalFriend(!modalFriend);
+    });
+  }
+
+  function ModifyList(status, item) {
+    if (status) {
+      var newFriends = addFriends;
+      item.checked = true;
+      newFriends.push(item);
+      setAddFriends(newFriends);
+    } else {
+      item.checked = false;
+      var newFriends = addFriends;
+      var removedFriend = newFriends.filter((val) => {
+        return !val.user_chat.includes(item.user_chat);
+      });
+      setAddFriends(removedFriend);
+    }
+  }
+
+  function AddMembers(){
+    if(addFriends.length>0){
+      var add = 
+      {
+        chat_uid: props.group.id,
+        addFriends: addFriends
+      }
+      socket.emit("AddToGroup", add);
+      socket.once("retrieve AddToGroup", (data)=>{
+        socket.emit("get chats");
+        if(props.clicked.chat_uid==props.group.id){
+          socket.emit("GetGrupo", props.group);
+        }
+        setModalFriend(!modalFriend);
+      })
+    }
+  }
+
+  const ModalAddFriend = (props) => {
+    return (
+      <div>
+        <Modal
+          className="modal-dialog-zoom"
+          isOpen={modalFriend}
+          toggle={modalToggleFriend}
+          centered
+        >
+          <ModalHeader toggle={modalToggleFriend}>
+            <FeatherIcon.UserPlus className="mr-2" /> Add Contacts
+          </ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              {chooseFriend.map((item, i) => {
+                return (
+                  <div>
+                    {item.checked ? (
+                      <CustomInput
+                        type="checkbox"
+                        id={"customCheckbox" + i}
+                        label={item.name}
+                        onChange={(e) => ModifyList(e.target.checked, item)}
+                        defaultChecked
+                      />
+                    ) : (
+                      <CustomInput
+                        type="checkbox"
+                        id={"customCheckbox" + i}
+                        label={item.name}
+                        onChange={(e) => ModifyList(e.target.checked, item)}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={() => AddMembers()}>
+              Submit
+            </Button>
+            <hr></hr>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  };
+
   return (
-    <div
-      className={`sidebar-group ${openGroupProfile ? "mobile-open" : ""}`}
-    >
+    <div className={`sidebar-group ${openGroupProfile ? "mobile-open" : ""}`}>
       <div className={openGroupProfile ? "sidebar active" : "sidebar"}>
         <header>
           <span>Group Info.</span>
@@ -385,6 +488,10 @@ function ProfileGroup(props) {
                   </div> 
                   <div className="sidebar-body">
                     <PerfectScrollbar>
+                    <li  onClick={(e) => OpenModal(e)} className="list-group-item">
+                      <FeatherIcon.UserPlus/>
+                        Add members
+                      </li>
                       <ul className="list-group list-group-flush">
                       {members.map((chat, i) => (
                         <MemberView
@@ -424,6 +531,7 @@ function ProfileGroup(props) {
           </PerfectScrollbar>
         </div>
       </div>
+      <ModalAddFriend />
     </div>
   );
 }

@@ -76,6 +76,16 @@ const ChatsMessageDropdown = (props) => {
     socket.emit("get chats")
   }
 
+  function AnswerMessage(message_id){
+    socket.emit("get messages", {
+      id: props.chat_id,
+      page: props.page,
+      inChat: true,
+      limit: props.limit,
+    });
+    socket.emit("get chats")
+  }
+
   return (
     <Dropdown
       isOpen={dropdownOpen}
@@ -88,6 +98,9 @@ const ChatsMessageDropdown = (props) => {
       </DropdownToggle>
       </div>
       <DropdownMenu>
+        <DropdownItem onClick={() => AnswerMessage(props.message.message_id)}>
+          Answer
+        </DropdownItem>
         <DropdownItem onClick={() => DeleteMessage(props.message.message_id)}>
           Delete
         </DropdownItem>
@@ -97,6 +110,7 @@ const ChatsMessageDropdown = (props) => {
             <DropdownItem onClick={() => AddFavorite(props.message.message_id)}>
               Favorite
             </DropdownItem>
+            
           ) : (
             ""
           )

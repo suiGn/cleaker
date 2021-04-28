@@ -891,6 +891,23 @@ io.on("connection", function (socket) {
           });
         }
       );
+    })
+    socket.on("AddToGroup", (data) => {
+      var chat_type = 0;
+      data.addFriends.forEach((chat) => {
+        orgboatDB.query(
+          `INSERT  INTO chats_users (chat_uid,u_id,archiveChat)
+           VALUES ('${data.chat_uid}','${chat.user_chat}',${chat_type})`,
+           (err, rows) => {
+          }
+        );
+      });
+      orgboatDB.query(
+        `select * from chats_users where chat_uid = '${data.chat_uid}'`,
+        (err, rows) => {
+          io.to(user.u_id).emit("retrieve AddToGroup");
+        }
+      );
     });
   } catch {
     console.log("problema");
