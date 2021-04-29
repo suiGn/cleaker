@@ -12,9 +12,9 @@ import * as FeatherIcon from "react-feather";
 function ChatHeader(props) {
   const dispatch = useDispatch();
 
-  const { 
+  const {
     socket,
-    openSearchSidebar, 
+    openSearchSidebar,
     setOpenSearchSidebar,
     setOpenUserProfile,
     setOpenProfile,
@@ -22,7 +22,7 @@ function ChatHeader(props) {
     openProfile,
     openGroupProfile,
     openUserProfile
-   } = props;
+  } = props;
 
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -35,19 +35,19 @@ function ChatHeader(props) {
   const mobileMenuBtn = () => document.body.classList.toggle("navigation-open");
 
   function RetrieveGroupName(data) {
-    if(data.group.chat_uid == props.data.chat_uid){
+    if (data.group.chat_uid == props.data.chat_uid) {
       setName(data.group.chat_name)
     }
   }
 
-  function RetrieveGroupPhoto(data){
-    if(data.group.chat_uid == props.data.chat_uid){
+  function RetrieveGroupPhoto(data) {
+    if (data.group.chat_uid == props.data.chat_uid) {
       let chat_initial;
       let chat_name;
       if (data.group.groupphoto === "" || data.group.groupphoto === null) {
         chat_name = data.group.chat_name;
         chat_initial = chat_name.substring(0, 1);
-        setP (
+        setP(
           <span className="avatar-title bg-info rounded-circle">
             {chat_initial}
           </span>
@@ -74,7 +74,7 @@ function ChatHeader(props) {
     if (props.data.pphoto === "" || props.data.pphoto === null) {
       chat_name = props.data.name;
       chat_initial = chat_name.substring(0, 1);
-      setP (
+      setP(
         <span className="avatar-title bg-info rounded-circle">
           {chat_initial}
         </span>
@@ -82,7 +82,7 @@ function ChatHeader(props) {
     } else {
       setP(<img src={props.data.pphoto} className="rounded-circle" alt="image" />);
     }
-  },[props.data]);
+  }, [props.data]);
 
   const openUserProfileToggler = (e) => {
     props.setUser({ id: props.id });
@@ -136,8 +136,16 @@ function ChatHeader(props) {
 
   return (
     <div className="chat-header">
+      <button onClick={GroupProfileAction} className="hide-x-icon col-2">
+        <a
+          href="#/"
+          className="btn text-danger"
+        >
+          <FeatherIcon.X />
+        </a>
+      </button>
       {props.data.chat_type == 1 ? (
-        <button onClick={GroupProfileAction} className="chat-header-user col-6">
+        <button onClick={GroupProfileAction} className="chat-header-user col-4">
           <figure className="avatar">{p}</figure>
           <div>
             <h5>{name}</h5>
@@ -146,7 +154,7 @@ function ChatHeader(props) {
       ) : (
         <button
           onClick={openUserProfileToggler}
-          className="chat-header-user col-6"
+          className="chat-header-user col-4"
         >
           <figure className="avatar">{p}</figure>
           <div>

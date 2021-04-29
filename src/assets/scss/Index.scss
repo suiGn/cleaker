@@ -280,7 +280,6 @@
           display: inline-flex;
           align-items: center;
           border: none;
-          padding: 17px 30px;
           background-color: transparent;
 
           figure {
@@ -598,6 +597,7 @@
         .h-100 {
           height: 90%!important;        
         }
+
       }
 
       .footer-file {
@@ -787,11 +787,20 @@
 
 @import "Responsive";
 
-
+.hide-x-icon {
+  display: none;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+}
 
 @media screen and (max-width: 900px) {
   .nav-hide {
     display: none;
   } 
+
+  .hide-x-icon {
+		display: inline-flex;
+	}
 }
 
