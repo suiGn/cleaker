@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === "dev") {
   urlMAIL = "http://localhost:5000";
 } else {
   urlDB = process.env.URL_FRONT;
-  urlMAIL = "https://www.orgboat.me";;
+  urlMAIL = "https://www.cleaker.me";;
 }
 process.env.URL_FRONT = urlFront;
 
