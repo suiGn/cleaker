@@ -32,16 +32,6 @@
 		object-fit: cover;
 	}
 
-	@media screen and (max-width: 900px) {
-
-		& > a > img, & > img {
-			width: 35px;
-			margin-left: -10px;
-			height: 100%;
-			object-fit: cover;
-		}
-	}
-	
 	&.avatar-sm {
 		height: $default-avatar-size - 1;
 		width: $default-avatar-size - 1;
@@ -161,3 +151,15 @@
 	}
 }
   
+
+
+@media screen and (max-width: 900px) {
+	.auto-img-sm {
+			& > a > img, & > img {
+				width: 35px;
+				margin-left: -10px;
+				height: 100%;
+				object-fit: cover;
+			}
+	}
+}

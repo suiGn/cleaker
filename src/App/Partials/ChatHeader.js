@@ -134,9 +134,15 @@ function ChatHeader(props) {
     });
   }
 
+  function CloseChat() {
+    var element = document.getElementById("menu-hide");
+    element.classList.remove("nav-hide");
+    props.setClicked([]);
+  }
+
   return (
     <div className="chat-header">
-      <button onClick={GroupProfileAction} className="hide-x-icon col-2">
+      <button onClick={CloseChat} className="hide-x-icon col-2">
         <a
           href="#/"
           className="btn text-danger"
@@ -146,7 +152,7 @@ function ChatHeader(props) {
       </button>
       {props.data.chat_type == 1 ? (
         <button onClick={GroupProfileAction} className="chat-header-user col-4">
-          <figure className="avatar">{p}</figure>
+          <figure className="avatar auto-img-sm">{p}</figure>
           <div>
             <h5>{name}</h5>
           </div>
@@ -156,7 +162,7 @@ function ChatHeader(props) {
           onClick={openUserProfileToggler}
           className="chat-header-user col-4"
         >
-          <figure className="avatar">{p}</figure>
+          <figure className="avatar auto-img-sm">{p}</figure>
           <div>
             <h5>{name}</h5>
           </div>
