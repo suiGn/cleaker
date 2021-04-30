@@ -35,6 +35,8 @@ function Chat(props) {
   const [messageRespond, setMessageRespond] = useState("");
 
   const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
+
+  const [isResponse, setisResponse] = useState(false);
   
 
   const mobileMenuBtn = () => document.body.classList.toggle("navigation-open");
@@ -173,22 +175,45 @@ function Chat(props) {
 
   const handleSubmit = (newValue) => {
     if (newMessage.length > 0) {
-      setFirstTime(true)
-      socket.emit("chat message", {
-        chat: newValue.chat_uid,
-        message: newValue.text,
-        is_image: newValue.is_image,
-        is_file: newValue.is_file,
-        is_video: newValue.is_video
-      });
-      socket.emit("get chats");
-      socket.emit("get messages", {
-        id: newValue.chat_uid,
-        page: page,
-        limit: limit,
-      });
+      if(isResponse){
+        setFirstTime(true)
+        setisResponse(false)
+        setViewChatAnswerPreview(true)
+        socket.emit("chat message", {
+          chat: newValue.chat_uid,
+          message: newValue.text,
+          is_image: newValue.is_image,
+          is_file: newValue.is_file,
+          is_video: newValue.is_video,
+          is_response: 1,
+          response: newValue.response,
+          response_from:newValue.response_from
+        });
+        socket.emit("get chats");
+        socket.emit("get messages", {
+          id: newValue.chat_uid,
+          page: page,
+          limit: limit,
+        });
+      }else{
+        setFirstTime(true)
+        socket.emit("chat message", {
+          chat: newValue.chat_uid,
+          message: newValue.text,
+          is_image: newValue.is_image,
+          is_file: newValue.is_file,
+          is_video: newValue.is_video,
+          is_response: 0
+        });
+        socket.emit("get chats");
+        socket.emit("get messages", {
+          id: newValue.chat_uid,
+          page: page,
+          limit: limit,
+        });
+      }
+      setInputMsg("");
     }
-    setInputMsg("");
   };
 
   const handleChange = (newValue) => {
@@ -367,6 +392,7 @@ function Chat(props) {
                       limit={limit}
                       setMessageRespond={props.setMessageRespond}
                       setViewChatAnswerPreview={props.setViewChatAnswerPreview}
+                      setisResponse={props.setisResponse}
                     />
                   </div>
                 </div>
@@ -446,6 +472,7 @@ function Chat(props) {
                       limit={limit}
                       setMessageRespond={props.setMessageRespond}
                       setViewChatAnswerPreview={props.setViewChatAnswerPreview}
+                      setisResponse={props.setisResponse}
                     />
                   </div>
                 </div>
@@ -495,6 +522,7 @@ function Chat(props) {
                   group={props.clicked.chat_type}
                   setMessageRespond={setMessageRespond}
                   setViewChatAnswerPreview={setViewChatAnswerPreview}
+                  setisResponse={setisResponse}
                 />
               </div>
             ))}
@@ -522,6 +550,8 @@ function Chat(props) {
         setImageOrFile={props.setImageOrFile}
         setFilePreview={props.setFilePreview}
         setVideoPreview={props.setVideoPreview}
+        isResponse={isResponse}
+        messageRespond={messageRespond}
       />
     </div>
   ) : (

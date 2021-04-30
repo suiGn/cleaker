@@ -77,6 +77,7 @@ const ChatsMessageDropdown = (props) => {
   }
 
   function AnswerMessage(message){
+    props.setisResponse(true)
     setMessageRespond(message)
     setViewChatAnswerPreview(false)
   }

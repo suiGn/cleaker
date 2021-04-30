@@ -17,7 +17,6 @@ function ChatAnswerPreview(props) {
         <Input
           type="text"
           className="form-control"
-          placeholder="Write a message."
           value={messageRespond.message}
           disabled = "disabled"
         />

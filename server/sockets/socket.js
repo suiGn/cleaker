@@ -124,6 +124,9 @@ io.on("connection", function (socket) {
       is_image = msg.is_image;
       is_file = msg.is_file;
       is_video = msg.is_video;
+      is_response = msg.is_response;
+      response = msg.response?msg.response: "";
+      response_from = msg.response_from?msg.response_from:"";
       file = msg.file ? msg.file : "";
       from = user.u_id;
       time = new Date();
@@ -147,14 +150,19 @@ io.on("connection", function (socket) {
                 is_video: is_video,
                 time: time,
                 file: file,
+                is_response:is_response,
+                response: response,
+                response_from: response_from
               });
             }
           });
         }
       );
       timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
-      orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,unread_messages,is_image,is_file,is_video,file) 
-      values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}','${is_video}','${file}')`);
+      orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,
+        unread_messages,is_image,is_file,is_video,file,is_response,response,response_from) 
+      values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}'
+      ,'${is_video}','${file}','${is_response}','${response}','${response_from}')`);
     });
 
     //Client request the messages
