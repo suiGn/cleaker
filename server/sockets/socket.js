@@ -184,7 +184,8 @@ io.on("connection", function (socket) {
 			select messages.u_id as message_user_uid, messages.message, messages.time, 
       usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message,
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
-      chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file
+      chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
+      messages.is_response, messages.response, messages.response_from
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 order by time desc limit ${msg.limit};
@@ -847,7 +848,8 @@ io.on("connection", function (socket) {
         `select messages.u_id as message_user_uid, messages.message, messages.time, 
         usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message, 
         messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
-        chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file
+        chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
+        messages.is_response, messages.response, messages.response_from
           from messages inner join usrs on messages.u_id = usrs.u_id
           inner join chats on chats.chat_uid = messages.chat_uid
           where  messages.chat_uid = '${data.id}' 
