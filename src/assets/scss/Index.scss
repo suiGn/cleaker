@@ -609,6 +609,8 @@
             position: absolute;
             cursor: pointer;
             z-index: 1;
+            top: 6px;
+            margin: 9px;
           }
           .mini-preview-container{
             bottom:0%;
@@ -617,6 +619,10 @@
             background-repeat: no-repeat;
             width: 100px;
             height: 100px;
+            margin: 3px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 13px;
             .react-pdf__Page__canvas{
               width: 100px !important;
               height: 100px !important;
