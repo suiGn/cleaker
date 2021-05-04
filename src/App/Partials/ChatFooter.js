@@ -37,7 +37,11 @@ function ChatFooter(props) {
           is_file: 0,
           is_video: 0,
           response: messageRespond.message,
-          response_from: messageRespond.name
+          response_from: messageRespond.name,
+          response_is_image: "response_is_image",
+          response_is_file: "response_is_file",
+          response_is_video: "response_is_video",
+          file: "file",
         });
       }else{
         props.onSubmit({

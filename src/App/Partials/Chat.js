@@ -31,12 +31,6 @@ function Chat(props) {
   const [firstTime, setFirstTime] = useState(true);
 
   const [scrolled, setScrolled] = useState(false);
-
-  const [messageRespond, setMessageRespond] = useState("");
-
-  const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
-
-  const [isResponse, setisResponse] = useState(false);
   
 
   const mobileMenuBtn = () => document.body.classList.toggle("navigation-open");
@@ -59,6 +53,9 @@ function Chat(props) {
     setScrollEl,
     setOpenSearchSidebar,
     openSearchSidebar,
+    messageRespond, setMessageRespond,
+    viewChatAnswerPreview, setViewChatAnswerPreview,
+    isResponse, setisResponse
   } = props;
 
   useEffect(() => {
@@ -187,7 +184,11 @@ function Chat(props) {
           is_video: newValue.is_video,
           is_response: 1,
           response: newValue.response,
-          response_from:newValue.response_from
+          response_from:newValue.response_from,
+          response_is_image: newValue.response_is_image,
+          response_is_file: newValue.response_is_file,
+          response_is_video: newValue.response_is_video,
+          file: newValue.file,
         });
         socket.emit("get chats");
         socket.emit("get messages", {
