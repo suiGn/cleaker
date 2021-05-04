@@ -258,7 +258,7 @@ function Navigation(props) {
   };
 
   return (
-    <nav className="navigation">
+    <nav className="navigation" id="menu-hide">
       <EditProfileModal
         modal={editModalOpen}
         toggle={editModalToggle}

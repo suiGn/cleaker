@@ -16,7 +16,7 @@ import axios from "axios";
 import { Console } from "winston/lib/winston/transports";
 
 function ChatFooter(props) {
-  const {isResponse,viewChatAnswerPreview,messageRespond} = props
+  const {isResponse,messageRespond} = props
   const [emojiMenuOpen, setEmojiMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //const [imgPreview, setImgPreview] = useState(false);
@@ -38,10 +38,6 @@ function ChatFooter(props) {
           is_video: 0,
           response: messageRespond.message,
           response_from: messageRespond.name,
-          response_is_image: "response_is_image",
-          response_is_file: "response_is_file",
-          response_is_video: "response_is_video",
-          file: "file",
         });
       }else{
         props.onSubmit({

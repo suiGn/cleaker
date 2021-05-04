@@ -565,7 +565,7 @@ function Chat(props) {
           <div className="no-message-container custom-chat-message">
             <div className="row mb-5 chat-body-custom">
               <div className="col-12 text-center">
-                <img src={empty} width="400px" className="" alt="image" />
+                <img src={empty} width="400px" className="img-logo-auto" alt="image" />
               </div>
             </div>
             <p className="lead text-center">Welcome to OrgBoat!</p>
