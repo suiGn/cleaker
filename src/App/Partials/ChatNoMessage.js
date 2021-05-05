@@ -29,7 +29,10 @@ function ChatNoMessage(props) {
 
   const { 
     socket, files, viewPreview, imageOrFile, limitChat, 
-    setImageOrFile, setViewPreview, setFile
+    setImageOrFile, setViewPreview, setFile, 
+    setViewChatAnswerPreview,
+    isResponse, setisResponse,
+    messageRespond
   } = props;
 
   useEffect(() => {
@@ -64,20 +67,46 @@ function ChatNoMessage(props) {
   },[files])
 
   const handleSubmit = (newValue) => {
-    socket.emit("chat message", {
-      chat: newValue.chat_uid,
-      message: newValue.text,
-      is_image: newValue.is_image,
-      is_file: newValue.is_file,
-      is_video: newValue.is_video,
-      file: newValue.file
-    });
-    socket.emit("get chats");
-    socket.emit("get messages", {
-      id: newValue.chat_uid,
-      page: 1,
-      limit: limitChat,
-    });
+    if(isResponse){
+      setisResponse(false)
+      setViewChatAnswerPreview(true)
+      socket.emit("chat message", {
+        chat: newValue.chat_uid,
+        message: newValue.text,
+        is_image: newValue.is_image,
+        is_file: newValue.is_file,
+        is_video: newValue.is_video,
+        is_response: 1,
+        response: newValue.response,
+        response_from:newValue.response_from,
+        response_is_image: newValue.response_is_image,
+        response_is_file: newValue.response_is_file,
+        response_is_video: newValue.response_is_video,
+        file: newValue.file,
+      });
+      socket.emit("get chats");
+      socket.emit("get messages", {
+        id: newValue.chat_uid,
+        page: 1,
+        limit: limitChat,
+      });
+    }else{
+      socket.emit("chat message", {
+        chat: newValue.chat_uid,
+        message: newValue.text,
+        is_image: newValue.is_image,
+        is_file: newValue.is_file,
+        is_video: newValue.is_video,
+        file: newValue.file,
+        is_response: 0
+      });
+      socket.emit("get chats");
+      socket.emit("get messages", {
+        id: newValue.chat_uid,
+        page: 1,
+        limit: limitChat,
+      });
+    }
   };
 
   function Send() {
@@ -95,14 +124,27 @@ function ChatNoMessage(props) {
           axios
             .post("/uploadpChatFile", formData, config)
             .then((response) => {
-              handleSubmit({
-                text: inputMsg,
-                chat_uid: props.chat_uid,
-                is_image: 1,
-                is_file: 0,
-                is_video: 0,
-                file: response.data.url
-              });
+              if(isResponse){
+                handleSubmit({
+                  text: inputMsg,
+                  chat_uid: props.chat_uid,
+                  is_image: 1,
+                  is_file: 0,
+                  is_video: 0,
+                  file: response.data.url,
+                  response: messageRespond.message,
+                  response_from: messageRespond.name,
+                });
+              }else{
+                handleSubmit({
+                  text: inputMsg,
+                  chat_uid: props.chat_uid,
+                  is_image: 1,
+                  is_file: 0,
+                  is_video: 0,
+                  file: response.data.url
+                });
+              }
             })
             .catch((error) => {});
           break;
@@ -110,14 +152,27 @@ function ChatNoMessage(props) {
           axios
             .post("/uploadpChatFile", formData, config)
             .then((response) => {
-              handleSubmit({
-                text: inputMsg,
-                chat_uid: props.chat_uid,
-                is_image: 0,
-                is_file: 1,
-                is_video: 0,
-                file: response.data.url
-              });
+              if(isResponse){
+                handleSubmit({
+                  text: inputMsg,
+                  chat_uid: props.chat_uid,
+                  is_image: 0,
+                  is_file: 1,
+                  is_video: 0,
+                  file: response.data.url,
+                  response: messageRespond.message,
+                  response_from: messageRespond.name,
+                });
+              }else{
+                handleSubmit({
+                  text: inputMsg,
+                  chat_uid: props.chat_uid,
+                  is_image: 0,
+                  is_file: 1,
+                  is_video: 0,
+                  file: response.data.url
+                });
+              }
             })
             .catch((error) => {});
           break;
@@ -125,14 +180,27 @@ function ChatNoMessage(props) {
           axios
             .post("/uploadpChatFile", formData, config)
             .then((response) => {
-              handleSubmit({
-                text: inputMsg,
-                chat_uid: props.chat_uid,
-                is_image: 0,
-                is_file: 0,
-                is_video: 1,
-                file: response.data.url
-              });
+              if(isResponse){
+                handleSubmit({
+                  text: inputMsg,
+                  chat_uid: props.chat_uid,
+                  is_image: 0,
+                  is_file: 0,
+                  is_video: 1,
+                  file: response.data.url,
+                  response: messageRespond.message,
+                  response_from: messageRespond.name,
+                });
+              }else{
+                handleSubmit({
+                  text: inputMsg,
+                  chat_uid: props.chat_uid,
+                  is_image: 0,
+                  is_file: 0,
+                  is_video: 1,
+                  file: response.data.url
+                });
+              }
             })
             .catch((error) => {});
           break;

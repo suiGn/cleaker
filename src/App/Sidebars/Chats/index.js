@@ -1,15 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as FeatherIcon from "react-feather";
-import { Tooltip } from "reactstrap";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import AddGroupModal from "../../Modals/AddGroupModal";
 import ChatsDropdown from "./ChatsDropdown";
-import { sidebarAction } from "../../../Store/Actions/sidebarAction";
-// import {chatLists} from "./Data";
 import { mobileSidebarAction } from "../../../Store/Actions/mobileSidebarAction";
-const ENDPOINT = "http://localhost:5000/";
 
 function Index(props) {
   const {
@@ -108,6 +104,8 @@ function Index(props) {
   let my_uid = chatLists.my_uid;
 
   function setClickedValue(e, chat) {
+    var element = document.getElementById("menu-hide");
+    element.classList.add("nav-hide");
     e.preventDefault();
     chat.unread_messages = 0;
     setClicked(chat);

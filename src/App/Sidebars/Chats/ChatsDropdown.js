@@ -6,13 +6,8 @@ import {
   DropdownItem,
 } from "reactstrap";
 import * as FeatherIcon from "react-feather";
-import { groupProfileAction } from "../../../Store/Actions/groupProfileAction";
-import { profileAction } from "../../../Store/Actions/profileAction";
-import { mobileProfileAction } from "../../../Store/Actions/mobileProfileAction";
-import { useDispatch } from "react-redux";
 
 const ChatsDropdown = (props) => {
-  const dispatch = useDispatch();
   const { socket } = props;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -21,17 +16,10 @@ const ChatsDropdown = (props) => {
   function DeleteChat(idchat) {
     socket.emit("Delete Chat", { chat_uid: idchat });
     socket.once("retrive delete chat", () => {
-      //props.setClicked(null);
       socket.emit("get chats");
       props.setClicked([]);
     });
   }
-
-  //   const profileActions = () => {
-  //     props.setUser({ id: props.id });
-  //     dispatch(userProfileAction(true));
-  //     dispatch(mobileUserProfileAction(true));
-  //   };
 
   const openUserProfileToggler = (e) => {
     props.setUser({ id: props.id });

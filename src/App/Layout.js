@@ -41,6 +41,9 @@ function Layout(props) {
   const [imageOrFile, setImageOrFile] = useState(0);
   const [limitChat, setLimitChat] = useState(10);
   const [chat_uid, setChat_uid] = useState("");
+  const [messageRespond, setMessageRespond] = useState("");
+  const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
+  const [isResponse, setisResponse] = useState(false);
 
   
 
@@ -150,6 +153,12 @@ function Layout(props) {
           setVideoPreview ={setVideoPreview}
           setLimitChat={setLimitChat}
           setChat_uid={setChat_uid}
+          messageRespond={messageRespond}
+          setMessageRespond={setMessageRespond}
+          viewChatAnswerPreview={viewChatAnswerPreview}
+          setViewChatAnswerPreview={setViewChatAnswerPreview}
+          isResponse={isResponse}
+          setisResponse={setisResponse}
         />
         <ChatNoMessage
           files={files}
@@ -161,6 +170,10 @@ function Layout(props) {
           limitChat={limitChat}
           chat_uid={chat_uid}
           setFile={setFile}
+          setViewChatAnswerPreview={setViewChatAnswerPreview}
+          isResponse={isResponse}
+          setisResponse={setisResponse}
+          messageRespond={messageRespond}
         />
         <Navigation
           darkSwitcherTooltipOpen={props.darkSwitcherTooltipOpen}
@@ -220,6 +233,8 @@ function Layout(props) {
           group={group}
           clicked={clicked}
           chat={chat}
+          my_uid={my_uid}
+          setClicked={setClicked}
         />
         <TourModal />
         <DisconnectedModal />

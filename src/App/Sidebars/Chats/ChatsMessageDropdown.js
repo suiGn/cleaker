@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 
 const ChatsMessageDropdown = (props) => {
   const dispatch = useDispatch();
-  const { socket } = props;
+  const { socket, setMessageRespond, setViewChatAnswerPreview} = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -76,6 +76,12 @@ const ChatsMessageDropdown = (props) => {
     socket.emit("get chats")
   }
 
+  function AnswerMessage(message){
+    props.setisResponse(true)
+    setMessageRespond(message)
+    setViewChatAnswerPreview(false)
+  }
+
   return (
     <Dropdown
       isOpen={dropdownOpen}
@@ -88,6 +94,9 @@ const ChatsMessageDropdown = (props) => {
       </DropdownToggle>
       </div>
       <DropdownMenu>
+        <DropdownItem onClick={() => AnswerMessage(props.message)}>
+          Answer
+        </DropdownItem>
         <DropdownItem onClick={() => DeleteMessage(props.message.message_id)}>
           Delete
         </DropdownItem>
@@ -97,6 +106,7 @@ const ChatsMessageDropdown = (props) => {
             <DropdownItem onClick={() => AddFavorite(props.message.message_id)}>
               Favorite
             </DropdownItem>
+            
           ) : (
             ""
           )

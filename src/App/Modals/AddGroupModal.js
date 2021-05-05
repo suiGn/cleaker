@@ -172,7 +172,7 @@ function AddGroupModal(props) {
           centered
         >
           <ModalHeader toggle={modalToggleFriend}>
-            <FeatherIcon.UserPlus className="mr-2" /> Add Friends
+            <FeatherIcon.UserPlus className="mr-2" /> Add Contacts
           </ModalHeader>
           <ModalBody>
             <FormGroup>

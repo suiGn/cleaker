@@ -124,8 +124,13 @@ io.on("connection", function (socket) {
       is_image = msg.is_image;
       is_file = msg.is_file;
       is_video = msg.is_video;
+      is_response = msg.is_response;
+      response = msg.response?msg.response: "";
+      response_from = msg.response_from?msg.response_from:"";
       file = msg.file ? msg.file : "";
       from = user.u_id;
+      responseFile = msg.responseFile ? msg.responseFile : "";
+      response_type = msg.response_type ? msg.response_type : 0;
       time = new Date();
       orgboatDB.query(
         `
@@ -147,14 +152,23 @@ io.on("connection", function (socket) {
                 is_video: is_video,
                 time: time,
                 file: file,
+                is_response:is_response,
+                response: response,
+                response_from: response_from,
+                responseFile: responseFile,
+                response_type: response_type
               });
             }
           });
         }
       );
       timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
-      orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,unread_messages,is_image,is_file,is_video,file) 
-      values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}','${is_video}','${file}')`);
+      orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,
+        unread_messages,is_image,is_file,is_video,file,is_response,response,response_from
+        ,response_type,response_file) 
+      values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}'
+      ,'${is_video}','${file}','${is_response}','${response}','${response_from}'
+      ,'${response_type}','${responseFile}')`);
     });
 
     //Client request the messages
@@ -184,7 +198,9 @@ io.on("connection", function (socket) {
 			select messages.u_id as message_user_uid, messages.message, messages.time, 
       usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message,
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
-      chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file
+      chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
+      messages.is_response, messages.response, messages.response_from, messages.response_type, 
+      messages.response_file
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 order by time desc limit ${msg.limit};
@@ -847,7 +863,9 @@ io.on("connection", function (socket) {
         `select messages.u_id as message_user_uid, messages.message, messages.time, 
         usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message, 
         messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
-        chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file
+        chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
+        messages.is_response, messages.response, messages.response_from, messages.response_type, 
+        messages.response_file
           from messages inner join usrs on messages.u_id = usrs.u_id
           inner join chats on chats.chat_uid = messages.chat_uid
           where  messages.chat_uid = '${data.id}' 
@@ -876,6 +894,36 @@ io.on("connection", function (socket) {
           io.to(user.u_id).emit("retrive SearchContacts", {
             users: users,
           });
+        }
+      );
+    })
+    socket.on("RemoveGroupMember", (data) => {
+      orgboatDB.query(
+        `delete from chats_users 
+        where chat_uid = '${data.chat_uid}' 
+        and u_id = "${data.u_id}";
+        `,
+        (err, rows) => {
+          io.to(user.u_id).emit("retrive RemoveGroupMember", {
+            data: rows
+          });
+        }
+      );
+    })
+    socket.on("AddToGroup", (data) => {
+      var chat_type = 0;
+      data.addFriends.forEach((chat) => {
+        orgboatDB.query(
+          `INSERT  INTO chats_users (chat_uid,u_id,archiveChat)
+           VALUES ('${data.chat_uid}','${chat.user_chat}',${chat_type})`,
+           (err, rows) => {
+          }
+        );
+      });
+      orgboatDB.query(
+        `select * from chats_users where chat_uid = '${data.chat_uid}'`,
+        (err, rows) => {
+          io.to(user.u_id).emit("retrieve AddToGroup");
         }
       );
     });

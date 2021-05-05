@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from "reactstrap";
+import { TabContent, TabPane, Nav, NavItem, NavLink, Button,
+  Modal,ModalHeader,ModalBody,ModalFooter,FormGroup,CustomInput
+} from "reactstrap";
 import * as FeatherIcon from "react-feather";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { groupProfileAction } from "../../Store/Actions/groupProfileAction";
 import classnames from "classnames";
 import axios from "axios";
 import ModalImage from "react-modal-image";
+import ProfileDropdown from "./ProfileDropdown.js";
 
 function ProfileGroup(props) {
   const { socket } = props;
@@ -44,6 +46,11 @@ function ProfileGroup(props) {
   const nameRef = useRef();
   const aboutRef = useRef();
   const inputFile = useRef(null);
+  const [modalFriend, setModalFriend] = useState(false);
+  const modalToggleFriend = () => setModalFriend(!modalFriend);
+  const [chooseFriend, setChooseFriend] = useState([]);
+  const [my_uid, setUid] = useState("");
+  const [addFriends, setAddFriends] = useState([]);
 
   useEffect(() => {
     setActiveTab("1")
@@ -131,15 +138,6 @@ function ProfileGroup(props) {
     }
   };
 
-  const openPhoneEditableToggler = (save, e) => {
-    if (save) {
-      setOpenPhoneEditable(!openPhoneEditable);
-      SaveProfile();
-    } else {
-      setOpenPhoneEditable(!openPhoneEditable);
-    }
-  };
-
   function handleSetName(e) {
     e.preventDefault();
     setName(nameRef.current.innerText);
@@ -172,7 +170,6 @@ function ProfileGroup(props) {
     axios
       .post("/uploadpPhotoGroup", formData, config)
       .then((response) => {
-        //alert("The file is successfully uploaded");
         socket.emit("GetGrupo", props.group);
         socket.once("retrieve GetGrupo", ()=> {
           socket.emit("get chats");
@@ -186,6 +183,7 @@ function ProfileGroup(props) {
 
   const MemberView = (props) => {
     const { chat } = props;
+    const { key } = props;
     let p = "";
     let chat_initial = chat.name.substring(0, 1);
     if (chat.pphoto === "" || chat.pphoto === null) {
@@ -204,12 +202,18 @@ function ProfileGroup(props) {
               <figure className="avatar">{p}</figure>
             </div>
             <div className="users-list-body">
-              <div i={chat.chat_uid}>
+              <div i={key}>
                 <h5
-                  i={chat.chat_uid}
+                  i={key}
                 >
                   {chat.name}
                 </h5>
+              </div>
+              <div className="group-member-list-dropdown">
+                <ProfileDropdown
+                  chat={chat}
+                  socket={socket}
+                />
               </div>
             </div>
           </div>
@@ -217,10 +221,128 @@ function ProfileGroup(props) {
     )
   }
 
+  function ExitGroup(chat){
+    var remove = 
+    {
+      chat_uid: props.group.id,
+      u_id: props.my_uid.id
+    }
+    socket.emit("RemoveGroupMember", remove );
+    socket.once("retrive RemoveGroupMember", function (data) {
+      setOpenGroupProfile(!openGroupProfile);
+      socket.emit("get chats");
+      props.setClicked([]);
+    });
+  }
+
+  function OpenModal(){
+    socket.emit("get group contacts");
+    socket.once("retrieve groups", (contacts)=>{
+      var chats = contacts.chats.filter((chats)=>{
+        return (
+          !chats.user_chat.includes(contacts.my_uid) && chats.chat_type != 1
+        );
+      })
+      var arrayMembers = chats.filter( function( item ) {
+        for( var i=0, len=members.length; i<len; i++ ){
+            if( members[i].user_chat == item.user_chat ) {
+                return false;
+            }
+        }
+        return true;
+      });
+      contacts.chats = chats;
+      setUid(contacts.my_uid);
+      setChooseFriend(arrayMembers);
+      setModalFriend(!modalFriend);
+    });
+  }
+
+  function ModifyList(status, item) {
+    if (status) {
+      var newFriends = addFriends;
+      item.checked = true;
+      newFriends.push(item);
+      setAddFriends(newFriends);
+    } else {
+      item.checked = false;
+      var newFriends = addFriends;
+      var removedFriend = newFriends.filter((val) => {
+        return !val.user_chat.includes(item.user_chat);
+      });
+      setAddFriends(removedFriend);
+    }
+  }
+
+  function AddMembers(){
+    if(addFriends.length>0){
+      var add = 
+      {
+        chat_uid: props.group.id,
+        addFriends: addFriends
+      }
+      socket.emit("AddToGroup", add);
+      socket.once("retrieve AddToGroup", (data)=>{
+        socket.emit("get chats");
+        if(props.clicked.chat_uid==props.group.id){
+          socket.emit("GetGrupo", props.group);
+        }
+        setModalFriend(!modalFriend);
+      })
+    }
+  }
+
+  const ModalAddFriend = (props) => {
+    return (
+      <div>
+        <Modal
+          className="modal-dialog-zoom"
+          isOpen={modalFriend}
+          toggle={modalToggleFriend}
+          centered
+        >
+          <ModalHeader toggle={modalToggleFriend}>
+            <FeatherIcon.UserPlus className="mr-2" /> Add Contacts
+          </ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              {chooseFriend.map((item, i) => {
+                return (
+                  <div>
+                    {item.checked ? (
+                      <CustomInput
+                        type="checkbox"
+                        id={"customCheckbox" + i}
+                        label={item.name}
+                        onChange={(e) => ModifyList(e.target.checked, item)}
+                        defaultChecked
+                      />
+                    ) : (
+                      <CustomInput
+                        type="checkbox"
+                        id={"customCheckbox" + i}
+                        label={item.name}
+                        onChange={(e) => ModifyList(e.target.checked, item)}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={() => AddMembers()}>
+              Submit
+            </Button>
+            <hr></hr>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  };
+
   return (
-    <div
-      className={`sidebar-group ${openGroupProfile ? "mobile-open" : ""}`}
-    >
+    <div className={`sidebar-group ${openGroupProfile ? "mobile-open" : ""}`}>
       <div className={openGroupProfile ? "sidebar active" : "sidebar"}>
         <header>
           <span>Group Info.</span>
@@ -364,6 +486,10 @@ function ProfileGroup(props) {
                   </div> 
                   <div className="sidebar-body">
                     <PerfectScrollbar>
+                    <li  onClick={(e) => OpenModal(e)} className="list-group-item">
+                      <FeatherIcon.UserPlus/>
+                        Add members
+                      </li>
                       <ul className="list-group list-group-flush">
                       {members.map((chat, i) => (
                         <MemberView
@@ -371,6 +497,10 @@ function ProfileGroup(props) {
                           key={i}
                         />
                       ))}  
+                      <li  onClick={(e) => ExitGroup(e)} className="list-group-item">
+                      <FeatherIcon.LogOut />
+                        Exit group
+                      </li>
                       </ul>
                     </PerfectScrollbar>
                   </div>        
@@ -381,16 +511,16 @@ function ProfileGroup(props) {
                   </h6>
                   <div>
                     <ul className="list-group list-group-flush">
-                    {files.map((message, i) => (
-                      <li className="list-group-item">
-                        <ModalImage
-                          small={message.message}
-                          large={message.message}
-                          alt="image"
-                        />
-                      </li>
-                      ))
-                    }
+                      {files.map((message, i) => (
+                        <li className="list-group-item">
+                          <ModalImage
+                            small={message.message}
+                            large={message.message}
+                            alt="image"
+                          />
+                        </li>
+                        ))
+                      }
                     </ul>
                   </div>
                 </TabPane>
@@ -399,6 +529,7 @@ function ProfileGroup(props) {
           </PerfectScrollbar>
         </div>
       </div>
+      <ModalAddFriend />
     </div>
   );
 }
