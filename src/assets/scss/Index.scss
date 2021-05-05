@@ -405,6 +405,19 @@
               margin-bottom: 0;
             }
 
+            .mini-preview-container{
+              bottom:0%;
+              background-size: cover; /* or contain */
+              background-position: center center;
+              background-repeat: no-repeat;
+              width: 100px;
+              height: 100px;
+              .react-pdf__Page__canvas{
+                width: 100px !important;
+                height: 100px !important;
+              }
+            }
+
             .message-avatar {
               display: flex;
               align-items: center;

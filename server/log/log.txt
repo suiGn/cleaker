@@ -777,3 +777,10 @@
 {"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
 {"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
 {"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
+{"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
+{"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
+{"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
+{"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
+{"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
+{"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
+{"message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53","level":"info"}
