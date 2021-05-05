@@ -9,6 +9,7 @@ import axios from "axios";
 import ModalImage from "react-modal-image";
 import ProfileDropdown from "./ProfileDropdown.js";
 
+
 function ProfileGroup(props) {
   const { socket } = props;
   const { openUserProfile } = props;
