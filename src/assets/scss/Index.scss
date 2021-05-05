@@ -131,12 +131,6 @@
           display: flex;
           cursor: pointer;
 
-          .group-member-list-dropdown{
-            position: absolute;
-            left: 260px;
-            bottom: 70px;
-          }
-
           &.open-chat {
             background-color: $style-color + 10;
 
@@ -663,25 +657,6 @@
               top: 10px;
             }
           }
-        }
-      }
-      
-      .chat-footer-preview{
-        display: flex;
-        .mini-preview-container{
-          bottom:0%;
-          background-size: cover; /* or contain */
-          background-position: center center;
-          background-repeat: no-repeat;
-          width: 100px;
-          height: 100px;
-          .react-pdf__Page__canvas{
-            width: 100px !important;
-            height: 100px !important;
-          }
-        }
-        .form-buttons{
-          cursor: pointer;
         }
       }
 
