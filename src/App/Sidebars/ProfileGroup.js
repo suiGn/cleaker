@@ -7,7 +7,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import classnames from "classnames";
 import axios from "axios";
 import ModalImage from "react-modal-image";
-import ProfileDropdown from "./ProfileDropdown.js";
+import ProfileDropdown from "./ProfileDropDown";
 
 
 function ProfileGroup(props) {
