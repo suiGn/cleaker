@@ -22,12 +22,14 @@ const Dropbox = require("dropbox").Dropbox;
 const { readFileSync, readStream } = require("./middlewares/file");
 const { CustomValidation } = require("express-validator/src/context-items");
 var AWS = require("aws-sdk");
-AWS.config.update({ region: "us-east-2" });
+
+
+AWS.config.update({ region: "us-east-1" });
 
 const s3 = new AWS.S3({
   apiVersion: "2006-03-01",
-  accessKeyId: "AKIAZRQJR7NBHDBMENXG",
-  secretAccessKey: "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"
+  accessKeyId: process.env.BUCKETEER_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.BUCKETEER_AWS_SECRET_ACCESS_KEY
 });
 
 exports.home = function (req, res) {
@@ -76,7 +78,7 @@ exports.authGoogle = (req, res) => {
             }
           );
         }
-        res.redirect("https://www.cleaker.me");
+        res.redirect("https://www.orgboat.me");
       }
     }
   );
@@ -396,7 +398,7 @@ exports.savedbimage = async function (req, res) {
     console.log(req.file);
     var photo = `uploads/${req.file.filename}`;
     // let dbx =  new Dropbox({accessToken:accesstokenDropbox})
-    var uploadParams = { Bucket: "cleaker-orgboat", Key: "", Body: "" };
+    var uploadParams = { Bucket: "bucketeer-506dd049-2270-443e-b940-ab6a2c188752", Key: "", Body: "" };
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;
@@ -446,7 +448,7 @@ exports.savedbimageGroup = async function (req, res) {
     console.log(req.file);
     var photo = `uploads/${req.file.filename}`;
     // let dbx =  new Dropbox({accessToken:accesstokenDropbox})
-    var uploadParams = { Bucket: "cleaker-orgboat", Key: "", Body: "" };
+    var uploadParams = { Bucket: "bucketeer-506dd049-2270-443e-b940-ab6a2c188752", Key: "", Body: "" };
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;
@@ -487,7 +489,7 @@ exports.saveFileChat = async function (req, res) {
   return new Promise((resolve, reject) => {
     var photo = `uploads/${req.file.filename}`;
     // let dbx =  new Dropbox({accessToken:accesstokenDropbox})
-    var uploadParams = { Bucket: "cleaker-orgboat", Key: "", Body: "" };
+    var uploadParams = { Bucket: "bucketeer-506dd049-2270-443e-b940-ab6a2c188752", Key: "", Body: "" };
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;
