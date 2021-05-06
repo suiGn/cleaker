@@ -452,7 +452,7 @@ exports.savedbimageGroup = async function (req, res) {
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;
-        uploadParams.Key = req.file.filename;
+        uploadParams.Key = "public/"+req.file.filename;
         s3.upload(uploadParams, function (err, data) {
           if (err) {
             console.log("Error", err);
