@@ -316,7 +316,7 @@
         padding-right: 5em;
         padding-top: 5em;   
         .video-container-preview{
-          width: 400px;
+          width: 100%;
         }
         .img-preview-container-head {
           display: flex;
@@ -609,6 +609,10 @@
 
         .h-100 {
           height: 90%!important;        
+        }
+
+        .footer-file {
+          height: 25%;
         }
 
       }
