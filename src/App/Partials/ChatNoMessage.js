@@ -79,10 +79,9 @@ function ChatNoMessage(props) {
         is_response: 1,
         response: newValue.response,
         response_from:newValue.response_from,
-        response_is_image: newValue.response_is_image,
-        response_is_file: newValue.response_is_file,
-        response_is_video: newValue.response_is_video,
         file: newValue.file,
+        responseFile: newValue.responseFile,
+        response_type: newValue.response_type
       });
       socket.emit("get chats");
       socket.emit("get messages", {
@@ -125,16 +124,7 @@ function ChatNoMessage(props) {
             .post("/uploadpChatFile", formData, config)
             .then((response) => {
               if(isResponse){
-                handleSubmit({
-                  text: inputMsg,
-                  chat_uid: props.chat_uid,
-                  is_image: 1,
-                  is_file: 0,
-                  is_video: 0,
-                  file: response.data.url,
-                  response: messageRespond.message,
-                  response_from: messageRespond.name,
-                });
+                handleIsResponceImage(response);
               }else{
                 handleSubmit({
                   text: inputMsg,
@@ -153,16 +143,7 @@ function ChatNoMessage(props) {
             .post("/uploadpChatFile", formData, config)
             .then((response) => {
               if(isResponse){
-                handleSubmit({
-                  text: inputMsg,
-                  chat_uid: props.chat_uid,
-                  is_image: 0,
-                  is_file: 1,
-                  is_video: 0,
-                  file: response.data.url,
-                  response: messageRespond.message,
-                  response_from: messageRespond.name,
-                });
+                handleIsResponceFile(response);
               }else{
                 handleSubmit({
                   text: inputMsg,
@@ -181,16 +162,7 @@ function ChatNoMessage(props) {
             .post("/uploadpChatFile", formData, config)
             .then((response) => {
               if(isResponse){
-                handleSubmit({
-                  text: inputMsg,
-                  chat_uid: props.chat_uid,
-                  is_image: 0,
-                  is_file: 0,
-                  is_video: 1,
-                  file: response.data.url,
-                  response: messageRespond.message,
-                  response_from: messageRespond.name,
-                });
+                handleIsResponceVideo(response);
               }else{
                 handleSubmit({
                   text: inputMsg,
@@ -213,6 +185,171 @@ function ChatNoMessage(props) {
     setImageOrFile(0);
     setViewPreview(false);
     setInputMsg("");
+  }
+
+  function handleIsResponceImage(response){
+    if(messageRespond.is_file){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 1,
+        is_file: 0,
+        is_video: 0,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:1
+      });
+    }else if(messageRespond.is_image){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 1,
+        is_file: 0,
+        is_video: 0,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:2
+      });
+    }else if(messageRespond.is_video){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 1,
+        is_file: 0,
+        is_video: 0,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:3
+      });
+    }else{
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 1,
+        is_file: 0,
+        is_video: 0,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        response_type:0
+      });
+    }
+  }
+
+  function handleIsResponceFile(response){
+    if(messageRespond.is_file){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 1,
+        is_video: 0,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:1
+      });
+    }else if(messageRespond.is_image){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 1,
+        is_video: 0,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:2
+      });
+    }else if(messageRespond.is_video){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 1,
+        is_video: 0,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:3
+      });
+    }else{
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 1,
+        is_video: 0,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        response_type:0
+      });
+    }
+  }
+
+  function handleIsResponceVideo(response){
+    if(messageRespond.is_file){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 0,
+        is_video: 1,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:1
+      });
+    }else if(messageRespond.is_image){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 0,
+        is_video: 1,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:2
+      });
+    }else if(messageRespond.is_video){
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 0,
+        is_video: 1,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:3
+      });
+    }else{
+      handleSubmit({
+        text: inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 0,
+        is_video: 1,
+        file: response.data.url,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        response_type:0
+      });
+    }
   }
 
   function onDocumentLoadSuccess({ numPages }) {
