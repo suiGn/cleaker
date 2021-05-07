@@ -78,7 +78,7 @@ exports.authGoogle = (req, res) => {
             }
           );
         }
-        res.redirect("https://www.orgboat.me");
+        res.redirect("https://www.cleaker.me");
       }
     }
   );
