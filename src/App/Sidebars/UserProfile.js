@@ -7,13 +7,8 @@ import classnames from "classnames";
 import ModalImage from "react-modal-image";
 
 function UserProfile(props) {
-  const { socket } = props;
-  const { openUserProfile } = props;
-  const { setOpenUserProfile } = props;
-  const { openProfile } = props;
-  const { setOpenProfile } = props;
-  const { openGroupProfile } = props;
-  const { setOpenGroupProfile } = props;
+  const { socket, openUserProfile, setOpenUserProfile, openProfile, 
+    setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia } = props;
 
   const openUserProfileToggler = (e) => {
     setOpenUserProfile(!openUserProfile);
@@ -34,7 +29,6 @@ function UserProfile(props) {
   const [activeTab, setActiveTab] = useState("1");
   const [p, setP] = useState("");
   const [favorites, setFavorites] = useState([]);
-  const [files, setFiles] = useState([]);
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -70,7 +64,7 @@ function UserProfile(props) {
         } else {
           setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
         }
-        setFiles(data.files)
+        setMedia(data.files)
         setFavorites(data.favorites)
         setName(nameD);
         setCity(cityD);
@@ -149,7 +143,7 @@ function UserProfile(props) {
                       </NavLink>
                     </NavItem>:""
                   }
-                  {
+                  {/*
                     files.length>0?
                   <NavItem>
                       <NavLink
@@ -163,7 +157,7 @@ function UserProfile(props) {
                         Files ( {files.length} )
                       </NavLink>
                     </NavItem>:""
-                    }
+                    */}
                 </Nav>
               </div>
               <TabContent activeTab={activeTab}>
@@ -192,7 +186,7 @@ function UserProfile(props) {
                     </ul>
                   </div>
                 </TabPane>
-                <TabPane tabId="3">
+                {/*<TabPane tabId="3">
                   <h6 className="mb-3 d-flex align-items-center justify-content-between">
                     <span>Files</span>
                   </h6>
@@ -210,7 +204,7 @@ function UserProfile(props) {
                     }
                     </ul>
                   </div>
-                </TabPane>
+                  </TabPane>*/}
               </TabContent>
             </div>
           </PerfectScrollbar>

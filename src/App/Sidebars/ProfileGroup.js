@@ -10,13 +10,8 @@ import ModalImage from "react-modal-image";
 import ProfileDropdown from "./ProfileDropdown.js";
 
 function ProfileGroup(props) {
-  const { socket } = props;
-  const { openUserProfile } = props;
-  const { setOpenUserProfile } = props;
-  const { openProfile } = props;
-  const { setOpenProfile } = props;
-  const { openGroupProfile } = props;
-  const { setOpenGroupProfile } = props;
+  const { socket, openUserProfile, setOpenUserProfile, openProfile,
+    setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia} = props;
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -37,7 +32,6 @@ function ProfileGroup(props) {
   const [fileState, setFileState] = useState(null);
   const [about, setAbout] = useState("");
   const [activeTab, setActiveTab] = useState("1");
-  const [files, setFiles] = useState([]);
   const [p, setP] = useState("");
   const [members, setMembers] = useState([]);
   const [openContentEditable, setOpenContentEditable] = useState(false);
@@ -83,7 +77,7 @@ function ProfileGroup(props) {
       setPphoto(pphotoD);
       setAbout(about_chatD)
       setMembers(data.chats)
-      setFiles(data.files)
+      setMedia(data.files)
     }
   }
 
@@ -429,7 +423,7 @@ function ProfileGroup(props) {
                       About
                     </NavLink>
                   </NavItem>
-                  {
+                  {/*
                     files.length>0?
                   <NavItem>
                       <NavLink
@@ -443,7 +437,7 @@ function ProfileGroup(props) {
                         Files ( {files.length} )
                       </NavLink>
                     </NavItem>:""
-                    }
+                    */}
                 </Nav>
               </div>
               <TabContent activeTab={activeTab}>
@@ -505,7 +499,7 @@ function ProfileGroup(props) {
                     </PerfectScrollbar>
                   </div>        
                 </TabPane>
-                <TabPane tabId="3">
+                {/*<TabPane tabId="3">
                   <h6 className="mb-3 d-flex align-items-center justify-content-between">
                     <span>Files</span>
                   </h6>
@@ -514,8 +508,8 @@ function ProfileGroup(props) {
                       {files.map((message, i) => (
                         <li className="list-group-item">
                           <ModalImage
-                            small={message.message}
-                            large={message.message}
+                            small={message.file}
+                            large={message.file}
                             alt="image"
                           />
                         </li>
@@ -523,7 +517,7 @@ function ProfileGroup(props) {
                       }
                     </ul>
                   </div>
-                </TabPane>
+                    </TabPane>*/}
               </TabContent>
             </div>
           </PerfectScrollbar>
