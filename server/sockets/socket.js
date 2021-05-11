@@ -287,7 +287,7 @@ io.on("connection", function (socket) {
                     FROM messages
                     inner join usrs on messages.u_id = usrs.u_id
                     inner join chats_users on messages.u_id = chats_users.u_id
-                    WHERE messages.is_image =1 and messages.chat_uid = '${data.chat_id}'`,
+                    WHERE messages.is_image =1 and messages.delete_message = 0 and messages.chat_uid = '${data.chat_id}'`,
                     function (err, chatsfile) {
                       io.to(user.u_id).emit("retrieve viewProfileUser", {
                         favorites: chats,
@@ -781,10 +781,10 @@ io.on("connection", function (socket) {
         function (err, rows) {
           orgboatDB.query(
             `SELECT 
-              distinct messages.message, messages.time, usrs.name, message_id, messages.u_id FROM messages
+              distinct messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file FROM messages
               inner join usrs on messages.u_id = usrs.u_id
               inner join chats_users on messages.u_id = chats_users.u_id
-              WHERE messages.is_image =1 and messages.chat_uid = '${data.chat_id}'`,
+              WHERE messages.is_image =1 and messages.delete_message = 0 and messages.chat_uid = '${data.chat_id}'`,
             function (err, chatsfile) {
               io.to(user.u_id).emit("retrieve GetGrupo", {
                 chat_uid: data.id,

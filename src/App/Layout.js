@@ -14,6 +14,7 @@ import { pageTourAction } from "../Store/Actions/pageTourAction";
 import { profileAction } from "../Store/Actions/profileAction";
 import DisconnectedModal from "./Modals/DisconnectedModal";
 import ChatNoMessage from "./Partials/ChatNoMessage";
+import Media from "./Sidebars/Media";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
 
@@ -44,7 +45,7 @@ function Layout(props) {
   const [messageRespond, setMessageRespond] = useState("");
   const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
   const [isResponse, setisResponse] = useState(false);
-
+  const [media, setMedia] = useState([]);
   
 
   useEffect(() => {
@@ -213,6 +214,7 @@ function Layout(props) {
           socket={socket}
           user={user}
           chat={chat}
+          setMedia={setMedia}
         />
         <SearchChat
           socket={socket}
@@ -235,7 +237,10 @@ function Layout(props) {
           chat={chat}
           my_uid={my_uid}
           setClicked={setClicked}
+          setMedia={setMedia}
         />
+        <Media 
+        media={media}/>
         <TourModal />
         <DisconnectedModal />
       </div>
