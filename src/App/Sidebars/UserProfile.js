@@ -8,7 +8,8 @@ import ModalImage from "react-modal-image";
 
 function UserProfile(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile, 
-    setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia } = props;
+    setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia,
+    openMedia,setOpenMedia, media } = props;
 
   const openUserProfileToggler = (e) => {
     setOpenUserProfile(!openUserProfile);
@@ -18,7 +19,11 @@ function UserProfile(props) {
     if (openGroupProfile) {
       setOpenGroupProfile(!openGroupProfile);
     }
+    if(openMedia){
+      setOpenMedia(!openMedia)
+    }
   };
+  
 
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
@@ -82,8 +87,9 @@ function UserProfile(props) {
     };
   }, [name]);
 
-  function addDefaultSrc(ev) {
-    ev.target.src = WomenAvatar5;
+  function ViewMedia(e){
+    setOpenUserProfile(!openUserProfile);
+    setOpenMedia(!openMedia)
   }
 
   return (
@@ -114,7 +120,9 @@ function UserProfile(props) {
                 <small className="text-muted font-italic">
                   Last seen: Today
                 </small>
-
+                <div  onClick={(e) => ViewMedia(e)}>
+                  Files ( {media.length} )
+                </div>
                 <Nav tabs className="justify-content-center mt-5">
                   <NavItem>
                     <NavLink

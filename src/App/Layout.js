@@ -33,6 +33,7 @@ function Layout(props) {
   const [openProfile, setOpenProfile] = useState(false);
   const [openGroupProfile, setOpenGroupProfile] = useState(false);
   const [openSearchSidebar, setOpenSearchSidebar] = useState(false);
+  const [openMedia, setOpenMedia] = useState(false);
   const [scrollEl, setScrollEl] = useState();
   const [imgPreview, setImgPreview] = useState([]);
   const [filePreview, setFilePreview] = useState([]);
@@ -201,6 +202,8 @@ function Layout(props) {
           setOpenUserProfile={setOpenUserProfile}
           openGroupProfile={openGroupProfile}
           setOpenGroupProfile={setOpenGroupProfile}
+          openMedia={openMedia}
+          setOpenMedia={setOpenMedia}
           socket={socket}
           user={user}
         />
@@ -211,10 +214,13 @@ function Layout(props) {
           openProfile={openProfile}
           openGroupProfile={openGroupProfile}
           setOpenGroupProfile={setOpenGroupProfile}
+          openMedia={openMedia}
+          setOpenMedia={setOpenMedia}
           socket={socket}
           user={user}
           chat={chat}
           setMedia={setMedia}
+          media={media}
         />
         <SearchChat
           socket={socket}
@@ -231,6 +237,8 @@ function Layout(props) {
           openProfile={openProfile}
           openGroupProfile={openGroupProfile}
           setOpenGroupProfile={setOpenGroupProfile}
+          openMedia={openMedia}
+          setOpenMedia={setOpenMedia}
           socket={socket}
           group={group}
           clicked={clicked}
@@ -240,7 +248,16 @@ function Layout(props) {
           setMedia={setMedia}
         />
         <Media 
-        media={media}/>
+        media={media}
+        openMedia={openMedia}
+        setOpenMedia={setOpenMedia}
+        openUserProfile={openUserProfile}
+        setOpenUserProfile={setOpenUserProfile}
+        setOpenProfile={setOpenProfile}
+        openProfile={openProfile}
+        openGroupProfile={openGroupProfile}
+        setOpenGroupProfile={setOpenGroupProfile}
+        />
         <TourModal />
         <DisconnectedModal />
       </div>
