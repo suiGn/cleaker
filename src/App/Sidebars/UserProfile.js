@@ -9,7 +9,7 @@ import ModalImage from "react-modal-image";
 function UserProfile(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile, 
     setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia,
-    openMedia,setOpenMedia, media } = props;
+    openMedia,setOpenMedia, media, setMediaProfileType } = props;
 
   const openUserProfileToggler = (e) => {
     setOpenUserProfile(!openUserProfile);
@@ -90,6 +90,7 @@ function UserProfile(props) {
   function ViewMedia(e){
     setOpenUserProfile(!openUserProfile);
     setOpenMedia(!openMedia)
+    setMediaProfileType(1)
   }
 
   return (

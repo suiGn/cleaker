@@ -10,8 +10,9 @@ import ModalImage from "react-modal-image";
 import ProfileDropdown from "./ProfileDropdown.js";
 
 function ProfileGroup(props) {
-  const { socket, openUserProfile, setOpenUserProfile, openProfile,
-    setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia} = props;
+  const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
+    openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
+    setMediaProfileType} = props;
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -335,6 +336,12 @@ function ProfileGroup(props) {
     );
   };
 
+  function ViewMedia(e){
+    setOpenGroupProfile(!openGroupProfile);
+    setOpenMedia(!openMedia)
+    setMediaProfileType(2)
+  }
+
   return (
     <div className={`sidebar-group ${openGroupProfile ? "mobile-open" : ""}`}>
       <div className={openGroupProfile ? "sidebar active" : "sidebar"}>
@@ -412,6 +419,9 @@ function ProfileGroup(props) {
                 <small className="text-muted font-italic">
                   Last seen: Today
                 </small>
+                <div  onClick={(e) => ViewMedia(e)}>
+                  Files ( {media.length} )
+                </div>
 
                 <Nav tabs className="justify-content-center mt-5">
                   <NavItem>

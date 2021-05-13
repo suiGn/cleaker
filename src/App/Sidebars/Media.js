@@ -9,21 +9,19 @@ import VideoThumbnail from 'react-video-thumbnail';
 
 function ProfileGroup(props) {
   const { 
-  openUserProfile,setOpenUserProfile, openProfile, setOpenProfile,
-  openGroupProfile, setOpenGroupProfile,openMedia,setOpenMedia } = props;
+  openUserProfile,setOpenUserProfile,openGroupProfile, setOpenGroupProfile,
+  openMedia,setOpenMedia,setMediaProfileType, mediaProfileType } = props;
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
   const openMediaToggler = (e) => {
+    setMediaProfileType(0)
     setOpenMedia(!openMedia)
-    if (openProfile) {
-      setOpenProfile(!openProfile);
-    }
-    if (openUserProfile) {
+    if (mediaProfileType==1) {
       setOpenUserProfile(!openUserProfile);
     }
-    if(openGroupProfile){
+    if(mediaProfileType==2){
       setOpenGroupProfile(!openGroupProfile)
     }
   };
@@ -144,12 +142,9 @@ function ProfileGroup(props) {
                     <ul className="list-group list-group-flush">
                       {videos.map((message, i) => (
                         <li className="list-group-item">
-                         <VideoThumbnail
-                          videoUrl={message.file}
-                          thumbnailHandler={(thumbnail) => {}}
-                          width={100}
-                          height={100}
-                          />
+                         <video className="video-container" controls>
+                          <source src={message.file} />
+                        </video>
                         </li>
                         ))
                       }
@@ -164,11 +159,9 @@ function ProfileGroup(props) {
                     <ul className="list-group list-group-flush">
                       {files.map((message, i) => (
                         <li className="list-group-item">
-                          <ModalImage
-                            small={message.file}
-                            large={message.file}
-                            alt="image"
-                          />
+                          <a href={message.file} download>
+                            <FeatherIcon.Download /> {"file "}
+                          </a>
                         </li>
                         ))
                       }

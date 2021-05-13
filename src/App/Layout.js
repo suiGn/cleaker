@@ -47,6 +47,7 @@ function Layout(props) {
   const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
   const [isResponse, setisResponse] = useState(false);
   const [media, setMedia] = useState([]);
+  const [mediaProfileType, setMediaProfileType] = useState(0);
   
 
   useEffect(() => {
@@ -221,6 +222,7 @@ function Layout(props) {
           chat={chat}
           setMedia={setMedia}
           media={media}
+          setMediaProfileType={setMediaProfileType}
         />
         <SearchChat
           socket={socket}
@@ -246,6 +248,8 @@ function Layout(props) {
           my_uid={my_uid}
           setClicked={setClicked}
           setMedia={setMedia}
+          media={media}
+          setMediaProfileType={setMediaProfileType}
         />
         <Media 
         media={media}
@@ -257,6 +261,8 @@ function Layout(props) {
         openProfile={openProfile}
         openGroupProfile={openGroupProfile}
         setOpenGroupProfile={setOpenGroupProfile}
+        mediaProfileType={mediaProfileType}
+        setMediaProfileType={setMediaProfileType}
         />
         <TourModal />
         <DisconnectedModal />
