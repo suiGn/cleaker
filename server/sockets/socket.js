@@ -129,6 +129,8 @@ io.on("connection", function (socket) {
       response_from = msg.response_from?msg.response_from:"";
       file = msg.file ? msg.file : "";
       from = user.u_id;
+      responseFile = msg.responseFile ? msg.responseFile : "";
+      response_type = msg.response_type ? msg.response_type : 0;
       time = new Date();
       orgboatDB.query(
         `
@@ -152,7 +154,9 @@ io.on("connection", function (socket) {
                 file: file,
                 is_response:is_response,
                 response: response,
-                response_from: response_from
+                response_from: response_from,
+                responseFile: responseFile,
+                response_type: response_type
               });
             }
           });
@@ -160,9 +164,11 @@ io.on("connection", function (socket) {
       );
       timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
       orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,
-        unread_messages,is_image,is_file,is_video,file,is_response,response,response_from) 
+        unread_messages,is_image,is_file,is_video,file,is_response,response,response_from
+        ,response_type,response_file) 
       values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}'
-      ,'${is_video}','${file}','${is_response}','${response}','${response_from}')`);
+      ,'${is_video}','${file}','${is_response}','${response}','${response_from}'
+      ,'${response_type}','${responseFile}')`);
     });
 
     //Client request the messages
@@ -193,7 +199,8 @@ io.on("connection", function (socket) {
       usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message,
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
-      messages.is_response, messages.response, messages.response_from
+      messages.is_response, messages.response, messages.response_from, messages.response_type, 
+      messages.response_file
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 order by time desc limit ${msg.limit};
@@ -276,11 +283,13 @@ io.on("connection", function (socket) {
                 function (err, chats) {
                   orgboatDB.query(
                     `SELECT 
-                    distinct messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file
-                    FROM messages
+                    distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
+                    messages.is_video, messages.is_image, messages.is_file FROM messages
                     inner join usrs on messages.u_id = usrs.u_id
                     inner join chats_users on messages.u_id = chats_users.u_id
-                    WHERE messages.is_image =1 and messages.chat_uid = '${data.chat_id}'`,
+                    WHERE messages.delete_message = 0 
+                    and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1)
+                    and messages.chat_uid =  '${data.chat_id}'`,
                     function (err, chatsfile) {
                       io.to(user.u_id).emit("retrieve viewProfileUser", {
                         favorites: chats,
@@ -774,10 +783,13 @@ io.on("connection", function (socket) {
         function (err, rows) {
           orgboatDB.query(
             `SELECT 
-              distinct messages.message, messages.time, usrs.name, message_id, messages.u_id FROM messages
-              inner join usrs on messages.u_id = usrs.u_id
-              inner join chats_users on messages.u_id = chats_users.u_id
-              WHERE messages.is_image =1 and messages.chat_uid = '${data.chat_id}'`,
+            distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
+            messages.is_video, messages.is_image, messages.is_file FROM messages
+            inner join usrs on messages.u_id = usrs.u_id
+            inner join chats_users on messages.u_id = chats_users.u_id
+            WHERE messages.delete_message = 0 
+            and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1)
+            and messages.chat_uid =  '${data.chat_id}'`,
             function (err, chatsfile) {
               io.to(user.u_id).emit("retrieve GetGrupo", {
                 chat_uid: data.id,
@@ -857,7 +869,8 @@ io.on("connection", function (socket) {
         usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message, 
         messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
         chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
-        messages.is_response, messages.response, messages.response_from
+        messages.is_response, messages.response, messages.response_from, messages.response_type, 
+        messages.response_file
           from messages inner join usrs on messages.u_id = usrs.u_id
           inner join chats on chats.chat_uid = messages.chat_uid
           where  messages.chat_uid = '${data.id}' 

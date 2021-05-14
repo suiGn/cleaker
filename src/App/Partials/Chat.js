@@ -15,6 +15,7 @@ import empty from "../../assets/img/undraw_empty_xct9.svg";
 import { Menu } from "react-feather";
 import * as FeatherIcon from "react-feather";
 import ModalImage from "react-modal-image";
+import VideoThumbnail from 'react-video-thumbnail';
 
 function Chat(props) {
   const [inputMsg, setInputMsg] = useState("");
@@ -185,10 +186,9 @@ function Chat(props) {
           is_response: 1,
           response: newValue.response,
           response_from:newValue.response_from,
-          response_is_image: newValue.response_is_image,
-          response_is_file: newValue.response_is_file,
-          response_is_video: newValue.response_is_video,
           file: newValue.file,
+          responseFile: newValue.responseFile,
+          response_type: newValue.response_type
         });
         socket.emit("get chats");
         socket.emit("get messages", {
@@ -322,7 +322,34 @@ function Chat(props) {
                   <h5>{message.response_from}</h5>
                 </div>
               </div>
-              <div className="word-break">{message.response}</div>
+              {
+                message.response_type==0?
+                <div className="word-break">{message.response}</div>
+                : message.response_type==1?
+                <div>
+                  <div className="word-break">{message.response}</div>
+                </div>
+                : message.response_type==2?
+                <div>
+                  <div className="mini-preview-container" style={{backgroundImage:"url("+message.response_file+")"}}>
+                  </div>
+                  <div className="word-break">{message.response}</div>
+                </div>
+                : message.response_type==3?
+                <div>
+                  <div className="mini-preview-container">
+                    <VideoThumbnail
+                      videoUrl={message.response_file}
+                      thumbnailHandler={(thumbnail) => {}}
+                      width={100}
+                      height={100}
+                      />
+                  </div>
+                  <div className="word-break">{message.response}</div>
+                </div>
+                :""
+              }
+              
             </div>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">

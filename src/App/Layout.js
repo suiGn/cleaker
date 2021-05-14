@@ -14,6 +14,7 @@ import { pageTourAction } from "../Store/Actions/pageTourAction";
 import { profileAction } from "../Store/Actions/profileAction";
 import DisconnectedModal from "./Modals/DisconnectedModal";
 import ChatNoMessage from "./Partials/ChatNoMessage";
+import Media from "./Sidebars/Media";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
 
@@ -32,6 +33,7 @@ function Layout(props) {
   const [openProfile, setOpenProfile] = useState(false);
   const [openGroupProfile, setOpenGroupProfile] = useState(false);
   const [openSearchSidebar, setOpenSearchSidebar] = useState(false);
+  const [openMedia, setOpenMedia] = useState(false);
   const [scrollEl, setScrollEl] = useState();
   const [imgPreview, setImgPreview] = useState([]);
   const [filePreview, setFilePreview] = useState([]);
@@ -44,7 +46,8 @@ function Layout(props) {
   const [messageRespond, setMessageRespond] = useState("");
   const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
   const [isResponse, setisResponse] = useState(false);
-
+  const [media, setMedia] = useState([]);
+  const [mediaProfileType, setMediaProfileType] = useState(0);
   
 
   useEffect(() => {
@@ -200,6 +203,8 @@ function Layout(props) {
           setOpenUserProfile={setOpenUserProfile}
           openGroupProfile={openGroupProfile}
           setOpenGroupProfile={setOpenGroupProfile}
+          openMedia={openMedia}
+          setOpenMedia={setOpenMedia}
           socket={socket}
           user={user}
         />
@@ -210,9 +215,14 @@ function Layout(props) {
           openProfile={openProfile}
           openGroupProfile={openGroupProfile}
           setOpenGroupProfile={setOpenGroupProfile}
+          openMedia={openMedia}
+          setOpenMedia={setOpenMedia}
           socket={socket}
           user={user}
           chat={chat}
+          setMedia={setMedia}
+          media={media}
+          setMediaProfileType={setMediaProfileType}
         />
         <SearchChat
           socket={socket}
@@ -229,12 +239,30 @@ function Layout(props) {
           openProfile={openProfile}
           openGroupProfile={openGroupProfile}
           setOpenGroupProfile={setOpenGroupProfile}
+          openMedia={openMedia}
+          setOpenMedia={setOpenMedia}
           socket={socket}
           group={group}
           clicked={clicked}
           chat={chat}
           my_uid={my_uid}
           setClicked={setClicked}
+          setMedia={setMedia}
+          media={media}
+          setMediaProfileType={setMediaProfileType}
+        />
+        <Media 
+        media={media}
+        openMedia={openMedia}
+        setOpenMedia={setOpenMedia}
+        openUserProfile={openUserProfile}
+        setOpenUserProfile={setOpenUserProfile}
+        setOpenProfile={setOpenProfile}
+        openProfile={openProfile}
+        openGroupProfile={openGroupProfile}
+        setOpenGroupProfile={setOpenGroupProfile}
+        mediaProfileType={mediaProfileType}
+        setMediaProfileType={setMediaProfileType}
         />
         <TourModal />
         <DisconnectedModal />

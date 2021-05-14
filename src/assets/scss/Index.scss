@@ -26,6 +26,7 @@
     flex: 1;
     max-width: 1900px;
     height: 100%;
+    width: 100%;
     margin: auto;
 
     .sidebar-group {
@@ -254,6 +255,7 @@
     }
 
     .chat {
+      //width: 1px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -316,7 +318,7 @@
         padding-right: 5em;
         padding-top: 5em;   
         .video-container-preview{
-          width: 400px;
+          width: 100%;
         }
         .img-preview-container-head {
           display: flex;
@@ -397,6 +399,19 @@
 
             &:last-child {
               margin-bottom: 0;
+            }
+
+            .mini-preview-container{
+              bottom:0%;
+              background-size: cover; /* or contain */
+              background-position: center center;
+              background-repeat: no-repeat;
+              width: 100px;
+              height: 100px;
+              .react-pdf__Page__canvas{
+                width: 100px !important;
+                height: 100px !important;
+              }
             }
 
             .message-avatar {
@@ -598,10 +613,13 @@
           height: 90%!important;        
         }
 
+        .footer-file {
+          height: 25%;
+        }
+
       }
 
       .footer-file {
-        height: 20%;
         .file-list{
           display:flex;
           list-style-type: none;
@@ -643,6 +661,25 @@
               left: 35px;
               top: 10px;
             }
+          }
+        }
+      }
+
+      .chat-footer-preview{
+        display: flex;
+        svg{
+          cursor: pointer;
+        }
+        .mini-preview-container{
+          bottom:0%;
+          background-size: cover; /* or contain */
+          background-position: center center;
+          background-repeat: no-repeat;
+          width: 100px;
+          height: 100px;
+          .react-pdf__Page__canvas{
+            width: 100px !important;
+            height: 100px !important;
           }
         }
       }

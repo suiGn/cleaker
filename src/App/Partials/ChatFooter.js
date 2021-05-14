@@ -14,9 +14,10 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { Console } from "winston/lib/winston/transports";
+import { is } from "core-js/core/object";
 
 function ChatFooter(props) {
-  const {isResponse,viewChatAnswerPreview,messageRespond} = props
+  const {isResponse,messageRespond} = props
   const [emojiMenuOpen, setEmojiMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //const [imgPreview, setImgPreview] = useState(false);
@@ -30,19 +31,7 @@ function ChatFooter(props) {
     e.preventDefault();
     if(props.inputMsg!=""){
       if(isResponse){
-        props.onSubmit({
-          text: props.inputMsg,
-          chat_uid: props.chat_uid,
-          is_image: 0,
-          is_file: 0,
-          is_video: 0,
-          response: messageRespond.message,
-          response_from: messageRespond.name,
-          response_is_image: "response_is_image",
-          response_is_file: "response_is_file",
-          response_is_video: "response_is_video",
-          file: "file",
-        });
+        handleIsResponce();
       }else{
         props.onSubmit({
           text: props.inputMsg,
@@ -54,6 +43,57 @@ function ChatFooter(props) {
       }
     }
   };
+
+  function handleIsResponce(){
+    if(messageRespond.is_file){
+      props.onSubmit({
+        text: props.inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 0,
+        is_video: 0,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:1
+      });
+    }else if(messageRespond.is_image){
+      props.onSubmit({
+        text: props.inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 0,
+        is_video: 0,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:2
+      });
+    }else if(messageRespond.is_video){
+      props.onSubmit({
+        text: props.inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 0,
+        is_video: 0,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        responseFile: messageRespond.file,
+        response_type:3
+      });
+    }else{
+      props.onSubmit({
+        text: props.inputMsg,
+        chat_uid: props.chat_uid,
+        is_image: 0,
+        is_file: 0,
+        is_video: 0,
+        response: messageRespond.message,
+        response_from: messageRespond.name,
+        response_type:0
+      });
+    }
+  }
 
   const handleChange = (e) => {
     props.onChange(e.target.value);
