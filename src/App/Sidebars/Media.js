@@ -16,6 +16,7 @@ function ProfileGroup(props) {
   };
 
   const openMediaToggler = (e) => {
+    toggle('1')
     setMediaProfileType(0)
     setOpenMedia(!openMedia)
     if (mediaProfileType==1) {
@@ -55,9 +56,9 @@ function ProfileGroup(props) {
               <a
                 href="#/"
                 onClick={(e) => openMediaToggler(e)}
-                className="btn btn-outline-light text-danger sidebar-close"
+                className="btn btn-outline-light sidebar-close"
               >
-                <FeatherIcon.X />
+                <FeatherIcon.ArrowLeft />
               </a>
             </li>
           </ul>
