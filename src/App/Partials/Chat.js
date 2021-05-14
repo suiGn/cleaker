@@ -12,6 +12,7 @@ import UnselectedChat from "../../assets/img/unselected-chat.svg";
 import UIfx from "uifx";
 import notificationAudio from "../../assets/sound/much.mp3";
 import empty from "../../assets/img/undraw_empty_xct9.svg";
+import emptyOne from "../../assets/img/background_cleaker.svg";
 import { Menu } from "react-feather";
 import * as FeatherIcon from "react-feather";
 import ModalImage from "react-modal-image";
@@ -534,6 +535,13 @@ function Chat(props) {
       <PerfectScrollbar
         containerRef={(ref) => setScrollEl(ref)}
         onScrollY={(container) => scrollMove(container)}
+        style={
+          {
+            backgroundImage:"url("+emptyOne+")",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "100%"
+          }
+          }
       >
         <div className="chat-body">
           <div className="messages">
