@@ -315,43 +315,6 @@ function Chat(props) {
       if(message.is_response){
         return (
           <div id={message.message_id} className={"message-item " + type}>
-            <div
-              className={"message-content position-relative img-chat" + search}
-            >
-              <div className="message-avatar">
-                <div>
-                  <h5>{message.response_from}</h5>
-                </div>
-              </div>
-              {
-                message.response_type==0?
-                <div className="word-break">{message.response}</div>
-                : message.response_type==1?
-                <div>
-                  <div className="word-break">{message.response}</div>
-                </div>
-                : message.response_type==2?
-                <div>
-                  <div className="mini-preview-container" style={{backgroundImage:"url("+message.response_file+")"}}>
-                  </div>
-                  <div className="word-break">{message.response}</div>
-                </div>
-                : message.response_type==3?
-                <div>
-                  <div className="mini-preview-container">
-                    <VideoThumbnail
-                      videoUrl={message.response_file}
-                      thumbnailHandler={(thumbnail) => {}}
-                      width={100}
-                      height={100}
-                      />
-                  </div>
-                  <div className="word-break">{message.response}</div>
-                </div>
-                :""
-              }
-              
-            </div>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
                 <div>
@@ -367,6 +330,39 @@ function Chat(props) {
               <div
                 className={"message-content position-relative img-chat" + search}
               >
+                <div className="message-response">
+                    <div className="word-break response-from">
+                      {message.response_from}
+                    </div>
+                    {
+                      message.response_type==0?
+                      <div className="word-break response-message">{message.response}</div>
+                      : message.response_type==1?
+                      <div>
+                        <div className="word-break">{message.response}</div>
+                      </div>
+                      : message.response_type==2?
+                      <div>
+                        <div className="mini-preview-container" style={{backgroundImage:"url("+message.response_file+")"}}>
+                        </div>
+                        <div className="word-break">{message.response}</div>
+                      </div>
+                      : message.response_type==3?
+                      <div>
+                        <div className="mini-preview-container">
+                          <VideoThumbnail
+                            videoUrl={message.response_file}
+                            thumbnailHandler={(thumbnail) => {}}
+                            width={100}
+                            height={100}
+                            />
+                        </div>
+                        <div className="word-break">{message.response}</div>
+                      </div>
+                      :""
+                    }
+                  </div>
+              
                 {
                   !message.is_image && !message.is_file && !message.is_video ?
                   <div className="word-break">{message.message}</div>

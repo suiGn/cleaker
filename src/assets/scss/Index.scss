@@ -393,6 +393,17 @@
             margin-left: auto;
             margin-right: auto;
           }
+
+          .response-from{
+            position: relative;
+            left: 5px;
+          }
+
+          .response-message{
+            position: relative;
+            left: 5px;
+          }
+
           .message-item {
             max-width: 75%;
             margin-bottom: 3rem;
@@ -402,12 +413,14 @@
             }
 
             .mini-preview-container{
-              bottom:0%;
+              left: 190px;
+              position: relative;
+              bottom: 20px;
               background-size: cover; /* or contain */
               background-position: center center;
               background-repeat: no-repeat;
-              width: 100px;
-              height: 100px;
+              width: 60px;
+              height: 60px;
               .react-pdf__Page__canvas{
                 width: 100px !important;
                 height: 100px !important;
@@ -456,6 +469,7 @@
               display: flex;
               flex-flow: row;
               max-width: 415px;
+
 
               &.message-file {
                 display: flex;
@@ -545,6 +559,17 @@
               .message-content {
                 background-color: $color-primary;
                 color: white;
+                display: block;
+
+                .message-response{
+                  position: relative;
+                  right: 15px;
+                  display: block;
+                  border-radius: inherit;
+                  border-left: 7px  solid  #f3c96e;
+                  max-height: 61px;
+                }
+
                 .favorite-message {
                   svg {
                     width: auto;
