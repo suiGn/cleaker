@@ -607,8 +607,7 @@ function ChatNoMessage(props) {
                     <VideoThumbnail
                       videoUrl={img}
                       thumbnailHandler={(thumbnail) => {}}
-                      width={100}
-                      height={100}
+
                       />
                   </div>
                   :"" 
