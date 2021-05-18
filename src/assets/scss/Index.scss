@@ -472,7 +472,6 @@
               flex-flow: row;
               max-width: 415px;
 
-
               &.message-file {
                 display: flex;
                 word-break: break-word;
@@ -520,6 +519,8 @@
                   color: black;
                   font-style: italic;
                   font-size: 12px;
+                  top: -11px;
+                  left: 15px;
                 }
               }
               .misc-container:hover{
@@ -529,13 +530,7 @@
                   span{
                     cursor: pointer;
                     position: relative;
-                    left: 65%;
                   }
-                }
-
-                .dropdown-position {
-                  position: "absolute";
-                  right: "0";
                 }
               }
               .img-chat {
