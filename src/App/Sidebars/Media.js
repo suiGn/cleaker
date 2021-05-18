@@ -67,7 +67,7 @@ function ProfileGroup(props) {
           <PerfectScrollbar>
             <div className="pl-4 pr-4">
               <div className="text-center">
-                <Nav tabs className="justify-content-center mt-5">
+                <Nav tabs className="justify-content-center">
                   {
                     images.length>0?
                   <NavItem>
@@ -79,7 +79,7 @@ function ProfileGroup(props) {
                           toggle('1');
                         }}
                       >
-                        Images ( {images.length} )
+                        Images
                       </NavLink>
                     </NavItem>:""
                     }
@@ -94,7 +94,7 @@ function ProfileGroup(props) {
                           toggle('2');
                         }}
                       >
-                        Videos ( {videos.length} )
+                        Videos
                       </NavLink>
                     </NavItem>:""
                     }
@@ -109,7 +109,7 @@ function ProfileGroup(props) {
                           toggle('3');
                         }}
                       >
-                        Files ( {files.length} )
+                        Files
                       </NavLink>
                     </NavItem>:""
                     }
@@ -121,7 +121,7 @@ function ProfileGroup(props) {
                     <span>Images</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush">
+                    <ul className="list-group list-group-flush list-group-media">
                       {images.map((message, i) => (
                         <li className="list-group-item">
                           <ModalImage
@@ -140,7 +140,7 @@ function ProfileGroup(props) {
                     <span>Videos</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush">
+                    <ul className="list-group list-group-flush list-group-media">
                       {videos.map((message, i) => (
                         <li className="list-group-item">
                          <video className="video-container" controls>
@@ -157,7 +157,7 @@ function ProfileGroup(props) {
                     <span>Files</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush">
+                    <ul className="list-group list-group-flush list-group-media">
                       {files.map((message, i) => (
                         <li className="list-group-item">
                           <a href={message.file} download>
