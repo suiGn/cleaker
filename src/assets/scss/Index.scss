@@ -397,6 +397,7 @@
           .response-from{
             position: relative;
             left: 5px;
+            width: 150px;
           }
 
           .response-message{
@@ -413,7 +414,7 @@
             }
 
             .mini-preview-container{
-              left: 190px;
+              left: 20px;
               position: relative;
               bottom: 20px;
               background-size: cover; /* or contain */
@@ -421,6 +422,7 @@
               background-repeat: no-repeat;
               width: 60px;
               height: 60px;
+              float: right;
               .react-pdf__Page__canvas{
                 width: 100px !important;
                 height: 100px !important;
@@ -567,7 +569,8 @@
                   display: block;
                   border-radius: inherit;
                   border-left: 7px  solid  #f3c96e;
-                  max-height: 61px;
+                  max-width: 600px;
+                  height: 60px;
                 }
 
                 .favorite-message {
