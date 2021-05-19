@@ -336,8 +336,8 @@
             position: relative;
             top: 0%;
             .react-pdf__Page__canvas{
-              width: 200px !important;
-              height: 300px !important;
+              width: 100%!important;
+              height: 400px!important
             }
           }
         }
@@ -690,8 +690,8 @@
 
             }
             .react-pdf__Page__canvas{
-              width: 100px !important;
-              height: 100px !important;
+              width: 100px;
+              height: 100px;
             }
           }
           .mini-preview-container-add{
