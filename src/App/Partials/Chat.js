@@ -275,6 +275,8 @@ function Chat(props) {
     const { message } = props;
     const { group } = props;
     let type;
+    let timeType;
+    let dropdownType;
     let fav = "";
     let search = "";
     if (message.favorite_to || message.favorite) {
@@ -293,14 +295,22 @@ function Chat(props) {
     if (message.chat_type == 1) {
       if (message.message_user_uid == props.id) {
         type = "outgoing-message";
+        timeType="time-right";
+        dropdownType="-20px";
       } else {
         type = "";
+        timeType="time-left";
+        dropdownType="0";
       }
     } else {
       if (message.message_user_uid == props.id) {
         type = "";
+        timeType="time-left";
+        dropdownType="0";
       } else {
         type = "outgoing-message";
+        timeType="time-right";
+        dropdownType="-20px";
       }
     }
     if (message.type === "divider") {
@@ -349,7 +359,7 @@ function Chat(props) {
                       </div>
                       : message.response_type==3?
                       <div>
-                        <div className="mini-preview-container">
+                        <div className="mini-preview-container-video">
                           <VideoThumbnail
                             videoUrl={message.response_file}
                             thumbnailHandler={(thumbnail) => {}}
@@ -393,7 +403,7 @@ function Chat(props) {
                 </div>
               }
                 <div className="misc-container">
-                  <div className="time">
+                  <div className={"time "+timeType}>
                     {fav.length > 0 ? (
                       <div className={fav}>
                         <FeatherIcon.Star />
@@ -415,6 +425,7 @@ function Chat(props) {
                       socket={socket}
                       page={page}
                       limit={limit}
+                      dropdownType={dropdownType}
                       setMessageRespond={props.setMessageRespond}
                       setViewChatAnswerPreview={props.setViewChatAnswerPreview}
                       setisResponse={props.setisResponse}
@@ -473,7 +484,7 @@ function Chat(props) {
                 </div>
               }
                 <div className="misc-container">
-                  <div className="time">
+                  <div className={"time "+timeType}>
                     {fav.length > 0 ? (
                       <div className={fav}>
                         <FeatherIcon.Star />
@@ -495,6 +506,7 @@ function Chat(props) {
                       socket={socket}
                       page={page}
                       limit={limit}
+                      dropdownType={dropdownType}
                       setMessageRespond={props.setMessageRespond}
                       setViewChatAnswerPreview={props.setViewChatAnswerPreview}
                       setisResponse={props.setisResponse}

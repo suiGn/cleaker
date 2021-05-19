@@ -437,6 +437,16 @@
               }
             }
 
+            .mini-preview-container-video{
+              bottom:0%;
+              background-size: cover; /* or contain */
+              background-position: center center;
+              background-repeat: no-repeat;
+              width: 100px;
+              height: 100px;
+              
+            }
+
             .message-avatar {
               display: flex;
               align-items: center;
@@ -520,7 +530,7 @@
                 .dropdown-view{
                   visibility: hidden;
                 }
-                .time {
+                .time-right {
                   position: relative;
                   float: right;
                   margin: 5px 0 -1px 18px;
@@ -529,6 +539,16 @@
                   font-size: 12px;
                   top: -11px;
                   left: 15px;
+                }
+                .time-left{
+                  position: relative;
+                  float: right;
+                  margin: 5px 0 -1px 18px;
+                  color: black;
+                  font-style: italic;
+                  font-size: 12px;
+                  left: 10px;
+                  top: 10px;
                 }
               }
               .misc-container:hover{
