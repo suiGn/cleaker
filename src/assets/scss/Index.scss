@@ -88,6 +88,9 @@
         & .sidebar-body {
           flex: 1;
           overflow: auto;
+          .media-show{
+            cursor: pointer;
+          }
           .profile-image-holder {
             overflow: hidden;
             margin: auto;
@@ -482,6 +485,19 @@
               }
             }
 
+            .message-content:hover{
+              .misc-container {
+                .dropdown-view {
+                  visibility: visible;
+                  background-color: rgba($style-color, 0.5);
+                  span{
+                    cursor: pointer;
+                    position: relative;
+                  }
+                }
+              }
+            }
+
             .message-content {
               background: $style-color + 5;
               border-radius: 7px;
@@ -551,16 +567,7 @@
                   top: 10px;
                 }
               }
-              .misc-container:hover{
-                .dropdown-view {
-                  visibility: visible;
-                  background-color: rgba($style-color, 0.5);
-                  span{
-                    cursor: pointer;
-                    position: relative;
-                  }
-                }
-              }
+              
               .img-chat {
                 height: auto;
                 max-height: 400px;
