@@ -551,7 +551,17 @@
                   top: 10px;
                 }
               }
-              .misc-container:hover{
+              .img-chat {
+                height: auto;
+                max-height: 400px;
+                width: auto;
+                max-width: 250px;
+              }
+            }
+
+
+            .message-content:hover {
+              .misc-container{
                 .dropdown-view {
                   visibility: visible;
                   background-color: rgba($style-color, 0.5);
@@ -560,12 +570,6 @@
                     position: relative;
                   }
                 }
-              }
-              .img-chat {
-                height: auto;
-                max-height: 400px;
-                width: auto;
-                max-width: 250px;
               }
             }
 
