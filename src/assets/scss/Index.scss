@@ -265,6 +265,17 @@
       //width: 350px;
     }
 
+    .sidebar-media {
+      border-top: 1px solid $style-color;
+      border-bottom: 1px solid $style-color;
+      border-right: 1px solid $style-color;
+
+      .card-img-top {
+        padding: 1em
+      }
+
+    }
+
     .chat {
       //width: 1px;
       flex: 1;
