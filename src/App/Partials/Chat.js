@@ -363,8 +363,6 @@ function Chat(props) {
                           <VideoThumbnail
                             videoUrl={message.response_file}
                             thumbnailHandler={(thumbnail) => {}}
-                            width={100}
-                            height={100}
                             />
                         </div>
                         <div className="word-break">{message.response}</div>

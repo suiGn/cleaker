@@ -447,7 +447,15 @@
               background-repeat: no-repeat;
               width: 100px;
               height: 100px;
-              
+              .react-thumbnail-generator{
+                & > img {
+                  width: 60px;
+                  height: 60px;
+                  position: relative;
+                  left: 110px;
+                  bottom: 20px;           
+                }
+              }
             }
 
             .message-avatar {
@@ -752,6 +760,18 @@
         display: flex;
         svg{
           cursor: pointer;
+        }
+        .preview-name{
+          position: fixed;
+          z-index: 1;
+        }
+        .input-preview{
+          border: hidden;
+          height: 100px;
+          width: 725px;
+          position: relative;
+          resize: none;
+          top: 17px;
         }
         .mini-preview-container{
           bottom:0%;
