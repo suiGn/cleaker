@@ -419,9 +419,13 @@ function ProfileGroup(props) {
                 <small className="text-muted font-italic">
                   Last seen: Today
                 </small>
-                <div  onClick={(e) => ViewMedia(e)}>
-                  Files ( {media.length} )
-                </div>
+
+                {
+                  media.length>0? 
+                  <div className="media-show"  onClick={(e) => ViewMedia(e)}>
+                    Files ( {media.length} )
+                  </div>:""
+                }
 
                 <Nav tabs className="justify-content-center mt-5">
                   <NavItem>
