@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TabContent, TabPane, Nav, NavItem, NavLink
+import { TabContent, TabPane, Nav, NavItem, NavLink, CardImg , Row, Col
 } from "reactstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import classnames from "classnames";
@@ -48,7 +48,7 @@ function ProfileGroup(props) {
   }, [props.media]);
   
   return (
-    <div className={`sidebar-group ${openMedia ? "mobile-open" : ""}`}>
+    <div className={`sidebar-group ${openMedia ? "mobile-open" : ""} sidebar-media`}>
       <div className={openMedia ? "sidebar active" : "sidebar"}>
         <header>
         <ul className="list-inline">
@@ -67,7 +67,7 @@ function ProfileGroup(props) {
           <PerfectScrollbar>
             <div className="pl-4 pr-4">
               <div className="text-center">
-                <Nav tabs className="justify-content-center mt-5">
+                <Nav tabs className="justify-content-center">
                   {
                     images.length>0?
                   <NavItem>
@@ -79,7 +79,7 @@ function ProfileGroup(props) {
                           toggle('1');
                         }}
                       >
-                        Images ( {images.length} )
+                        Images
                       </NavLink>
                     </NavItem>:""
                     }
@@ -94,7 +94,7 @@ function ProfileGroup(props) {
                           toggle('2');
                         }}
                       >
-                        Videos ( {videos.length} )
+                        Videos
                       </NavLink>
                     </NavItem>:""
                     }
@@ -109,7 +109,7 @@ function ProfileGroup(props) {
                           toggle('3');
                         }}
                       >
-                        Files ( {files.length} )
+                        Files
                       </NavLink>
                     </NavItem>:""
                     }
@@ -121,17 +121,20 @@ function ProfileGroup(props) {
                     <span>Images</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush">
-                      {images.map((message, i) => (
-                        <li className="list-group-item">
-                          <ModalImage
-                            small={message.file}
-                            large={message.file}
-                            alt="image"
-                          />
-                        </li>
-                        ))
-                      }
+                    <ul className="list-group list-group-flush list-group-media">
+                      <Row>
+                        {images.map((message, i) => (
+                          <Col xl="6" lg="6" md="6" sm="6" xs="6">
+                              <ModalImage
+                                className="card-img-top"
+                                small={message.file}
+                                large={message.file}
+                                alt="image"
+                              />
+                          </Col>
+                          ))
+                        }
+                      </Row>
                     </ul>
                   </div>
                 </TabPane>
@@ -140,7 +143,7 @@ function ProfileGroup(props) {
                     <span>Videos</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush">
+                    <ul className="list-group list-group-flush list-group-media">
                       {videos.map((message, i) => (
                         <li className="list-group-item">
                          <video className="video-container" controls>
@@ -157,7 +160,7 @@ function ProfileGroup(props) {
                     <span>Files</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush">
+                    <ul className="list-group list-group-flush list-group-media">
                       {files.map((message, i) => (
                         <li className="list-group-item">
                           <a href={message.file} download>

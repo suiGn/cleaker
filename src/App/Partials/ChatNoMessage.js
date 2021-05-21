@@ -538,7 +538,7 @@ function ChatNoMessage(props) {
                       file={`${filePreview}`}
                       onLoadSuccess={onDocumentLoadSuccess}
                     >
-                      <Page pageNumber={pageNumber} />
+                      <Page pageNumber={pageNumber}/>
                     </Document>
                   </div>
                 </div> 
@@ -598,7 +598,7 @@ function ChatNoMessage(props) {
                       file={`${img}`}
                       onLoadSuccess={onDocumentLoadSuccess}
                     >
-                      <Page pageNumber={pageNumber} />
+                      <Page pageNumber={pageNumber} width={100} height={70}/>
                     </Document>
                   </div>
                   :imageOrFile == 3?
@@ -607,8 +607,7 @@ function ChatNoMessage(props) {
                     <VideoThumbnail
                       videoUrl={img}
                       thumbnailHandler={(thumbnail) => {}}
-                      width={100}
-                      height={100}
+
                       />
                   </div>
                   :"" 

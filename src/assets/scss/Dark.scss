@@ -121,6 +121,15 @@ body.dark {
         border-right-color: $dark-mode-light;
       }
 
+      .sidebar-media {
+        border-top: 1px solid $style-color;
+        border-bottom: 1px solid $style-color;
+        border-right: 1px solid $style-color;
+        border-bottom-color: $dark-mode-light;
+        border-top-color: $dark-mode-light;
+        border-right-color: $dark-mode-light;
+      }
+
       .chat {
         border-right-color: $dark-mode-light;
         //border-right-color: transparent;
