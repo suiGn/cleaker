@@ -121,7 +121,6 @@ function ProfileGroup(props) {
                     <span>Images</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush list-group-media">
                       <Row>
                         {images.map((message, i) => (
                           <Col xl="6" lg="6" md="6" sm="6" xs="6">
@@ -135,7 +134,6 @@ function ProfileGroup(props) {
                           ))
                         }
                       </Row>
-                    </ul>
                   </div>
                 </TabPane>
                 <TabPane tabId="2">

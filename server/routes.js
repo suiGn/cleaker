@@ -5,7 +5,7 @@ ______ _____ _   _ _____ _____ _____
 |    /| | | | | | | | | |  __| `--. \
 | |\ \\ \_/ / |_| | | | | |___/\__/ /
 \_| \_|\___/ \___/  \_/ \____/\____/ 
-							OrgBoat
+              OrgBoat
 CODED BY: SUI GENERIS 
 where do we go from here?
 */
@@ -26,8 +26,8 @@ AWS.config.update({ region: "us-east-2" });
 
 const s3 = new AWS.S3({
   apiVersion: "2006-03-01",
-  accessKeyId: "AKIAZRQJR7NBHDBMENXG",
-  secretAccessKey: "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"
+  accessKeyId: "AKIARVGPJVYVG45GEVXT",
+  secretAccessKey: "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"
 });
 
 exports.home = function (req, res) {
@@ -396,7 +396,7 @@ exports.savedbimage = async function (req, res) {
     console.log(req.file);
     var photo = `uploads/${req.file.filename}`;
     // let dbx =  new Dropbox({accessToken:accesstokenDropbox})
-    var uploadParams = { Bucket: "cleaker-orgboat", Key: "", Body: "" };
+    var uploadParams = { Bucket: "bucketeer-506dd049-2270-443e-b940-ab6a2c188752", Key: "", Body: "" };
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;
@@ -446,7 +446,7 @@ exports.savedbimageGroup = async function (req, res) {
     console.log(req.file);
     var photo = `uploads/${req.file.filename}`;
     // let dbx =  new Dropbox({accessToken:accesstokenDropbox})
-    var uploadParams = { Bucket: "cleaker-orgboat", Key: "", Body: "" };
+    var uploadParams = { Bucket: "bucketeer-506dd049-2270-443e-b940-ab6a2c188752", Key: "", Body: "" };
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;
@@ -487,7 +487,7 @@ exports.saveFileChat = async function (req, res) {
   return new Promise((resolve, reject) => {
     var photo = `uploads/${req.file.filename}`;
     // let dbx =  new Dropbox({accessToken:accesstokenDropbox})
-    var uploadParams = { Bucket: "cleaker-orgboat", Key: "", Body: "" };
+    var uploadParams = { Bucket: "bucketeer-506dd049-2270-443e-b940-ab6a2c188752", Key: "", Body: "" };
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;

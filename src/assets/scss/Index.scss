@@ -271,7 +271,12 @@
       border-right: 1px solid $style-color;
 
       .card-img-top {
-        padding: 1em
+        padding: .4em;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        flex-flow: row;
+        height: 200px;
       }
 
     }
