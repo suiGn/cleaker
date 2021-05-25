@@ -87,6 +87,7 @@ function Chat(props) {
     }
   }
 
+
   function RetrieveMessages(data) {
     if (data.messages.length != 0) {
       if (props.clicked.chat_uid == data.messages[0].chat_uid) {
@@ -541,6 +542,7 @@ function Chat(props) {
       <PerfectScrollbar
         containerRef={(ref) => setScrollEl(ref)}
         onScrollY={(container) => scrollMove(container)}
+        options={{suppressScrollX:true}}
         style={
           {
             backgroundImage:"url("+emptyOne+")",

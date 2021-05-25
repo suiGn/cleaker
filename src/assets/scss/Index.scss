@@ -463,6 +463,11 @@
               background-repeat: no-repeat;
               width: 100px;
               height: 100px;
+
+              video{
+                display: none;
+              }
+
               .react-thumbnail-generator{
                 & > img {
                   width: 60px;
