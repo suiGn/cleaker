@@ -13,6 +13,7 @@ import UIfx from "uifx";
 import notificationAudio from "../../assets/sound/much.mp3";
 import empty from "../../assets/img/undraw_empty_xct9.svg";
 import emptyOne from "../../assets/img/background_cleaker.svg";
+import emptyTwo from "../../assets/img/background_cleaker_web-02.svg";
 import { Menu } from "react-feather";
 import * as FeatherIcon from "react-feather";
 import ModalImage from "react-modal-image";
@@ -395,7 +396,7 @@ function Chat(props) {
                   </div>
                 :
                 <div>
-                  <video className="video-container" controls preload="none">
+                  <video className="video-container" controls preload="none" preload="metadata">
                     <source src={message.file} />
                   </video>
                   <div className="word-break">{message.message}</div>
@@ -545,7 +546,7 @@ function Chat(props) {
         options={{suppressScrollX:true}}
         style={
           {
-            backgroundImage:"url("+emptyOne+")",
+            backgroundImage:"url("+emptyTwo+")",
             backgroundRepeat: "no-repeat",
             backgroundSize: "100%"
           }

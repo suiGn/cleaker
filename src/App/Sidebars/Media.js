@@ -141,7 +141,7 @@ function ProfileGroup(props) {
                     <span>Videos</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush list-group-media">
+                    <ul className="list-group list-group-flush">
                       {videos.map((message, i) => (
                         <li className="list-group-item">
                          <video className="video-container" controls>
@@ -158,7 +158,7 @@ function ProfileGroup(props) {
                     <span>Files</span>
                   </h6>
                   <div>
-                    <ul className="list-group list-group-flush list-group-media">
+                    <ul className="list-group list-group-flush">
                       {files.map((message, i) => (
                         <li className="list-group-item">
                           <a href={message.file} download>
