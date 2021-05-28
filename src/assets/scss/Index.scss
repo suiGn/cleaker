@@ -274,12 +274,8 @@
       border-right: 1px solid $style-color;
 
       .card-img-top {
-        padding: .4em;
-        background-size: cover;
-        position: relative;
-        display: flex;
-        flex-flow: row;
-        height: 200px;
+        height: 100px;
+        object-fit: cover;
       }
 
     }
@@ -973,4 +969,41 @@
 		display: inline-flex;
 	}
 }
+
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  align-content: center
+}
+
+.nowrap  { 
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.wrap    { 
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}  
+
+.flex-item {
+  padding: 5px;
+  width: 30%;
+  margin: 2px;;
+}
+
+.new-photos-grid div {
+  width: 29%;
+}
+
 

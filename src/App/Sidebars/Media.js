@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TabContent, TabPane, Nav, NavItem, NavLink, CardImg , Row, Col
+import {
+  TabContent, TabPane, Nav, NavItem, NavLink, CardImg, Row, Col
 } from "reactstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import classnames from "classnames";
@@ -8,9 +9,9 @@ import * as FeatherIcon from "react-feather";
 import VideoThumbnail from 'react-video-thumbnail';
 
 function ProfileGroup(props) {
-  const { 
-  openUserProfile,setOpenUserProfile,openGroupProfile, setOpenGroupProfile,
-  openMedia,setOpenMedia,setMediaProfileType, mediaProfileType } = props;
+  const {
+    openUserProfile, setOpenUserProfile, openGroupProfile, setOpenGroupProfile,
+    openMedia, setOpenMedia, setMediaProfileType, mediaProfileType } = props;
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   };
@@ -19,10 +20,10 @@ function ProfileGroup(props) {
     toggle('1')
     setMediaProfileType(0)
     setOpenMedia(!openMedia)
-    if (mediaProfileType==1) {
+    if (mediaProfileType == 1) {
       setOpenUserProfile(!openUserProfile);
     }
-    if(mediaProfileType==2){
+    if (mediaProfileType == 2) {
       setOpenGroupProfile(!openGroupProfile)
     }
   };
@@ -33,25 +34,25 @@ function ProfileGroup(props) {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    var imagesL =  props.media.filter((messages)=>{
+    var imagesL = props.media.filter((messages) => {
       return messages.is_image
     })
-    var videosL =  props.media.filter((messages)=>{
+    var videosL = props.media.filter((messages) => {
       return messages.is_video
     })
-    var filesL =  props.media.filter((messages)=>{
-      return messages.is_file 
+    var filesL = props.media.filter((messages) => {
+      return messages.is_file
     })
     setFiles(filesL)
     setImages(imagesL)
     setVideos(videosL)
   }, [props.media]);
-  
+
   return (
     <div className={`sidebar-group ${openMedia ? "mobile-open" : ""} sidebar-media`}>
       <div className={openMedia ? "sidebar active" : "sidebar"}>
         <header>
-        <ul className="list-inline">
+          <ul className="list-inline">
             <li className="list-inline-item">
               <a
                 href="#/"
@@ -69,50 +70,50 @@ function ProfileGroup(props) {
               <div className="text-center">
                 <Nav tabs className="justify-content-center">
                   {
-                    images.length>0?
-                  <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: activeTab === "1",
-                        })}
-                        onClick={() => {
-                          toggle('1');
-                        }}
-                      >
-                        Images
+                    images.length > 0 ?
+                      <NavItem>
+                        <NavLink
+                          className={classnames({
+                            active: activeTab === "1",
+                          })}
+                          onClick={() => {
+                            toggle('1');
+                          }}
+                        >
+                          Images
                       </NavLink>
-                    </NavItem>:""
-                    }
-                    {
-                    videos.length>0?
-                  <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: activeTab === "2",
-                        })}
-                        onClick={() => {
-                          toggle('2');
-                        }}
-                      >
-                        Videos
+                      </NavItem> : ""
+                  }
+                  {
+                    videos.length > 0 ?
+                      <NavItem>
+                        <NavLink
+                          className={classnames({
+                            active: activeTab === "2",
+                          })}
+                          onClick={() => {
+                            toggle('2');
+                          }}
+                        >
+                          Videos
                       </NavLink>
-                    </NavItem>:""
-                    }
-                    {
-                    files.length>0?
-                  <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: activeTab === "3",
-                        })}
-                        onClick={() => {
-                          toggle('3');
-                        }}
-                      >
-                        Files
+                      </NavItem> : ""
+                  }
+                  {
+                    files.length > 0 ?
+                      <NavItem>
+                        <NavLink
+                          className={classnames({
+                            active: activeTab === "3",
+                          })}
+                          onClick={() => {
+                            toggle('3');
+                          }}
+                        >
+                          Files
                       </NavLink>
-                    </NavItem>:""
-                    }
+                      </NavItem> : ""
+                  }
                 </Nav>
               </div>
               <TabContent activeTab={activeTab}>
@@ -120,20 +121,20 @@ function ProfileGroup(props) {
                   <h6 className="mb-3 d-flex align-items-center justify-content-between">
                     <span>Images</span>
                   </h6>
-                  <div>
-                      <Row>
-                        {images.map((message, i) => (
-                          <Col xl="6" lg="6" md="6" sm="6" xs="6">
-                              <ModalImage
-                                className="card-img-top"
-                                small={message.file}
-                                large={message.file}
-                                alt="image"
-                              />
-                          </Col>
-                          ))
-                        }
-                      </Row>
+                  <div className="flex-container" >
+                    <ul class="flex-container wrap">
+                      {images.map((message, i) => (
+                        <li class="flex-item">
+                          <ModalImage
+                            className="card-img-top"
+                            small={message.file}
+                            large={message.file}
+                            alt="image"
+                          />
+                        </li>
+                      ))
+                      }
+                    </ul>
                   </div>
                 </TabPane>
                 <TabPane tabId="2">
@@ -144,11 +145,11 @@ function ProfileGroup(props) {
                     <ul className="list-group list-group-flush">
                       {videos.map((message, i) => (
                         <li className="list-group-item">
-                         <video className="video-container" controls>
-                          <source src={message.file} />
-                        </video>
+                          <video className="video-container" controls>
+                            <source src={message.file} />
+                          </video>
                         </li>
-                        ))
+                      ))
                       }
                     </ul>
                   </div>
@@ -165,7 +166,7 @@ function ProfileGroup(props) {
                             <FeatherIcon.Download /> {"file "}
                           </a>
                         </li>
-                        ))
+                      ))
                       }
                     </ul>
                   </div>

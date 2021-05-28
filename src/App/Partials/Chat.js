@@ -547,7 +547,6 @@ function Chat(props) {
         style={
           {
             backgroundImage:"url("+emptyTwo+")",
-            backgroundRepeat: "no-repeat",
             backgroundSize: "100%"
           }
           }
