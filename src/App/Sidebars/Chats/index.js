@@ -37,6 +37,9 @@ function Index(props) {
       info.name = info.chat_name;
     });
     chats.push.apply(chats, grupos);
+    chats.sort(function(a,b) {
+      return Date.parse(b.last_message_time) - Date.parse(a.last_message_time)
+    });
     setChatList(data);
     setChatL(chats);
     setfavoriteFriendFiltered(chats);
