@@ -135,6 +135,66 @@
           display: flex;
           cursor: pointer;
 
+          //
+          .message-item {
+            max-width: 75%;
+            margin-bottom: 3rem;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+
+            .messages-container {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              margin-bottom: 1em;
+              margin-left: auto;
+              margin-right: auto;
+            }
+
+            .message-content {
+              background-color: #212124;
+              border: .5px solid #f3c96e;
+              border-radius: 7px;
+              padding: 10px 20px;
+              display: flex;
+              flex-flow: row;
+              max-width: 415px;
+
+              &.message-file {
+                display: flex;
+                word-break: break-word;
+
+                .file-icon {
+                  font-size: $default-font-size + 10;
+                  margin-right: 1rem;
+                  color: black + 130;
+                }
+
+                ul {
+                  margin-top: 3px;
+                  margin-bottom: 0;
+
+                  li.list-inline-item {
+                    margin-left: 0;
+                    margin-right: 0.5rem;
+                  }
+                }
+              }
+              .img-chat {
+                height: auto;
+                max-height: 400px;
+                width: auto;
+                max-width: 250px;
+              }
+            }
+          }
+
+          //
+
           .card-img-top{
             max-width: 50% !important;
             position: relative;
@@ -172,6 +232,12 @@
               display: flex;
               flex-direction: column;
               flex: 1;
+            }
+
+            .last-message{
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
 
             h5 {
@@ -429,6 +495,9 @@
           .response-message{
             position: relative;
             left: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           .message-item {
