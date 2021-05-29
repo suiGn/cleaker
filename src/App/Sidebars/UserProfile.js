@@ -190,9 +190,29 @@ function UserProfile(props) {
                   <div>
                     <ul className="list-group list-group-flush">
                     {favorites.map((message, i) => (
-                      <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
-                          {message.message}
-                      </li>
+                        message.is_file?
+                        "":
+                        message.is_image?
+                        <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                          <ModalImage
+                                className="card-img-top"
+                                small={message.file}
+                                large={message.file}
+                                alt="image"
+                              />
+                        </li>:
+                        message.is_video?
+                        "":
+                        <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                          <div class="messages-container">
+                            <div id={message.message_id} className={"message-item"}>
+                              <div class="message-content position-relative img-chat">
+                                <div className="word-break">{message.message}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      
                       ))
                     }
                     </ul>

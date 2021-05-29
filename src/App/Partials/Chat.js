@@ -13,6 +13,7 @@ import UIfx from "uifx";
 import notificationAudio from "../../assets/sound/much.mp3";
 import empty from "../../assets/img/undraw_empty_xct9.svg";
 import emptyOne from "../../assets/img/background_cleaker.svg";
+import emptyTwo from "../../assets/img/background_cleaker_web-02.svg";
 import { Menu } from "react-feather";
 import * as FeatherIcon from "react-feather";
 import ModalImage from "react-modal-image";
@@ -86,6 +87,7 @@ function Chat(props) {
       });
     }
   }
+
 
   function RetrieveMessages(data) {
     if (data.messages.length != 0) {
@@ -324,7 +326,7 @@ function Chat(props) {
     else {
       if(message.is_response){
         return (
-          <div id={message.message_id} className={"message-item " + type}>
+          <div id={message.message_id} className={"message-item padding-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
                 <div>
@@ -363,8 +365,6 @@ function Chat(props) {
                           <VideoThumbnail
                             videoUrl={message.response_file}
                             thumbnailHandler={(thumbnail) => {}}
-                            width={100}
-                            height={100}
                             />
                         </div>
                         <div className="word-break">{message.response}</div>
@@ -396,7 +396,7 @@ function Chat(props) {
                   </div>
                 :
                 <div>
-                  <video className="video-container" controls>
+                  <video className="video-container" controls preload="none" preload="metadata">
                     <source src={message.file} />
                   </video>
                   <div className="word-break">{message.message}</div>
@@ -438,7 +438,7 @@ function Chat(props) {
         );
       }else{
         return (
-          <div id={message.message_id} className={"message-item " + type}>
+          <div id={message.message_id} className={"message-item padding-no-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
                 <div>
@@ -477,7 +477,7 @@ function Chat(props) {
                   </div>
                 :
                 <div>
-                  <video className="video-container" controls>
+                  <video className="video-container" controls preload="none">
                     <source src={message.file} />
                   </video>
                   <div className="word-break">{message.message}</div>
@@ -543,10 +543,10 @@ function Chat(props) {
       <PerfectScrollbar
         containerRef={(ref) => setScrollEl(ref)}
         onScrollY={(container) => scrollMove(container)}
+        options={{suppressScrollX:true}}
         style={
           {
-            backgroundImage:"url("+emptyOne+")",
-            backgroundRepeat: "no-repeat",
+            backgroundImage:"url("+emptyTwo+")",
             backgroundSize: "100%"
           }
           }

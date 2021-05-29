@@ -95,7 +95,7 @@ const ChatsMessageDropdown = (props) => {
       </div>
       <DropdownMenu>
         <DropdownItem onClick={() => AnswerMessage(props.message)}>
-          Replay
+          Answer
         </DropdownItem>
         <DropdownItem onClick={() => DeleteMessage(props.message.message_id)}>
           Delete

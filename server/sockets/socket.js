@@ -266,7 +266,7 @@ io.on("connection", function (socket) {
               orgboatDB.query(
                 `SELECT 
                 distinct messages.message, messages.time, usrs.name, message_id, messages.u_id,
-                messages.file FROM messages
+                messages.file, messages.is_file, messages.is_image, messages.is_video FROM messages
                 inner join usrs on messages.u_id = usrs.u_id
                 inner join chats_users on messages.u_id = chats_users.u_id
                 WHERE messages.favorite=1 and messages.chat_uid in (${chat_uids}) 
@@ -275,7 +275,7 @@ io.on("connection", function (socket) {
                 UNION 
                 SELECT 
                 distinct messages.message, messages.time, usrs.name, message_id, messages.u_id,
-                messages.file FROM messages
+                messages.file, messages.is_file, messages.is_image, messages.is_video  FROM messages
                 inner join usrs on messages.u_id = usrs.u_id
                 inner join chats_users on messages.u_id = chats_users.u_id
                 WHERE messages.favorite_to=1 and messages.chat_uid in (${chat_uids}) 
@@ -289,7 +289,7 @@ io.on("connection", function (socket) {
                     inner join chats_users on messages.u_id = chats_users.u_id
                     WHERE messages.delete_message = 0 
                     and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1)
-                    and messages.chat_uid =  '${data.chat_id}'`,
+                    and messages.chat_uid =  '${data.chat_id}' order by time desc`,
                     function (err, chatsfile) {
                       io.to(user.u_id).emit("retrieve viewProfileUser", {
                         favorites: chats,
@@ -789,7 +789,7 @@ io.on("connection", function (socket) {
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.delete_message = 0 
             and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1)
-            and messages.chat_uid =  '${data.chat_id}'`,
+            and messages.chat_uid =  '${data.chat_id}' order by time desc`,
             function (err, chatsfile) {
               io.to(user.u_id).emit("retrieve GetGrupo", {
                 chat_uid: data.id,
