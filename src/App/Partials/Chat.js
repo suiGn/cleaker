@@ -326,7 +326,7 @@ function Chat(props) {
     else {
       if(message.is_response){
         return (
-          <div id={message.message_id} className={"message-item " + type}>
+          <div id={message.message_id} className={"message-item padding-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
                 <div>
@@ -438,7 +438,7 @@ function Chat(props) {
         );
       }else{
         return (
-          <div id={message.message_id} className={"message-item " + type}>
+          <div id={message.message_id} className={"message-item padding-no-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
                 <div>
