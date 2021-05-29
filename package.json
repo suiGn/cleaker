@@ -36,6 +36,7 @@
     "socket.io-client": "^3.1.0",
     "styled-components": "^4.0.0",
     "uifx": "^2.0.7",
+    "webpack": "^3.12.0",
     "winston": "^3.3.3",
     "winston-logger": "^1.0.1",
     "winston-transport-browserconsole": "^1.0.5"
@@ -63,7 +64,6 @@
     ]
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
-    "webpack": "^3.12.0"
+    "nodemon": "^2.0.7"
   }
 }
