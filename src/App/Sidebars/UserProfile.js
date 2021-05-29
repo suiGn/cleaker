@@ -204,7 +204,13 @@ function UserProfile(props) {
                         message.is_video?
                         "":
                         <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
-                          {message.message}
+                          <div class="messages-container">
+                            <div id={message.message_id} className={"message-item"}>
+                              <div class="message-content position-relative img-chat">
+                                <div className="word-break">{message.message}</div>
+                              </div>
+                            </div>
+                          </div>
                         </li>
                       
                       ))
