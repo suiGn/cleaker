@@ -34,7 +34,8 @@ function Chat(props) {
   const [firstTime, setFirstTime] = useState(true);
 
   const [scrolled, setScrolled] = useState(false);
-  
+
+
 
   const mobileMenuBtn = () => document.body.classList.toggle("navigation-open");
 
@@ -108,7 +109,7 @@ function Chat(props) {
           }
         });
         setChatMessages(messages.reverse());
-        props.setChat({ id: props.clicked.chat_uid});
+        props.setChat({ id: props.clicked.chat_uid });
       }
     } else {
       setChatMessages([]);
@@ -176,7 +177,7 @@ function Chat(props) {
 
   const handleSubmit = (newValue) => {
     if (newMessage.length > 0) {
-      if(isResponse){
+      if (isResponse) {
         setFirstTime(true)
         setisResponse(false)
         setViewChatAnswerPreview(true)
@@ -188,7 +189,7 @@ function Chat(props) {
           is_video: newValue.is_video,
           is_response: 1,
           response: newValue.response,
-          response_from:newValue.response_from,
+          response_from: newValue.response_from,
           file: newValue.file,
           responseFile: newValue.responseFile,
           response_type: newValue.response_type
@@ -199,7 +200,7 @@ function Chat(props) {
           page: page,
           limit: limit,
         });
-      }else{
+      } else {
         setFirstTime(true)
         socket.emit("chat message", {
           chat: newValue.chat_uid,
@@ -252,8 +253,9 @@ function Chat(props) {
   let yesterdayLabel = getDateLabel(yesterday);
   let todayLabel = getDateLabel(new Date());
   let actualLabelDate = "";
+  let userID = ""
 
-  function getTodayLabel(dateLabel) {
+  function getTodayLabel(dateLabel, message_user_uid) {
     if (dateLabel == yesterdayLabel) {
       dateLabel = "Ayer";
     } else if (dateLabel == todayLabel) {
@@ -261,9 +263,17 @@ function Chat(props) {
     }
 
     if (actualLabelDate == dateLabel) {
-      return "";
+      if (message_user_uid != userID) {
+        userID = message_user_uid
+        return (
+          <br/>
+        );
+      } else {
+        return "";
+      }
     } else {
       actualLabelDate = dateLabel;
+      userID = message_user_uid
       return (
         <div
           className="message-item messages-divider sticky-top"
@@ -297,22 +307,22 @@ function Chat(props) {
     if (message.chat_type == 1) {
       if (message.message_user_uid == props.id) {
         type = "outgoing-message";
-        timeType="time-right";
-        dropdownType="-20px";
+        timeType = "time-right";
+        dropdownType = "-20px";
       } else {
         type = "";
-        timeType="time-left";
-        dropdownType="0";
+        timeType = "time-left";
+        dropdownType = "0";
       }
     } else {
       if (message.message_user_uid == props.id) {
         type = "";
-        timeType="time-left";
-        dropdownType="0";
+        timeType = "time-left";
+        dropdownType = "0";
       } else {
         type = "outgoing-message";
-        timeType="time-right";
-        dropdownType="-20px";
+        timeType = "time-right";
+        dropdownType = "-20px";
       }
     }
     if (message.type === "divider") {
@@ -322,9 +332,9 @@ function Chat(props) {
           data-label={message.message}
         ></div>
       );
-    } 
+    }
     else {
-      if(message.is_response){
+      if (message.is_response) {
         return (
           <div id={message.message_id} className={"message-item padding-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
@@ -343,67 +353,67 @@ function Chat(props) {
                 className={"message-content position-relative img-chat" + search}
               >
                 <div className="message-response">
-                    <div className="word-break response-from">
-                      {message.response_from}
-                    </div>
-                    {
-                      message.response_type==0?
-                      <div className="word-break response-message">{message.response}</div>
-                      : message.response_type==1?
-                      <div>
-                        <div className="word-break">{message.response}</div>
-                      </div>
-                      : message.response_type==2?
-                      <div>
-                        <div className="mini-preview-container" style={{backgroundImage:"url("+message.response_file+")"}}>
-                        </div>
-                        <div className="word-break">{message.response}</div>
-                      </div>
-                      : message.response_type==3?
-                      <div>
-                        <div className="mini-preview-container-video">
-                          <VideoThumbnail
-                            videoUrl={message.response_file}
-                            thumbnailHandler={(thumbnail) => {}}
-                            />
-                        </div>
-                        <div className="word-break">{message.response}</div>
-                      </div>
-                      :""
-                    }
+                  <div className="word-break response-from">
+                    {message.response_from}
                   </div>
-              
+                  {
+                    message.response_type == 0 ?
+                      <div className="word-break response-message">{message.response}</div>
+                      : message.response_type == 1 ?
+                        <div>
+                          <div className="word-break">{message.response}</div>
+                        </div>
+                        : message.response_type == 2 ?
+                          <div>
+                            <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.response_file + ")" }}>
+                            </div>
+                            <div className="word-break">{message.response}</div>
+                          </div>
+                          : message.response_type == 3 ?
+                            <div>
+                              <div className="mini-preview-container-video">
+                                <VideoThumbnail
+                                  videoUrl={message.response_file}
+                                  thumbnailHandler={(thumbnail) => { }}
+                                />
+                              </div>
+                              <div className="word-break">{message.response}</div>
+                            </div>
+                            : ""
+                  }
+                </div>
+
                 {
                   !message.is_image && !message.is_file && !message.is_video ?
-                  <div className="word-break">{message.message}</div>
-                : message.is_image ? 
-                  <div>
-                    <figure className="avatar img-chat">
-                      <ModalImage
-                        small={message.file}
-                        large={message.file}
-                        alt="image"
-                      />
-                    </figure>
                     <div className="word-break">{message.message}</div>
-                  </div>
-                : message.is_file? 
-                  <div>
-                    <a href={message.file} download>
-                      <FeatherIcon.Download /> {"file "}
-                    </a>
-                    <div className="word-break">{message.message}</div>
-                  </div>
-                :
-                <div>
-                  <video className="video-container" controls preload="none" preload="metadata">
-                    <source src={message.file} />
-                  </video>
-                  <div className="word-break">{message.message}</div>
-                </div>
-              }
+                    : message.is_image ?
+                      <div>
+                        <figure className="avatar img-chat">
+                          <ModalImage
+                            small={message.file}
+                            large={message.file}
+                            alt="image"
+                          />
+                        </figure>
+                        <div className="word-break">{message.message}</div>
+                      </div>
+                      : message.is_file ?
+                        <div>
+                          <a href={message.file} download>
+                            <FeatherIcon.Download /> {"file "}
+                          </a>
+                          <div className="word-break">{message.message}</div>
+                        </div>
+                        :
+                        <div>
+                          <video className="video-container" controls preload="none" preload="metadata">
+                            <source src={message.file} />
+                          </video>
+                          <div className="word-break">{message.message}</div>
+                        </div>
+                }
                 <div className="misc-container">
-                  <div className={"time "+timeType}>
+                  <div className={"time " + timeType}>
                     {fav.length > 0 ? (
                       <div className={fav}>
                         <FeatherIcon.Star />
@@ -436,7 +446,7 @@ function Chat(props) {
             )}
           </div>
         );
-      }else{
+      } else {
         return (
           <div id={message.message_id} className={"message-item padding-no-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
@@ -456,35 +466,35 @@ function Chat(props) {
               >
                 {
                   !message.is_image && !message.is_file && !message.is_video ?
-                  <div className="word-break">{message.message}</div>
-                : message.is_image ? 
-                  <div>
-                    <figure className="avatar img-chat">
-                      <ModalImage
-                        small={message.file}
-                        large={message.file}
-                        alt="image"
-                      />
-                    </figure>
                     <div className="word-break">{message.message}</div>
-                  </div>
-                : message.is_file? 
-                  <div>
-                    <a href={message.file} download>
-                      <FeatherIcon.Download /> {"file "}
-                    </a>
-                    <div className="word-break">{message.message}</div>
-                  </div>
-                :
-                <div>
-                  <video className="video-container" controls preload="none">
-                    <source src={message.file} />
-                  </video>
-                  <div className="word-break">{message.message}</div>
-                </div>
-              }
+                    : message.is_image ?
+                      <div>
+                        <figure className="avatar img-chat">
+                          <ModalImage
+                            small={message.file}
+                            large={message.file}
+                            alt="image"
+                          />
+                        </figure>
+                        <div className="word-break">{message.message}</div>
+                      </div>
+                      : message.is_file ?
+                        <div>
+                          <a href={message.file} download>
+                            <FeatherIcon.Download /> {"file "}
+                          </a>
+                          <div className="word-break">{message.message}</div>
+                        </div>
+                        :
+                        <div>
+                          <video className="video-container" controls preload="none">
+                            <source src={message.file} />
+                          </video>
+                          <div className="word-break">{message.message}</div>
+                        </div>
+                }
                 <div className="misc-container">
-                  <div className={"time "+timeType}>
+                  <div className={"time " + timeType}>
                     {fav.length > 0 ? (
                       <div className={fav}>
                         <FeatherIcon.Star />
@@ -543,19 +553,19 @@ function Chat(props) {
       <PerfectScrollbar
         containerRef={(ref) => setScrollEl(ref)}
         onScrollY={(container) => scrollMove(container)}
-        options={{suppressScrollX:true}}
+        options={{ suppressScrollX: true }}
         style={
           {
-            backgroundImage:"url("+emptyTwo+")",
+            backgroundImage: "url(" + emptyTwo + ")",
             backgroundSize: "100%"
           }
-          }
+        }
       >
         <div className="chat-body">
           <div className="messages">
             {messages.map((message, i) => (
               <div className="messages-container">
-                {getTodayLabel(getDateLabel(dateSend))}
+                {getTodayLabel(getDateLabel(dateSend), message.message_user_uid)}
                 <MessagesView
                   message={message}
                   key={i}
@@ -608,7 +618,7 @@ function Chat(props) {
           <div className="no-message-container custom-chat-message">
             <div className="row mb-5 chat-body-custom">
               <div className="col-12 text-center">
-              <img src={empty} width="400px" className="img-logo-auto" alt="image" />
+                <img src={empty} width="400px" className="img-logo-auto" alt="image" />
               </div>
             </div>
             <p className="lead text-center">Welcome to OrgBoat!</p>
