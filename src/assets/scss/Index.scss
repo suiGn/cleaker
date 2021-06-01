@@ -135,7 +135,7 @@
           display: flex;
           cursor: pointer;
 
-          //
+          //vist fvoritos
           .message-item {
             max-width: 75%;
             margin-bottom: 3rem;
@@ -144,6 +144,40 @@
               margin-bottom: 0;
             }
 
+            .message-avatar {
+              display: flex;
+              align-items: center;
+              margin-bottom: 1rem;
+
+              .avatar {
+                margin-right: 1rem;
+              }
+
+              h5 {
+                font-size: 15px;
+                margin-bottom: 0;
+              }
+
+              .time {
+                color: #828282;
+                margin-top: 2px;
+                font-style: italic;
+                font-size: 12px;
+
+                .ti-double-check {
+                  margin-left: 5px;
+
+                  &:before,
+                  &:after {
+                    content: "✔";
+                  }
+
+                  &:after {
+                    margin-left: -2px;
+                  }
+                }
+              }
+            }
 
             .messages-container {
               width: 100%;
@@ -193,7 +227,7 @@
             }
           }
 
-          //
+          //fin vista favoritos
 
           .card-img-top{
             max-width: 50% !important;
