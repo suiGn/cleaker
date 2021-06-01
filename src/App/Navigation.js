@@ -307,7 +307,7 @@ function Navigation(props) {
               target="dark-switcher"
               toggle={darkSwitcherTooltipTextToggler}
             >
-              Dark mode
+              {darkSwitcherTooltipTextOpen? "Dark mode" : "Light mode"}
             </Tooltip>
           </li>
           <li id="logout-menu" className="text-center">
@@ -348,7 +348,7 @@ function Navigation(props) {
                   Settings
                 </DropdownItem> */}
                   <DropdownItem onClick={(e) => darkSwitcherToggle(e)}>
-                    Dark mode
+                  {props.darkSwitcherTooltipOpen? "Dark mode" : "Light mode"}
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={logoutServer}>Logout</DropdownItem>
