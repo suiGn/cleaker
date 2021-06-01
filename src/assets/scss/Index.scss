@@ -67,9 +67,6 @@
             li {
               margin-bottom: 0;
             }
-
-            a {
-            }
           }
         }
 
@@ -135,7 +132,7 @@
           display: flex;
           cursor: pointer;
 
-          //vist fvoritos
+          //vista favoritos
           .message-item {
             max-width: 75%;
             margin-bottom: 3rem;
@@ -226,7 +223,6 @@
               }
             }
           }
-
           //fin vista favoritos
 
           .card-img-top{

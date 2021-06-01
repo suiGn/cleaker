@@ -5,6 +5,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import FavoritesDropdown from "./FavoritesDropdown";
 import { mobileSidebarAction } from "../../../Store/Actions/mobileSidebarAction";
 import * as FeatherIcon from "react-feather";
+import ModalImage from "react-modal-image";
 
 function Index(props) {
   const { socket } = props;
@@ -75,25 +76,50 @@ function Index(props) {
       <div className="sidebar-body">
         <PerfectScrollbar>
           <ul className="list-group list-group-flush">
-            {favoriteChatsFiltered.map((item, i) => {
+            {favoriteChatsFiltered.map((message, i) => {
               return (
-                <li key={i} className="list-group-item">
-                  <div className="users-list-body">
-                    <div>
-                      <h5>{item.name}</h5>
-                      {item.message}
+                message.is_file?
+                "":
+                message.is_image?
+                <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                    <div class="messages-container">
+                    <div id={message.message_id} className={"message-item"}>
+                      <div className="message-avatar">
+                        <div>
+                          <h5>{message.name}</h5>
+                        </div>
+                      </div>
+                      <div class="message-content position-relative img-chat">
+                          <div>
+                            <figure className="avatar img-chat">
+                              <ModalImage
+                                small={message.file}
+                                large={message.file}
+                                alt="image"
+                              />
+                            </figure>
+                            <div className="word-break">{message.message}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                </li>:
+                message.is_video?
+                "":
+                <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                  <div class="messages-container">
+                    <div id={message.message_id} className={"message-item"}>
+                    <div className="message-avatar">
+                      <div>
+                        <h5>{message.name}</h5>
+                      </div>
                     </div>
-                    <div className="users-list-action">
-                      <div className="action-toggle">
-                        <FavoritesDropdown
-                          message={item}
-                          socket={socket}
-                          my_uid={props.my_uid}
-                        />
+                      <div class="message-content position-relative img-chat">
+                        <div className="word-break">{message.message}</div>
                       </div>
                     </div>
                   </div>
-                </li>
+                </li>  
               );
             })}
           </ul>
