@@ -73,8 +73,9 @@ function Index(props) {
           onChange={(e) => searchFav(e.target.value)}
         />
       </form>
-      <div className="sidebar-body">
-        <PerfectScrollbar>
+      <div className="sidebar-body sidebar-body-favorites">
+        <PerfectScrollbar
+        options={{ suppressScrollX: true }}>
           <ul className="list-group list-group-flush">
             {favoriteChatsFiltered.map((message, i) => {
               return (

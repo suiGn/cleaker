@@ -127,6 +127,28 @@
           }
         }
 
+        .sidebar-body-favorites{
+          .scrollbar-container{
+            .list-group{
+              position: absolute;
+              left: 20px;
+              .list-group-item{
+                .messages-container{
+                  .message-item{
+                    .message-content{
+                      .word-break{
+                        min-width: 100px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        
+
         .list-group-item {
           padding: 17px 30px;
           display: flex;
