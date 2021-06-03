@@ -67,9 +67,6 @@
             li {
               margin-bottom: 0;
             }
-
-            a {
-            }
           }
         }
 
@@ -130,12 +127,34 @@
           }
         }
 
+        .sidebar-body-favorites{
+          .scrollbar-container{
+            .list-group{
+              position: absolute;
+              left: 20px;
+              .list-group-item{
+                .messages-container{
+                  .message-item{
+                    .message-content{
+                      .word-break{
+                        min-width: 100px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        
+
         .list-group-item {
           padding: 17px 30px;
           display: flex;
           cursor: pointer;
 
-          //vist fvoritos
+          //vista favoritos
           .message-item {
             max-width: 75%;
             margin-bottom: 3rem;
@@ -226,7 +245,6 @@
               }
             }
           }
-
           //fin vista favoritos
 
           .card-img-top{
