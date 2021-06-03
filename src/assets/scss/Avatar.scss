@@ -150,7 +150,27 @@
 		}
 	}
 }
-  
+
+
+.avatar-new {
+	display: inline-block;
+	margin-bottom: 0;
+	height: $default-avatar-size;
+	width: $default-avatar-size;
+	border-radius: 50%;
+
+	.avatar-title {
+		color: rgba(white, .8);
+		background: white - 40;
+		width: 35px;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-transform: uppercase;
+		font-size: $default-font-size + 5;
+	}
+}
 
 
 @media screen and (max-width: 900px) {
