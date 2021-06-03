@@ -225,6 +225,10 @@ function Chat(props) {
     setInputMsg(newValue);
   };
 
+  function ReadMore(e){
+    e.target.classList.remove("word-break-more");
+  }
+
   function timeformat(date) {
     var h = date.getHours();
     var m = date.getMinutes();
@@ -382,10 +386,9 @@ function Chat(props) {
                             : ""
                   }
                 </div>
-
                 {
                   !message.is_image && !message.is_file && !message.is_video ?
-                    <div className="word-break">{message.message}</div>
+                    <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>{message.message}</div>
                     : message.is_image ?
                       <div>
                         <figure className="avatar img-chat">
