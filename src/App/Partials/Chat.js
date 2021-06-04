@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Moment from "react-moment";
 import "moment-timezone";
 import ChatHeader from "./ChatHeader";
 import ChatFooter from "./ChatFooter";
 import ChatAnswerPreview from "./ChatAnswerPreview";
-import ManAvatar3 from "../../assets/img/man_avatar3.jpg";
 import { selectedChat } from "../Sidebars/Chats/Data";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import ChatsMessageDropdown from "../Sidebars/Chats/ChatsMessageDropdown.js";
-import UnselectedChat from "../../assets/img/unselected-chat.svg";
 import UIfx from "uifx";
 import notificationAudio from "../../assets/sound/much.mp3";
 import empty from "../../assets/img/undraw_empty_xct9.svg";
 import emptyOne from "../../assets/img/background_cleaker.svg";
 import emptyTwo from "../../assets/img/background_cleaker_web-02.svg";
-import { Menu } from "react-feather";
 import * as FeatherIcon from "react-feather";
 import ModalImage from "react-modal-image";
 import VideoThumbnail from 'react-video-thumbnail';
+import DeleteMessageModal from "../Modals/DeleteMessageModal";
 
 function Chat(props) {
   const [inputMsg, setInputMsg] = useState("");
@@ -35,6 +33,10 @@ function Chat(props) {
 
   const [scrolled, setScrolled] = useState(false);
 
+  const [messageToDelete, setMessageToDelete] = useState("");
+  
+
+  const deleteButton = useRef(null);
 
 
   const mobileMenuBtn = () => document.body.classList.toggle("navigation-open");
@@ -442,6 +444,8 @@ function Chat(props) {
                       setMessageRespond={props.setMessageRespond}
                       setViewChatAnswerPreview={props.setViewChatAnswerPreview}
                       setisResponse={props.setisResponse}
+                      deleteButton = {deleteButton}
+                      setMessageToDelete={setMessageToDelete}
                     />
                   </div>
                 </div>
@@ -523,6 +527,8 @@ function Chat(props) {
                       setMessageRespond={props.setMessageRespond}
                       setViewChatAnswerPreview={props.setViewChatAnswerPreview}
                       setisResponse={props.setisResponse}
+                      deleteButton = {deleteButton}
+                      setMessageToDelete={setMessageToDelete}
                     />
                   </div>
                 </div>
@@ -533,6 +539,8 @@ function Chat(props) {
       }
     }
   };
+
+
 
   return clicked.chat_uid ? (
     <div className="chat" hidden={props.viewPreview}>
@@ -609,6 +617,16 @@ function Chat(props) {
         setVideoPreview={props.setVideoPreview}
         isResponse={isResponse}
         messageRespond={messageRespond}
+      />
+      <DeleteMessageModal
+        deleteButton = {deleteButton}
+        socket = {socket}
+        messageToDelete={messageToDelete}
+        my_uid={props.my_uid}
+        chat_id={props.clicked.chat_uid}
+        socket={socket}
+        page={page}
+        limit={limit}
       />
     </div>
   ) : (
