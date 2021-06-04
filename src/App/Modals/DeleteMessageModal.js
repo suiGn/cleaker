@@ -18,6 +18,7 @@ import "emoji-mart/css/emoji-mart.css";
 import * as FeatherIcon from "react-feather";
 
 function DeleteMessageModal(props) {
+  
   const { socket, deleteButton, messageToDelete } = props;
 
   const [modal, setModal] = useState(false);
