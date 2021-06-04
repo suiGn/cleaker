@@ -473,7 +473,7 @@
             top: 8%;
             .img-preview {
               max-width: 80%;
-              max-height: 80%;
+              max-height: 472px;
             }
           }.pdf-preview-container{
             max-height: 400px;
@@ -649,11 +649,11 @@
             .message-content {
               background: $style-color + 5;
               border-radius: 7px;
-              padding: 12px 22px;;
+              padding: 2px 22px 12px 22px;
               display: flex;
               flex-flow: row;
               max-width: 415px;
-              margin-bottom: 2px;
+              margin-bottom: 3px;
 
               &.message-file {
                 display: flex;
@@ -702,7 +702,7 @@
                   color: black;
                   font-style: italic;
                   font-size: 12px;
-                  top: -11px;
+                  top: -13px;
                   left: 15px;
                 }
                 .time-left{
@@ -713,7 +713,7 @@
                   font-style: italic;
                   font-size: 12px;
                   left: 10px;
-                  top: 10px;
+                  top: 8px;
                 }
               }
               
@@ -727,7 +727,7 @@
 
             &.outgoing-message {
               margin-left: auto;
-              margin-bottom: -8px;
+              margin-bottom: -7px;
               
               .message-avatar {
                 justify-content: flex-end;

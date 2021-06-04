@@ -207,9 +207,6 @@
       .chat {
         height: calc(100% - 80px);
         .chat-header {
-          display: block !important;
-          padding-bottom: 15px !important;
-
           .chat-header-user {
             h5 {
               font-size: $default-font-size + 5 !important;
@@ -217,7 +214,6 @@
           }
 
           .chat-header-action {
-            margin-top: 15px;
           }
         }
 
