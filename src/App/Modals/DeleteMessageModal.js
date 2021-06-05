@@ -18,6 +18,7 @@ import "emoji-mart/css/emoji-mart.css";
 import * as FeatherIcon from "react-feather";
 
 function DeleteMessageModal(props) {
+  
   const { socket, deleteButton, messageToDelete } = props;
 
   const [modal, setModal] = useState(false);
@@ -28,13 +29,21 @@ function DeleteMessageModal(props) {
 
   const tooltipToggle = () => setTooltipOpen(!tooltipOpen);
 
-  function DeleteMessage() {
+  function DeleteMessageForMe() {
     modalToggle();
-    if (messageToDelete.message_user_uid != props.my_uid.id) {
-      socket.emit("Delete message", { id: messageToDelete.message_id, to: true });
-    } else {
-      socket.emit("Delete message", { id: messageToDelete.message_id, to: false });
-    }
+    socket.emit("Delete message", { id: messageToDelete.message_id, to: false });
+    socket.emit("get messages", {
+      id: props.chat_id,
+      page: props.page,
+      inChat: true,
+      limit: props.limit,
+    });
+    socket.emit("get chats")
+  }
+
+  function DeleteMessageForAll() {
+    modalToggle();
+    socket.emit("Delete message", { id: messageToDelete.message_id, to: true });
     socket.emit("get messages", {
       id: props.chat_id,
       page: props.page,
@@ -75,9 +84,9 @@ function DeleteMessageModal(props) {
         <ModalFooter>
           <div>
             <button className="btn btn-outline-light" onClick={modalToggle} style={{margin: "5px"}}>Cancelar</button>
-            <button className="btn btn-outline-light" onClick={() => DeleteMessage()} style={{margin: "5px"}}>Eliminar para mi</button>
+            <button className="btn btn-outline-light" onClick={() => DeleteMessageForMe()} style={{margin: "5px"}}>Eliminar para mi</button>
             { (messageToDelete.message_user_uid == props.my_uid.id)?
-            <button className="btn btn-outline-light" onClick={() => DeleteMessage()} style={{margin: "5px"}}>Eliminar para todos</button>:""
+            <button className="btn btn-outline-light" onClick={() => DeleteMessageForAll()} style={{margin: "5px"}}>Eliminar para todos</button>:""
             }
           </div>
         </ModalFooter>
