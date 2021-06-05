@@ -247,19 +247,19 @@ function Profile(props) {
                       </h5>
                       <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
                         {openContentEditable ? (
-                          <Button
+                          <div
                             onClick={(e) => openContentEditableToggler(true, e)}
                             color="light"
                           >
                             <FeatherIcon.Save />
-                          </Button>
+                          </div>
                         ) : (
-                          <Button
+                          <div
                             onClick={(e) => openContentEditableToggler(false, e)}
                             color="light"
                           >
                             <FeatherIcon.Edit />
-                          </Button>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -284,19 +284,19 @@ function Profile(props) {
                       </h5>
                       <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
                         {openAboutEditable ? (
-                          <Button
+                          <div
                             onClick={(e) => openAboutEditableToggler(true, e)}
                             color="light"
                           >
                             <FeatherIcon.Save />
-                          </Button>
+                          </div>
                         ) : (
-                          <Button
+                          <div
                             onClick={(e) => openAboutEditableToggler(false, e)}
                             color="light"
                           >
                             <FeatherIcon.Edit />
-                          </Button>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -321,19 +321,19 @@ function Profile(props) {
                       </h5>
                       <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
                         {openPhoneEditable ? (
-                          <Button
+                          <div
                             onClick={(e) => openPhoneEditableToggler(true, e)}
                             color="light"
                           >
                             <FeatherIcon.Save />
-                          </Button>
+                          </div>
                         ) : (
-                          <Button
+                          <div
                             onClick={(e) => openPhoneEditableToggler(false, e)}
                             color="light"
                           >
                             <FeatherIcon.Edit />
-                          </Button>
+                          </div>
                         )}
                       </div>
                     </div>
