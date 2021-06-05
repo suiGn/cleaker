@@ -649,7 +649,7 @@ io.on("connection", function (socket) {
     socket.on("Delete message", (message) => {
       if (message.to) {
         orgboatDB.query(
-          `UPDATE messages SET delete_message_to=1 WHERE message_id='${message.id}'`,
+          `UPDATE messages SET delete_message_to=1, delete_message=1  WHERE message_id='${message.id}'`,
           (err, data) => {
             if (err) {
               return json({
