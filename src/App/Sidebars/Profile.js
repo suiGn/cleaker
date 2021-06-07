@@ -233,7 +233,7 @@ function Profile(props) {
                     <h7 style={{ position: "absolute",left: "15px"}}>Name</h7>
                     <div>
                       <h5
-                       style={{ position: "relative",top: "20px"}}
+                       style={{ position: "relative",top: "20px",height: "30px"}}
                         ref={nameRef}
                         className={
                           openContentEditable
@@ -245,16 +245,18 @@ function Profile(props) {
                       >
                         {name}
                       </h5>
-                      <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
+                      <div className="border-none align-self-center"  >
                         {openContentEditable ? (
                           <div
                             onClick={(e) => openContentEditableToggler(true, e)}
                             color="light"
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                           >
                             <FeatherIcon.Save />
                           </div>
                         ) : (
                           <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openContentEditableToggler(false, e)}
                             color="light"
                           >
@@ -270,7 +272,7 @@ function Profile(props) {
                     <h7 style={{ position: "absolute",left: "15px"}}>About</h7>
                     <div>
                       <h5
-                        style={{ position: "relative",top: "20px"}}
+                        style={{ position: "relative",top: "20px",height: "30px"}}
                         ref={aboutRef}
                         className={
                           openAboutEditable
@@ -282,9 +284,10 @@ function Profile(props) {
                       >
                         {about}
                       </h5>
-                      <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
+                      <div className="border-none align-self-center">
                         {openAboutEditable ? (
                           <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openAboutEditableToggler(true, e)}
                             color="light"
                           >
@@ -292,6 +295,7 @@ function Profile(props) {
                           </div>
                         ) : (
                           <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openAboutEditableToggler(false, e)}
                             color="light"
                           >
@@ -307,7 +311,7 @@ function Profile(props) {
                     <h7 style={{ position: "absolute",left: "15px"}}>Phone</h7>
                     <div>
                       <h5
-                        style={{ position: "relative",top: "20px"}}
+                        style={{ position: "relative",top: "20px",height: "30px"}}
                         ref={phoneRef}
                         className={
                           openPhoneEditable
@@ -317,11 +321,12 @@ function Profile(props) {
                         contentEditable={openPhoneEditable}
                         onBlur={(e) => handleSetAbout(e)}
                       >
-                        {phone}
+                        {phone!=""?phone:"  "}
                       </h5>
-                      <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
+                      <div className="border-none align-self-center">
                         {openPhoneEditable ? (
                           <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openPhoneEditableToggler(true, e)}
                             color="light"
                           >
@@ -329,6 +334,7 @@ function Profile(props) {
                           </div>
                         ) : (
                           <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openPhoneEditableToggler(false, e)}
                             color="light"
                           >

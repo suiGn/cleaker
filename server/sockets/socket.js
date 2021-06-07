@@ -206,11 +206,17 @@ io.on("connection", function (socket) {
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 order by time desc limit ${msg.limit};
 		 `,
         function (err, rows) {
-          io.to(user.u_id).emit("retrieve messages", {
-            messages: rows,
-            message_user_uid: user.message_user_uid,
-            idSearch: msg.idSearch,
-          });
+          orgboatDB.query(`select COUNT(messages.u_id) as countrow
+          from messages inner join usrs on messages.u_id = usrs.u_id
+          inner join chats on chats.chat_uid = messages.chat_uid
+          where  messages.chat_uid  = '${msg.id}' AND messages.delete_message = 0 `,function (error,countrow) {
+            io.to(user.u_id).emit("retrieve messages", {
+              count: countrow,
+              messages: rows,
+              message_user_uid: user.message_user_uid,
+              idSearch: msg.idSearch,
+            });
+          })
         }
       );
     });
