@@ -35,7 +35,7 @@ body.dark {
 
       &:hover,
       &:focus {
-        background-color: $dark-mode-light !important;
+        background-color: $dark-mode-light !important;        
         border-color: $dark-mode-light + 20 !important;
         color: rgba(white, 0.75) !important;
       }
@@ -48,7 +48,6 @@ body.dark {
 
   .form-control {
     border-color: $dark-mode-light + 10 !important;
-    background-color: $dark-mode !important;
 
     &:focus {
       border-color: $color-primary !important;
@@ -87,7 +86,20 @@ body.dark {
     .content {
       .sidebar-group {
         .sidebar {
-          background-color: $dark-mode;
+          background-color: #2a2f32;
+
+          & > form {
+            padding: 17px 30px;
+            background-color: #212124;
+            margin-bottom: 0rem;
+
+            .form-control {
+              border-radius: 5px;
+              height: auto;
+              border: 1px solid $style-color;
+              padding: 10px 15px;
+            }
+          }
 
           .list-group-item {
             &.open-chat {
@@ -131,14 +143,15 @@ body.dark {
       }
 
       .chat {
-        border-right-color: $dark-mode-light;
+        border-right-color: #3f4448;
         //border-right-color: transparent;
-        border-left-color: $dark-mode-light;
-        border-bottom-color: $dark-mode-light;
-        border-top-color: $dark-mode-light;
+        border-left-color: #3f4448;
+        border-bottom-color: #3f4448;
+        border-top-color: #3f4448;
 
         .chat-header {
-          border-bottom-color: $dark-mode-light;
+          border-bottom-color: #3f4448;
+          background-color: #2a2f32;
           .chat-header-user {
             color: rgba(white, 0.7);
           }
@@ -221,7 +234,7 @@ body.dark {
   }
 
   .list-group-item {
-    border-color: $dark-mode-light;
+    border-color: #3f4448;
   }
 
   .dropdown-menu {
