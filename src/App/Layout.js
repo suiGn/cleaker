@@ -8,6 +8,7 @@ import Profile from "./Sidebars/Profile";
 import UserProfile from "./Sidebars/UserProfile";
 import SearchChat from "./Sidebars/SearchChats";
 import ProfileGroup from "./Sidebars/ProfileGroup";
+import MessageDetail from "./Sidebars/MessageDetail";
 import Chat from "./Partials/Chat";
 import ChatN from "./Partials/ChatNoMessage";
 import { pageTourAction } from "../Store/Actions/pageTourAction";
@@ -34,6 +35,7 @@ function Layout(props) {
   const [openGroupProfile, setOpenGroupProfile] = useState(false);
   const [openSearchSidebar, setOpenSearchSidebar] = useState(false);
   const [openMedia, setOpenMedia] = useState(false);
+  const [openMessageDetail, setOpenMessageDetail] = useState(false);
   const [scrollEl, setScrollEl] = useState();
   const [imgPreview, setImgPreview] = useState([]);
   const [filePreview, setFilePreview] = useState([]);
@@ -48,6 +50,7 @@ function Layout(props) {
   const [isResponse, setisResponse] = useState(false);
   const [media, setMedia] = useState([]);
   const [mediaProfileType, setMediaProfileType] = useState(0);
+  const [messageDetail, setMessageDetail] = useState(0); 
   
 
   useEffect(() => {
@@ -162,6 +165,9 @@ function Layout(props) {
           setViewChatAnswerPreview={setViewChatAnswerPreview}
           isResponse={isResponse}
           setisResponse={setisResponse}
+          openMessageDetail={openMessageDetail}
+          setOpenMessageDetail={setOpenMessageDetail}
+          setMessageDetail={setMessageDetail}
         />
         <ChatNoMessage
           files={files}
@@ -263,6 +269,15 @@ function Layout(props) {
         setOpenGroupProfile={setOpenGroupProfile}
         mediaProfileType={mediaProfileType}
         setMediaProfileType={setMediaProfileType}
+        />
+        <MessageDetail
+        setOpenUserProfile={setOpenUserProfile}
+        setOpenProfile={setOpenProfile}
+        setOpenMedia={setOpenMedia}
+        setOpenGroupProfile={setOpenGroupProfile}
+        openMessageDetail={openMessageDetail}
+        setOpenMessageDetail={setOpenMessageDetail}
+        messageDetail={messageDetail}
         />
         <TourModal />
         <DisconnectedModal />
