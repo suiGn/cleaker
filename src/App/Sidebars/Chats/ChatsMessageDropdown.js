@@ -10,7 +10,8 @@ import { useDispatch } from "react-redux";
 
 const ChatsMessageDropdown = (props) => {
   const dispatch = useDispatch();
-  const { socket, setMessageRespond, setViewChatAnswerPreview, deleteButton, setMessageToDelete} = props;
+  const { socket, setMessageRespond, setViewChatAnswerPreview, deleteButton, 
+    setMessageToDelete,openMessageDetail, setOpenMessageDetail,setMessageDetail} = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -71,6 +72,11 @@ const ChatsMessageDropdown = (props) => {
     setViewChatAnswerPreview(false)
   }
 
+  function MessageInfo(){
+    setOpenMessageDetail(!openMessageDetail)
+    setMessageDetail(props.message)
+  }
+
   return (
     <Dropdown
       isOpen={dropdownOpen}
@@ -83,6 +89,17 @@ const ChatsMessageDropdown = (props) => {
       </DropdownToggle>
       </div>
       <DropdownMenu>
+        {props.message.chat_type == 1 ? (
+          props.message.message_user_uid == props.prop_id?
+            <DropdownItem onClick={() => MessageInfo(props.message)}>
+            Message Info.
+            </DropdownItem>:""
+        ):
+        (props.message.message_user_uid != props.prop_id?
+            <DropdownItem onClick={() => MessageInfo(props.message)}>
+            Message Info.
+            </DropdownItem>  :""
+        )}
         <DropdownItem onClick={() => AnswerMessage(props.message)}>
           Replay
         </DropdownItem>

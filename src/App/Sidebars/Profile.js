@@ -15,6 +15,7 @@ function Profile(props) {
   const { setOpenUserProfile } = props;
   const { openGroupProfile } = props;
   const { setOpenGroupProfile } = props;
+  const {openMedia, setOpenMedia} = props;
   const dispatch = useDispatch();
   var userData;
 
@@ -49,6 +50,10 @@ function Profile(props) {
   };
 
   useEffect(() => {
+    if (openMedia) {
+      
+      setOpenMedia(!openMedia);
+    }
     socket.emit("ViewOwnProfile", props.user);
   }, [props.user]);
 
@@ -84,6 +89,10 @@ function Profile(props) {
   }
 
   useEffect(() => {
+    if (openMedia) {
+      
+      setOpenMedia(!openMedia);
+    }
     socket.on("retrieve viewownprofile", RetrieveViewownprofile );
     return () => {
       socket.off("retrieve viewownprofile", RetrieveViewownprofile);
@@ -233,7 +242,7 @@ function Profile(props) {
                     <h7 style={{ position: "absolute",left: "15px"}}>Name</h7>
                     <div>
                       <h5
-                       style={{ position: "relative",top: "20px"}}
+                       style={{ position: "relative",top: "20px",height: "30px"}}
                         ref={nameRef}
                         className={
                           openContentEditable
@@ -245,21 +254,23 @@ function Profile(props) {
                       >
                         {name}
                       </h5>
-                      <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
+                      <div className="border-none align-self-center"  >
                         {openContentEditable ? (
-                          <Button
+                          <div
                             onClick={(e) => openContentEditableToggler(true, e)}
                             color="light"
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                           >
                             <FeatherIcon.Save />
-                          </Button>
+                          </div>
                         ) : (
-                          <Button
+                          <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openContentEditableToggler(false, e)}
                             color="light"
                           >
                             <FeatherIcon.Edit />
-                          </Button>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -270,7 +281,7 @@ function Profile(props) {
                     <h7 style={{ position: "absolute",left: "15px"}}>About</h7>
                     <div>
                       <h5
-                        style={{ position: "relative",top: "20px"}}
+                        style={{ position: "relative",top: "20px",height: "30px"}}
                         ref={aboutRef}
                         className={
                           openAboutEditable
@@ -282,21 +293,23 @@ function Profile(props) {
                       >
                         {about}
                       </h5>
-                      <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
+                      <div className="border-none align-self-center">
                         {openAboutEditable ? (
-                          <Button
+                          <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openAboutEditableToggler(true, e)}
                             color="light"
                           >
                             <FeatherIcon.Save />
-                          </Button>
+                          </div>
                         ) : (
-                          <Button
+                          <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openAboutEditableToggler(false, e)}
                             color="light"
                           >
                             <FeatherIcon.Edit />
-                          </Button>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -307,7 +320,7 @@ function Profile(props) {
                     <h7 style={{ position: "absolute",left: "15px"}}>Phone</h7>
                     <div>
                       <h5
-                        style={{ position: "relative",top: "20px"}}
+                        style={{ position: "relative",top: "20px",height: "30px"}}
                         ref={phoneRef}
                         className={
                           openPhoneEditable
@@ -317,23 +330,25 @@ function Profile(props) {
                         contentEditable={openPhoneEditable}
                         onBlur={(e) => handleSetAbout(e)}
                       >
-                        {phone}
+                        {phone!=""?phone:"  "}
                       </h5>
-                      <div className="border-none align-self-center"  style={{ position: "relative",left: "110px",bottom:" 25px"}}>
+                      <div className="border-none align-self-center">
                         {openPhoneEditable ? (
-                          <Button
+                          <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openPhoneEditableToggler(true, e)}
                             color="light"
                           >
                             <FeatherIcon.Save />
-                          </Button>
+                          </div>
                         ) : (
-                          <Button
+                          <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
                             onClick={(e) => openPhoneEditableToggler(false, e)}
                             color="light"
                           >
                             <FeatherIcon.Edit />
-                          </Button>
+                          </div>
                         )}
                       </div>
                     </div>

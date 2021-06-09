@@ -25,6 +25,8 @@ function Chat(props) {
 
   const [messages, setChatMessages] = useState([]);
 
+  const [countrow, setCountrow] = useState([]);
+
   const [page, setPage] = useState(1);
 
   const [limit, setLimit] = useState(10);
@@ -61,7 +63,8 @@ function Chat(props) {
     openSearchSidebar,
     messageRespond, setMessageRespond,
     viewChatAnswerPreview, setViewChatAnswerPreview,
-    isResponse, setisResponse
+    isResponse, setisResponse,
+    openMessageDetail,setOpenMessageDetail,setMessageDetail
   } = props;
 
   useEffect(() => {
@@ -77,17 +80,19 @@ function Chat(props) {
 
   function scrollMove(container) {
     if (container.scrollTop == 0 && !firstTime) {
-      var newLimit = limit + 10;
-      setPage(page + 1);
-      setLimit(newLimit);
-      props.setLimitChat(newLimit)
-      setScrolled(true);
-      socket.emit("get messages", {
-        id: props.clicked.chat_uid,
-        page: page,
-        inChat: true,
-        limit: newLimit,
-      });
+      if(limit<=countrow){
+        var newLimit = limit + 10;
+        setPage(page + 1);
+        setLimit(newLimit);
+        props.setLimitChat(newLimit)
+        setScrolled(true);
+        socket.emit("get messages", {
+          id: props.clicked.chat_uid,
+          page: page,
+          inChat: true,
+          limit: newLimit,
+        });
+      }
     }
   }
 
@@ -112,9 +117,11 @@ function Chat(props) {
         });
         setChatMessages(messages.reverse());
         props.setChat({ id: props.clicked.chat_uid });
+        setCountrow(data.count[0].countrow);
       }
     } else {
       setChatMessages([]);
+      setCountrow(0);
     }
   }
 
@@ -148,6 +155,7 @@ function Chat(props) {
     setLimit(10);
     props.setLimitChat(10)
     setChatMessages([]);
+    setCountrow(0);
     setFirstTime(true);
     setScrolled(false);
     props.setChat_uid(props.clicked.chat_uid)
@@ -446,6 +454,8 @@ function Chat(props) {
                       setisResponse={props.setisResponse}
                       deleteButton = {deleteButton}
                       setMessageToDelete={setMessageToDelete}
+                      openMessageDetail={openMessageDetail}
+                      setOpenMessageDetail={setOpenMessageDetail}
                     />
                   </div>
                 </div>
@@ -529,6 +539,9 @@ function Chat(props) {
                       setisResponse={props.setisResponse}
                       deleteButton = {deleteButton}
                       setMessageToDelete={setMessageToDelete}
+                      openMessageDetail={openMessageDetail}
+                      setOpenMessageDetail={setOpenMessageDetail}
+                      setMessageDetail={setMessageDetail}
                     />
                   </div>
                 </div>

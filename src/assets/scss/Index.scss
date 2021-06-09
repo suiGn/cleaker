@@ -545,7 +545,7 @@
 
           .response-message{
             position: relative;
-            left: 5px;
+            left: 20px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1137,4 +1137,37 @@
   } 
 }
 
+.message-response-chat {
+  position: relative;
+  right: 15px;
+  display: block;
+  border-radius: inherit;
+  border-left: 7px  solid  #f3c96e;
+  height: 60px;
+  width: 100%;
+}
 
+
+.word-break-chat {
+  word-break: break-word;
+  padding-right: 45px;
+  margin-left: -12px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.response-from-chat {
+  position: relative;
+  left: 17px;
+  width: 100%;
+}
+
+.mini-preview-container-chat {
+  bottom: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 60px;
+  margin-right: 17px;
+}
