@@ -15,6 +15,7 @@ function Profile(props) {
   const { setOpenUserProfile } = props;
   const { openGroupProfile } = props;
   const { setOpenGroupProfile } = props;
+  const {openMedia, setOpenMedia} = props;
   const dispatch = useDispatch();
   var userData;
 
@@ -49,6 +50,10 @@ function Profile(props) {
   };
 
   useEffect(() => {
+    if (openMedia) {
+      
+      setOpenMedia(!openMedia);
+    }
     socket.emit("ViewOwnProfile", props.user);
   }, [props.user]);
 
@@ -84,6 +89,10 @@ function Profile(props) {
   }
 
   useEffect(() => {
+    if (openMedia) {
+      
+      setOpenMedia(!openMedia);
+    }
     socket.on("retrieve viewownprofile", RetrieveViewownprofile );
     return () => {
       socket.off("retrieve viewownprofile", RetrieveViewownprofile);

@@ -63,7 +63,8 @@ function Chat(props) {
     openSearchSidebar,
     messageRespond, setMessageRespond,
     viewChatAnswerPreview, setViewChatAnswerPreview,
-    isResponse, setisResponse
+    isResponse, setisResponse,
+    openMessageDetail,setOpenMessageDetail,setMessageDetail
   } = props;
 
   useEffect(() => {
@@ -453,6 +454,8 @@ function Chat(props) {
                       setisResponse={props.setisResponse}
                       deleteButton = {deleteButton}
                       setMessageToDelete={setMessageToDelete}
+                      openMessageDetail={openMessageDetail}
+                      setOpenMessageDetail={setOpenMessageDetail}
                     />
                   </div>
                 </div>
@@ -536,6 +539,9 @@ function Chat(props) {
                       setisResponse={props.setisResponse}
                       deleteButton = {deleteButton}
                       setMessageToDelete={setMessageToDelete}
+                      openMessageDetail={openMessageDetail}
+                      setOpenMessageDetail={setOpenMessageDetail}
+                      setMessageDetail={setMessageDetail}
                     />
                   </div>
                 </div>
