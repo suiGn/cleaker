@@ -643,7 +643,7 @@ function Chat(props) {
       />
     </div>
   ) : (
-    <div className="chat">
+    <div className="chat background-home-img">
       <div className="chat-body ">
         <div
           id="nochatselected"
@@ -655,7 +655,7 @@ function Chat(props) {
                 <img src={empty} width="400px" className="img-logo-auto" alt="image" />
               </div>
             </div>
-            <p className="lead text-center">Welcome to OrgBoat!</p>
+            <p className="lead text-center">Welcome to cleaker!</p>
           </div>
         </div>
       </div>
