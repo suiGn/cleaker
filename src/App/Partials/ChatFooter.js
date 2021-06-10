@@ -97,6 +97,7 @@ function ChatFooter(props) {
         response_type:0
       });
     }
+    document.getElementById('inputMessage').value=""
   }
 
   const handleChange = (e) => {
@@ -110,7 +111,8 @@ function ChatFooter(props) {
   const AddEmoji = (e) => {
     let emoji = e.native;
     var textMessage = document.getElementById('inputMessage').value;
-    props.setInputMsg(textMessage+ emoji);
+    document.getElementById('inputMessage').value = textMessage + emoji
+    //props.setInputMsg(textMessage+ emoji);
   };
 
   const onKeyDown = (e) => {
