@@ -48,9 +48,10 @@ function ChatFooter(props) {
   };
 
   function handleIsResponce(){
+    var textMessage = document.getElementById('inputMessage').value;
     if(messageRespond.is_file){
       props.onSubmit({
-        text: props.inputMsg,
+        text: textMessage,
         chat_uid: props.chat_uid,
         is_image: 0,
         is_file: 0,
@@ -62,7 +63,7 @@ function ChatFooter(props) {
       });
     }else if(messageRespond.is_image){
       props.onSubmit({
-        text: props.inputMsg,
+        text: textMessage,
         chat_uid: props.chat_uid,
         is_image: 0,
         is_file: 0,
@@ -74,7 +75,7 @@ function ChatFooter(props) {
       });
     }else if(messageRespond.is_video){
       props.onSubmit({
-        text: props.inputMsg,
+        text: textMessage,
         chat_uid: props.chat_uid,
         is_image: 0,
         is_file: 0,
@@ -86,7 +87,7 @@ function ChatFooter(props) {
       });
     }else{
       props.onSubmit({
-        text: props.inputMsg,
+        text: textMessage,
         chat_uid: props.chat_uid,
         is_image: 0,
         is_file: 0,
@@ -108,7 +109,8 @@ function ChatFooter(props) {
 
   const AddEmoji = (e) => {
     let emoji = e.native;
-    props.setInputMsg(props.inputMsg + emoji);
+    var textMessage = document.getElementById('inputMessage').value;
+    props.setInputMsg(textMessage+ emoji);
   };
 
   const onKeyDown = (e) => {
