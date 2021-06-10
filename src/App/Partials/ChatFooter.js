@@ -22,6 +22,7 @@ function ChatFooter(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //const [imgPreview, setImgPreview] = useState(false);
   //const [file, setFile] = useState(null);
+  const inputMessage = useRef(null);
   const inputFile = useRef(null);
   const inputImage = useRef(null);
   const inputVideo = useRef(null);
@@ -29,12 +30,14 @@ function ChatFooter(props) {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(props.inputMsg!=""){
+    var textMessage = document.getElementById('inputMessage').value;
+    if(textMessage!=""){
       if(isResponse){
         handleIsResponce();
       }else{
+        document.getElementById('inputMessage').value=""
         props.onSubmit({
-          text: props.inputMsg,
+          text: textMessage,
           chat_uid: props.chat_uid,
           is_image: 0,
           is_file: 0,
@@ -181,9 +184,11 @@ function ChatFooter(props) {
           type="text"
           className="form-control"
           placeholder="Write a message."
-          value={props.inputMsg}
           onChange={handleChange}
           onKeyDown={onKeyDown}
+          ref={inputMessage}
+          id={"inputMessage"}
+          autocomplete="off"
         />
         <div className="form-buttons">
           <Button type="submit" color="primary">

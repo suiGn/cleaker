@@ -29,7 +29,7 @@ function Chat(props) {
 
   const [page, setPage] = useState(1);
 
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(20);
 
   const [firstTime, setFirstTime] = useState(true);
 
@@ -79,7 +79,7 @@ function Chat(props) {
   }, [messages]);
 
   function scrollMove(container) {
-    if (container.scrollTop == 0 && !firstTime) {
+    if ((container.scrollTop) == 0 && !firstTime) {
       if(limit<=countrow){
         var newLimit = limit + 10;
         setPage(page + 1);
@@ -152,7 +152,7 @@ function Chat(props) {
 
   useEffect(() => {
     setPage(1);
-    setLimit(10);
+    setLimit(20);
     props.setLimitChat(10)
     setChatMessages([]);
     setCountrow(0);
@@ -174,7 +174,7 @@ function Chat(props) {
       id: props.clicked.chat_uid,
       page: page,
       inChat: true,
-      limit: 10,
+      limit: limit,
     });
 
     socket.on("retrieve messages", RetrieveMessages);
@@ -232,7 +232,9 @@ function Chat(props) {
   };
 
   const handleChange = (newValue) => {
-    setInputMsg(newValue);
+    //setInputMsg(newValue);
+    setLimit(20)
+    //bruno
   };
 
   function ReadMore(e){
