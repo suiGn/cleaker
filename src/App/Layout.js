@@ -43,7 +43,7 @@ function Layout(props) {
   const [files, setFile] = useState([]);
   const [viewPreview, setViewPreview] = useState(false);
   const [imageOrFile, setImageOrFile] = useState(0);
-  const [limitChat, setLimitChat] = useState(10);
+  const [limitChat, setLimitChat] = useState(20);
   const [chat_uid, setChat_uid] = useState("");
   const [messageRespond, setMessageRespond] = useState("");
   const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);

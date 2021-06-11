@@ -22,6 +22,7 @@ function ChatFooter(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //const [imgPreview, setImgPreview] = useState(false);
   //const [file, setFile] = useState(null);
+  const inputMessage = useRef(null);
   const inputFile = useRef(null);
   const inputImage = useRef(null);
   const inputVideo = useRef(null);
@@ -29,12 +30,14 @@ function ChatFooter(props) {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(props.inputMsg!=""){
+    var textMessage = document.getElementById('inputMessage').value;
+    if(textMessage!=""){
       if(isResponse){
         handleIsResponce();
       }else{
+        document.getElementById('inputMessage').value=""
         props.onSubmit({
-          text: props.inputMsg,
+          text: textMessage,
           chat_uid: props.chat_uid,
           is_image: 0,
           is_file: 0,
@@ -45,9 +48,10 @@ function ChatFooter(props) {
   };
 
   function handleIsResponce(){
+    var textMessage = document.getElementById('inputMessage').value;
     if(messageRespond.is_file){
       props.onSubmit({
-        text: props.inputMsg,
+        text: textMessage,
         chat_uid: props.chat_uid,
         is_image: 0,
         is_file: 0,
@@ -59,7 +63,7 @@ function ChatFooter(props) {
       });
     }else if(messageRespond.is_image){
       props.onSubmit({
-        text: props.inputMsg,
+        text: textMessage,
         chat_uid: props.chat_uid,
         is_image: 0,
         is_file: 0,
@@ -71,7 +75,7 @@ function ChatFooter(props) {
       });
     }else if(messageRespond.is_video){
       props.onSubmit({
-        text: props.inputMsg,
+        text: textMessage,
         chat_uid: props.chat_uid,
         is_image: 0,
         is_file: 0,
@@ -83,7 +87,7 @@ function ChatFooter(props) {
       });
     }else{
       props.onSubmit({
-        text: props.inputMsg,
+        text: textMessage,
         chat_uid: props.chat_uid,
         is_image: 0,
         is_file: 0,
@@ -93,6 +97,7 @@ function ChatFooter(props) {
         response_type:0
       });
     }
+    document.getElementById('inputMessage').value=""
   }
 
   const handleChange = (e) => {
@@ -105,7 +110,9 @@ function ChatFooter(props) {
 
   const AddEmoji = (e) => {
     let emoji = e.native;
-    props.setInputMsg(props.inputMsg + emoji);
+    var textMessage = document.getElementById('inputMessage').value;
+    document.getElementById('inputMessage').value = textMessage + emoji
+    //props.setInputMsg(textMessage+ emoji);
   };
 
   const onKeyDown = (e) => {
@@ -181,9 +188,11 @@ function ChatFooter(props) {
           type="text"
           className="form-control"
           placeholder="Write a message."
-          value={props.inputMsg}
           onChange={handleChange}
           onKeyDown={onKeyDown}
+          ref={inputMessage}
+          id={"inputMessage"}
+          autocomplete="off"
         />
         <div className="form-buttons">
           <Button type="submit" color="primary">
