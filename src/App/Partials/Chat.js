@@ -73,6 +73,7 @@ function Chat(props) {
         scrollEl.scrollTop = scrollEl.scrollHeight;
         setFirstTime(false);
       } else if (scrolled && !firstTime) {
+        console.log(scrollEl.scrollHeight)
         scrollEl.scrollTop = 500;
       }
     }

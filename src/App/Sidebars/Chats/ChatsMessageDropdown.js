@@ -74,6 +74,7 @@ const ChatsMessageDropdown = (props) => {
 
   function MessageInfo(){
     setOpenMessageDetail(!openMessageDetail)
+    console.log(props.message)
     setMessageDetail(props.message)
   }
 
