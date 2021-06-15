@@ -73,8 +73,9 @@ function Chat(props) {
         scrollEl.scrollTop = scrollEl.scrollHeight;
         setFirstTime(false);
       } else if (scrolled && !firstTime) {
-        console.log(scrollEl.scrollHeight)
-        scrollEl.scrollTop = 500;
+        var idMess = messages[8].message_id;
+        let size = document.getElementById(idMess).getBoundingClientRect();
+        scrollEl.scrollTop = size.top;
       }
     }
   }, [messages]);
@@ -212,6 +213,32 @@ function Chat(props) {
           limit: limit,
         });
       } else {
+        var messagesN = messages;
+        var dummy= {
+          chat_type: 0,
+          chat_uid: "45c1b0bf-d396-4e43-b1bc-7af7c14880c9",
+          delete_message: 0,
+          delete_message_to: 0,
+          favorite: 0,
+          favorite_to: 0,
+          file: "",
+          is_file: 0,
+          is_image: 0,
+          is_response: 0,
+          is_video: 0,
+          message: newValue.text,
+          message_id: 10240,
+          message_user_uid: "f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53",
+          name: "bruno",
+          pphoto: "",
+          response: "",
+          response_file: "",
+          response_from: "",
+          response_type: 0,
+          time: "2021-06-15T00:54:31.000Z",
+        }
+        messages.push(dummy)
+        scrollEl.scrollTop = scrollEl.scrollHeight;
         setFirstTime(true)
         socket.emit("chat message", {
           chat: newValue.chat_uid,
