@@ -287,14 +287,6 @@ function Index(props) {
               New chat
             </Tooltip>
           </li>*/}
-          <li className="list-inline-item d-xl-none d-inline">
-            <button
-              onClick={mobileSidebarClose}
-              className="btn btn-outline-light text-danger sidebar-close"
-            >
-              <FeatherIcon.X />
-            </button>
-          </li>
         </ul>
       </header>
       <form>

@@ -59,16 +59,6 @@ function Index(props) {
     <div className="sidebar active">
       <header>
         <span>Archived</span>
-        <ul className="list-inline">
-          <li className="list-inline-item d-xl-none d-inline">
-            <button
-              onClick={mobileSidebarClose}
-              className="btn btn-outline-light text-danger sidebar-close"
-            >
-              <FeatherIcon.X />
-            </button>
-          </li>
-        </ul>
       </header>
       <form>
         <input

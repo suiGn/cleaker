@@ -177,9 +177,19 @@
 @media screen and (max-width: 768px) {
   body:not(.rtl),
   body {
-    .sidebar-group {
-      width: 75%;
 
+    .background-home-img {
+      visibility: hidden;
+    } 
+    .sidebar-group {
+      flex: 1 1;
+      display: flex;
+      flex-direction: column;
+      height: 90%;
+      order: 3;
+      box-shadow: none;
+      width: 100%;
+      z-index: auto;
       .sidebar {
         .list-group-item {
           .users-list-body h5 {
