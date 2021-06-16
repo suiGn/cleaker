@@ -127,6 +127,7 @@ function Layout(props) {
           setLoaded={setLoaded}
         />
         <Chat
+          user={user}
           darkSwitcherTooltipOpen={props.darkSwitcherTooltipOpen}
           socket={socket}
           clicked={clicked}
