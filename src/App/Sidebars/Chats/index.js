@@ -294,7 +294,7 @@ function Index(props) {
           </li>*/}
         </ul>
       </header>
-      <form>
+      <form className="border-color-form">
         <input
           type="text"
           className="form-control"
