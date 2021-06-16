@@ -36,6 +36,8 @@ function Chat(props) {
   const [scrolled, setScrolled] = useState(false);
 
   const [messageToDelete, setMessageToDelete] = useState("");
+
+  const [mensajeTemporal, setMensajeTemporal] = useState(false);
   
 
   const deleteButton = useRef(null);
@@ -79,6 +81,12 @@ function Chat(props) {
       }
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (scrollEl) {
+      scrollEl.scrollTop = scrollEl.scrollHeight
+    }
+  }, [mensajeTemporal]);
 
   function scrollMove(container) {
     if ((container.scrollTop) == 0 && !firstTime) {
@@ -213,10 +221,9 @@ function Chat(props) {
           limit: limit,
         });
       } else {
-        var messagesN = messages;
         var dummy= {
           chat_type: 0,
-          chat_uid: "45c1b0bf-d396-4e43-b1bc-7af7c14880c9",
+          chat_uid: newValue.chat_uid,
           delete_message: 0,
           delete_message_to: 0,
           favorite: 0,
@@ -227,19 +234,19 @@ function Chat(props) {
           is_response: 0,
           is_video: 0,
           message: newValue.text,
-          message_id: 10240,
-          message_user_uid: "f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53",
-          name: "bruno",
+          message_id: 0,
+          message_user_uid: props.my_uid.id,
+          name: "",
           pphoto: "",
           response: "",
           response_file: "",
           response_from: "",
           response_type: 0,
-          time: "2021-06-15T00:54:31.000Z",
+          time: "0001-01-01T00:54:31.000Z",
         }
         messages.push(dummy)
-        scrollEl.scrollTop = scrollEl.scrollHeight;
         setFirstTime(true)
+        setMensajeTemporal(!mensajeTemporal)
         socket.emit("chat message", {
           chat: newValue.chat_uid,
           message: newValue.text,
