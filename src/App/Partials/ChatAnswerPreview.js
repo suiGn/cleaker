@@ -19,7 +19,7 @@ function ChatAnswerPreview(props) {
         </div>
         <div className="word-break-chat response-from-chat">{messageRespond.message}</div>
       </div>
-      <div>
+      <div className="img-to-response">
         {
           messageRespond.is_image ?
             <div className="mini-preview-container-chat" style={{ backgroundImage: "url(" + messageRespond.file + ")" }}>
@@ -27,14 +27,10 @@ function ChatAnswerPreview(props) {
             : ""
         }
         {messageRespond.is_video ?
-          <div className="mini-preview-container">
             <VideoThumbnail
               videoUrl={messageRespond.file}
               thumbnailHandler={(thumbnail) => { }}
-              width={100}
-              height={100}
             />
-          </div>
           : ""}
       </div>
 

@@ -36,6 +36,8 @@ function Chat(props) {
   const [scrolled, setScrolled] = useState(false);
 
   const [messageToDelete, setMessageToDelete] = useState("");
+
+  const [mensajeTemporal, setMensajeTemporal] = useState(false);
   
 
   const deleteButton = useRef(null);
@@ -73,10 +75,18 @@ function Chat(props) {
         scrollEl.scrollTop = scrollEl.scrollHeight;
         setFirstTime(false);
       } else if (scrolled && !firstTime) {
-        scrollEl.scrollTop = 500;
+        var idMess = messages[8].message_id;
+        let size = document.getElementById(idMess).getBoundingClientRect();
+        scrollEl.scrollTop = size.top;
       }
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (scrollEl) {
+      scrollEl.scrollTop = scrollEl.scrollHeight
+    }
+  }, [mensajeTemporal]);
 
   function scrollMove(container) {
     if ((container.scrollTop) == 0 && !firstTime) {
@@ -211,7 +221,32 @@ function Chat(props) {
           limit: limit,
         });
       } else {
+        var dummy= {
+          chat_type: 0,
+          chat_uid: newValue.chat_uid,
+          delete_message: 0,
+          delete_message_to: 0,
+          favorite: 0,
+          favorite_to: 0,
+          file: "",
+          is_file: 0,
+          is_image: 0,
+          is_response: 0,
+          is_video: 0,
+          message: newValue.text,
+          message_id: 0,
+          message_user_uid: props.my_uid.id,
+          name: "",
+          pphoto: "",
+          response: "",
+          response_file: "",
+          response_from: "",
+          response_type: 0,
+          time: "0001-01-01T00:54:31.000Z",
+        }
+        messages.push(dummy)
         setFirstTime(true)
+        setMensajeTemporal(!mensajeTemporal)
         socket.emit("chat message", {
           chat: newValue.chat_uid,
           message: newValue.text,
@@ -583,7 +618,7 @@ function Chat(props) {
         style={
           {
             backgroundImage: "url(" + emptyTwo + ")",
-            backgroundSize: "100%"
+            backgroundSize: "600px"
           }
         }
       >

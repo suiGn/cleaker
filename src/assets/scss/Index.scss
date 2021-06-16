@@ -53,7 +53,7 @@
           align-items: center;
           justify-content: space-between;
           padding: 0 30px;
-          height: 80px;
+          height: 78px;
           font-weight: 600;
           border-radius: 0;
 
@@ -1147,6 +1147,17 @@
   width: 100%;
 }
 
+.img-to-response {
+
+  .react-thumbnail-generator{
+    & > img {
+      width: 150px;
+      height: 80px;
+      padding: .3em;
+      border-radius: 13px;        
+    }
+  }  
+}
 
 .word-break-chat {
   word-break: break-word;

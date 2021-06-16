@@ -37,6 +37,11 @@ function Index(props) {
       info.name = info.chat_name;
     });
     chats.push.apply(chats, grupos);
+    chats.forEach((info) => {
+      if(!info.last_message_time){
+        info.last_message_time =  "0001-01-01T00:54:31.000Z";
+      }
+    });
     chats.sort(function(a,b) {
       return Date.parse(b.last_message_time) - Date.parse(a.last_message_time)
     });
@@ -287,17 +292,9 @@ function Index(props) {
               New chat
             </Tooltip>
           </li>*/}
-          <li className="list-inline-item d-xl-none d-inline">
-            <button
-              onClick={mobileSidebarClose}
-              className="btn btn-outline-light text-danger sidebar-close"
-            >
-              <FeatherIcon.X />
-            </button>
-          </li>
         </ul>
       </header>
-      <form>
+      <form className="border-color-form">
         <input
           type="text"
           className="form-control"

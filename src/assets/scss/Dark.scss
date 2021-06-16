@@ -88,6 +88,11 @@ body.dark {
         .sidebar {
           background-color: #2a2f32;
 
+          .border-color-form {
+            border-top: 1px solid #e6e6e6;
+            border-top-color: #3f4448;
+          }
+
           & > form {
             padding: 17px 30px;
             background-color: #212124;
@@ -161,7 +166,7 @@ body.dark {
           .messages {
             .message-item {
               .message-content {
-                background-color: #4ECE33;
+                background-color: $dark-mode;
                 border: 0.5px solid $dark-mode-message;
                 .favorite-message {
                   svg {
@@ -181,7 +186,6 @@ body.dark {
               &:not(.outgoing-message) {
                 .message-content {
                   border: 0.5px solid $dark-mode-outgoing;
-                  background-color: #65B5BC;
                   .favorite-message {
                     svg {
                       color: $dark-mode-outgoing;
