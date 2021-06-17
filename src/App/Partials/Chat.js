@@ -243,6 +243,7 @@ function Chat(props) {
           response_from: "",
           response_type: 0,
           time: "0001-01-01T00:54:31.000Z",
+          unread_messages: 1
         }
         messages.push(dummy)
         setFirstTime(true)
@@ -495,6 +496,18 @@ function Chat(props) {
                       setOpenMessageDetail={setOpenMessageDetail}
                     />
                   </div>
+                  {
+                  (message.chat_type == 1) ?
+                  (message.message_user_uid == props.id)?
+                  message.unread_messages?
+                  <div className="check-mark"><FeatherIcon.Check /></div>:
+                  <div className="check-mark check-mark-seen"><FeatherIcon.Check /></div>:""
+                  :
+                  (message.message_user_uid != props.id)?
+                  message.unread_messages?
+                  <div className="check-mark"><FeatherIcon.Check /></div>:
+                  <div className="check-mark check-mark-seen"><FeatherIcon.Check /></div>:""
+                  }
                 </div>
               </div>
             )}
@@ -581,6 +594,18 @@ function Chat(props) {
                       setMessageDetail={setMessageDetail}
                     />
                   </div>
+                  {
+                  (message.chat_type == 1) ?
+                  (message.message_user_uid == props.id)?
+                  message.unread_messages?
+                  <div className="check-mark"><FeatherIcon.Check /></div>:
+                  <div className="check-mark check-mark-seen"><FeatherIcon.Check /></div>:""
+                  :
+                  (message.message_user_uid != props.id)?
+                  message.unread_messages?
+                  <div className="check-mark"><FeatherIcon.Check /></div>:
+                  <div className="check-mark check-mark-seen"><FeatherIcon.Check /></div>:""
+                  }
                 </div>
               </div>
             )}
