@@ -38,6 +38,10 @@ function Chat(props) {
   const [messageToDelete, setMessageToDelete] = useState("");
 
   const [mensajeTemporal, setMensajeTemporal] = useState(false);
+
+  const [dummyNumber, setDummyNumber] = useState(0);
+
+  const [dummyArray, setDummyArray] = useState([]);
   
 
   const deleteButton = useRef(null);
@@ -125,7 +129,12 @@ function Chat(props) {
             messages.push(element);
           }
         });
-        setChatMessages(messages.reverse());
+        messages = messages.reverse()
+        if(dummyArray.length>0){
+          dummyArray.splice(0,1)
+          messages.push.apply(messages, dummyArray);
+        }
+        setChatMessages(messages);
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
@@ -245,8 +254,15 @@ function Chat(props) {
           time: "0001-01-01T00:54:31.000Z",
           unread_messages: 2
         }
+        var dummyNumberN = dummyNumber+1
         messages.push(dummy)
         setFirstTime(true)
+        // prueba
+        setDummyNumber(dummyNumberN)
+        var dummyArrayN = dummyArray;
+        dummyArrayN.push(dummy)
+        setDummyArray(dummyArrayN)
+        //
         setMensajeTemporal(!mensajeTemporal)
         socket.emit("chat message", {
           chat: newValue.chat_uid,
