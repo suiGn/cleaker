@@ -87,6 +87,9 @@ function Index(props) {
     document.body.classList.remove("navigation-open");
   };
 
+  const mobileSidebarAdd = () => {
+  };
+
   function timeformat(date) {
     var h = date.getHours();
     var m = date.getMinutes();

@@ -8,6 +8,7 @@ import {
 } from "reactstrap";
 import * as FeatherIcon from "react-feather";
 // import { searchChatAction } from "../../Store/Actions/searchChatAction";
+import { mobileSidebarAction } from "../../Store/Actions/mobileSidebarAction";
 
 function ChatHeader(props) {
   const dispatch = useDispatch();
@@ -137,6 +138,10 @@ function ChatHeader(props) {
   function CloseChat() {
     var element = document.getElementById("menu-hide");
     element.classList.remove("nav-hide");
+    dispatch(mobileSidebarAction(true));
+
+    //var element = document.getElementById("menu-hide");
+    //document.body.classList.add("navigation-open");
     props.setClicked([]);
   }
 
