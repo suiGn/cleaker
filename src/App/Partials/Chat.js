@@ -42,6 +42,12 @@ function Chat(props) {
   const [dummyNumber, setDummyNumber] = useState(0);
 
   const [dummyArray, setDummyArray] = useState([]);
+
+  let dayN = 0;
+
+  let monthN = 0;
+
+  let yearN = 0;
   
 
   const deleteButton = useRef(null);
@@ -354,6 +360,13 @@ function Chat(props) {
   const MessagesView = (props) => {
     const { message } = props;
     const { group } = props;
+    var dateM = new Date(message.time);
+    const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
+    if(year != 0){
+      yearN=yearN<year?year:yearN
+      monthN=monthN<month?month:monthN
+      dayN=dayN<day?day:dayN
+    }
     let type;
     let timeType;
     let dropdownType;
@@ -395,15 +408,19 @@ function Chat(props) {
     }
     if (message.type === "divider") {
       return (
-        <div
-          className="message-item messages-divider sticky-top"
-          data-label={message.message}
-        ></div>
+        <div className="messages-container">
+          <div
+            className="message-item messages-divider sticky-top"
+            data-label={message.message}
+          ></div>
+        </div>
       );
     }
     else {
       if (message.is_response) {
         return (
+          <div className="messages-container">
+          {year!=0?getTodayLabel(getDateLabel(dateM), message.message_user_uid):""}
           <div id={message.message_id} className={"message-item padding-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
@@ -544,9 +561,11 @@ function Chat(props) {
               </div>
             )}
           </div>
-        );
+          </div>);
       } else {
         return (
+          <div className="messages-container">
+            {year!=0?getTodayLabel(getDateLabel(dateM), message.message_user_uid):""}
           <div id={message.message_id} className={"message-item padding-no-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
@@ -658,7 +677,7 @@ function Chat(props) {
               </div>
             )}
           </div>
-        );
+          </div>);
       }
     }
   };
@@ -698,8 +717,6 @@ function Chat(props) {
         <div className="chat-body">
           <div className="messages">
             {messages.map((message, i) => (
-              <div className="messages-container">
-                {getTodayLabel(getDateLabel(dateSend), message.message_user_uid)}
                 <MessagesView
                   message={message}
                   key={i}
@@ -712,7 +729,6 @@ function Chat(props) {
                   setViewChatAnswerPreview={setViewChatAnswerPreview}
                   setisResponse={setisResponse}
                 />
-              </div>
             ))}
           </div>
         </div>
