@@ -11,6 +11,7 @@ function Index(props) {
 
   return (
     <div
+      id="principal-main"
       className={`sidebar-group ${mobileSidebar ? "mobile-open" : ""} ${
         selectedSidebar === "Chats" ||
         selectedSidebar === "Contacts" ||
