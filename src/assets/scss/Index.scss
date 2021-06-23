@@ -715,6 +715,26 @@
                   left: 10px;
                   top: 8px;
                 }
+                .check-mark{
+                  position: absolute;
+                  right: 84px;
+                  svg{
+                    width: 14px;
+                    position: absolute;
+                    top: -25px;
+                    left: 62px;
+                  }
+                  .check-mark-double{
+                    svg{
+                      left: 66px;
+                    }
+                  }
+                }
+                .check-mark-seen{
+                  svg{
+                    color: aqua;
+                  }
+                }
               }
               
               .img-chat {

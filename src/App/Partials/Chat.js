@@ -38,6 +38,16 @@ function Chat(props) {
   const [messageToDelete, setMessageToDelete] = useState("");
 
   const [mensajeTemporal, setMensajeTemporal] = useState(false);
+
+  const [dummyNumber, setDummyNumber] = useState(0);
+
+  const [dummyArray, setDummyArray] = useState([]);
+
+  let dayN = 0;
+
+  let monthN = 0;
+
+  let yearN = 0;
   
 
   const deleteButton = useRef(null);
@@ -125,7 +135,12 @@ function Chat(props) {
             messages.push(element);
           }
         });
-        setChatMessages(messages.reverse());
+        messages = messages.reverse()
+        if(dummyArray.length>0){
+          dummyArray.splice(0,1)
+          messages.push.apply(messages, dummyArray);
+        }
+        setChatMessages(messages);
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
@@ -243,9 +258,17 @@ function Chat(props) {
           response_from: "",
           response_type: 0,
           time: "0001-01-01T00:54:31.000Z",
+          unread_messages: 2
         }
+        var dummyNumberN = dummyNumber+1
         messages.push(dummy)
         setFirstTime(true)
+        // prueba
+        setDummyNumber(dummyNumberN)
+        var dummyArrayN = dummyArray;
+        dummyArrayN.push(dummy)
+        setDummyArray(dummyArrayN)
+        //
         setMensajeTemporal(!mensajeTemporal)
         socket.emit("chat message", {
           chat: newValue.chat_uid,
@@ -337,6 +360,13 @@ function Chat(props) {
   const MessagesView = (props) => {
     const { message } = props;
     const { group } = props;
+    var dateM = new Date(message.time);
+    const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
+    if(year != 0){
+      yearN=yearN<year?year:yearN
+      monthN=monthN<month?month:monthN
+      dayN=dayN<day?day:dayN
+    }
     let type;
     let timeType;
     let dropdownType;
@@ -378,15 +408,19 @@ function Chat(props) {
     }
     if (message.type === "divider") {
       return (
-        <div
-          className="message-item messages-divider sticky-top"
-          data-label={message.message}
-        ></div>
+        <div className="messages-container">
+          <div
+            className="message-item messages-divider sticky-top"
+            data-label={message.message}
+          ></div>
+        </div>
       );
     }
     else {
       if (message.is_response) {
         return (
+          <div className="messages-container">
+          {year!=0?getTodayLabel(getDateLabel(dateM), message.message_user_uid):""}
           <div id={message.message_id} className={"message-item padding-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
@@ -495,13 +529,43 @@ function Chat(props) {
                       setOpenMessageDetail={setOpenMessageDetail}
                     />
                   </div>
+                  {
+                  (message.chat_type == 1) ?
+                  (message.message_user_uid == props.id)?
+                  message.unread_messages == 2?
+                  <div className="check-mark"><FeatherIcon.Check /></div>:
+                  message.unread_messages == 1?
+                  <div className="check-mark">
+                    <FeatherIcon.Check />
+                    <div className="check-mark-double"><FeatherIcon.Check /></div>
+                  </div>:
+                  <div className="check-mark check-mark-seen">
+                    <FeatherIcon.Check />
+                    <div className="check-mark-double"><FeatherIcon.Check /></div>
+                  </div>:""
+                  :
+                  (message.message_user_uid != props.id)?
+                  message.unread_messages == 2?
+                  <div className="check-mark"><FeatherIcon.Check /></div>:
+                  message.unread_messages == 1?
+                  <div className="check-mark">
+                    <FeatherIcon.Check />
+                    <div className="check-mark-double"><FeatherIcon.Check /></div>
+                  </div>:
+                  <div className="check-mark check-mark-seen">
+                    <FeatherIcon.Check />
+                    <div className="check-mark-double"><FeatherIcon.Check /></div>
+                  </div>:""
+                  }
                 </div>
               </div>
             )}
           </div>
-        );
+          </div>);
       } else {
         return (
+          <div className="messages-container">
+            {year!=0?getTodayLabel(getDateLabel(dateM), message.message_user_uid):""}
           <div id={message.message_id} className={"message-item padding-no-response " + type}>
             {group && message.message_user_uid != props.my_uid ? (
               <div className="message-avatar">
@@ -581,11 +645,39 @@ function Chat(props) {
                       setMessageDetail={setMessageDetail}
                     />
                   </div>
+                  {
+                  (message.chat_type == 1) ?
+                  (message.message_user_uid == props.id)?
+                  message.unread_messages == 2?
+                  <div className="check-mark"><FeatherIcon.Check /></div>:
+                  message.unread_messages == 1?
+                  <div className="check-mark">
+                    <FeatherIcon.Check />
+                    <div className="check-mark-double"><FeatherIcon.Check /></div>
+                  </div>:
+                  <div className="check-mark check-mark-seen">
+                    <FeatherIcon.Check />
+                    <div className="check-mark-double"><FeatherIcon.Check /></div>
+                  </div>:""
+                  :
+                  (message.message_user_uid != props.id)?
+                  message.unread_messages == 2?
+                  <div className="check-mark"><FeatherIcon.Check /></div>:
+                  message.unread_messages == 1?
+                  <div className="check-mark">
+                    <FeatherIcon.Check />
+                    <div className="check-mark-double"><FeatherIcon.Check /></div>
+                  </div>:
+                  <div className="check-mark check-mark-seen">
+                    <FeatherIcon.Check />
+                    <div className="check-mark-double"><FeatherIcon.Check /></div>
+                  </div>:""
+                  }
                 </div>
               </div>
             )}
           </div>
-        );
+          </div>);
       }
     }
   };
@@ -625,8 +717,6 @@ function Chat(props) {
         <div className="chat-body">
           <div className="messages">
             {messages.map((message, i) => (
-              <div className="messages-container">
-                {getTodayLabel(getDateLabel(dateSend), message.message_user_uid)}
                 <MessagesView
                   message={message}
                   key={i}
@@ -639,7 +729,6 @@ function Chat(props) {
                   setViewChatAnswerPreview={setViewChatAnswerPreview}
                   setisResponse={setisResponse}
                 />
-              </div>
             ))}
           </div>
         </div>
