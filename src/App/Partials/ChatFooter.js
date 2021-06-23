@@ -163,7 +163,7 @@ function ChatFooter(props) {
     <div className="chat-footer">
       {/*<FilePreview inputPreview={inputPreview} imgPreview={props.imgPreview} file={props.file}/>*/}
       <form onSubmit={handleSubmit}>
-        {/* <div className="position-relative">
+        <div className="position-relative">
           <Button
             onClick={EmojiMenuOpen}
             color="light"
@@ -183,7 +183,7 @@ function ChatFooter(props) {
               set="apple"
             />
           </span>
-        </div> */}
+        </div>
         <Input
           type="text"
           className="form-control"
