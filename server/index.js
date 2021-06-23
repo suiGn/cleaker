@@ -1,9 +1,7 @@
 /************************************
-APP: OrgBoat                        *
-____ ____ ____ ___  ____ ____ ___   *
-|  | |__/ | __ |__] |  | |__|  |    *
-|__| |  \ |__] |__] |__| |  |  |    *                                                                                                                                                                                                                                                                                                 
-Coded by Sui Gn		                *
+APP: Cleaker                        *
+Cleaker  *                                                                                                                                                                                                                                                                                                 
+Code: Sui Gn		                *
 Copyrights Neurons Art & Technology *
 *************************************/
 const express = require("express");
@@ -274,11 +272,7 @@ require("./sockets/socket");
 http.listen(PORT, function () {
   console.log(
     ` 
- ██████  ██████   ██████  ██████   ██████   █████  ████████ 
-██    ██ ██   ██ ██       ██   ██ ██    ██ ██   ██    ██    
-██    ██ ██████  ██   ███ ██████  ██    ██ ███████    ██    
-██    ██ ██   ██ ██    ██ ██   ██ ██    ██ ██   ██    ██    
- ██████  ██   ██  ██████  ██████   ██████  ██   ██    ██   
+ Cleaker
 				Listening on port: ${PORT}`
   );
 });
