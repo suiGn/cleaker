@@ -30,6 +30,7 @@ function ChatFooter(props) {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setEmojiMenuOpen(false);
     var textMessage = document.getElementById('inputMessage').value;
     if(textMessage!=""){
       if(isResponse){
