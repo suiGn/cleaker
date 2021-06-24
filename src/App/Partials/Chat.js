@@ -236,7 +236,7 @@ function Chat(props) {
           limit: limit,
         });
       } else {
-        var dummy= {
+        var dummy = {
           chat_type: 0,
           chat_uid: newValue.chat_uid,
           delete_message: 0,
@@ -257,7 +257,7 @@ function Chat(props) {
           response_file: "",
           response_from: "",
           response_type: 0,
-          time: "0001-01-01T00:54:31.000Z",
+          time: new Date().toISOString(),
           unread_messages: 2
         }
         var dummyNumberN = dummyNumber+1
