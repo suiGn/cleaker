@@ -19,6 +19,7 @@ const uuid = require("node-uuid");
 // ==================================================================================================
 // Strategy config
 const GoogleStrategy = require("passport-google-oauth20");
+const FacebookStrategy =  require("passport-facebook");
 const index = require("./../index");
 require("../configs/config");
 module.exports = function (passport) {
@@ -106,6 +107,22 @@ module.exports = function (passport) {
       }
     )
   );
+  // =========================================================================
+  // == Facebook SIGNUP ========================================================
+  // =========================================================================
+  // Strategy config
+  passport.use(new FacebookStrategy({
+      clientID: FACEBOOK_APP_ID,
+      clientSecret: FACEBOOK_APP_SECRET,
+      callbackURL: "http://localhost:5000/auth/facebook/callback",
+      profileFields: ['id', 'displayName', 'photos', 'email']
+    },
+    function(accessToken, refreshToken, profile, cb) {
+      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  ));
   // =========================================================================
   // == LOCAL LOGIN ==========================================================
   // =========================================================================

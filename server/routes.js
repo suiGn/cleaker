@@ -5,7 +5,7 @@ ______ _____ _   _ _____ _____ _____
 |    /| | | | | | | | | |  __| `--. \
 | |\ \\ \_/ / |_| | | | | |___/\__/ /
 \_| \_|\___/ \___/  \_/ \____/\____/ 
-							OrgBoat
+              OrgBoat
 CODED BY: SUI GENERIS 
 where do we go from here?
 */
@@ -22,14 +22,12 @@ const Dropbox = require("dropbox").Dropbox;
 const { readFileSync, readStream } = require("./middlewares/file");
 const { CustomValidation } = require("express-validator/src/context-items");
 var AWS = require("aws-sdk");
-
-
-AWS.config.update({ region: "us-east-1" });
+AWS.config.update({ region: "us-east-2" });
 
 const s3 = new AWS.S3({
   apiVersion: "2006-03-01",
-  accessKeyId: process.env.BUCKETEER_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.BUCKETEER_AWS_SECRET_ACCESS_KEY
+  accessKeyId: "AKIARVGPJVYVG45GEVXT",
+  secretAccessKey: "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"
 });
 
 exports.home = function (req, res) {
@@ -44,6 +42,9 @@ exports.home = function (req, res) {
 exports.subscribe = function (req, res) {
   res.redirect("/");
   //res.render("pages/subscribe", { opt: " ", opt1: "Log In", opt2: "/" });
+};
+exports.authFacebook = (req,res)=>{
+  console.log(req);
 };
 exports.authGoogle = (req, res) => {
   console.log(req);
@@ -78,7 +79,7 @@ exports.authGoogle = (req, res) => {
             }
           );
         }
-        res.redirect("https://www.cleaker.me");
+        res.redirect("https://www.orgboat.me");
       }
     }
   );
@@ -452,7 +453,7 @@ exports.savedbimageGroup = async function (req, res) {
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;
-        uploadParams.Key = "public/"+req.file.filename;
+        uploadParams.Key = req.file.filename;
         s3.upload(uploadParams, function (err, data) {
           if (err) {
             console.log("Error", err);
