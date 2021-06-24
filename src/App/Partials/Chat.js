@@ -237,7 +237,7 @@ function Chat(props) {
         });
       } else {
         var dummy = {
-          chat_type: 0,
+          chat_type: props.clicked.chat_type,
           chat_uid: newValue.chat_uid,
           delete_message: 0,
           delete_message_to: 0,
