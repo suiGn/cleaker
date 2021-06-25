@@ -69,6 +69,11 @@ function SignIn(props) {
               <i className="fa fa-google"></i>
             </a>
           </li>
+          <li className="list-inline-item">
+             <a href="/auth/facebook" className="btn btn-floating btn-facebook">
+               <i className="fa fa-facebook"></i>
+             </a>
+           </li>
         </ul>
         <hr />
         {/* <p className="text-muted">Login with your social media account.</p>
