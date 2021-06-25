@@ -8,6 +8,7 @@ var LocalStrategy = require("passport-local").Strategy;
 //var mysql = require('mysql');
 var bcrypt = require("bcryptjs");
 const uuid = require("node-uuid");
+const FacebookStrategy =  require("passport-facebook");
 ////var dbconfig = require('./database');
 //var connection = mysql.createConnection(dbconfig.connection);
 //connection.connect();
@@ -106,6 +107,22 @@ module.exports = function (passport) {
       }
     )
   );
+    // =========================================================================
+  // == Facebook SIGNUP ========================================================
+  // =========================================================================
+  // Strategy config
+  passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:5000/auth/facebook/callback",
+    profileFields: ['id', 'displayName', 'photos', 'email']
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
   // =========================================================================
   // == LOCAL LOGIN ==========================================================
   // =========================================================================
