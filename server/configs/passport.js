@@ -19,6 +19,8 @@ const uuid = require("node-uuid");
 // ==================================================================================================
 // Strategy config
 const GoogleStrategy = require("passport-google-oauth20");
+const GoogleStrategy = require("passport-facebook");
+
 const index = require("./../index");
 require("../configs/config");
 module.exports = function (passport) {
