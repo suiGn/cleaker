@@ -9,10 +9,10 @@ process.env.NODE_ENV = process.env.NODE_ENV || "dev";
 let urlFront;
 if (process.env.NODE_ENV === "dev") {
   urlDB = "http://localhost:3000";
-  urlMAIL = "http://localhost:5000";
+  urlMAIL = "https://www.cleaker.me";
 } else {
   urlDB = process.env.URL_FRONT;
-  urlMAIL = "https://www.orgboat.me";;
+  urlMAIL = "https://www.cleaker.me";
 }
 process.env.URL_FRONT = urlFront;
 
@@ -34,6 +34,3 @@ CALLBACKURL = "/auth/google/callback";
 
 AUTHUSER ="cleaker6@gmail.com";
 AUTHPASS = "8p&6%gPYqFsf";
-
-FACEBOOK_APP_ID= "847287435755171";
-FACEBOOK_APP_SECRET="deb268e5fc5fd67416d4254d4e197317";

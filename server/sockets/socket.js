@@ -200,7 +200,7 @@ io.on("connection", function (socket) {
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
-      messages.response_file,  messages.unread_messages
+      messages.response_file
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 order by time desc limit ${msg.limit};
@@ -876,7 +876,7 @@ io.on("connection", function (socket) {
         messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
         chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
         messages.is_response, messages.response, messages.response_from, messages.response_type, 
-        messages.response_file, messages.unread_messages
+        messages.response_file
           from messages inner join usrs on messages.u_id = usrs.u_id
           inner join chats on chats.chat_uid = messages.chat_uid
           where  messages.chat_uid = '${data.id}' 
