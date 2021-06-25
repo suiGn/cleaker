@@ -22,12 +22,14 @@ const Dropbox = require("dropbox").Dropbox;
 const { readFileSync, readStream } = require("./middlewares/file");
 const { CustomValidation } = require("express-validator/src/context-items");
 var AWS = require("aws-sdk");
-AWS.config.update({ region: "us-east-2" });
+
+
+AWS.config.update({ region: "us-east-1" });
 
 const s3 = new AWS.S3({
   apiVersion: "2006-03-01",
-  accessKeyId: "AKIARVGPJVYVG45GEVXT",
-  secretAccessKey: "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"
+  accessKeyId: process.env.BUCKETEER_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.BUCKETEER_AWS_SECRET_ACCESS_KEY
 });
 
 exports.home = function (req, res) {
@@ -76,7 +78,7 @@ exports.authGoogle = (req, res) => {
             }
           );
         }
-        res.redirect("https://www.orgboat.me");
+        res.redirect("https://www.cleaker.me");
       }
     }
   );
@@ -450,7 +452,7 @@ exports.savedbimageGroup = async function (req, res) {
     readStream("../build/" + photo)
       .then((data) => {
         uploadParams.Body = data;
-        uploadParams.Key = req.file.filename;
+        uploadParams.Key = "public/"+req.file.filename;
         s3.upload(uploadParams, function (err, data) {
           if (err) {
             console.log("Error", err);
