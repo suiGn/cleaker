@@ -30,6 +30,7 @@ function ChatFooter(props) {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setEmojiMenuOpen(false);
     var textMessage = document.getElementById('inputMessage').value;
     if(textMessage!=""){
       if(isResponse){
@@ -163,15 +164,35 @@ function ChatFooter(props) {
     <div className="chat-footer">
       {/*<FilePreview inputPreview={inputPreview} imgPreview={props.imgPreview} file={props.file}/>*/}
       <form onSubmit={handleSubmit}>
-        <div className="position-relative">
-          <Button
+        <div className="position-relative" style={{ display:  "flex"}} >
+          <div
             onClick={EmojiMenuOpen}
             color="light"
-            className="mr-3"
+            className="mr-3 no-border-button"
             title="Emoji"
           >
             <FeatherIcon.Smile />
-          </Button>
+          </div>
+          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+              <DropdownToggle tag="span" data-toggle="dropdown" aria-expanded={dropdownOpen}>
+                <div className="no-border-button" color="light">
+                  <FeatherIcon.Paperclip />
+                </div>
+                <input type="file" hidden ref={inputFile}  id="customFileI" name="customFileI" onChange={(e) =>onChangeFile(e)}
+                accept=".pdf" multiple/>
+                <input type="file" hidden ref={inputImage}  id="customFileF" name="customFileF" onChange={(e) =>onChangePhoto(e)}
+                accept=".png,.gif,.jpg" multiple/>
+                <input type="file" hidden ref={inputVideo}  id="customFileV" name="customFileV" onChange={(e) =>onChangeVideo(e)}
+                accept=".mp4,.webm" multiple/>
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem onClick={() => onButtonClickImage()}><FeatherIcon.Image/> Image</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={() => onButtonClickFile()}><FeatherIcon.File/> File</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={() => onButtonClickVideo()}><FeatherIcon.Video/> Video</DropdownItem>
+              </DropdownMenu>
+          </Dropdown>
           <span
             className={"emoji-picker " + (emojiMenuOpen ? "show" : "hidden ")}
           >
@@ -198,26 +219,6 @@ function ChatFooter(props) {
           <Button type="submit" color="primary">
             <FeatherIcon.Send />
           </Button>
-          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-              <DropdownToggle tag="span" data-toggle="dropdown" aria-expanded={dropdownOpen}>
-                <Button color="light">
-                  <FeatherIcon.Paperclip />
-                </Button>
-                <input type="file" hidden ref={inputFile}  id="customFileI" name="customFileI" onChange={(e) =>onChangeFile(e)}
-                accept=".pdf" multiple/>
-                <input type="file" hidden ref={inputImage}  id="customFileF" name="customFileF" onChange={(e) =>onChangePhoto(e)}
-                accept=".png,.gif,.jpg" multiple/>
-                <input type="file" hidden ref={inputVideo}  id="customFileV" name="customFileV" onChange={(e) =>onChangeVideo(e)}
-                accept=".mp4,.webm" multiple/>
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem onClick={() => onButtonClickImage()}><FeatherIcon.Image/> Image</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={() => onButtonClickFile()}><FeatherIcon.File/> File</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={() => onButtonClickVideo()}><FeatherIcon.Video/> Video</DropdownItem>
-              </DropdownMenu>
-          </Dropdown>
         </div>
       </form>
     </div>

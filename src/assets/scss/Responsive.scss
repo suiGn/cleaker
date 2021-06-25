@@ -181,6 +181,7 @@
     .background-home-img {
       visibility: hidden;
     } 
+
     .sidebar-group {
       flex: 1 1;
       display: flex;
@@ -198,6 +199,11 @@
         }
       }
     }
+
+    .sidebar-profile-group {
+      height: 100%;
+    }
+    
   }
 
   .img-logo-auto {

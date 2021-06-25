@@ -1,7 +1,9 @@
 /************************************
-APP: Cleaker                        *
-Cleaker  *                                                                                                                                                                                                                                                                                                 
-Code: Sui Gn		                *
+APP: OrgBoat                        *
+____ ____ ____ ___  ____ ____ ___   *
+|  | |__/ | __ |__] |  | |__|  |    *
+|__| |  \ |__] |__] |__| |  |  |    *                                                                                                                                                                                                                                                                                                 
+Coded by Sui Gn		                *
 Copyrights Neurons Art & Technology *
 *************************************/
 const express = require("express");
@@ -57,7 +59,6 @@ let options = {
   user: DB_USER,
   password: DB_PASS,
   database: DB_DATABASE,
-  charset : 'utf8mb4'
 };
 var connection = mysql.createConnection(options); // or mysql.createPool(options);
 var orgboatDB = connection;
@@ -272,7 +273,11 @@ require("./sockets/socket");
 http.listen(PORT, function () {
   console.log(
     ` 
- Cleaker
+ ██████  ██████   ██████  ██████   ██████   █████  ████████ 
+██    ██ ██   ██ ██       ██   ██ ██    ██ ██   ██    ██    
+██    ██ ██████  ██   ███ ██████  ██    ██ ███████    ██    
+██    ██ ██   ██ ██    ██ ██   ██ ██    ██ ██   ██    ██    
+ ██████  ██   ██  ██████  ██████   ██████  ██   ██    ██   
 				Listening on port: ${PORT}`
   );
 });
