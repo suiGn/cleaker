@@ -102,14 +102,6 @@ const server = express()
     passport.authenticate("google"),
     routes.authGoogle
   )
-  .get(
-    '/auth/facebook',
-    passport.authenticate('facebook')
-  )
-  .get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    routes.authFacebook
-  )
   .get("/sign-s3", (req, res) => {
     const s3 = new aws.S3();
     const fileName = req.query["file-name"];

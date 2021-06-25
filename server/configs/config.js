@@ -34,6 +34,3 @@ CALLBACKURL = "/auth/google/callback";
 
 AUTHUSER ="cleaker6@gmail.com";
 AUTHPASS = "8p&6%gPYqFsf";
-
-FACEBOOK_APP_ID= "847287435755171";
-FACEBOOK_APP_SECRET="deb268e5fc5fd67416d4254d4e197317";
