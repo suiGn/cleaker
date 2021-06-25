@@ -48,7 +48,7 @@ function Chat(props) {
   let monthN = 0;
 
   let yearN = 0;
-  
+
 
   const deleteButton = useRef(null);
 
@@ -76,7 +76,7 @@ function Chat(props) {
     messageRespond, setMessageRespond,
     viewChatAnswerPreview, setViewChatAnswerPreview,
     isResponse, setisResponse,
-    openMessageDetail,setOpenMessageDetail,setMessageDetail
+    openMessageDetail, setOpenMessageDetail, setMessageDetail
   } = props;
 
   useEffect(() => {
@@ -100,7 +100,7 @@ function Chat(props) {
 
   function scrollMove(container) {
     if ((container.scrollTop) == 0 && !firstTime) {
-      if(limit<=countrow){
+      if (limit <= countrow) {
         var newLimit = limit + 10;
         setPage(page + 1);
         setLimit(newLimit);
@@ -136,8 +136,8 @@ function Chat(props) {
           }
         });
         messages = messages.reverse()
-        if(dummyArray.length>0){
-          dummyArray.splice(0,1)
+        if (dummyArray.length > 0) {
+          dummyArray.splice(0, 1)
           messages.push.apply(messages, dummyArray);
         }
         setChatMessages(messages);
@@ -260,7 +260,7 @@ function Chat(props) {
           time: new Date().toISOString(),
           unread_messages: 2
         }
-        var dummyNumberN = dummyNumber+1
+        var dummyNumberN = dummyNumber + 1
         messages.push(dummy)
         setFirstTime(true)
         // prueba
@@ -295,7 +295,7 @@ function Chat(props) {
     //bruno
   };
 
-  function ReadMore(e){
+  function ReadMore(e) {
     e.target.classList.remove("word-break-more");
   }
 
@@ -340,7 +340,7 @@ function Chat(props) {
       if (message_user_uid != userID) {
         userID = message_user_uid
         return (
-          <br/>
+          <br />
         );
       } else {
         return "";
@@ -362,10 +362,10 @@ function Chat(props) {
     const { group } = props;
     var dateM = new Date(message.time);
     const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
-    if(year != 0){
-      yearN=yearN<year?year:yearN
-      monthN=monthN<month?month:monthN
-      dayN=dayN<day?day:dayN
+    if (year != 0) {
+      yearN = yearN < year ? year : yearN
+      monthN = monthN < month ? month : monthN
+      dayN = dayN < day ? day : dayN
     }
     let type;
     let timeType;
@@ -420,263 +420,264 @@ function Chat(props) {
       if (message.is_response) {
         return (
           <div className="messages-container">
-          {year!=0?getTodayLabel(getDateLabel(dateM), message.message_user_uid):""}
-          <div id={message.message_id} className={"message-item padding-response " + type}>
-            {group && message.message_user_uid != props.my_uid ? (
-              <div className="message-avatar">
-                <div>
-                  <h5>{message.name}</h5>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-            {message.media ? (
-              message.media
-            ) : (
-              <div
-                className={"message-content position-relative img-chat" + search}
-              >
-                <div className="message-response">
-                  <div className="word-break response-from">
-                    {message.response_from}
-                  </div>
-                  {
-                    message.response_type == 0 ?
-                      <div className="word-break response-message">{message.response}</div>
-                      : message.response_type == 1 ?
+            {year != 0 ? getTodayLabel(getDateLabel(dateM), message.message_user_uid) : ""}
+            <div id={message.message_id} className={"message-item padding-response " + type}>
+              {message.media ? (
+                message.media
+              ) : (
+                <div
+                  className={"message-content position-relative img-chat" + search}
+                >
+                  <div className="message-response">
+                    <div className="word-break response-from">
+                      {message.response_from}
+                    </div>
+                    {group && message.message_user_uid != props.my_uid ? (
+                      <div className="message-avatar">
                         <div>
-                          <div className="word-break">{message.response}</div>
+                          <h5>{message.name}</h5>
                         </div>
-                        : message.response_type == 2 ?
-                          <div>
-                            <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.response_file + ")" }}>
-                            </div>
-                            <div className="word-break">{message.response}</div>
-                          </div>
-                          : message.response_type == 3 ?
-                            <div>
-                              <div className="mini-preview-container-video">
-                                <VideoThumbnail
-                                  videoUrl={message.response_file}
-                                  thumbnailHandler={(thumbnail) => { }}
-                                />
-                              </div>
-                              <div className="word-break">{message.response}</div>
-                            </div>
-                            : ""
-                  }
-                </div>
-                {
-                  !message.is_image && !message.is_file && !message.is_video ?
-                    <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>{message.message}</div>
-                    : message.is_image ?
-                      <div>
-                        <figure className="avatar img-chat">
-                          <ModalImage
-                            small={message.file}
-                            large={message.file}
-                            alt="image"
-                          />
-                        </figure>
-                        <div className="word-break">{message.message}</div>
-                      </div>
-                      : message.is_file ?
-                        <div>
-                          <a href={message.file} download>
-                            <FeatherIcon.Download /> {"file "}
-                          </a>
-                          <div className="word-break">{message.message}</div>
-                        </div>
-                        :
-                        <div>
-                          <video className="video-container" controls preload="none" preload="metadata">
-                            <source src={message.file} />
-                          </video>
-                          <div className="word-break">{message.message}</div>
-                        </div>
-                }
-                <div className="misc-container">
-                  <div className={"time " + timeType}>
-                    {fav.length > 0 ? (
-                      <div className={fav}>
-                        <FeatherIcon.Star />
                       </div>
                     ) : (
                       ""
                     )}
-                    <Moment format="LT">{message.time}</Moment>
-                    {message.type ? (
-                      <i className="ti-double-check text-info"></i>
-                    ) : null}
-                  </div>
-                  <div className="action-toggle action-dropdown-chat">
-                    <ChatsMessageDropdown
-                      message={message}
-                      prop_id={props.id}
-                      my_uid={props.my_uid}
-                      chat_id={props.chat_id}
-                      socket={socket}
-                      page={page}
-                      limit={limit}
-                      dropdownType={dropdownType}
-                      setMessageRespond={props.setMessageRespond}
-                      setViewChatAnswerPreview={props.setViewChatAnswerPreview}
-                      setisResponse={props.setisResponse}
-                      deleteButton = {deleteButton}
-                      setMessageToDelete={setMessageToDelete}
-                      openMessageDetail={openMessageDetail}
-                      setOpenMessageDetail={setOpenMessageDetail}
-                    />
+                    {
+                      message.response_type == 0 ?
+                        <div className="word-break response-message">{message.response}</div>
+                        : message.response_type == 1 ?
+                          <div>
+                            <div className="word-break">{message.response}</div>
+                          </div>
+                          : message.response_type == 2 ?
+                            <div>
+                              <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.response_file + ")" }}>
+                              </div>
+                              <div className="word-break">{message.response}</div>
+                            </div>
+                            : message.response_type == 3 ?
+                              <div>
+                                <div className="mini-preview-container-video">
+                                  <VideoThumbnail
+                                    videoUrl={message.response_file}
+                                    thumbnailHandler={(thumbnail) => { }}
+                                  />
+                                </div>
+                                <div className="word-break">{message.response}</div>
+                              </div>
+                              : ""
+                    }
                   </div>
                   {
-                  (message.chat_type == 1) ?
-                  (message.message_user_uid == props.id)?
-                  message.unread_messages == 2?
-                  <div className="check-mark"><FeatherIcon.Check /></div>:
-                  message.unread_messages == 1?
-                  <div className="check-mark">
-                    <FeatherIcon.Check />
-                    <div className="check-mark-double"><FeatherIcon.Check /></div>
-                  </div>:
-                  <div className="check-mark check-mark-seen">
-                    <FeatherIcon.Check />
-                    <div className="check-mark-double"><FeatherIcon.Check /></div>
-                  </div>:""
-                  :
-                  (message.message_user_uid != props.id)?
-                  message.unread_messages == 2?
-                  <div className="check-mark"><FeatherIcon.Check /></div>:
-                  message.unread_messages == 1?
-                  <div className="check-mark">
-                    <FeatherIcon.Check />
-                    <div className="check-mark-double"><FeatherIcon.Check /></div>
-                  </div>:
-                  <div className="check-mark check-mark-seen">
-                    <FeatherIcon.Check />
-                    <div className="check-mark-double"><FeatherIcon.Check /></div>
-                  </div>:""
+                    !message.is_image && !message.is_file && !message.is_video ?
+                      <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>{message.message}</div>
+                      : message.is_image ?
+                        <div>
+                          <figure className="avatar img-chat">
+                            <ModalImage
+                              small={message.file}
+                              large={message.file}
+                              alt="image"
+                            />
+                          </figure>
+                          <div className="word-break">{message.message}</div>
+                        </div>
+                        : message.is_file ?
+                          <div>
+                            <a href={message.file} download>
+                              <FeatherIcon.Download /> {"file "}
+                            </a>
+                            <div className="word-break">{message.message}</div>
+                          </div>
+                          :
+                          <div>
+                            <video className="video-container" controls preload="none" preload="metadata">
+                              <source src={message.file} />
+                            </video>
+                            <div className="word-break">{message.message}</div>
+                          </div>
                   }
+                  <div className="misc-container">
+                    <div className={"time " + timeType}>
+                      {fav.length > 0 ? (
+                        <div className={fav}>
+                          <FeatherIcon.Star />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      <Moment format="LT">{message.time}</Moment>
+                      {message.type ? (
+                        <i className="ti-double-check text-info"></i>
+                      ) : null}
+                    </div>
+                    <div className="action-toggle action-dropdown-chat">
+                      <ChatsMessageDropdown
+                        message={message}
+                        prop_id={props.id}
+                        my_uid={props.my_uid}
+                        chat_id={props.chat_id}
+                        socket={socket}
+                        page={page}
+                        limit={limit}
+                        dropdownType={dropdownType}
+                        setMessageRespond={props.setMessageRespond}
+                        setViewChatAnswerPreview={props.setViewChatAnswerPreview}
+                        setisResponse={props.setisResponse}
+                        deleteButton={deleteButton}
+                        setMessageToDelete={setMessageToDelete}
+                        openMessageDetail={openMessageDetail}
+                        setOpenMessageDetail={setOpenMessageDetail}
+                      />
+                    </div>
+                    {
+                      (message.chat_type == 1) ?
+                        (message.message_user_uid == props.id) ?
+                          message.unread_messages == 2 ?
+                            <div className="check-mark"><FeatherIcon.Check /></div> :
+                            message.unread_messages == 1 ?
+                              <div className="check-mark">
+                                <FeatherIcon.Check />
+                                <div className="check-mark-double"><FeatherIcon.Check /></div>
+                              </div> :
+                              <div className="check-mark check-mark-seen">
+                                <FeatherIcon.Check />
+                                <div className="check-mark-double"><FeatherIcon.Check /></div>
+                              </div> : ""
+                        :
+                        (message.message_user_uid != props.id) ?
+                          message.unread_messages == 2 ?
+                            <div className="check-mark"><FeatherIcon.Check /></div> :
+                            message.unread_messages == 1 ?
+                              <div className="check-mark">
+                                <FeatherIcon.Check />
+                                <div className="check-mark-double"><FeatherIcon.Check /></div>
+                              </div> :
+                              <div className="check-mark check-mark-seen">
+                                <FeatherIcon.Check />
+                                <div className="check-mark-double"><FeatherIcon.Check /></div>
+                              </div> : ""
+                    }
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
           </div>);
       } else {
         return (
           <div className="messages-container">
-            {year!=0?getTodayLabel(getDateLabel(dateM), message.message_user_uid):""}
-          <div id={message.message_id} className={"message-item padding-no-response " + type}>
-            {group && message.message_user_uid != props.my_uid ? (
-              <div className="message-avatar">
-                <div>
-                  <h5>{message.name}</h5>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
-            {message.media ? (
-              message.media
-            ) : (
-              <div
-                className={"message-content position-relative img-chat" + search}
-              >
-                {
-                  !message.is_image && !message.is_file && !message.is_video ?
-                    <div className="word-break">{message.message}</div>
-                    : message.is_image ?
+            {year != 0 ? getTodayLabel(getDateLabel(dateM), message.message_user_uid) : ""}
+            <div id={message.message_id} className={"message-item padding-no-response " + type}>
+
+              {message.media ? (
+                message.media
+              ) : (
+                <div
+                  className={"message-content position-relative img-chat" + search}
+                >
+                  {group && message.message_user_uid != props.my_uid.id ? (
+                    <div className="message-avatar">
                       <div>
-                        <figure className="avatar img-chat">
-                          <ModalImage
-                            small={message.file}
-                            large={message.file}
-                            alt="image"
-                          />
-                        </figure>
-                        <div className="word-break">{message.message}</div>
+                        <h5>{message.name}</h5>
                       </div>
-                      : message.is_file ?
-                        <div>
-                          <a href={message.file} download>
-                            <FeatherIcon.Download /> {"file "}
-                          </a>
-                          <div className="word-break">{message.message}</div>
-                        </div>
-                        :
-                        <div>
-                          <video className="video-container" controls preload="none">
-                            <source src={message.file} />
-                          </video>
-                          <div className="word-break">{message.message}</div>
-                        </div>
-                }
-                <div className="misc-container">
-                  <div className={"time " + timeType}>
-                    {fav.length > 0 ? (
-                      <div className={fav}>
-                        <FeatherIcon.Star />
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                    <Moment format="LT">{message.time}</Moment>
-                    {message.type ? (
-                      <i className="ti-double-check text-info"></i>
-                    ) : null}
-                  </div>
-                  <div className="action-toggle action-dropdown-chat">
-                    <ChatsMessageDropdown
-                      message={message}
-                      prop_id={props.id}
-                      my_uid={props.my_uid}
-                      chat_id={props.chat_id}
-                      socket={socket}
-                      page={page}
-                      limit={limit}
-                      dropdownType={dropdownType}
-                      setMessageRespond={props.setMessageRespond}
-                      setViewChatAnswerPreview={props.setViewChatAnswerPreview}
-                      setisResponse={props.setisResponse}
-                      deleteButton = {deleteButton}
-                      setMessageToDelete={setMessageToDelete}
-                      openMessageDetail={openMessageDetail}
-                      setOpenMessageDetail={setOpenMessageDetail}
-                      setMessageDetail={setMessageDetail}
-                    />
-                  </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   {
-                  (message.chat_type == 1) ?
-                  (message.message_user_uid == props.id)?
-                  message.unread_messages == 2?
-                  <div className="check-mark"><FeatherIcon.Check /></div>:
-                  message.unread_messages == 1?
-                  <div className="check-mark">
-                    <FeatherIcon.Check />
-                    <div className="check-mark-double"><FeatherIcon.Check /></div>
-                  </div>:
-                  <div className="check-mark check-mark-seen">
-                    <FeatherIcon.Check />
-                    <div className="check-mark-double"><FeatherIcon.Check /></div>
-                  </div>:""
-                  :
-                  (message.message_user_uid != props.id)?
-                  message.unread_messages == 2?
-                  <div className="check-mark"><FeatherIcon.Check /></div>:
-                  message.unread_messages == 1?
-                  <div className="check-mark">
-                    <FeatherIcon.Check />
-                    <div className="check-mark-double"><FeatherIcon.Check /></div>
-                  </div>:
-                  <div className="check-mark check-mark-seen">
-                    <FeatherIcon.Check />
-                    <div className="check-mark-double"><FeatherIcon.Check /></div>
-                  </div>:""
+                    !message.is_image && !message.is_file && !message.is_video ?
+                      <div className="word-break">{message.message}</div>
+                      : message.is_image ?
+                        <div>
+                          <figure className="avatar img-chat">
+                            <ModalImage
+                              small={message.file}
+                              large={message.file}
+                              alt="image"
+                            />
+                          </figure>
+                          <div className="word-break">{message.message}</div>
+                        </div>
+                        : message.is_file ?
+                          <div>
+                            <a href={message.file} download>
+                              <FeatherIcon.Download /> {"file "}
+                            </a>
+                            <div className="word-break">{message.message}</div>
+                          </div>
+                          :
+                          <div>
+                            <video className="video-container" controls preload="none">
+                              <source src={message.file} />
+                            </video>
+                            <div className="word-break">{message.message}</div>
+                          </div>
                   }
+                  <div className="misc-container">
+                    <div className={"time " + timeType}>
+                      {fav.length > 0 ? (
+                        <div className={fav}>
+                          <FeatherIcon.Star />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      <Moment format="LT">{message.time}</Moment>
+                      {message.type ? (
+                        <i className="ti-double-check text-info"></i>
+                      ) : null}
+                    </div>
+                    <div className="action-toggle action-dropdown-chat">
+                      <ChatsMessageDropdown
+                        message={message}
+                        prop_id={props.id}
+                        my_uid={props.my_uid}
+                        chat_id={props.chat_id}
+                        socket={socket}
+                        page={page}
+                        limit={limit}
+                        dropdownType={dropdownType}
+                        setMessageRespond={props.setMessageRespond}
+                        setViewChatAnswerPreview={props.setViewChatAnswerPreview}
+                        setisResponse={props.setisResponse}
+                        deleteButton={deleteButton}
+                        setMessageToDelete={setMessageToDelete}
+                        openMessageDetail={openMessageDetail}
+                        setOpenMessageDetail={setOpenMessageDetail}
+                        setMessageDetail={setMessageDetail}
+                      />
+                    </div>
+                    {
+                      (message.chat_type == 1) ?
+                        (message.message_user_uid == props.id) ?
+                          message.unread_messages == 2 ?
+                            <div className="check-mark"><FeatherIcon.Check /></div> :
+                            message.unread_messages == 1 ?
+                              <div className="check-mark">
+                                <FeatherIcon.Check />
+                                <div className="check-mark-double"><FeatherIcon.Check /></div>
+                              </div> :
+                              <div className="check-mark check-mark-seen">
+                                <FeatherIcon.Check />
+                                <div className="check-mark-double"><FeatherIcon.Check /></div>
+                              </div> : ""
+                        :
+                        (message.message_user_uid != props.id) ?
+                          message.unread_messages == 2 ?
+                            <div className="check-mark"><FeatherIcon.Check /></div> :
+                            message.unread_messages == 1 ?
+                              <div className="check-mark">
+                                <FeatherIcon.Check />
+                                <div className="check-mark-double"><FeatherIcon.Check /></div>
+                              </div> :
+                              <div className="check-mark check-mark-seen">
+                                <FeatherIcon.Check />
+                                <div className="check-mark-double"><FeatherIcon.Check /></div>
+                              </div> : ""
+                    }
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
           </div>);
       }
     }
@@ -717,18 +718,18 @@ function Chat(props) {
         <div className="chat-body">
           <div className="messages">
             {messages.map((message, i) => (
-                <MessagesView
-                  message={message}
-                  key={i}
-                  id={props.clicked.user_chat}
-                  my_uid={props.my_uid}
-                  setUser={props.setUser}
-                  chat_id={props.clicked.chat_uid}
-                  group={props.clicked.chat_type}
-                  setMessageRespond={setMessageRespond}
-                  setViewChatAnswerPreview={setViewChatAnswerPreview}
-                  setisResponse={setisResponse}
-                />
+              <MessagesView
+                message={message}
+                key={i}
+                id={props.clicked.user_chat}
+                my_uid={props.my_uid}
+                setUser={props.setUser}
+                chat_id={props.clicked.chat_uid}
+                group={props.clicked.chat_type}
+                setMessageRespond={setMessageRespond}
+                setViewChatAnswerPreview={setViewChatAnswerPreview}
+                setisResponse={setisResponse}
+              />
             ))}
           </div>
         </div>
@@ -758,8 +759,8 @@ function Chat(props) {
         messageRespond={messageRespond}
       />
       <DeleteMessageModal
-        deleteButton = {deleteButton}
-        socket = {socket}
+        deleteButton={deleteButton}
+        socket={socket}
         messageToDelete={messageToDelete}
         my_uid={props.my_uid}
         chat_id={props.clicked.chat_uid}
