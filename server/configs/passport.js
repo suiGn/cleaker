@@ -120,7 +120,7 @@ module.exports = function (passport) {
   function(accessToken, refreshToken, profile, cb) {
     const { email, first_name, last_name } = profile._json;
     console.log(email);
-    done(null,profile);
+    cb(null,profile);
     // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
     //   return cb(err, user);
     // });
