@@ -45,6 +45,10 @@ exports.subscribe = function (req, res) {
   res.redirect("/");
   //res.render("pages/subscribe", { opt: " ", opt1: "Log In", opt2: "/" });
 };
+exports.authFacebook = (req,res)=>{
+  console.log(req);
+};
+
 exports.authGoogle = (req, res) => {
   console.log(req);
   var name = req.user.displayName;

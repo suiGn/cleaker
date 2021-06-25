@@ -106,6 +106,21 @@ module.exports = function (passport) {
       }
     )
   );
+// =========================================================================
+  // == Facebook LOGIN ==========================================================
+  // =========================================================================
+  passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "https://www.cleaker.me/auth/facebook/callback",
+    profileFields: ['id', 'displayName', 'photos', 'email']
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
   // =========================================================================
   // == LOCAL LOGIN ==========================================================
   // =========================================================================
