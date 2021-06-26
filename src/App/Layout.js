@@ -279,6 +279,9 @@ function Layout(props) {
         openMessageDetail={openMessageDetail}
         setOpenMessageDetail={setOpenMessageDetail}
         messageDetail={messageDetail}
+        clicked={clicked}
+        setUser={setUser}
+        my_uid={my_uid}
         />
         <TourModal />
         <DisconnectedModal />
