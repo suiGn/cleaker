@@ -59,6 +59,7 @@ let options = {
   user: DB_USER,
   password: DB_PASS,
   database: DB_DATABASE,
+  charset : 'utf8mb4'
 };
 var connection = mysql.createConnection(options); // or mysql.createPool(options);
 var orgboatDB = connection;
