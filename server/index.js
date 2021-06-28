@@ -104,7 +104,7 @@ const server = express()
     routes.authGoogle
   )
   .get('/auth/facebook',
-  passport.authenticate('facebook'))
+  passport.authenticate('facebook', { scope : ['email'] }))
 
   .get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
