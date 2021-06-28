@@ -47,6 +47,41 @@ exports.subscribe = function (req, res) {
 };
 exports.authFacebook = (req,res)=>{
   //console.log(req);
+  var name = req.user.displayName;
+  var usrname = req.user.emails[0].value;
+  var email = usrname;
+  var profile_pic = req.user.photos[0].value;
+  var u_type = 1;
+  var dt = new Date();
+  var uuid_numbr = uuid.v4();
+  index.orgboatDB.query(
+    `SELECT * FROM usrs WHERE usrname = '${usrname}'  OR email = '${usrname}'`,
+    (err, resp) => {
+      if (err) {
+        res.render("pages/index", {
+          opt1: "Sign Up",
+          opt2: "/subscribe",
+          opt3: " ",
+        });
+      } else {
+        if (resp.length == 0) {
+          //STORES DATA
+          index.orgboatDB.query(
+            "INSERT INTO usrs (name, usrname, email, Verified, last_update, u_id, created, u_type, pphoto) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)",
+            [name, usrname, email, 1, dt, uuid_numbr, dt, u_type, profile_pic],
+            (error, results) => {
+              if (error) {
+                res.redirect("/");
+                throw error;
+              }
+              console.log("New user saved!");
+            }
+          );
+        }
+        res.redirect("https://www.cleaker.me");
+      }
+    }
+  );
 };
 
 exports.authGoogle = (req, res) => {
