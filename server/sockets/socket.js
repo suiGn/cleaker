@@ -43,7 +43,7 @@ io.on("connection", function (socket) {
 			select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
         m.u_id as last_message_user_uid, m.message as last_message_message, m.time as last_message_time,chats_users.archiveChat
         ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
-        chats.groupphoto, m.is_file , m.is_image, m.is_video
+        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read
 			
 			from chats_users  
 
@@ -177,8 +177,22 @@ io.on("connection", function (socket) {
         `[Socket.io] - ${user.usrname} request the messages from chat: ${msg.id}, get messages:${msg.page}`
       );
       if (msg.inChat) {
+        timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
         orgboatDB.query(
           `UPDATE messages SET unread_messages=0 WHERE u_id!='${user.u_id}' and chat_uid='${msg.id}'`,
+          (err, data) => {
+            if (err) {
+              return json({
+                ok: false,
+                err: {
+                  message: "error al actualizar messages",
+                },
+              });
+            }
+          }
+        );
+        orgboatDB.query(
+          `UPDATE messages SET time_read = '${timeDB}' WHERE u_id!='${user.u_id}' and chat_uid='${msg.id}' and time_read IS NULL `,
           (err, data) => {
             if (err) {
               return json({
@@ -200,7 +214,7 @@ io.on("connection", function (socket) {
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
-      messages.response_file,  messages.unread_messages
+      messages.response_file,  messages.unread_messages, messages.time_read
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 order by time desc limit ${msg.limit};
@@ -876,7 +890,7 @@ io.on("connection", function (socket) {
         messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
         chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
         messages.is_response, messages.response, messages.response_from, messages.response_type, 
-        messages.response_file, messages.unread_messages
+        messages.response_file, messages.unread_messages, messages.time_read
           from messages inner join usrs on messages.u_id = usrs.u_id
           inner join chats on chats.chat_uid = messages.chat_uid
           where  messages.chat_uid = '${data.id}' 

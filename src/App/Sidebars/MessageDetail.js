@@ -281,6 +281,18 @@ function MessageDetail(props) {
     }
   };
 
+  function getDateLabel(date) {
+    var dateM = new Date(date)
+    let dateLabelDate =
+    dateM.getDate() < 10 ? "0" + dateM.getDate() : dateM.getDate();
+    let dateLabelMonth =
+    dateM.getMonth() + 1 < 10
+        ? "0" + (dateM.getMonth() + 1)
+        : dateM.getMonth() + 1;
+    let dateLabelYear = dateM.getFullYear();
+    let dateLabel = dateLabelDate + "/" + dateLabelMonth + "/" + dateLabelYear;
+    return dateLabel;
+  }
 
   useEffect(() => {
   }, [messageDetail]);
@@ -313,6 +325,18 @@ function MessageDetail(props) {
                   chat_id={props.clicked.chat_uid}
                   group={props.clicked.chat_type}
                 />
+              </div>
+              <div>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item list-item-mdetalle">
+                      <div>Leido</div>
+                      <div>{messageDetail.time_read?getDateLabel(messageDetail.time_read):"-"} {messageDetail.time_read?<Moment format="LT">{messageDetail.time_read}</Moment>:""}</div>
+                    </li>
+                    <li className="list-group-item list-item-mdetalle">
+                      <div>Entregado</div>
+                      <div>{getDateLabel(messageDetail.time)} <Moment format="LT">{messageDetail.time}</Moment></div>
+                    </li>
+                </ul>
               </div>
             </div>
           </PerfectScrollbar>
