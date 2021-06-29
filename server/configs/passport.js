@@ -31,7 +31,7 @@ module.exports = function (passport) {
   // passport needs ability to serialize and unserialize users out of session
   // used to serialize the user for the session
   passport.serializeUser(function (user, done) {
-    if (user.provider == "google") {
+    if (user.provider == "google" || user.provider == "facebook") {
       index.orgboatDB.query(
         "SELECT * FROM usrs WHERE email = ?",
         [user.emails[0].value],
@@ -117,10 +117,10 @@ module.exports = function (passport) {
     callbackURL: "https://www.cleaker.me/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'photos', 'email']
   },
-  function(accessToken, refreshToken, profile, cb) {
+  function(accessToken, refreshToken, profile, done) {
     const { email, first_name, last_name } = profile._json;
     console.log(email);
-    cb(null,profile);
+    done(null,profile);
     // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
     //   return cb(err, user);
     // });
