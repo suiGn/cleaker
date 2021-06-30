@@ -430,17 +430,13 @@ function Chat(props) {
                 >
                   <div className="message-response">
                     <div className="word-break response-from">
+                      {
+                        group && message.message_user_uid != props.my_uid.id ?
+                          message.name : ""
+                      }
+                      <p>{message.response_from}</p>
                       {message.response_from}
                     </div>
-                    {group && message.message_user_uid != props.my_uid ? (
-                      <div className="message-avatar">
-                        <div>
-                          <h5>{message.name}</h5>
-                        </div>
-                      </div>
-                    ) : (
-                      ""
-                    )}
                     {
                       message.response_type == 0 ?
                         <div className="word-break response-message">{message.response}</div>
@@ -567,25 +563,21 @@ function Chat(props) {
           <div className="messages-container">
             {year != 0 ? getTodayLabel(getDateLabel(dateM), message.message_user_uid) : ""}
             <div id={message.message_id} className={"message-item padding-no-response " + type}>
-
               {message.media ? (
                 message.media
               ) : (
                 <div
                   className={"message-content position-relative img-chat" + search}
                 >
-                  {group && message.message_user_uid != props.my_uid.id ? (
-                    <div className="message-avatar">
-                      <div>
-                        <h5>{message.name}</h5>
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
                   {
                     !message.is_image && !message.is_file && !message.is_video ?
-                      <div className="word-break">{message.message}</div>
+                      <div className="word-break">
+                        {
+                          group && message.message_user_uid != props.my_uid.id ?
+                            message.name : ""
+                        }
+                        <p>{message.message}</p>
+                      </div>
                       : message.is_image ?
                         <div>
                           <figure className="avatar img-chat">
