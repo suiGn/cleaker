@@ -140,6 +140,7 @@ function Chat(props) {
           dummyArray.splice(0, 1)
           messages.push.apply(messages, dummyArray);
         }
+        console.log(messages);
         setChatMessages(messages);
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
@@ -432,7 +433,7 @@ function Chat(props) {
                     <div className="word-break response-from">
                       {
                         group && message.message_user_uid != props.my_uid.id ?
-                          message.name : ""
+                          <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
                       }
                       <p>{message.response_from}</p>
                       {message.response_from}
@@ -574,7 +575,7 @@ function Chat(props) {
                       <div className="word-break">
                         {
                           group && message.message_user_uid != props.my_uid.id ?
-                            message.name : ""
+                            <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
                         }
                         <p>{message.message}</p>
                       </div>
@@ -675,7 +676,28 @@ function Chat(props) {
     }
   };
 
+  const colorMessage = (id) => {
 
+    var userColor = localStorage.getItem(id);
+    console.log(userColor);
+    if (userColor) {
+
+      return userColor
+    } else {
+
+      var colors = ['#a8d069', '#30ad64', '#25ccbf', '#20ac99', '#f8c740', '#e2a62b',
+      '#face6a', '#e4b962', '#fd7072', '#cf404d', '#d39f9a',
+      '#735260', '#af4173', '#822e50', '#e64c40', '#bf3a30', '#fc7d64', '#49647b'];
+
+      var randomItem = colors[Math.floor(Math.random() * colors.length)];
+
+      localStorage.setItem(id, randomItem);
+
+      return randomItem
+
+    }
+
+  }
 
   return clicked.chat_uid ? (
     <div className="chat" hidden={props.viewPreview}>
@@ -709,10 +731,13 @@ function Chat(props) {
       >
         <div className="chat-body">
           <div className="messages">
+            {console.log(messages)}
+
             {messages.map((message, i) => (
               <MessagesView
                 message={message}
                 key={i}
+                setColor={colorMessage}
                 id={props.clicked.user_chat}
                 my_uid={props.my_uid}
                 setUser={props.setUser}
