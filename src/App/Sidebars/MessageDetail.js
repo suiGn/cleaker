@@ -330,11 +330,11 @@ function MessageDetail(props) {
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item list-item-mdetalle">
                       <div>Leido</div>
-                      <div>{messageDetail.time_read?getDateLabel(messageDetail.time_read):"-"} {messageDetail.time_read?<Moment format="LT">{messageDetail.time_read}</Moment>:""}</div>
+                      <div>{messageDetail.time_read?getDateLabel(messageDetail.time_read):"-"} {messageDetail.time_read?"a las":""} {messageDetail.time_read? <Moment format="LT">{messageDetail.time_read}</Moment>:""}</div>
                     </li>
                     <li className="list-group-item list-item-mdetalle">
                       <div>Entregado</div>
-                      <div>{getDateLabel(messageDetail.time)} <Moment format="LT">{messageDetail.time}</Moment></div>
+                      <div>{getDateLabel(messageDetail.time)} a las <Moment format="LT">{messageDetail.time}</Moment></div>
                     </li>
                 </ul>
               </div>
