@@ -140,7 +140,6 @@ function Chat(props) {
           dummyArray.splice(0, 1)
           messages.push.apply(messages, dummyArray);
         }
-        console.log(messages);
         setChatMessages(messages);
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
@@ -679,7 +678,6 @@ function Chat(props) {
   const colorMessage = (id) => {
 
     var userColor = localStorage.getItem(id);
-    console.log(userColor);
     if (userColor) {
 
       return userColor
@@ -730,9 +728,7 @@ function Chat(props) {
         }
       >
         <div className="chat-body">
-          <div className="messages">
-            {console.log(messages)}
-
+          <div className="messages">colorMessage
             {messages.map((message, i) => (
               <MessagesView
                 message={message}

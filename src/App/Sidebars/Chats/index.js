@@ -130,7 +130,7 @@ function Index(props) {
     let chat_initial;
     let chat_name;
     let p;
-    let chat_with_usr = chat.user_chat;
+
     if (chat.chat_type == 1 || my_uid != chat.user_chat) {
       chat_name = chat.name;
       if (chat.chat_type == 1) {
@@ -253,6 +253,19 @@ function Index(props) {
                     setOpenGroupProfile={setOpenGroupProfile}
                   />
                 </div>
+                {
+                  (chat.last_message_user_uid == my_uid) ?
+                  chat.unread_messages == 1 ?
+                    <div className="check-mark">
+                      <FeatherIcon.Check />
+                      <div className="check-mark-double"><FeatherIcon.Check /></div>
+                    </div> :
+                  chat.unread_messages == 0 ?
+                    <div className="check-mark check-mark-seen">
+                      <FeatherIcon.Check />
+                      <div className="check-mark-double"><FeatherIcon.Check /></div>
+                    </div>:"":""
+                }
               </div>
             )}
           </div>
