@@ -118,7 +118,9 @@ function Index(props) {
     var element = document.getElementById("menu-hide");
     element.classList.add("nav-hide");
     e.preventDefault();
-    chat.unread_messages = 0;
+    if(chat.last_message_user_uid != my_uid){
+      chat.unread_messages = 0;
+    }
     setClicked(chat);
     mobileSidebarClose();
     setOpenSearchSidebar(false);
