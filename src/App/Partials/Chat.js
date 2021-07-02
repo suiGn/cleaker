@@ -728,7 +728,7 @@ function Chat(props) {
         }
       >
         <div className="chat-body">
-          <div className="messages">colorMessage
+          <div className="messages">
             {messages.map((message, i) => (
               <MessagesView
                 message={message}
