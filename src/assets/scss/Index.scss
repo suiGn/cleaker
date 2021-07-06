@@ -615,6 +615,28 @@
                 }
               }
 
+              .check-mark{
+                position: absolute;
+                right: 317px;
+                bottom: -5px;
+                svg{
+                  width: 14px;
+                  position: absolute;
+                  top: -25px;
+                  left: 62px;
+                }
+                .check-mark-double{
+                  svg{
+                    left: 66px;
+                  }
+                }
+              }
+              .check-mark-seen{
+                svg{
+                  color: aqua;
+                }
+              }
+
               .new-message-count {
                 width: 23px;
                 display: flex;

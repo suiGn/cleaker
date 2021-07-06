@@ -282,29 +282,7 @@ function MessageDetail(props) {
   };
 
   function getDateLabel(date) {
-    let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    let today = new Date();
     var dateM = new Date(date)
-    //
-    let dateLabelDateyesterday =
-    yesterday.getDate() < 10 ? "0" + yesterday.getDate() : yesterday.getDate();
-    let dateLabelMonthyesterday =
-    yesterday.getMonth() + 1 < 10
-        ? "0" + (yesterday.getMonth() + 1)
-        : yesterday.getMonth() + 1;
-    let dateLabelYearyesterday = yesterday.getFullYear();
-    let dateLabelyesterday = dateLabelDateyesterday + "/" + dateLabelMonthyesterday + "/" + dateLabelYearyesterday;
-
-    let dateLabelDatetoday =
-    today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
-    let dateLabelMonthtoday =
-    today.getMonth() + 1 < 10
-        ? "0" + (today.getMonth() + 1)
-        : today.getMonth() + 1;
-    let dateLabelYeartoday = today.getFullYear();
-    let dateLabeltoday = dateLabelDatetoday + "/" + dateLabelMonthtoday + "/" + dateLabelYeartoday;
-
     let dateLabelDate =
     dateM.getDate() < 10 ? "0" + dateM.getDate() : dateM.getDate();
     let dateLabelMonth =
@@ -313,12 +291,6 @@ function MessageDetail(props) {
         : dateM.getMonth() + 1;
     let dateLabelYear = dateM.getFullYear();
     let dateLabel = dateLabelDate + "/" + dateLabelMonth + "/" + dateLabelYear;
-    //
-    if (dateLabel == dateLabelyesterday) {
-      dateLabel = "Ayer";
-    } else if (dateLabel == dateLabeltoday) {
-      dateLabel = "Hoy";
-    }
     return dateLabel;
   }
 
@@ -358,11 +330,11 @@ function MessageDetail(props) {
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item list-item-mdetalle">
                       <div>Leido</div>
-                      <div>{messageDetail.time_read?getDateLabel(messageDetail.time_read):"-"} {messageDetail.time_read?<Moment format="LT">{messageDetail.time_read}</Moment>:""}</div>
+                      <div>{messageDetail.time_read?getDateLabel(messageDetail.time_read):"-"} {messageDetail.time_read?"a las":""} {messageDetail.time_read? <Moment format="LT">{messageDetail.time_read}</Moment>:""}</div>
                     </li>
                     <li className="list-group-item list-item-mdetalle">
                       <div>Entregado</div>
-                      <div>{getDateLabel(messageDetail.time)} <Moment format="LT">{messageDetail.time}</Moment></div>
+                      <div>{getDateLabel(messageDetail.time)} a las <Moment format="LT">{messageDetail.time}</Moment></div>
                     </li>
                 </ul>
               </div>
