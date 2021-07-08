@@ -770,6 +770,7 @@ function Chat(props) {
         setVideoPreview={props.setVideoPreview}
         isResponse={isResponse}
         messageRespond={messageRespond}
+        socket={socket}
       />
       <DeleteMessageModal
         deleteButton={deleteButton}

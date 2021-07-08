@@ -102,8 +102,24 @@ function ChatFooter(props) {
   }
 
   const handleChange = (e) => {
-    props.onChange(e.target.value);
+    var text = e.target.value
+    if(new RegExp("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?").test(text)) {
+        props.socket.emit("GetUrlData", {
+          text: text,
+        });
+        props.socket.on("retrieve GetUrlData", GetUrlData);
+        return () => {
+          props.socket.off("retrieve GetUrlData", GetUrlData);
+        };
+    }
+    props.onChange(text);
   };
+
+  function GetUrlData(data) {
+    let tittle = data.data.ogTitle;
+    let description = data.data.twitterDescription;
+    let image = data.data.ogImage.url;
+  }
 
   const EmojiMenuOpen = () => {
     setEmojiMenuOpen(!emojiMenuOpen);
