@@ -372,8 +372,13 @@ function Chat(props) {
     let dropdownType;
     let fav = "";
     let search = "";
+    let isUrl = false;
     if (message.favorite_to || message.favorite) {
       fav = " favorite-message";
+    }
+    if(new RegExp("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?").test(message.message)) {
+      isUrl = true
+      console.log(isUrl);
     }
     if (message.search) {
       search = " found";
@@ -576,7 +581,7 @@ function Chat(props) {
                           group && message.message_user_uid != props.my_uid.id ?
                             <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
                         }
-                        <p>{message.message}</p>
+                        {isUrl?<a href={message.message} target="_blank">{message.message}</a>:<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
                         <div>
