@@ -952,6 +952,17 @@ io.on("connection", function (socket) {
         }
       );
     });
+    socket.on("GetUrlData", (data) => {
+      const ogs = require('open-graph-scraper');
+      const options = { url: data.text };
+      ogs(options)
+        .then((data) => {
+          const { error, result, response } = data;
+          io.to(user.u_id).emit("retrieve GetUrlData", {
+            data: result
+          });
+        })
+    });
   } catch {
     console.log("problema");
   }
