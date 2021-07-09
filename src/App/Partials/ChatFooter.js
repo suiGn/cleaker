@@ -116,9 +116,9 @@ function ChatFooter(props) {
   };
 
   function GetUrlData(data) {
-    console.log(data.data.ogTitle,data.data.twitterDescription)
+    console.log(data.data)
     props.setogTitle(data.data.ogTitle);
-    props.settwitterDescription(data.data.twitterDescription);
+    props.settwitterDescription(data.data.ogDescription);
     props.setogImage(data.data.ogImage.url);
     props.setviewUrlPreview(false)
   }
