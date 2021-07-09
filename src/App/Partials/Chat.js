@@ -4,6 +4,7 @@ import "moment-timezone";
 import ChatHeader from "./ChatHeader";
 import ChatFooter from "./ChatFooter";
 import ChatAnswerPreview from "./ChatAnswerPreview";
+import ChatURLPreview from "./ChatURLPreview"
 import { selectedChat } from "../Sidebars/Chats/Data";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import ChatsMessageDropdown from "../Sidebars/Chats/ChatsMessageDropdown.js";
@@ -42,6 +43,15 @@ function Chat(props) {
   const [dummyNumber, setDummyNumber] = useState(0);
 
   const [dummyArray, setDummyArray] = useState([]);
+
+  const [ogTitle, setogTitle] = useState("");
+
+  const [twitterDescription, settwitterDescription] = useState("");
+
+  const [ogImage, setogImage] = useState("");
+
+  const [viewUrlPreview, setviewUrlPreview] = useState(true);
+  
 
   let dayN = 0;
 
@@ -286,6 +296,7 @@ function Chat(props) {
         });
       }
       setInputMsg("");
+      setviewUrlPreview(true)
     }
   };
 
@@ -378,7 +389,6 @@ function Chat(props) {
     }
     if(new RegExp("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?").test(message.message)) {
       isUrl = true
-      console.log(isUrl);
     }
     if (message.search) {
       search = " found";
@@ -756,6 +766,17 @@ function Chat(props) {
         messageRespond={messageRespond}
         viewChatAnswerPreview={viewChatAnswerPreview}
         setViewChatAnswerPreview={setViewChatAnswerPreview}
+        setviewUrlPreview={setviewUrlPreview}
+      />
+      <ChatURLPreview
+        ogTitle={ogTitle}
+        setogTitle={setogTitle}
+        twitterDescription={twitterDescription}
+        settwitterDescription={settwitterDescription}
+        ogImage={ogImage}
+        setogImage={setogImage}
+        viewUrlPreview={viewUrlPreview}
+        setviewUrlPreview={setviewUrlPreview}
       />
       <ChatFooter
         onSubmit={handleSubmit}
@@ -776,6 +797,10 @@ function Chat(props) {
         isResponse={isResponse}
         messageRespond={messageRespond}
         socket={socket}
+        setogTitle={setogTitle}
+        settwitterDescription={settwitterDescription}
+        setogImage={setogImage}
+        setviewUrlPreview={setviewUrlPreview}
       />
       <DeleteMessageModal
         deleteButton={deleteButton}

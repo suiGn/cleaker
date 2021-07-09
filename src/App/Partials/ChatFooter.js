@@ -116,9 +116,11 @@ function ChatFooter(props) {
   };
 
   function GetUrlData(data) {
-    let tittle = data.data.ogTitle;
-    let description = data.data.twitterDescription;
-    let image = data.data.ogImage.url;
+    console.log(data.data.ogTitle,data.data.twitterDescription)
+    props.setogTitle(data.data.ogTitle);
+    props.settwitterDescription(data.data.twitterDescription);
+    props.setogImage(data.data.ogImage.url);
+    props.setviewUrlPreview(false)
   }
 
   const EmojiMenuOpen = () => {
