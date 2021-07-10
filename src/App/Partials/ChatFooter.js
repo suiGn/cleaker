@@ -117,9 +117,12 @@ function ChatFooter(props) {
 
   function GetUrlData(data) {
     console.log(data.data)
-    props.setogTitle(data.data.ogTitle);
-    props.settwitterDescription(data.data.ogDescription);
-    props.setogImage(data.data.ogImage.url);
+    let ogTitle = data.data.ogTitle?data.data.ogTitle:""
+    let ogDescription = data.data.ogDescription?data.data.ogDescription:""
+    let ogImage = data.data.ogImage.url?data.data.ogImage.url:""
+    props.setogTitle(ogTitle);
+    props.settwitterDescription(ogDescription);
+    props.setogImage(ogImage);
     props.setviewUrlPreview(false)
   }
 

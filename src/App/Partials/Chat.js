@@ -306,7 +306,7 @@ function Chat(props) {
     //bruno
   };
 
-  function ReadMore(e) {
+  function ReadMore(e){
     e.target.classList.remove("word-break-more");
   }
 
@@ -586,7 +586,7 @@ function Chat(props) {
                 >
                   {
                     !message.is_image && !message.is_file && !message.is_video ?
-                      <div className="word-break">
+                      <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>
                         {
                           group && message.message_user_uid != props.my_uid.id ?
                             <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""

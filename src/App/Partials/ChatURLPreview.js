@@ -10,7 +10,7 @@ function ChatURLPreview(props) {
     setogImage,viewUrlPreview, setviewUrlPreview} = props
   
   function Close() {
-    setviewUrlPreview(false)
+    setviewUrlPreview(true)
     setogTitle("")
     settwitterDescription("")
     setogImage("")
@@ -22,10 +22,10 @@ function ChatURLPreview(props) {
         <div className="word-break-chat response-from-chat">
           {ogTitle}
         </div>
-        <div className="word-break-chat response-from-chat">{twitterDescription}</div>
+        <div className="word-break-chat response-from-url">{twitterDescription}</div>
       </div>
       <div className="img-to-response">
-        <div className="mini-preview-container-chat" style={{ backgroundImage: "url(" + ogImage + ")" }}></div>
+        <div className="mini-preview-container-url" style={{ backgroundImage: "url(" + ogImage + ")" }}></div>
       </div>
 
       <div className="form-buttons" onClick={() => Close()}>
