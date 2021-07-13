@@ -591,7 +591,7 @@ function Chat(props) {
                           group && message.message_user_uid != props.my_uid.id ?
                             <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
                         }
-                        {isUrl?<a href={message.message} target="_blank">{message.message}</a>:<p>{message.message}</p>}
+                        {isUrl?<a href={message.message} class="url-message" target="_blank">{message.message}</a>:<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
                         <div>

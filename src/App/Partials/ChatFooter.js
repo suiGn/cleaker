@@ -116,7 +116,6 @@ function ChatFooter(props) {
   };
 
   function GetUrlData(data) {
-    console.log(data.data)
     let ogTitle = data.data.ogTitle?data.data.ogTitle:""
     let ogDescription = data.data.ogDescription?data.data.ogDescription:""
     let ogImage = data.data.ogImage.url?data.data.ogImage.url:""
