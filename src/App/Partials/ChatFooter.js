@@ -43,8 +43,14 @@ function ChatFooter(props) {
           is_image: 0,
           is_file: 0,
           is_video: 0,
+          ogTitle:props.ogTitle,
+          twitterDescription:props.twitterDescription,
+          ogImage:props.ogImage
         });
       }
+      props.setogTitle("")
+      props.settwitterDescription("")
+      props.setogImage("")
     }
   };
 

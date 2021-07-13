@@ -286,7 +286,10 @@ function Chat(props) {
           is_image: newValue.is_image,
           is_file: newValue.is_file,
           is_video: newValue.is_video,
-          is_response: 0
+          is_response: 0,
+          ogTitle:newValue.ogTitle,
+          ogDescription:newValue.twitterDescription,
+          ogImage:newValue.ogImage
         });
         socket.emit("get chats");
         socket.emit("get messages", {
@@ -801,6 +804,9 @@ function Chat(props) {
         settwitterDescription={settwitterDescription}
         setogImage={setogImage}
         setviewUrlPreview={setviewUrlPreview}
+        ogTitle={ogTitle}
+        twitterDescription={twitterDescription}
+        ogImage={ogImage}
       />
       <DeleteMessageModal
         deleteButton={deleteButton}
