@@ -43,7 +43,7 @@ io.on("connection", function (socket) {
 			select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
         m.u_id as last_message_user_uid, m.message as last_message_message, m.time as last_message_time,chats_users.archiveChat
         ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
-        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read
+        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage
 			
 			from chats_users  
 
@@ -132,6 +132,9 @@ io.on("connection", function (socket) {
       responseFile = msg.responseFile ? msg.responseFile : "";
       response_type = msg.response_type ? msg.response_type : 0;
       time = new Date();
+      ogTitle = msg.ogTitle?msg.ogTitle: "";
+      ogDescription = msg.ogDescription?msg.ogDescription: "";
+      ogImage = msg.ogImage?msg.ogImage: "";
       orgboatDB.query(
         `
 			select * from chats_users 
@@ -156,7 +159,10 @@ io.on("connection", function (socket) {
                 response: response,
                 response_from: response_from,
                 responseFile: responseFile,
-                response_type: response_type
+                response_type: response_type,
+                ogTitle: ogTitle,
+                ogDescription: ogDescription,
+                ogImage: ogImage,
               });
             }
           });
@@ -165,10 +171,10 @@ io.on("connection", function (socket) {
       timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
       orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,
         unread_messages,is_image,is_file,is_video,file,is_response,response,response_from
-        ,response_type,response_file) 
+        ,response_type,response_file,ogTitle, ogDescription, ogImage) 
       values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}'
       ,'${is_video}','${file}','${is_response}','${response}','${response_from}'
-      ,'${response_type}','${responseFile}')`);
+      ,'${response_type}','${responseFile}','${ogTitle}','${ogDescription}','${ogImage}')`);
     });
 
     //Client request the messages
@@ -214,7 +220,8 @@ io.on("connection", function (socket) {
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
-      messages.response_file,  messages.unread_messages, messages.time_read
+      messages.response_file,  messages.unread_messages, messages.time_read,  messages.ogTitle, 
+      messages.ogDescription,  messages.ogImage
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 order by time desc limit ${msg.limit};
@@ -890,7 +897,8 @@ io.on("connection", function (socket) {
         messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
         chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
         messages.is_response, messages.response, messages.response_from, messages.response_type, 
-        messages.response_file, messages.unread_messages, messages.time_read
+        messages.response_file, messages.unread_messages, messages.time_read, messages.ogTitle, 
+        messages.ogDescription,  messages.ogImage
           from messages inner join usrs on messages.u_id = usrs.u_id
           inner join chats on chats.chat_uid = messages.chat_uid
           where  messages.chat_uid = '${data.id}' 

@@ -443,9 +443,7 @@ function Chat(props) {
               {message.media ? (
                 message.media
               ) : (
-                <div
-                  className={"message-content position-relative img-chat" + search}
-                >
+                <div className={"message-content position-relative img-chat" + search}>
                   <div className="message-response">
                     <div className="word-break response-from">
                       {
@@ -455,21 +453,21 @@ function Chat(props) {
                       <p>{message.response_from}</p>
                       {message.response_from}
                     </div>
-                    {
-                      message.response_type == 0 ?
+                      {
+                        message.response_type == 0 ?
                         <div className="word-break response-message">{message.response}</div>
                         : message.response_type == 1 ?
-                          <div>
+                        <div>
                             <div className="word-break">{message.response}</div>
                           </div>
                           : message.response_type == 2 ?
-                            <div>
+                        <div>
                               <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.response_file + ")" }}>
                               </div>
                               <div className="word-break">{message.response}</div>
                             </div>
-                            : message.response_type == 3 ?
-                              <div>
+                        : message.response_type == 3 ?
+                        <div>
                                 <div className="mini-preview-container-video">
                                   <VideoThumbnail
                                     videoUrl={message.response_file}
@@ -478,14 +476,14 @@ function Chat(props) {
                                 </div>
                                 <div className="word-break">{message.response}</div>
                               </div>
-                              : ""
-                    }
+                        : ""
+                      }
                   </div>
                   {
                     !message.is_image && !message.is_file && !message.is_video ?
                       <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>{message.message}</div>
                       : message.is_image ?
-                        <div>
+                      <div>
                           <figure className="avatar img-chat">
                             <ModalImage
                               small={message.file}
@@ -495,20 +493,20 @@ function Chat(props) {
                           </figure>
                           <div className="word-break">{message.message}</div>
                         </div>
-                        : message.is_file ?
-                          <div>
-                            <a href={message.file} download>
+                      : message.is_file ?
+                      <div>
+                        <a href={message.file} download>
                               <FeatherIcon.Download /> {"file "}
-                            </a>
-                            <div className="word-break">{message.message}</div>
-                          </div>
-                          :
-                          <div>
-                            <video className="video-container" controls preload="none" preload="metadata">
-                              <source src={message.file} />
-                            </video>
-                            <div className="word-break">{message.message}</div>
-                          </div>
+                        </a>
+                        <div className="word-break">{message.message}</div>
+                      </div>
+                      :
+                      <div>
+                        <video className="video-container" controls preload="none" preload="metadata">
+                          <source src={message.file} />
+                        </video>
+                        <div className="word-break">{message.message}</div>
+                      </div>
                   }
                   <div className="misc-container">
                     <div className={"time " + timeType}>
@@ -587,6 +585,17 @@ function Chat(props) {
                 <div
                   className={"message-content position-relative img-chat" + search}
                 >
+                  {
+                    (message.ogTitle!=null&&message.ogTitle!=="")?
+                    <div className="message-response">
+                      <div>
+                        <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
+                        </div>
+                        <div className="word-break">{message.ogTitle}</div>
+                      </div>
+                    </div>
+                    :""
+                  }
                   {
                     !message.is_image && !message.is_file && !message.is_video ?
                       <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>
