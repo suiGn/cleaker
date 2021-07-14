@@ -4,6 +4,7 @@ import "moment-timezone";
 import ChatHeader from "./ChatHeader";
 import ChatFooter from "./ChatFooter";
 import ChatAnswerPreview from "./ChatAnswerPreview";
+import ChatURLPreview from "./ChatURLPreview"
 import { selectedChat } from "../Sidebars/Chats/Data";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import ChatsMessageDropdown from "../Sidebars/Chats/ChatsMessageDropdown.js";
@@ -42,6 +43,15 @@ function Chat(props) {
   const [dummyNumber, setDummyNumber] = useState(0);
 
   const [dummyArray, setDummyArray] = useState([]);
+
+  const [ogTitle, setogTitle] = useState("");
+
+  const [twitterDescription, settwitterDescription] = useState("");
+
+  const [ogImage, setogImage] = useState("");
+
+  const [viewUrlPreview, setviewUrlPreview] = useState(true);
+  
 
   let dayN = 0;
 
@@ -276,7 +286,10 @@ function Chat(props) {
           is_image: newValue.is_image,
           is_file: newValue.is_file,
           is_video: newValue.is_video,
-          is_response: 0
+          is_response: 0,
+          ogTitle:newValue.ogTitle,
+          ogDescription:newValue.twitterDescription,
+          ogImage:newValue.ogImage
         });
         socket.emit("get chats");
         socket.emit("get messages", {
@@ -286,6 +299,7 @@ function Chat(props) {
         });
       }
       setInputMsg("");
+      setviewUrlPreview(true)
     }
   };
 
@@ -295,7 +309,7 @@ function Chat(props) {
     //bruno
   };
 
-  function ReadMore(e) {
+  function ReadMore(e){
     e.target.classList.remove("word-break-more");
   }
 
@@ -372,8 +386,12 @@ function Chat(props) {
     let dropdownType;
     let fav = "";
     let search = "";
+    let isUrl = false;
     if (message.favorite_to || message.favorite) {
       fav = " favorite-message";
+    }
+    if(new RegExp("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?").test(message.message)) {
+      isUrl = true
     }
     if (message.search) {
       search = " found";
@@ -425,9 +443,7 @@ function Chat(props) {
               {message.media ? (
                 message.media
               ) : (
-                <div
-                  className={"message-content position-relative img-chat" + search}
-                >
+                <div className={"message-content position-relative img-chat" + search}>
                   <div className="message-response">
                     <div className="word-break response-from">
                       {
@@ -437,21 +453,21 @@ function Chat(props) {
                       <p>{message.response_from}</p>
                       {message.response_from}
                     </div>
-                    {
-                      message.response_type == 0 ?
+                      {
+                        message.response_type == 0 ?
                         <div className="word-break response-message">{message.response}</div>
                         : message.response_type == 1 ?
-                          <div>
+                        <div>
                             <div className="word-break">{message.response}</div>
                           </div>
                           : message.response_type == 2 ?
-                            <div>
+                        <div>
                               <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.response_file + ")" }}>
                               </div>
                               <div className="word-break">{message.response}</div>
                             </div>
-                            : message.response_type == 3 ?
-                              <div>
+                        : message.response_type == 3 ?
+                        <div>
                                 <div className="mini-preview-container-video">
                                   <VideoThumbnail
                                     videoUrl={message.response_file}
@@ -460,14 +476,14 @@ function Chat(props) {
                                 </div>
                                 <div className="word-break">{message.response}</div>
                               </div>
-                              : ""
-                    }
+                        : ""
+                      }
                   </div>
                   {
                     !message.is_image && !message.is_file && !message.is_video ?
                       <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>{message.message}</div>
                       : message.is_image ?
-                        <div>
+                      <div>
                           <figure className="avatar img-chat">
                             <ModalImage
                               small={message.file}
@@ -477,20 +493,20 @@ function Chat(props) {
                           </figure>
                           <div className="word-break">{message.message}</div>
                         </div>
-                        : message.is_file ?
-                          <div>
-                            <a href={message.file} download>
+                      : message.is_file ?
+                      <div>
+                        <a href={message.file} download>
                               <FeatherIcon.Download /> {"file "}
-                            </a>
-                            <div className="word-break">{message.message}</div>
-                          </div>
-                          :
-                          <div>
-                            <video className="video-container" controls preload="none" preload="metadata">
-                              <source src={message.file} />
-                            </video>
-                            <div className="word-break">{message.message}</div>
-                          </div>
+                        </a>
+                        <div className="word-break">{message.message}</div>
+                      </div>
+                      :
+                      <div>
+                        <video className="video-container" controls preload="none" preload="metadata">
+                          <source src={message.file} />
+                        </video>
+                        <div className="word-break">{message.message}</div>
+                      </div>
                   }
                   <div className="misc-container">
                     <div className={"time " + timeType}>
@@ -570,13 +586,24 @@ function Chat(props) {
                   className={"message-content position-relative img-chat" + search}
                 >
                   {
+                    (message.ogTitle!=null&&message.ogTitle!=="")?
+                    <div className="message-response">
+                      <div>
+                        <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
+                        </div>
+                        <div className="word-break">{message.ogTitle}</div>
+                      </div>
+                    </div>
+                    :""
+                  }
+                  {
                     !message.is_image && !message.is_file && !message.is_video ?
-                      <div className="word-break">
+                      <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>
                         {
                           group && message.message_user_uid != props.my_uid.id ?
                             <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
                         }
-                        <p>{message.message}</p>
+                        {isUrl?<a href={message.message} class="url-message" target="_blank">{message.message}</a>:<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
                         <div>
@@ -751,6 +778,17 @@ function Chat(props) {
         messageRespond={messageRespond}
         viewChatAnswerPreview={viewChatAnswerPreview}
         setViewChatAnswerPreview={setViewChatAnswerPreview}
+        setviewUrlPreview={setviewUrlPreview}
+      />
+      <ChatURLPreview
+        ogTitle={ogTitle}
+        setogTitle={setogTitle}
+        twitterDescription={twitterDescription}
+        settwitterDescription={settwitterDescription}
+        ogImage={ogImage}
+        setogImage={setogImage}
+        viewUrlPreview={viewUrlPreview}
+        setviewUrlPreview={setviewUrlPreview}
       />
       <ChatFooter
         onSubmit={handleSubmit}
@@ -771,6 +809,13 @@ function Chat(props) {
         isResponse={isResponse}
         messageRespond={messageRespond}
         socket={socket}
+        setogTitle={setogTitle}
+        settwitterDescription={settwitterDescription}
+        setogImage={setogImage}
+        setviewUrlPreview={setviewUrlPreview}
+        ogTitle={ogTitle}
+        twitterDescription={twitterDescription}
+        ogImage={ogImage}
       />
       <DeleteMessageModal
         deleteButton={deleteButton}

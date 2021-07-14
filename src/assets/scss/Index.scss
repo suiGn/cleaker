@@ -346,6 +346,9 @@
                   width: auto;
                   max-width: 250px;
                 }
+                .url-message{
+                  color: cornflowerblue;
+                }
               }
   
               &.outgoing-message {
@@ -539,6 +542,9 @@
                 max-height: 400px;
                 width: auto;
                 max-width: 250px;
+              }
+              .url-message{
+                color: cornflowerblue;
               }
             }
           }
@@ -1062,6 +1068,10 @@
                 width: auto;
                 max-width: 250px;
               }
+              .url-message{
+                color: cornflowerblue;
+              }
+              
             }
 
             &.outgoing-message {
@@ -1525,6 +1535,15 @@
   background-repeat: no-repeat;
   width: 100px;
   height: 60px;
+  margin-right: 17px;
+}
+
+.mini-preview-container-url {
+  bottom: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
   margin-right: 17px;
 }
 

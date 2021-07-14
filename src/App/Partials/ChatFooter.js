@@ -43,8 +43,14 @@ function ChatFooter(props) {
           is_image: 0,
           is_file: 0,
           is_video: 0,
+          ogTitle:props.ogTitle,
+          twitterDescription:props.twitterDescription,
+          ogImage:props.ogImage
         });
       }
+      props.setogTitle("")
+      props.settwitterDescription("")
+      props.setogImage("")
     }
   };
 
@@ -116,9 +122,13 @@ function ChatFooter(props) {
   };
 
   function GetUrlData(data) {
-    let tittle = data.data.ogTitle;
-    let description = data.data.twitterDescription;
-    let image = data.data.ogImage.url;
+    let ogTitle = data.data.ogTitle?data.data.ogTitle:""
+    let ogDescription = data.data.ogDescription?data.data.ogDescription:""
+    let ogImage = data.data.ogImage.url?data.data.ogImage.url:""
+    props.setogTitle(ogTitle);
+    props.settwitterDescription(ogDescription);
+    props.setogImage(ogImage);
+    props.setviewUrlPreview(false)
   }
 
   const EmojiMenuOpen = () => {
