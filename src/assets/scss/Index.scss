@@ -161,7 +161,7 @@
               &:last-child {
                 margin-bottom: 0;
               }
-  
+              
               .mini-preview-container{
                 left: 20px;
                 position: relative;
@@ -884,10 +884,15 @@
               margin-bottom: 0;
             }
 
+            .mini-preview-container-url{
+              bottom: -2px !important;
+              width: 50px !important;
+              height: 50px !important;
+            }
             .mini-preview-container{
-              left: 20px;
+              left: 30px;
               position: relative;
-              bottom: 20px;
+              bottom: 58px;
               background-size: cover; /* or contain */
               background-position: center center;
               background-repeat: no-repeat;
