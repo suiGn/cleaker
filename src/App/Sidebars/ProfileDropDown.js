@@ -28,7 +28,7 @@ const ProfileDropdown = (props) => {
   return (
     <Dropdown isOpen={dropdownOpen} toggle={toggle} className="dropdown-chat-message" >
       <div className="dropdown-view">
-        <DropdownToggle className="dropdown-position" tag="span" style={{  position: "absolute", right: "0"}}>
+        <DropdownToggle className="dropdown-position" tag="span">
           <FeatherIcon.MoreHorizontal />
         </DropdownToggle>
       </div>

@@ -204,7 +204,7 @@ function ProfileGroup(props) {
                   {chat.name}
                 </h5>
               </div>
-              <div className="group-member-list-dropdown">
+              <div className="group-member-list-dropdown" style={{  position: "absolute", left: "220px"}}>
                 <ProfileDropdown
                   chat={chat}
                   socket={socket}
