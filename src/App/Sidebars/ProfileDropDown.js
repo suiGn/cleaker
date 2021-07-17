@@ -8,21 +8,14 @@ import {
 import * as FeatherIcon from "react-feather";
 
 const ProfileDropdown = (props) => {
-  const { socket, group } = props;
+  const { modalToggleDelete,modalDelete,setToDelete } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   function RemoveMember(chat){
-    var remove = 
-    {
-      chat_uid: chat.chat_uid,
-      u_id: chat.user_chat
-    }
-    socket.emit("RemoveGroupMember", remove );
-    socket.once("retrive RemoveGroupMember", function (data) {
-      socket.emit("GetGrupo", {id:chat.chat_uid});
-    });
+    setToDelete(chat)
+    modalToggleDelete(!modalDelete)
   }
 
   return (

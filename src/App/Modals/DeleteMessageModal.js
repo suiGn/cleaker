@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   Modal,
-  ModalHeader,
   ModalBody,
   ModalFooter,
   Tooltip,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  CustomInput,
 } from "reactstrap";
 import "emoji-mart/css/emoji-mart.css";
 import * as FeatherIcon from "react-feather";
