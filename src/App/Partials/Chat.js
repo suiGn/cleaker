@@ -589,7 +589,7 @@ function Chat(props) {
                     (message.ogTitle!=null&&message.ogTitle!=="")?
                     <div className="message-response">
                       <div>
-                        <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
+                        <div className="mini-preview-container mini-preview-container-url" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
                         </div>
                         <div className="word-break">{message.ogTitle}</div>
                       </div>
@@ -603,7 +603,9 @@ function Chat(props) {
                           group && message.message_user_uid != props.my_uid.id ?
                             <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
                         }
-                        {isUrl?<a href={message.message} class="url-message" target="_blank">{message.message}</a>:<p>{message.message}</p>}
+                        {isUrl?
+                        <a href={message.message} target="_blank"><p class="url-message">{message.message}</p></a>
+                        :<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
                         <div>

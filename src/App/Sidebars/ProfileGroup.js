@@ -8,6 +8,7 @@ import classnames from "classnames";
 import axios from "axios";
 import ModalImage from "react-modal-image";
 import ProfileDropdown from "./ProfileDropDown.js";
+import DeleteUserGroupModal from "../Modals/DeleteUserGroupModal";
 
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
@@ -42,11 +43,14 @@ function ProfileGroup(props) {
   const aboutRef = useRef();
   const inputFile = useRef(null);
   const [modalFriend, setModalFriend] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
   const modalToggleFriend = () => setModalFriend(!modalFriend);
+  const modalToggleDelete = () => setModalDelete(!modalDelete);
   const [chooseFriend, setChooseFriend] = useState([]);
   const [my_uid, setUid] = useState("");
   const [addFriends, setAddFriends] = useState([]);
-
+  const [ToDelete, setToDelete] = useState([]);
+  
   useEffect(() => {
     setActiveTab("1")
     if(props.chat.id){
@@ -204,11 +208,12 @@ function ProfileGroup(props) {
                   {chat.name}
                 </h5>
               </div>
-              <div className="group-member-list-dropdown">
+              <div className="group-member-list-dropdown" style={{  position: "absolute", left: "220px"}}>
                 <ProfileDropdown
                   chat={chat}
-                  socket={socket}
-                />
+                  modalToggleDelete={modalToggleDelete}
+                  modalDelete={modalDelete}
+                  setToDelete={setToDelete}/>
               </div>
             </div>
           </div>
@@ -437,21 +442,6 @@ function ProfileGroup(props) {
                       About
                     </NavLink>
                   </NavItem>
-                  {/*
-                    files.length>0?
-                  <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: activeTab === "3",
-                        })}
-                        onClick={() => {
-                          toggle('3');
-                        }}
-                      >
-                        Files ( {files.length} )
-                      </NavLink>
-                    </NavItem>:""
-                    */}
                 </Nav>
               </div>
               <TabContent activeTab={activeTab}>
@@ -513,31 +503,18 @@ function ProfileGroup(props) {
                     </PerfectScrollbar>
                   </div>        
                 </TabPane>
-                {/*<TabPane tabId="3">
-                  <h6 className="mb-3 d-flex align-items-center justify-content-between">
-                    <span>Files</span>
-                  </h6>
-                  <div>
-                    <ul className="list-group list-group-flush">
-                      {files.map((message, i) => (
-                        <li className="list-group-item">
-                          <ModalImage
-                            small={message.file}
-                            large={message.file}
-                            alt="image"
-                          />
-                        </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-                    </TabPane>*/}
               </TabContent>
             </div>
           </PerfectScrollbar>
         </div>
       </div>
       <ModalAddFriend />
+      <DeleteUserGroupModal
+      socket={socket}
+      modalToggleDelete={modalToggleDelete}
+      modalDelete={modalDelete}
+      ToDelete={ToDelete}
+      setToDelete={setToDelete}/>
     </div>
   );
 }
