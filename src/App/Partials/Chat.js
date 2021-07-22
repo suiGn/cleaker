@@ -451,7 +451,6 @@ function Chat(props) {
                           <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
                       }
                       <p>{message.response_from}</p>
-                      {message.response_from}
                     </div>
                       {
                         message.response_type == 0 ?
