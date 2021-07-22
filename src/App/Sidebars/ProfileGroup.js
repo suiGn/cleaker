@@ -47,9 +47,11 @@ function ProfileGroup(props) {
   const modalToggleFriend = () => setModalFriend(!modalFriend);
   const modalToggleDelete = () => setModalDelete(!modalDelete);
   const [chooseFriend, setChooseFriend] = useState([]);
+  const [chooseFriendSearch, setChooseFriendSearch] = useState([]);
   const [my_uid, setUid] = useState("");
   const [addFriends, setAddFriends] = useState([]);
   const [ToDelete, setToDelete] = useState([]);
+  const [search, setSearch] = useState("");
   
   useEffect(() => {
     setActiveTab("1")
@@ -79,7 +81,6 @@ function ProfileGroup(props) {
         setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
       }
       setName(nameD);
-      setPphoto(pphotoD);
       setAbout(about_chatD)
       setMembers(data.chats)
       setMedia(data.files)
@@ -254,6 +255,7 @@ function ProfileGroup(props) {
       contacts.chats = chats;
       setUid(contacts.my_uid);
       setChooseFriend(arrayMembers);
+      setChooseFriendSearch(arrayMembers);
       setModalFriend(!modalFriend);
     });
   }
@@ -292,6 +294,20 @@ function ProfileGroup(props) {
     }
   }
 
+  function searchUser(wordToSearch) {
+    setSearch(wordToSearch);
+    if (wordToSearch.length){
+      var resultSearch = chooseFriend.filter((val) => {
+        if(val.name.toLowerCase().includes(wordToSearch.toLowerCase())){
+          return val
+        }
+      })
+      setChooseFriendSearch(resultSearch)
+    }else{
+      setChooseFriendSearch(chooseFriend)
+    }
+  }
+
   const ModalAddFriend = (props) => {
     return (
       <div>
@@ -305,30 +321,52 @@ function ProfileGroup(props) {
             <FeatherIcon.UserPlus className="mr-2" /> Add Contacts
           </ModalHeader>
           <ModalBody>
-            <FormGroup>
-              {chooseFriend.map((item, i) => {
-                return (
-                  <div>
-                    {item.checked ? (
-                      <CustomInput
-                        type="checkbox"
-                        id={"customCheckbox" + i}
-                        label={item.name}
-                        onChange={(e) => ModifyList(e.target.checked, item)}
-                        defaultChecked
-                      />
-                    ) : (
-                      <CustomInput
-                        type="checkbox"
-                        id={"customCheckbox" + i}
-                        label={item.name}
-                        onChange={(e) => ModifyList(e.target.checked, item)}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </FormGroup>
+            <form>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search contacts"
+                value={search}
+                onChange={(e) => searchUser(e.target.value)}
+              />
+            </form>
+            <PerfectScrollbar>
+              <FormGroup>
+                {chooseFriendSearch.map((item, i) => {
+                  return (
+                    <div style={{display: "flex"}}>
+                      {item.checked ? (
+                        <CustomInput
+                          type="checkbox"
+                          id={"customCheckbox" + i}
+                          onChange={(e) => ModifyList(e.target.checked, item)}
+                          defaultChecked
+                        />
+                      ) : (
+                        <CustomInput
+                          type="checkbox"
+                          id={"customCheckbox" + i}
+                          onChange={(e) => ModifyList(e.target.checked, item)}
+                        />
+                      )}
+                      <div className="profile-image-holder rounded-circle mb-4">
+                        <figure className="avatar">
+                        {
+                          (item.pphoto === "" || item.pphoto === null)?
+                          <span className="avatar-title bg-info rounded-circle">
+                          {item.name.substring(0, 1)}
+                          </span>
+                          :
+                          <img src={item.pphoto} className="rounded-circle " alt="image" />
+                        }
+                        </figure>
+                      </div>
+                      <label>{item.name}</label>
+                    </div>
+                  );
+                })}
+                </FormGroup>
+            </PerfectScrollbar>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => AddMembers()}>
