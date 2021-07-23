@@ -9,6 +9,8 @@ import axios from "axios";
 import ModalImage from "react-modal-image";
 import ProfileDropdown from "./ProfileDropDown.js";
 import DeleteUserGroupModal from "../Modals/DeleteUserGroupModal";
+import AddMembersForm from "./AddMembersForm";
+
 
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
@@ -260,21 +262,6 @@ function ProfileGroup(props) {
     });
   }
 
-  function ModifyList(status, item) {
-    if (status) {
-      var newFriends = addFriends;
-      item.checked = true;
-      newFriends.push(item);
-      setAddFriends(newFriends);
-    } else {
-      item.checked = false;
-      var newFriends = addFriends;
-      var removedFriend = newFriends.filter((val) => {
-        return !val.user_chat.includes(item.user_chat);
-      });
-      setAddFriends(removedFriend);
-    }
-  }
 
   function AddMembers(){
     if(addFriends.length>0){
@@ -294,21 +281,8 @@ function ProfileGroup(props) {
     }
   }
 
-  function searchUser(wordToSearch) {
-    setSearch(wordToSearch);
-    if (wordToSearch.length){
-      var resultSearch = chooseFriend.filter((val) => {
-        if(val.name.toLowerCase().includes(wordToSearch.toLowerCase())){
-          return val
-        }
-      })
-      setChooseFriendSearch(resultSearch)
-    }else{
-      setChooseFriendSearch(chooseFriend)
-    }
-  }
 
-  const ModalAddFriend = (props) => {
+  const ModalAddFriend = () => {
     return (
       <div>
         <Modal
@@ -321,52 +295,10 @@ function ProfileGroup(props) {
             <FeatherIcon.UserPlus className="mr-2" /> Add Contacts
           </ModalHeader>
           <ModalBody>
-            <form>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search contacts"
-                value={search}
-                onChange={(e) => searchUser(e.target.value)}
-              />
-            </form>
-            <PerfectScrollbar>
-              <FormGroup>
-                {chooseFriendSearch.map((item, i) => {
-                  return (
-                    <div style={{display: "flex"}}>
-                      {item.checked ? (
-                        <CustomInput
-                          type="checkbox"
-                          id={"customCheckbox" + i}
-                          onChange={(e) => ModifyList(e.target.checked, item)}
-                          defaultChecked
-                        />
-                      ) : (
-                        <CustomInput
-                          type="checkbox"
-                          id={"customCheckbox" + i}
-                          onChange={(e) => ModifyList(e.target.checked, item)}
-                        />
-                      )}
-                      <div className="profile-image-holder rounded-circle mb-4">
-                        <figure className="avatar">
-                        {
-                          (item.pphoto === "" || item.pphoto === null)?
-                          <span className="avatar-title bg-info rounded-circle">
-                          {item.name.substring(0, 1)}
-                          </span>
-                          :
-                          <img src={item.pphoto} className="rounded-circle " alt="image" />
-                        }
-                        </figure>
-                      </div>
-                      <label>{item.name}</label>
-                    </div>
-                  );
-                })}
-                </FormGroup>
-            </PerfectScrollbar>
+            <AddMembersForm 
+            chooseFriendSearch={chooseFriendSearch}
+            addFriends={addFriends}
+            setAddFriends={setAddFriends}/>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => AddMembers()}>
