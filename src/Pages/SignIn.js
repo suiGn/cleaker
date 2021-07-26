@@ -8,6 +8,9 @@ function SignIn(props) {
   useEffect(() => {
     document.body.classList.add("form-membership");
   }, []);
+  const {  setLoaded } = props;
+
+
 
   function GoogleAuth() {
     axios.get("/auth/google").then((res) => {
@@ -60,6 +63,7 @@ function SignIn(props) {
           className="btn btn-primary btn-block"
         >
           Sign in
+          {setLoaded(true)}
         </button>
         <hr />
         <p className="text-muted">Login with your social media account.</p>
