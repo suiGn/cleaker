@@ -63,7 +63,7 @@ function SignIn(props) {
           className="btn btn-primary btn-block"
         >
           Sign in
-          {setLoaded(true)}
+          {setLoaded(false)}
         </button>
         <hr />
         <p className="text-muted">Login with your social media account.</p>
