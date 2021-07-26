@@ -5,11 +5,25 @@ import { ReactComponent as Logo } from "../assets/icons/blue_helm2.svg";
 import "../assets/css/styles.css";
 
 function SignIn(props) {
+  const [usrname, setUsrname] = useState("");
+  const [password, setPassword] = useState("");
   useEffect(() => {
     document.body.classList.add("form-membership");
   }, []);
   const {  setLoaded } = props;
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    setLoaded(false);
+    axios.post("/login",{
+      usrname,
+      password
+    },
+    {
+      withCredentials: true
+    })
+    .catch(()=>{console.log("No se logeo");});
+  }
 
 
   function GoogleAuth() {
@@ -25,7 +39,7 @@ function SignIn(props) {
       </div>
       <h5>Sign in</h5>
       <div class="text-error">{props.isBadLogin}</div>
-      <form action="/login" method="post">
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
             type="text"
