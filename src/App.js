@@ -80,10 +80,10 @@ function App() {
           setLoaded(true);
         }
         setloggedIn(res.data.ok);
-        if (localStorage.getItem("theme")) {
-          setLoaded(true);
-        }
-        setLoaded(true);
+        // if (localStorage.getItem("theme")) {
+        //   setLoaded(true);
+        // }
+        // setLoaded(true);
       }).catch((err) => setLoaded(true));
   };
 
