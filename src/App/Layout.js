@@ -10,9 +10,7 @@ import SearchChat from "./Sidebars/SearchChats";
 import ProfileGroup from "./Sidebars/ProfileGroup";
 import MessageDetail from "./Sidebars/MessageDetail";
 import Chat from "./Partials/Chat";
-import ChatN from "./Partials/ChatNoMessage";
 import { pageTourAction } from "../Store/Actions/pageTourAction";
-import { profileAction } from "../Store/Actions/profileAction";
 import DisconnectedModal from "./Modals/DisconnectedModal";
 import ChatNoMessage from "./Partials/ChatNoMessage";
 import Media from "./Sidebars/Media";
@@ -51,6 +49,8 @@ function Layout(props) {
   const [media, setMedia] = useState([]);
   const [mediaProfileType, setMediaProfileType] = useState(0);
   const [messageDetail, setMessageDetail] = useState(0); 
+
+  const [filePreviewChange, setFilePreviewChange] = useState([]); 
   
 
   useEffect(() => {
@@ -169,6 +169,8 @@ function Layout(props) {
           openMessageDetail={openMessageDetail}
           setOpenMessageDetail={setOpenMessageDetail}
           setMessageDetail={setMessageDetail}
+          filePreviewChange = {filePreviewChange}
+          setFilePreviewChange = {setFilePreviewChange}
         />
         <ChatNoMessage
           files={files}
@@ -184,6 +186,10 @@ function Layout(props) {
           isResponse={isResponse}
           setisResponse={setisResponse}
           messageRespond={messageRespond}
+          clicked={clicked}
+          my_uid={my_uid}
+          filePreviewChange = {filePreviewChange}
+          setFilePreviewChange = {setFilePreviewChange}
         />
         <Navigation
           darkSwitcherTooltipOpen={props.darkSwitcherTooltipOpen}

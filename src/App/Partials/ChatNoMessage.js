@@ -28,11 +28,9 @@ function ChatNoMessage(props) {
   const videoplayer = useRef(null);
 
   const { 
-    socket, files, viewPreview, imageOrFile, limitChat, 
-    setImageOrFile, setViewPreview, setFile, 
-    setViewChatAnswerPreview,
-    isResponse, setisResponse,
-    messageRespond
+    socket, files, viewPreview, imageOrFile, limitChat, setImageOrFile, setViewPreview, setFile, 
+    setViewChatAnswerPreview, isResponse, setisResponse, messageRespond, clicked, my_uid, chat_uid,
+    setFilePreviewChange
   } = props;
 
   useEffect(() => {
@@ -109,6 +107,35 @@ function ChatNoMessage(props) {
   };
 
   function Send() {
+    let file = imgPreview;
+    let type = imageOrFile;
+
+    var dummy = {
+      chat_type: clicked.chat_type,
+      chat_uid: chat_uid,
+      delete_message: 0,
+      delete_message_to: 0,
+      favorite: 0,
+      favorite_to: 0,
+      file: file,
+      is_file: 1,
+      is_image: 1,
+      is_response: 0,
+      is_video: 0,
+      message:inputMsg,
+      message_id: 0,
+      message_user_uid: my_uid.id,
+      name: "",
+      pphoto: "",
+      response: "",
+      response_file: "",
+      response_from: "",
+      response_type: 0,
+      time: new Date().toISOString(),
+      unread_messages: 2
+    }
+    setFilePreviewChange(dummy)
+
     for (var i = 0; i < files.length; i++)
     {
       const formData = new FormData();
@@ -181,6 +208,7 @@ function ChatNoMessage(props) {
     }
     setImageOrFile("");
     setFilePreview("");
+    setImgPreview("");
     setVideoPreview("");
     setImageOrFile(0);
     setViewPreview(false);

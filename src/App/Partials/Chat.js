@@ -22,7 +22,6 @@ function Chat(props) {
   const [inputMsg, setInputMsg] = useState("");
 
   const [newMessage, setMessages] = useState(selectedChat);
-  // const [scrollEl, setScrollEl] = useState();
 
   const [messages, setChatMessages] = useState([]);
 
@@ -51,6 +50,8 @@ function Chat(props) {
   const [ogImage, setogImage] = useState("");
 
   const [viewUrlPreview, setviewUrlPreview] = useState(true);
+
+  const [loadHidden, setLoadHidden] = useState(true);
   
 
   let dayN = 0;
@@ -77,16 +78,10 @@ function Chat(props) {
   }
 
   const {
-    socket,
-    clicked,
-    scrollEl,
-    setScrollEl,
-    setOpenSearchSidebar,
-    openSearchSidebar,
-    messageRespond, setMessageRespond,
-    viewChatAnswerPreview, setViewChatAnswerPreview,
-    isResponse, setisResponse,
-    openMessageDetail, setOpenMessageDetail, setMessageDetail
+    socket, clicked, scrollEl, setScrollEl, setOpenSearchSidebar, openSearchSidebar,
+    messageRespond, setMessageRespond, viewChatAnswerPreview, setViewChatAnswerPreview,
+    isResponse, setisResponse, openMessageDetail, setOpenMessageDetail, setMessageDetail,
+    filePreviewChange, setFilePreviewChange
   } = props;
 
   useEffect(() => {
@@ -103,6 +98,20 @@ function Chat(props) {
   }, [messages]);
 
   useEffect(() => {
+    if(filePreviewChange.chat_uid){
+      messages.push(filePreviewChange)
+      var dummyNumberN = dummyNumber + 1
+      setFirstTime(true)
+      setDummyNumber(dummyNumberN)
+      var dummyArrayN = dummyArray;
+      dummyArrayN.push(filePreviewChange)
+      setDummyArray(dummyArrayN)
+      setFilePreviewChange([])
+      setMensajeTemporal(!mensajeTemporal)
+    }
+  }, [filePreviewChange]);
+
+  useEffect(() => {
     if (scrollEl) {
       scrollEl.scrollTop = scrollEl.scrollHeight
     }
@@ -116,6 +125,7 @@ function Chat(props) {
         setLimit(newLimit);
         props.setLimitChat(newLimit)
         setScrolled(true);
+        setLoadHidden(false)
         socket.emit("get messages", {
           id: props.clicked.chat_uid,
           page: page,
@@ -158,6 +168,7 @@ function Chat(props) {
       setChatMessages([]);
       setCountrow(0);
     }
+    setLoadHidden(true)
   }
 
   function OnChatMessage(data) {
@@ -273,12 +284,11 @@ function Chat(props) {
         var dummyNumberN = dummyNumber + 1
         messages.push(dummy)
         setFirstTime(true)
-        // prueba
         setDummyNumber(dummyNumberN)
         var dummyArrayN = dummyArray;
         dummyArrayN.push(dummy)
         setDummyArray(dummyArrayN)
-        //
+
         setMensajeTemporal(!mensajeTemporal)
         socket.emit("chat message", {
           chat: newValue.chat_uid,
@@ -608,13 +618,23 @@ function Chat(props) {
                       </div>
                       : message.is_image ?
                         <div>
-                          <figure className="avatar img-chat">
-                            <ModalImage
-                              small={message.file}
-                              large={message.file}
-                              alt="image"
-                            />
-                          </figure>
+                          {message.unread_messages == 2 ?
+                            <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
+                              <ModalImage
+                                small={message.file}
+                                large={message.file}
+                                alt="image"
+                              />
+                            </figure>
+                            :
+                            <figure className="avatar img-chat">
+                              <ModalImage
+                                small={message.file}
+                                large={message.file}
+                                alt="image"
+                              />
+                            </figure>
+                          }
                           <div className="word-break">{message.message}</div>
                         </div>
                         : message.is_file ?
@@ -744,6 +764,7 @@ function Chat(props) {
         setOpenSearchSidebar={setOpenSearchSidebar}
         setClicked={props.setClicked}
       />
+      <div className="loader-chat" hidden={loadHidden}></div>
       <PerfectScrollbar
         containerRef={(ref) => setScrollEl(ref)}
         onScrollY={(container) => scrollMove(container)}

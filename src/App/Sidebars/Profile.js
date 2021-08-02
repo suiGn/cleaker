@@ -32,6 +32,7 @@ function Profile(props) {
   const [openContentEditable, setOpenContentEditable] = useState(false);
   const [openAboutEditable, setOpenAboutEditable] = useState(false);
   const [openPhoneEditable, setOpenPhoneEditable] = useState(false);
+  const [loadHidden, setLoadHidden] = useState(true);
 
   const nameRef = useRef();
   const aboutRef = useRef();
@@ -56,6 +57,17 @@ function Profile(props) {
     }
     socket.emit("ViewOwnProfile", props.user);
   }, [props.user]);
+
+  useEffect(() => {
+    socket.on("my_uid response", RetrievePhoto);
+    return () => {
+      socket.off("my_uid response", RetrievePhoto);
+    };
+  });
+
+  function RetrievePhoto(){
+    setLoadHidden(true)
+  }
 
   function RetrieveViewownprofile(data){
     var userData = data.usrprofile[0];
@@ -175,6 +187,7 @@ function Profile(props) {
   function onChangePhoto(e) {
     setFileState(e.target.files[0]);
     SaveImg(e);
+    setLoadHidden(false)
   }
 
   function onFormSubmit(e) {
@@ -233,6 +246,7 @@ function Profile(props) {
                     <FeatherIcon.Camera color="white" />
                     <p className="pt-1">Cambiar foto de perfil</p>
                   </div>
+                  <div className="loader-image" hidden={loadHidden}></div>
                   <figure className="avatar w-100 h-100 mb-3">
                     {p}
                   </figure>

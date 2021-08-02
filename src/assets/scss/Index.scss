@@ -97,6 +97,24 @@
             border: none;
             padding: 0px;
             background-color: transparent;
+
+            .loader-image{
+              border-radius: 50%;
+              border: 11px solid #f3f3f3;
+              border-top-color: #3498db;
+              width: 90px;
+              height: 90px;
+              position: absolute;
+              top: 44px;
+              right: 55px;
+              -webkit-animation: spin 2s linear infinite;
+              animation: spin 2s linear infinite;
+            }
+      
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
           }
 
           .profile-image-holder:focus,
@@ -734,6 +752,23 @@
       border-bottom: 1px solid $style-color;
       order: 3;
 
+      .loader-chat{
+        position: absolute;
+        top: 85px;
+        right: 450px;
+        border-radius: 50%;
+        border: 7px solid #f3f3f3;
+        border-top-color: #3498db;
+        width: 50px;
+        height: 50px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
       .chat-header {
         display: flex;
         justify-content: space-between;
@@ -1554,6 +1589,6 @@
 }
 
 .background-home-img{
-  background-image: url("/img/background_cleaker_web-02.svg");
+  background-image: url("/static/media/background_cleaker_web-02.a6651dea.svg");
   background-size: 90%;
 }

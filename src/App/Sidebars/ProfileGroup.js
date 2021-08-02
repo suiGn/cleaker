@@ -9,6 +9,8 @@ import axios from "axios";
 import ModalImage from "react-modal-image";
 import ProfileDropdown from "./ProfileDropDown.js";
 import DeleteUserGroupModal from "../Modals/DeleteUserGroupModal";
+import AddMembersForm from "./AddMembersForm";
+
 
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
@@ -30,7 +32,6 @@ function ProfileGroup(props) {
   };
 
   const [name, setName] = useState("");
-  const [pphoto, setPphoto] = useState("");
   const [fileState, setFileState] = useState(null);
   const [about, setAbout] = useState("");
   const [activeTab, setActiveTab] = useState("1");
@@ -52,6 +53,7 @@ function ProfileGroup(props) {
   const [addFriends, setAddFriends] = useState([]);
   const [ToDelete, setToDelete] = useState([]);
   const [search, setSearch] = useState("");
+  const [loadHidden, setLoadHidden] = useState(true);
   
   useEffect(() => {
     setActiveTab("1")
@@ -93,6 +95,17 @@ function ProfileGroup(props) {
       socket.off("retrieve GetGrupo", RetrieveGetGrupo);
     };
   }, [name]);
+
+  useEffect(() => {
+    socket.on("retrieve group photo", RetrieveGroupPhoto);
+    return () => {
+      socket.off("retrieve group photo", RetrieveGroupPhoto);
+    };
+  });
+
+  function RetrieveGroupPhoto(){
+    setLoadHidden(true)
+  }
 
   function SaveProfile() {
     var groupData;
@@ -155,6 +168,7 @@ function ProfileGroup(props) {
   function onChangePhoto(e) {
     setFileState(e.target.files[0]);
     SaveImg(e);
+    setLoadHidden(false)
   }
 
   function onFormSubmit(e) {
@@ -260,21 +274,6 @@ function ProfileGroup(props) {
     });
   }
 
-  function ModifyList(status, item) {
-    if (status) {
-      var newFriends = addFriends;
-      item.checked = true;
-      newFriends.push(item);
-      setAddFriends(newFriends);
-    } else {
-      item.checked = false;
-      var newFriends = addFriends;
-      var removedFriend = newFriends.filter((val) => {
-        return !val.user_chat.includes(item.user_chat);
-      });
-      setAddFriends(removedFriend);
-    }
-  }
 
   function AddMembers(){
     if(addFriends.length>0){
@@ -294,21 +293,8 @@ function ProfileGroup(props) {
     }
   }
 
-  function searchUser(wordToSearch) {
-    setSearch(wordToSearch);
-    if (wordToSearch.length){
-      var resultSearch = chooseFriend.filter((val) => {
-        if(val.name.toLowerCase().includes(wordToSearch.toLowerCase())){
-          return val
-        }
-      })
-      setChooseFriendSearch(resultSearch)
-    }else{
-      setChooseFriendSearch(chooseFriend)
-    }
-  }
 
-  const ModalAddFriend = (props) => {
+  const ModalAddFriend = () => {
     return (
       <div>
         <Modal
@@ -321,52 +307,10 @@ function ProfileGroup(props) {
             <FeatherIcon.UserPlus className="mr-2" /> Add Contacts
           </ModalHeader>
           <ModalBody>
-            <form>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search contacts"
-                value={search}
-                onChange={(e) => searchUser(e.target.value)}
-              />
-            </form>
-            <PerfectScrollbar>
-              <FormGroup>
-                {chooseFriendSearch.map((item, i) => {
-                  return (
-                    <div style={{display: "flex"}}>
-                      {item.checked ? (
-                        <CustomInput
-                          type="checkbox"
-                          id={"customCheckbox" + i}
-                          onChange={(e) => ModifyList(e.target.checked, item)}
-                          defaultChecked
-                        />
-                      ) : (
-                        <CustomInput
-                          type="checkbox"
-                          id={"customCheckbox" + i}
-                          onChange={(e) => ModifyList(e.target.checked, item)}
-                        />
-                      )}
-                      <div className="profile-image-holder rounded-circle mb-4">
-                        <figure className="avatar">
-                        {
-                          (item.pphoto === "" || item.pphoto === null)?
-                          <span className="avatar-title bg-info rounded-circle">
-                          {item.name.substring(0, 1)}
-                          </span>
-                          :
-                          <img src={item.pphoto} className="rounded-circle " alt="image" />
-                        }
-                        </figure>
-                      </div>
-                      <label>{item.name}</label>
-                    </div>
-                  );
-                })}
-                </FormGroup>
-            </PerfectScrollbar>
+            <AddMembersForm 
+            chooseFriendSearch={chooseFriendSearch}
+            addFriends={addFriends}
+            setAddFriends={setAddFriends}/>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => AddMembers()}>
@@ -421,6 +365,7 @@ function ProfileGroup(props) {
                     <FeatherIcon.Camera color="white" />
                     <p className="pt-1">Cambiar foto de perfil</p>
                   </div>
+                  <div className="loader-image" hidden={loadHidden}></div>
                   <figure className="avatar w-100 h-100 mb-3">
                     {p}
                   </figure>
