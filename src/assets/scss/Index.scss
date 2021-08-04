@@ -1132,6 +1132,27 @@
                 color: white;
                 display: block;
 
+                .img-chat-cont{
+                  .loader-image-chat{
+                    border-radius: 50%;
+                    border: 11px solid #f3f3f3;
+                    border-top-color: #3498db;
+                    width: 90px;
+                    height: 90px;
+                    position: absolute;
+                    top: 30%;
+                    right: 35%;
+                    z-index: 1;
+                    -webkit-animation: spin 2s linear infinite;
+                    animation: spin 2s linear infinite;
+                  }
+            
+                  @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                  }
+                }
+
                 .message-response{
                   position: relative;
                   right: 15px;

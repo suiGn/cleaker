@@ -8,7 +8,7 @@ import {
 import * as FeatherIcon from "react-feather";
 
 const ChatsDropdown = (props) => {
-  const { socket } = props;
+  const { socket, setChat } = props;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -22,6 +22,7 @@ const ChatsDropdown = (props) => {
   }
 
   const openUserProfileToggler = (e) => {
+    props.setChat({ id: props.chat_uid });
     props.setUser({ id: props.id });
     props.setOpenUserProfile(!props.openUserProfile);
     if (props.openProfile) {
@@ -33,6 +34,7 @@ const ChatsDropdown = (props) => {
   };
 
   const GroupProfileAction = () => {
+    props.setChat({ id: props.chat_uid });
     props.setGroup({ id: props.chat_uid });
     props.setOpenGroupProfile(!props.openGroupProfile);
     if (props.openProfile) {

@@ -19,6 +19,7 @@ function Index(props) {
     setOpenGroupProfile,
     setClicked,
     setLoaded,
+    setChat
   } = props;
   const [chatLists, setChatList] = useState([]);
   const [chatsL, setChatL] = useState([]);
@@ -175,13 +176,12 @@ function Index(props) {
               ? "list-group-item open-chat"
               : "list-group-item " + (chat.selected ? "open-chat" : "")
           }
-          onClick={(e) => setClickedValue(e, chat)}
         >
           <div>
-            <figure className="avatar">{p}</figure>
+            <figure className="avatar" onClick={(e) => setClickedValue(e, chat)}>{p}</figure>
           </div>
           <div className="users-list-body">
-            <div i={chat.chat_uid}>
+            <div i={chat.chat_uid} onClick={(e) => setClickedValue(e, chat)}>
               <h5
                 className={
                   chat.unread_messages && chat.last_message_user_uid != my_uid
@@ -232,6 +232,7 @@ function Index(props) {
                     setOpenUserProfile={setOpenUserProfile}
                     openGroupProfile={openGroupProfile}
                     setOpenGroupProfile={setOpenGroupProfile}
+                    setChat={setChat}
                   />
                 </div>
               </div>
@@ -253,6 +254,7 @@ function Index(props) {
                     setOpenUserProfile={setOpenUserProfile}
                     openGroupProfile={openGroupProfile}
                     setOpenGroupProfile={setOpenGroupProfile}
+                    setChat={setChat}
                   />
                 </div>
                 {

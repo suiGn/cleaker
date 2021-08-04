@@ -7,7 +7,7 @@ import ArchivedIndex from "./Archived";
 
 function Index(props) {
   const { selectedSidebar, mobileSidebar } = useSelector((state) => state);
-  const { setLoaded } = props;
+  const { setLoaded, setChat } = props;
 
   return (
     <div
@@ -39,6 +39,7 @@ function Index(props) {
               setUnread={props.setUnread}
               setUnreadChats={props.setUnreadChats}
               setLoaded={setLoaded}
+              setChat={setChat}
             />
           );
         } else if (selectedSidebar === "Contacts") {

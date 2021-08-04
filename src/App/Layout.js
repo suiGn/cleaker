@@ -125,6 +125,7 @@ function Layout(props) {
           setUnread={setUnread}
           setUnreadChats={setUnreadChats}
           setLoaded={setLoaded}
+          setChat={setChat}
         />
         <Chat
           user={user}
@@ -147,7 +148,6 @@ function Layout(props) {
           setClicked={setClicked}
           setUnreadChats={setUnreadChats}
           unreadChats={unreadChats}
-          setChat={setChat}
           setUnread={setUnread}
           setImgPreview={setImgPreview}
           setFile={setFile}

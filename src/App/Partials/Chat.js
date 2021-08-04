@@ -71,12 +71,6 @@ function Chat(props) {
     throttleMs: 100,
   });
 
-  let dateSend;
-
-  if (messages && messages.length > 0) {
-    dateSend = new Date(messages[0].time);
-  }
-
   const {
     socket, clicked, scrollEl, setScrollEl, setOpenSearchSidebar, openSearchSidebar,
     messageRespond, setMessageRespond, viewChatAnswerPreview, setViewChatAnswerPreview,
@@ -161,7 +155,6 @@ function Chat(props) {
           messages.push.apply(messages, dummyArray);
         }
         setChatMessages(messages);
-        props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
     } else {
@@ -617,7 +610,12 @@ function Chat(props) {
                         :<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
-                        <div>
+                        <div className="img-chat-cont"> 
+                          
+                          {message.unread_messages == 2?
+                            <div className="loader-image-chat"></div>:
+                            ""
+                          }
                           {message.unread_messages == 2 ?
                             <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
                               <ModalImage
