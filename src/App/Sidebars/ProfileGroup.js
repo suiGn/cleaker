@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button,
-  Modal,ModalHeader,ModalBody,ModalFooter,FormGroup,CustomInput
+  Modal,ModalHeader,ModalBody,ModalFooter
 } from "reactstrap";
 import * as FeatherIcon from "react-feather";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import classnames from "classnames";
 import axios from "axios";
-import ModalImage from "react-modal-image";
 import ProfileDropdown from "./ProfileDropDown.js";
 import DeleteUserGroupModal from "../Modals/DeleteUserGroupModal";
 import AddMembersForm from "./AddMembersForm";
@@ -16,10 +15,6 @@ function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
     openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
     setMediaProfileType} = props;
-
-  const toggle = tab => {
-    if (activeTab !== tab) setActiveTab(tab);
-  };
 
   const openGroupProfileToggler = (e) => {
     setOpenGroupProfile(!openGroupProfile);
@@ -32,14 +27,12 @@ function ProfileGroup(props) {
   };
 
   const [name, setName] = useState("");
-  const [fileState, setFileState] = useState(null);
   const [about, setAbout] = useState("");
   const [activeTab, setActiveTab] = useState("1");
   const [p, setP] = useState("");
   const [members, setMembers] = useState([]);
   const [openContentEditable, setOpenContentEditable] = useState(false);
   const [openAboutEditable, setOpenAboutEditable] = useState(false);
-  const [openPhoneEditable, setOpenPhoneEditable] = useState(false);
   const nameRef = useRef();
   const aboutRef = useRef();
   const inputFile = useRef(null);
@@ -47,12 +40,9 @@ function ProfileGroup(props) {
   const [modalDelete, setModalDelete] = useState(false);
   const modalToggleFriend = () => setModalFriend(!modalFriend);
   const modalToggleDelete = () => setModalDelete(!modalDelete);
-  const [chooseFriend, setChooseFriend] = useState([]);
   const [chooseFriendSearch, setChooseFriendSearch] = useState([]);
-  const [my_uid, setUid] = useState("");
   const [addFriends, setAddFriends] = useState([]);
   const [ToDelete, setToDelete] = useState([]);
-  const [search, setSearch] = useState("");
   const [loadHidden, setLoadHidden] = useState(true);
   
   useEffect(() => {
@@ -166,7 +156,6 @@ function ProfileGroup(props) {
   };
 
   function onChangePhoto(e) {
-    setFileState(e.target.files[0]);
     SaveImg(e);
     setLoadHidden(false)
   }
@@ -267,8 +256,6 @@ function ProfileGroup(props) {
         return true;
       });
       contacts.chats = chats;
-      setUid(contacts.my_uid);
-      setChooseFriend(arrayMembers);
       setChooseFriendSearch(arrayMembers);
       setModalFriend(!modalFriend);
     });

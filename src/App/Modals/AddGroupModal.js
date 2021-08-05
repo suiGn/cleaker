@@ -16,10 +16,6 @@ import {
 } from "reactstrap";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-import ManAvatar1 from "../../assets/img/man_avatar1.jpg";
-import WomenAvatar4 from "../../assets/img/women_avatar4.jpg";
-
-// Feather icon
 import * as FeatherIcon from "react-feather";
 import { func } from "prop-types";
 import {
@@ -28,6 +24,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import AddMembersForm from "../Sidebars/AddMembersForm";
 
 function AddGroupModal(props) {
   const { socket } = props;
@@ -35,8 +32,6 @@ function AddGroupModal(props) {
   const [my_uid, setUid] = useState("");
 
   const [groupName, setGroupName] = useState("");
-
-  const [description, setDescription] = useState("");
 
   const [addFriends, setAddFriends] = useState([]);
 
@@ -85,7 +80,7 @@ function AddGroupModal(props) {
       var groupData;
       groupData = {
         groupName: groupName,
-        description: description,
+        description: "",
         addFriends: addFriends,
         id: my_uid,
       };
@@ -100,7 +95,6 @@ function AddGroupModal(props) {
       setFriends([]);
       setAddFriends([]);
       setGroupName("");
-      setDescription("");
       chooseFriend.forEach(function (friend) {
         friend.checked = false;
       });
@@ -149,18 +143,6 @@ function AddGroupModal(props) {
     socket.emit("get group contacts");
     // inputRef.current.focus();
   }, [one]);
-
-  // useEffect(() => {
-  //   if (props.chatLists.length != 0) {
-  //     var chats = props.chatLists.chats.filter((val) => {
-  //       return (
-  //         !val.user_chat.includes(props.chatLists.my_uid) && val.chat_type != 1
-  //       );
-  //     });
-  //     setUid(props.chatLists.my_uid);
-  //     setChooseFriend(chats);
-  //   }
-  // }, [props]);
 
   const ModalAddFriend = (props) => {
     return (
@@ -249,76 +231,14 @@ function AddGroupModal(props) {
                   value={groupName}
                   onChange={(e) => setGroupName(e.target.value)}
                 />
-                {/* <InputGroupAddon addonType="append">
-                  <Button color="light" id="Tooltip-Smile">
-                    <FeatherIcon.Smile />
-                  </Button>
-                  <Tooltip
-                    placement="top"
-                    isOpen={tooltipOpen2}
-                    target={"Tooltip-Smile"}
-                    toggle={tooltipToggle2}
-                  >
-                    Emoji
-                  </Tooltip>
-                </InputGroupAddon> */}
               </InputGroup>
             </FormGroup>
             <FormGroup>
               <p>The group members</p>
-              <div className="avatar-group">
-                {friends.map((item, i) => {
-                  let p;
-                  let chat_name = item.name;
-                  let chat_initial = chat_name.substring(0, 1);
-                  if(item.pphoto == "" || item.pphoto == null){
-                    p = (
-                      <span className="avatar-title bg-info rounded-circle">
-                        {chat_initial}
-                      </span>
-                    );
-                  }else{
-                    p = <img src={item.pphoto} className="rounded-circle" alt="avatar" />;
-                  }
-                  return (
-                    <div>
-                      <AvatarTooltip name={item.name} id={i} />
-
-                      <figure className="avatar" id={"Tooltip-Avatar" + i}>
-                        {/* <img
-                          src={item.pphoto}
-                          className="rounded-circle"
-                          alt="avatar"
-                        /> */}
-                        {p}
-                      </figure>
-                    </div>
-                  );
-                })}
-                <a
-                  onClick={modalToggleFriend}
-                  href="#/"
-                  title="Add contacts"
-                  id="Tooltip-Avatar6"
-                >
-                  <figure className="avatar">
-                    <span className="avatar-title bg-primary rounded-circle">
-                      <FeatherIcon.Plus />
-                    </span>
-                  </figure>
-                </a>
-                <AvatarTooltip name="Add contacts" id={6} />
-              </div>
-            </FormGroup>
-            <FormGroup>
-              <Label for="description">Invitation message</Label>
-              <Input
-                type="textarea"
-                name="description"
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
+              <AddMembersForm 
+              chooseFriendSearch={chooseFriend}
+              addFriends={addFriends}
+              setAddFriends={setAddFriends}/>
             </FormGroup>
           </Form>
         </ModalBody>
