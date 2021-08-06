@@ -155,6 +155,7 @@ function Chat(props) {
           messages.push.apply(messages, dummyArray);
         }
         setChatMessages(messages);
+        props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
     } else {
