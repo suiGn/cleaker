@@ -387,15 +387,7 @@
                   color: white;
                   display: block;
   
-                  .message-response{
-                    position: relative;
-                    right: 15px;
-                    display: block;
-                    border-radius: inherit;
-                    border-left: 7px  solid  #f3c96e;
-                    max-width: 600px;
-                    height: 60px;
-                  }
+                  
   
                   .favorite-message {
                     svg {
@@ -901,6 +893,11 @@
             position: relative;
             left: 17px;
             width: 150px;
+            p{
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden
+            }
           }
 
           .response-message{
@@ -914,6 +911,16 @@
           .message-item {
             max-width: 75%;
             margin-bottom: 3rem;
+
+            .message-response{
+              position: relative;
+              right: 15px;
+              display: block;
+              border-radius: inherit;
+              border-left: 7px  solid  #f3c96e;
+              max-width: 600px;
+              height: 60px;
+            }
 
             &:last-child {
               margin-bottom: 0;
@@ -1015,7 +1022,6 @@
               background: $style-color + 5;
               border-radius: 7px;
               padding: 2px 22px 12px 22px;
-              display: flex;
               flex-flow: row;
               max-width: 415px;
               margin-bottom: 3px;
@@ -1078,7 +1084,7 @@
                   font-style: italic;
                   font-size: 12px;
                   left: 10px;
-                  top: 8px;
+                  bottom: 10px;
                 }
                 .check-mark{
                   position: absolute;
@@ -1151,16 +1157,6 @@
                     0% { transform: rotate(0deg); }
                     100% { transform: rotate(360deg); }
                   }
-                }
-
-                .message-response{
-                  position: relative;
-                  right: 15px;
-                  display: block;
-                  border-radius: inherit;
-                  border-left: 7px  solid  #f3c96e;
-                  max-width: 600px;
-                  height: 60px;
                 }
 
                 .favorite-message {

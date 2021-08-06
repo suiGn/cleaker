@@ -14,7 +14,8 @@ function AddMembersForm(props) {
     useEffect(() => {
         setChooseFriendSearchN(chooseFriendSearch)
         setChooseFriend(chooseFriendSearch)
-      }, [chooseFriendSearch]);
+    }, [chooseFriendSearch]);
+
     
 
     function searchUser(wordToSearch) {
@@ -32,6 +33,7 @@ function AddMembersForm(props) {
       }
 
       function ModifyList(status, item) {
+        console.log(item,status)
         if (status) {
           var newFriends = addFriends;
           item.checked = true;

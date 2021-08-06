@@ -85,9 +85,15 @@ const ChatsMessageDropdown = (props) => {
       className="dropdown-chat-message"
     >
       <div className="dropdown-view">
-      <DropdownToggle className="dropdown-position" tag="span" style={{  position: "absolute", right: "0", top: props.dropdownType}}>
-        <FeatherIcon.MoreHorizontal />
-      </DropdownToggle>
+      { props.dropdownType?
+        <DropdownToggle className="dropdown-position" tag="span" style={{  position: "absolute", right: "0", bottom: "0"}}>
+          <FeatherIcon.MoreHorizontal />
+        </DropdownToggle>
+        :
+        <DropdownToggle className="dropdown-position" tag="span" style={{  position: "absolute", right: "0", top: "-20px"}}>
+          <FeatherIcon.MoreHorizontal />
+        </DropdownToggle>
+      }
       </div>
       <DropdownMenu>
         {props.message.chat_type == 1 ? (

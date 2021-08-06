@@ -410,11 +410,11 @@ function Chat(props) {
       if (message.message_user_uid == props.id) {
         type = "outgoing-message";
         timeType = "time-right";
-        dropdownType = "-20px";
+        dropdownType = false;
       } else {
         type = "";
         timeType = "time-left";
-        dropdownType = "0";
+        dropdownType = true;
       }
     } else {
       if (message.message_user_uid == props.id) {

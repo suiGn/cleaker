@@ -11,19 +11,10 @@ import {
   Label,
   Input,
   InputGroup,
-  InputGroupAddon,
   CustomInput,
 } from "reactstrap";
 import "emoji-mart/css/emoji-mart.css";
-import { Picker } from "emoji-mart";
 import * as FeatherIcon from "react-feather";
-import { func } from "prop-types";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
 import AddMembersForm from "../Sidebars/AddMembersForm";
 
 function AddGroupModal(props) {
@@ -86,6 +77,7 @@ function AddGroupModal(props) {
       };
       socket.emit("AddGrupo", groupData);
       socket.once("retrive addgrupo", (mssg) => {
+        mssg.message="Hola"
         socket.emit("chat message", {
           chat: mssg.chat,
           message: mssg.message,
