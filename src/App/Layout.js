@@ -237,6 +237,7 @@ function Layout(props) {
           setMedia={setMedia}
           media={media}
           setMediaProfileType={setMediaProfileType}
+          clicked={clicked}
         />
         <SearchChat
           socket={socket}
