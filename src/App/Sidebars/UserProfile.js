@@ -93,6 +93,26 @@ function UserProfile(props) {
     setMediaProfileType(1)
   }
 
+  function SearchInsideBody(id) {
+    console.log('click');
+    let lmt=0;
+    let i=0;
+    favorites.forEach((element) => {
+      i++
+      if(element.message_id == id ){
+        lmt= i;
+      }
+    });
+    lmt = lmt + 5
+    socket.emit("get messages", {
+      id: props.clicked.chat_uid,
+      page: 1,
+      inChat: true,
+      limit: lmt,
+      idSearch: id
+    });
+  }
+
   return (
     <div className={`sidebar-group ${openUserProfile ? "mobile-open" : ""} sidebar-profile sidebar-profile-group`}>
       <div className={openUserProfile ? "sidebar active" : "sidebar"}>
@@ -193,7 +213,7 @@ function UserProfile(props) {
                         message.is_file?
                         "":
                         message.is_image?
-                        <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                        <li onClick={() => SearchInsideBody(message.message_id)} className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
                            <div class="messages-container">
                             <div id={message.message_id} className={"message-item"}>
                               <div className="message-avatar">
@@ -218,7 +238,7 @@ function UserProfile(props) {
                         </li>:
                         message.is_video?
                         "":
-                        <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                        <li onClick={() => SearchInsideBody(message.message_id)}  className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
                           <div class="messages-container">
                             <div id={message.message_id} className={"message-item"}>
                             <div className="message-avatar">
