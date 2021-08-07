@@ -171,6 +171,7 @@ function Layout(props) {
           setMessageDetail={setMessageDetail}
           filePreviewChange = {filePreviewChange}
           setFilePreviewChange = {setFilePreviewChange}
+          setChat={setChat}
         />
         <ChatNoMessage
           files={files}

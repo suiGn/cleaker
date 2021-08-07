@@ -52,6 +52,8 @@ function Chat(props) {
   const [viewUrlPreview, setviewUrlPreview] = useState(true);
 
   const [loadHidden, setLoadHidden] = useState(true);
+
+  const [lastIsImage, setlastIsImage] = useState(false);
   
 
   let dayN = 0;
@@ -81,8 +83,16 @@ function Chat(props) {
   useEffect(() => {
     if (scrollEl) {
       if (firstTime && messages.length > 0) {
+        console.log("Bruno")
         scrollEl.scrollTop = scrollEl.scrollHeight;
         setFirstTime(false);
+        if(lastIsImage)
+        {
+          setTimeout(function () {
+            scrollEl.scrollTop = scrollEl.scrollHeight;
+          }, 350);
+          setlastIsImage(false)
+        }
       } else if (scrolled && !firstTime) {
         var idMess = messages[8].message_id;
         let size = document.getElementById(idMess).getBoundingClientRect();
@@ -149,6 +159,10 @@ function Chat(props) {
             messages.push(element);
           }
         });
+        if(messages[0].is_image){
+          setFirstTime(true)
+          setlastIsImage(true)
+        }
         messages = messages.reverse()
         if (dummyArray.length > 0) {
           dummyArray.splice(0, 1)
