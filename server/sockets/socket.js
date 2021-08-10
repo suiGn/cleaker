@@ -283,48 +283,38 @@ io.on("connection", function (socket) {
         `select usrname, pphoto,name,about,phone,city,website from usrs where u_id='${data.id}'`,
         function (err, rowsUser) {
           orgboatDB.query(
-            `SELECT chat_uid FROM chats_users WHERE u_id='${user.u_id}'`,
-            function (err, rows) {
-              var chat_uids = "";
-              rows.forEach((info) => {
-                chat_uids += "'" + info.chat_uid + "',";
-              });
-              chat_uids = chat_uids.replace(/,\s*$/, "");
+            `SELECT 
+            distinct messages.message, messages.time, usrs.name, message_id, messages.u_id,
+            messages.file, messages.is_file, messages.is_image, messages.is_video FROM messages
+            inner join usrs on messages.u_id = usrs.u_id
+            inner join chats_users on messages.u_id = chats_users.u_id
+            WHERE messages.favorite=1 and messages.chat_uid in ('${data.chat_id}') 
+            and messages.u_id!='${user.u_id}'
+            and messages.u_id='${data.id}'
+            UNION 
+            SELECT 
+            distinct messages.message, messages.time, usrs.name, message_id, messages.u_id,
+            messages.file, messages.is_file, messages.is_image, messages.is_video  FROM messages
+            inner join usrs on messages.u_id = usrs.u_id
+            inner join chats_users on messages.u_id = chats_users.u_id
+            WHERE messages.favorite_to=1 and messages.chat_uid in ('${data.chat_id}') 
+            and messages.u_id ='${user.u_id}'`,
+            function (err, chats) {
               orgboatDB.query(
                 `SELECT 
-                distinct messages.message, messages.time, usrs.name, message_id, messages.u_id,
-                messages.file, messages.is_file, messages.is_image, messages.is_video FROM messages
+                distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
+                messages.is_video, messages.is_image, messages.is_file FROM messages
                 inner join usrs on messages.u_id = usrs.u_id
                 inner join chats_users on messages.u_id = chats_users.u_id
-                WHERE messages.favorite=1 and messages.chat_uid in (${chat_uids}) 
-                and messages.u_id!='${user.u_id}'
-                and messages.u_id='${data.id}'
-                UNION 
-                SELECT 
-                distinct messages.message, messages.time, usrs.name, message_id, messages.u_id,
-                messages.file, messages.is_file, messages.is_image, messages.is_video  FROM messages
-                inner join usrs on messages.u_id = usrs.u_id
-                inner join chats_users on messages.u_id = chats_users.u_id
-                WHERE messages.favorite_to=1 and messages.chat_uid in (${chat_uids}) 
-                and messages.u_id ='${user.u_id}'`,
-                function (err, chats) {
-                  orgboatDB.query(
-                    `SELECT 
-                    distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
-                    messages.is_video, messages.is_image, messages.is_file FROM messages
-                    inner join usrs on messages.u_id = usrs.u_id
-                    inner join chats_users on messages.u_id = chats_users.u_id
-                    WHERE messages.delete_message = 0 
-                    and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1)
-                    and messages.chat_uid =  '${data.chat_id}' order by time desc`,
-                    function (err, chatsfile) {
-                      io.to(user.u_id).emit("retrieve viewProfileUser", {
-                        favorites: chats,
-                        usrprofile: rowsUser,
-                        files: chatsfile,
-                      });
-                    }
-                  );
+                WHERE messages.delete_message = 0 
+                and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1)
+                and messages.chat_uid =  '${data.chat_id}' order by time desc`,
+                function (err, chatsfile) {
+                  io.to(user.u_id).emit("retrieve viewProfileUser", {
+                    favorites: chats,
+                    usrprofile: rowsUser,
+                    files: chatsfile,
+                  });
                 }
               );
             }

@@ -83,7 +83,6 @@ function Chat(props) {
   useEffect(() => {
     if (scrollEl) {
       if (firstTime && messages.length > 0) {
-        console.log("Bruno")
         scrollEl.scrollTop = scrollEl.scrollHeight;
         setFirstTime(false);
         if(lastIsImage)
