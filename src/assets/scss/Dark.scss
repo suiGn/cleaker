@@ -168,6 +168,9 @@ body.dark {
               .message-content {
                 background-color: $dark-mode;
                 border: 0.5px solid $dark-mode-message;
+                .message-response{
+                  border-left: 7px solid $dark-mode-message;
+                }
                 .favorite-message {
                   svg {
                     color: $dark-mode-message;
@@ -186,6 +189,9 @@ body.dark {
               &:not(.outgoing-message) {
                 .message-content {
                   border: 0.5px solid $dark-mode-outgoing;
+                  .message-response{
+                    border-left: 7px  solid $dark-mode-outgoing;
+                  }
                   .favorite-message {
                     svg {
                       color: $dark-mode-outgoing;
