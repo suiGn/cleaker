@@ -463,10 +463,6 @@ function Chat(props) {
                 <div className={"message-content position-relative img-chat" + search}>
                   <div className="message-response">
                       <div className="word-break response-from">
-                        {
-                          group && message.message_user_uid != props.my_uid.id ?
-                            <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
-                        }
                         <p>{message.response_from}</p>
                       </div>
                         {
@@ -497,7 +493,12 @@ function Chat(props) {
                   </div>
                   {
                     !message.is_image && !message.is_file && !message.is_video ?
-                      <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>{message.message}</div>
+                      <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>
+                        {
+                          group && message.message_user_uid != props.my_uid.id ?
+                            <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
+                        }
+                        {message.message}</div>
                       : message.is_image ?
                       <div>
                           <figure className="avatar img-chat">
