@@ -83,16 +83,15 @@ function Chat(props) {
   useEffect(() => {
     if (scrollEl) {
       if (firstTime && messages.length > 0) {
-        console.log("Bruno")
         scrollEl.scrollTop = scrollEl.scrollHeight;
         setFirstTime(false);
-        if(lastIsImage)
+        /*if(lastIsImage)
         {
           setTimeout(function () {
             scrollEl.scrollTop = scrollEl.scrollHeight;
           }, 350);
           setlastIsImage(false)
-        }
+        }*/
       } else if (scrolled && !firstTime) {
         var idMess = messages[8].message_id;
         let size = document.getElementById(idMess).getBoundingClientRect();
@@ -159,10 +158,10 @@ function Chat(props) {
             messages.push(element);
           }
         });
-        if(messages[0].is_image){
+        /*if(messages[0].is_image){
           setFirstTime(true)
           setlastIsImage(true)
-        }
+        }*/
         messages = messages.reverse()
         if (dummyArray.length > 0) {
           dummyArray.splice(0, 1)
@@ -463,42 +462,43 @@ function Chat(props) {
               ) : (
                 <div className={"message-content position-relative img-chat" + search}>
                   <div className="message-response">
-                    <div className="word-break response-from">
-                      {
-                        group && message.message_user_uid != props.my_uid.id ?
-                          <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
-                      }
-                      <p>{message.response_from}</p>
-                    </div>
-                      {
-                        message.response_type == 0 ?
-                        <div className="word-break response-message">{message.response}</div>
-                        : message.response_type == 1 ?
-                        <div>
-                            <div className="word-break">{message.response}</div>
-                          </div>
-                          : message.response_type == 2 ?
-                        <div>
-                              <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.response_file + ")" }}>
-                              </div>
+                      <div className="word-break response-from">
+                        <p>{message.response_from}</p>
+                      </div>
+                        {
+                          message.response_type == 0 ?
+                          <div className="word-break response-message">{message.response}</div>
+                          : message.response_type == 1 ?
+                          <div>
                               <div className="word-break">{message.response}</div>
                             </div>
-                        : message.response_type == 3 ?
-                        <div>
-                                <div className="mini-preview-container-video">
-                                  <VideoThumbnail
-                                    videoUrl={message.response_file}
-                                    thumbnailHandler={(thumbnail) => { }}
-                                  />
+                            : message.response_type == 2 ?
+                          <div>
+                                <div className="mini-preview-container" style={{ backgroundImage: "url(" + message.response_file + ")" }}>
                                 </div>
                                 <div className="word-break">{message.response}</div>
                               </div>
-                        : ""
-                      }
+                          : message.response_type == 3 ?
+                          <div>
+                                  <div className="mini-preview-container-video">
+                                    <VideoThumbnail
+                                      videoUrl={message.response_file}
+                                      thumbnailHandler={(thumbnail) => { }}
+                                    />
+                                  </div>
+                                  <div className="word-break">{message.response}</div>
+                                </div>
+                          : ""
+                        }
                   </div>
                   {
                     !message.is_image && !message.is_file && !message.is_video ?
-                      <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>{message.message}</div>
+                      <div className="word-break word-break-more word-break-response" onClick={(e) => ReadMore(e)}>
+                        {
+                          group && message.message_user_uid != props.my_uid.id ?
+                            <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
+                        }
+                        {message.message}</div>
                       : message.is_image ?
                       <div>
                           <figure className="avatar img-chat">

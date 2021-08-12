@@ -43,16 +43,19 @@
 
 .word-break {
   word-break: break-word;
-  padding-right: 45px;
   margin-left: -12px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  flex: auto;
 }
 
 .word-break-more{
   -webkit-line-clamp: 10;
   cursor: pointer;
+}
+.word-break-response{
+  margin-bottom: 15px;
 }
 
 .border-none {

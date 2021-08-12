@@ -94,7 +94,6 @@ function UserProfile(props) {
   }
 
   function SearchInsideBody(id) {
-    console.log('click');
     let lmt=0;
     let i=0;
     favorites.forEach((element) => {

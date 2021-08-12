@@ -917,13 +917,13 @@
               right: 15px;
               display: block;
               border-radius: inherit;
-              border-left: 7px  solid  #f3c96e;
               max-width: 600px;
               height: 60px;
+              width: 100%;
             }
 
             &:last-child {
-              margin-bottom: 0;
+              margin-bottom: -18px;
             }
 
             .mini-preview-container-url{
@@ -1024,7 +1024,8 @@
               padding: 2px 22px 12px 22px;
               flex-flow: row;
               max-width: 415px;
-              margin-bottom: 3px;
+              margin-bottom: 10px;
+              padding-bottom: 0;
 
               &.message-file {
                 display: flex;
@@ -1073,8 +1074,8 @@
                   color: black;
                   font-style: italic;
                   font-size: 12px;
-                  top: -13px;
-                  left: 15px;
+                  bottom: 22px;
+                  right: 10px;
                 }
                 .time-left{
                   position: relative;
@@ -1083,12 +1084,13 @@
                   color: black;
                   font-style: italic;
                   font-size: 12px;
-                  left: 10px;
-                  bottom: 10px;
+                  left: 16px;
+                  bottom: 22px;
                 }
                 .check-mark{
-                  position: absolute;
-                  right: 84px;
+                  position: relative;
+                  top: 3px;
+                  float: right;
                   svg{
                     width: 14px;
                     position: absolute;
@@ -1122,7 +1124,7 @@
 
             &.outgoing-message {
               margin-left: auto;
-              margin-bottom: -7px;
+              margin-bottom: -17px;
               
               .message-avatar {
                 justify-content: flex-end;
@@ -1136,7 +1138,7 @@
               .message-content {
                 background-color: $color-primary;
                 color: white;
-                display: block;
+                padding-bottom: 0px;
 
                 .img-chat-cont{
                   .loader-image-chat{
