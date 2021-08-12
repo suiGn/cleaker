@@ -493,7 +493,7 @@ function Chat(props) {
                   </div>
                   {
                     !message.is_image && !message.is_file && !message.is_video ?
-                      <div className="word-break word-break-more" onClick={(e) => ReadMore(e)}>
+                      <div className="word-break word-break-more word-break-response" onClick={(e) => ReadMore(e)}>
                         {
                           group && message.message_user_uid != props.my_uid.id ?
                             <div style={{ color: props.setColor(message.message_user_uid) }}>{message.name}</div> : ""
