@@ -73,7 +73,8 @@ function ImageModal(props) {
                         left: "0",
                         right: "0",
                         bottom: "0",
-                        margin: "auto"
+                        margin: "auto",
+                        maxHeight: "600px"
                     }}>
                         <img src={fileNow} class="img-preview" alt="image"  style={{
                         maxWidth: "100%",
@@ -82,7 +83,7 @@ function ImageModal(props) {
                 </div>
             </div>
             {images.length>1?
-            <div style={{position: "fixed", right: "-425px"}}>
+            <div style={{position: "fixed", right: "-380px"}}>
                 <FeatherIcon.ArrowRight style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileR()}/>
             </div>:""}
             {images.length>1?
