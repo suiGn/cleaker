@@ -14,7 +14,7 @@ function ImageModal(props) {
 
     const [fileNow, setFileNow] = useState(false);
 
-    const [positionNow, setPositionNow] = useState(false);
+    const [positionNow, setPositionNow] = useState(0);
 
     const modalToggle = () => {
         setModal(!modal);
@@ -65,6 +65,30 @@ function ImageModal(props) {
             centered
             >
             <ToastContainer />
+            <div style={{
+                position: "fixed",
+                top: "-28px",
+                background: "dimgrey",
+                width: "276%",
+                float: "revert",
+                right: "-88%",
+                height: "4%"}}>
+                <span style={{
+                position: "absolute",
+                right: "3%"}}>
+                <a href={fileNow} download="" style={{
+                position: "relative",
+                right: "10%"}}>
+                    <FeatherIcon.Download/>
+                </a>
+                <a>
+                    <FeatherIcon.X/>
+                </a>
+                </span>
+                <span style={{
+                position: "absolute",
+                left: "1%"}}>image</span>
+            </div>
             <div class="img-preview-container-header">
                 <div class="modal-body" style={{display: "contents"}}>
                     <div class="img-preview-container" style={{
