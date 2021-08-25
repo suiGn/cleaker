@@ -17,6 +17,7 @@ import * as FeatherIcon from "react-feather";
 import ModalImage from "react-modal-image";
 import VideoThumbnail from 'react-video-thumbnail';
 import DeleteMessageModal from "../Modals/DeleteMessageModal";
+import ImageModal from "../Modals/ImageModal";
 
 function Chat(props) {
   const [inputMsg, setInputMsg] = useState("");
@@ -54,6 +55,8 @@ function Chat(props) {
   const [loadHidden, setLoadHidden] = useState(true);
 
   const [lastIsImage, setlastIsImage] = useState(false);
+
+  const [images, setImages] = useState([]);
   
 
   let dayN = 0;
@@ -168,6 +171,10 @@ function Chat(props) {
           messages.push.apply(messages, dummyArray);
         }
         setChatMessages(messages);
+        var imagesL = messages.filter((messages) => {
+          return messages.is_image
+        })
+        setImages(imagesL)
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
@@ -389,8 +396,7 @@ function Chat(props) {
   }
 
   const MessagesView = (props) => {
-    const { message } = props;
-    const { group } = props;
+    const { message, group, key } = props;
     var dateM = new Date(message.time);
     const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
     if (year != 0) {
@@ -502,11 +508,7 @@ function Chat(props) {
                       : message.is_image ?
                       <div>
                           <figure className="avatar img-chat">
-                            <ModalImage
-                              small={message.file}
-                              large={message.file}
-                              alt="image"
-                            />
+                            <ImageModal file={message.file} images={images} position={1}/>
                           </figure>
                           <div className="word-break">{message.message}</div>
                         </div>
@@ -633,19 +635,11 @@ function Chat(props) {
                           }
                           {message.unread_messages == 2 ?
                             <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
-                              <ModalImage
-                                small={message.file}
-                                large={message.file}
-                                alt="image"
-                              />
+                              <ImageModal file={message.file} images={images} position={1}/>
                             </figure>
                             :
                             <figure className="avatar img-chat">
-                              <ModalImage
-                                small={message.file}
-                                large={message.file}
-                                alt="image"
-                              />
+                              <ImageModal file={message.file} images={images} position={1}/>
                             </figure>
                           }
                           <div className="word-break">{message.message}</div>
