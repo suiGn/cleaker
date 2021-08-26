@@ -57,7 +57,6 @@ function Chat(props) {
   const [lastIsImage, setlastIsImage] = useState(false);
 
   const [images, setImages] = useState([]);
-  
 
   let dayN = 0;
 
@@ -174,7 +173,7 @@ function Chat(props) {
         var imagesL = messages.filter((messages) => {
           return messages.is_image
         })
-        setImages(imagesL)
+        setImages(imagesL.reverse())
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
@@ -397,6 +396,15 @@ function Chat(props) {
 
   const MessagesView = (props) => {
     const { message, group, key } = props;
+    var position
+    if(message.is_image){
+      for(var i = 0; i < images.length; i++) {
+        if (images[i].file == message.file) {
+          position = i;
+            break;
+          }
+      }
+    }
     var dateM = new Date(message.time);
     const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
     if (year != 0) {
@@ -508,7 +516,7 @@ function Chat(props) {
                       : message.is_image ?
                       <div>
                           <figure className="avatar img-chat">
-                            <ImageModal file={message.file} images={images} position={1}/>
+                            <ImageModal file={message.file} images={images} position={position}/>
                           </figure>
                           <div className="word-break">{message.message}</div>
                         </div>
@@ -635,11 +643,11 @@ function Chat(props) {
                           }
                           {message.unread_messages == 2 ?
                             <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
-                              <ImageModal file={message.file} images={images} position={1}/>
+                              <ImageModal file={message.file} images={images} position={position}/>
                             </figure>
                             :
                             <figure className="avatar img-chat">
-                              <ImageModal file={message.file} images={images} position={1}/>
+                              <ImageModal file={message.file} images={images} position={position}/>
                             </figure>
                           }
                           <div className="word-break">{message.message}</div>
