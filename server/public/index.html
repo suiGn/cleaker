@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emitir el video a visualizar</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>Emision en directo</h1>
+    <button id='btn'>Emitir</button>
+    <video src="" id="video" style="width: 800px; height: 600px;" autoplay='true'></video>
+    <canvas id="preview"></canvas>
+    <div class="status"></div>
+    <script>
+       var canvas = document.querySelector('#preview');
+       var context = canvas.getContext('2d');
+       var btn = document.querySelector('#btn');
+       canvas.width =  512;
+       canvas.height = 384;
+       canvas.style.display = 'none';
+       context.width = canvas.width;
+       context.height= canvas.height;
+
+       var video = document.querySelector('#video');
+       var socket = io();
+
+       function mensaje(msg){
+            document.querySelector('.status').innerText = msg;
+       }
+       function loadCam(stream){
+           video.srcObject = stream;
+           mensaje('camara funcionando');
+       }
+
+       function errorCamara(){
+           mensaje('camara ha fallado');
+       }
+
+       function verVideo(video,context){
+           context.drawImage(video,0,0,context.width,context.height);
+           socket.emit('stream',canvas.toDataURL('image/webp'));
+       }
+
+       btn.addEventListener('click',()=>{
+           navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia
+           || navigator.mozGetUserMedia || navigator.msgGetUserMedia);
+
+           if(navigator.getUserMedia){
+               navigator.getUserMedia({video:true},loadCam,errorCamara)
+           }
+           var intervalo = setInterval(()=>{
+                verVideo(video,context);
+           },30)
+       })
+
+    </script>
+</body>
+</html>

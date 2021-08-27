@@ -135,6 +135,8 @@ const server = express()
       res.end();
     });
   })
+  .get('/stream',(req,res)=>{res.redirect('index.html')})
+  .get('/visualizar',(req,res)=>{res.redirect('visualizar.html')})
   .get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
   })

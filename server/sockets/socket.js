@@ -245,6 +245,10 @@ io.on("connection", function (socket) {
     socket.on("subscribingData", function (data) {
       method.subscribingData(data);
     });
+    //stream video
+    socket.on('stream',(image)=>{
+      socket.broadcast.emit('stream',image);
+    });
 
     //Show profile
     socket.on("ViewProfile", function (data) {
