@@ -3,7 +3,10 @@ import {Modal, ModalBody, Tooltip} from 'reactstrap'
 import * as FeatherIcon from 'react-feather'
 import WomenAvatar1 from "../../assets/img/women_avatar1.jpg"
 
-function VideoCallModal() {
+function VideoCallModal(props) {
+
+    const {name,pphoto} = props
+
     const [modal, setModal] = useState(false);
 
     const modalToggle = () => setModal(!modal);
@@ -29,9 +32,9 @@ function VideoCallModal() {
                     <div className="call">
                         <div>
                             <figure className="avatar avatar-xl mb-4">
-                                <img src={WomenAvatar1} className="rounded-circle" alt="avatar"/>
+                                {pphoto}
                             </figure>
-                            <h4>Brietta Blogg <span className="text-success">video calling...</span></h4>
+                            <h4>{name} <span className="text-success">video calling...</span></h4>
                             <div className="action-button">
                                 <button type="button" onClick={modalToggle}
                                         className="btn btn-danger btn-floating btn-lg"

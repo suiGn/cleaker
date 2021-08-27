@@ -3,7 +3,9 @@ import {Modal, ModalBody, Tooltip} from 'reactstrap'
 import * as FeatherIcon from 'react-feather'
 import ManAvatar5 from "../../assets/img/man_avatar5.jpg"
 
-function VoiceCallModal() {
+function VoiceCallModal(props) {
+
+    const {name,pphoto} = props
 
     const [modal, setModal] = useState(false);
 
@@ -30,9 +32,9 @@ function VoiceCallModal() {
                     <div className="call">
                         <div>
                             <figure className="avatar avatar-xl mb-4">
-                                <img src={ManAvatar5} className="rounded-circle" alt="avatar"/>
+                                {pphoto}
                             </figure>
-                            <h4>Brietta Blogg <span className="text-success">calling...</span></h4>
+                            <h4>{name} <span className="text-success">calling...</span></h4>
                             <div className="action-button">
                                 <button type="button" onClick={modalToggle}
                                         className="btn btn-danger btn-floating btn-lg"

@@ -9,6 +9,8 @@ import {
 import * as FeatherIcon from "react-feather";
 // import { searchChatAction } from "../../Store/Actions/searchChatAction";
 import { mobileSidebarAction } from "../../Store/Actions/mobileSidebarAction";
+import VideoCallModal from "../Modals/VideoCallModal"
+import VoiceCallModal from "../Modals/VoiceCallModal"
 
 function ChatHeader(props) {
   const dispatch = useDispatch();
@@ -188,12 +190,12 @@ function ChatHeader(props) {
               <FeatherIcon.Menu />
             </button>
           </li> */}
-          {/* <li className="list-inline-item">
-            <VoiceCallModal />
+          <li className="list-inline-item">
+            <VoiceCallModal name={name} pphoto={p} />
           </li>
           <li className="list-inline-item">
-            <VideoCallModal />
-          </li> */}
+            <VideoCallModal name={name} pphoto={p}/>
+          </li>
           <li
             className="list-inline-item"
             data-toggle="tooltip"
