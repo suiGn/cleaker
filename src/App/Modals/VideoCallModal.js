@@ -5,10 +5,9 @@ import WomenAvatar1 from "../../assets/img/women_avatar1.jpg"
 
 function VideoCallModal(props) {
 
-    const {name,pphoto} = props
+    const {name,pphoto,modal,setModal} = props
 
-    const [modal, setModal] = useState(false);
-
+    
     const modalToggle = () => setModal(!modal);
 
     const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -17,7 +16,7 @@ function VideoCallModal(props) {
 
     return (
         <div>
-            <button className="btn btn-outline-light text-warning" onClick={modalToggle} id="Tooltip-Video-Call">
+            {/* <button className="btn btn-outline-light text-warning" onClick={modalToggle} id="Tooltip-Video-Call">
                 <FeatherIcon.Video/>
             </button>
             <Tooltip
@@ -26,7 +25,7 @@ function VideoCallModal(props) {
                 target={"Tooltip-Video-Call"}
                 toggle={tooltipToggle}>
                 Video Call
-            </Tooltip>
+            </Tooltip> */}
             <Modal isOpen={modal} toggle={modalToggle} centered className="modal-dialog-zoom call">
                 <ModalBody>
                     <div className="call">

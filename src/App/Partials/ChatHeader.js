@@ -24,7 +24,9 @@ function ChatHeader(props) {
     setOpenGroupProfile,
     openProfile,
     openGroupProfile,
-    openUserProfile
+    openUserProfile,
+    chat_uid,
+    id
   } = props;
 
 
@@ -146,6 +148,10 @@ function ChatHeader(props) {
     //document.body.classList.add("navigation-open");
     props.setClicked([]);
   }
+  const handleVideo = (e) =>{
+    console.log('streaming');
+    socket.emit('startCall',{chat_uid,id});
+  }
 
   return (
     <div className="chat-header">
@@ -194,7 +200,10 @@ function ChatHeader(props) {
             <VoiceCallModal name={name} pphoto={p} />
           </li>
           <li className="list-inline-item">
-            <VideoCallModal name={name} pphoto={p}/>
+             {/* <VideoCallModal name={name} pphoto={p}/> */}
+             <button className="btn btn-outline-light text-success" onClick={handleVideo} id="Tooltip-Voice-Call">
+                <FeatherIcon.Video/>
+            </button>
           </li>
           <li
             className="list-inline-item"

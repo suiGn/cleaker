@@ -14,6 +14,7 @@ import { pageTourAction } from "../Store/Actions/pageTourAction";
 import DisconnectedModal from "./Modals/DisconnectedModal";
 import ChatNoMessage from "./Partials/ChatNoMessage";
 import Media from "./Sidebars/Media";
+import VideoCallModal from "./Modals/VideoCallModal";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
 
@@ -51,6 +52,11 @@ function Layout(props) {
   const [messageDetail, setMessageDetail] = useState(0); 
 
   const [filePreviewChange, setFilePreviewChange] = useState([]); 
+
+  //video call state
+  const [modal, setModal] = useState(false);
+  const [nameCall,setNameCall] =  useState(null);
+  const [photoCall,setPhotoCall] = useState(null);
   
 
   useEffect(() => {
@@ -67,7 +73,29 @@ function Layout(props) {
     props.socket.once("my_uid response", (data) => {
       setMy_Id({ id: data.user[0].u_id });
     });
+    props.socket.on("NotifyCall",NotifyCall);
+    return () => {
+      props.socket.off("NotifyCall", NotifyCall);
+      
+    };
   }, [my_uid]);
+  const NotifyCall=({chat_uid,name,pphoto})=>{
+    //console.log(name);
+    if (pphoto === "" || pphoto === null) {
+      
+      const chat_initial = name.substring(0, 1);
+      setPhotoCall(
+        <span className="avatar-title bg-info rounded-circle">
+          {chat_initial}
+        </span>
+      );
+    } else {
+      setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
+    }
+    setNameCall(name);
+    setModal(!modal);
+  };
+  
 
   const tourSteps = [
     {
@@ -292,6 +320,11 @@ function Layout(props) {
         my_uid={my_uid}
         />
         <TourModal />
+        <VideoCallModal 
+        setModal={setModal}
+        modal={modal}
+        name={nameCall}
+        pphoto={photoCall}/>
         <DisconnectedModal />
       </div>
     </div>
