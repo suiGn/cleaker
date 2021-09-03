@@ -14,7 +14,7 @@ import { pageTourAction } from "../Store/Actions/pageTourAction";
 import DisconnectedModal from "./Modals/DisconnectedModal";
 import ChatNoMessage from "./Partials/ChatNoMessage";
 import Media from "./Sidebars/Media";
-import VideoCallModal from "./Modals/VideoCallModal";
+import VideoCallUserModal from "./Modals/VideoCallUserModal";
 import VoiceCallModal from "./Modals/VoiceCallModal";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
@@ -313,7 +313,7 @@ function Layout(props) {
         pphoto={pCall}
         modalCall={modalCall}
         modalToggle={modalToggleCall}/>
-        <VideoCallModal name={nameCall} 
+        <VideoCallUserModal name={nameCall} 
         pphoto={pCall}
         modalVideo={modalVideo}
         modalToggle={modalToggleVideo}/>
