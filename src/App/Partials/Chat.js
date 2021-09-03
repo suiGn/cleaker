@@ -778,6 +778,10 @@ function Chat(props) {
         openSearchSidebar={openSearchSidebar}
         setOpenSearchSidebar={setOpenSearchSidebar}
         setClicked={props.setClicked}
+        setNameCall={props.setNameCall}
+        setPCall={props.setPCall}
+        modalToggleCall={props.modalToggleCall}
+        modalToggleVideo={props.modalToggleVideo}
       />
       <div className="loader-chat" hidden={loadHidden}></div>
       <PerfectScrollbar

@@ -14,6 +14,8 @@ import { pageTourAction } from "../Store/Actions/pageTourAction";
 import DisconnectedModal from "./Modals/DisconnectedModal";
 import ChatNoMessage from "./Partials/ChatNoMessage";
 import Media from "./Sidebars/Media";
+import VideoCallModal from "./Modals/VideoCallModal";
+import VoiceCallModal from "./Modals/VoiceCallModal";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
 
@@ -49,6 +51,16 @@ function Layout(props) {
   const [media, setMedia] = useState([]);
   const [mediaProfileType, setMediaProfileType] = useState(0);
   const [messageDetail, setMessageDetail] = useState(0); 
+
+  const [nameCall, setNameCall] = useState(""); 
+  const [pCall, setPCall] = useState("");
+  const [modalCall, setModalCall] = useState(false);
+  const [modalVideo, setModalVideo] = useState(false);
+
+  const modalToggleCall = () => setModalCall(!modalCall);
+
+  const modalToggleVideo = () => setModalVideo(!modalVideo);
+
 
   const [filePreviewChange, setFilePreviewChange] = useState([]); 
   
@@ -172,6 +184,10 @@ function Layout(props) {
           filePreviewChange = {filePreviewChange}
           setFilePreviewChange = {setFilePreviewChange}
           setChat={setChat}
+          setNameCall={setNameCall}
+          setPCall={setPCall}
+          modalToggleCall={modalToggleCall}
+          modalToggleVideo={modalToggleVideo}
         />
         <ChatNoMessage
           files={files}
@@ -293,6 +309,14 @@ function Layout(props) {
         />
         <TourModal />
         <DisconnectedModal />
+        <VoiceCallModal name={nameCall} 
+        pphoto={pCall}
+        modalCall={modalCall}
+        modalToggle={modalToggleCall}/>
+        <VideoCallModal name={nameCall} 
+        pphoto={pCall}
+        modalVideo={modalVideo}
+        modalToggle={modalToggleVideo}/>
       </div>
     </div>
   );

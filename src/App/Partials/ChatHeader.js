@@ -5,12 +5,12 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Tooltip
 } from "reactstrap";
 import * as FeatherIcon from "react-feather";
 // import { searchChatAction } from "../../Store/Actions/searchChatAction";
 import { mobileSidebarAction } from "../../Store/Actions/mobileSidebarAction";
 import VideoCallModal from "../Modals/VideoCallModal"
-import VoiceCallModal from "../Modals/VoiceCallModal"
 
 function ChatHeader(props) {
   const dispatch = useDispatch();
@@ -24,22 +24,31 @@ function ChatHeader(props) {
     setOpenGroupProfile,
     openProfile,
     openGroupProfile,
-    openUserProfile
+    openUserProfile,
+    setNameCall,
+    setPCall,
+    modalToggleCall,
+    modalToggleVideo
   } = props;
 
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [searchbarOpen, setSearchBarOpen] = useState(false);
   const [name, setName] = useState("");
   const [p, setP] = useState("");
 
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
+  const [tooltipOpenCall, setTooltipOpenCall] = useState(false);
+  const [tooltipOpenVideo , setTooltipOpenVideo ] = useState(false);
 
-  const mobileMenuBtn = () => document.body.classList.toggle("navigation-open");
+  const tooltipToggleCall = () => setTooltipOpenCall(!tooltipOpenCall);
+
+  const tooltipToggleVideo = () => setTooltipOpenVideo(!tooltipOpenVideo);
+
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   function RetrieveGroupName(data) {
     if (data.group.chat_uid == props.data.chat_uid) {
       setName(data.group.chat_name)
+      setNameCall(data.group.chat_name)
     }
   }
 
@@ -55,8 +64,14 @@ function ChatHeader(props) {
             {chat_initial}
           </span>
         );
+        setPCall(
+          <span className="avatar-title bg-info rounded-circle">
+            {chat_initial}
+          </span>
+        );
       } else {
         setP(<img src={data.group.groupphoto} className="rounded-circle" alt="image" />);
+        setPCall(<img src={data.group.groupphoto} className="rounded-circle" alt="image" />);
       }
     }
   }
@@ -72,6 +87,7 @@ function ChatHeader(props) {
 
   useEffect(() => {
     setName(props.data.name)
+    setNameCall(props.data.name)
     let chat_initial;
     let chat_name;
     if (props.data.pphoto === "" || props.data.pphoto === null) {
@@ -82,8 +98,14 @@ function ChatHeader(props) {
           {chat_initial}
         </span>
       );
+      setPCall(
+        <span className="avatar-title bg-info rounded-circle">
+          {chat_initial}
+        </span>
+      );
     } else {
       setP(<img src={props.data.pphoto} className="rounded-circle" alt="image" />);
+      setPCall(<img src={props.data.pphoto} className="rounded-circle" alt="image" />);
     }
   }, [props.data]);
 
@@ -191,10 +213,28 @@ function ChatHeader(props) {
             </button>
           </li> */}
           <li className="list-inline-item">
-            <VoiceCallModal name={name} pphoto={p} />
+            <button className="btn btn-outline-light text-success" onClick={modalToggleCall} id="Tooltip-Voice-Call">
+                <FeatherIcon.Phone/>
+            </button>
+            <Tooltip
+                placement="bottom"
+                isOpen={tooltipOpenCall}
+                target={"Tooltip-Voice-Call"}
+                toggle={tooltipToggleCall}>
+                Voice Call
+            </Tooltip>
           </li>
           <li className="list-inline-item">
-            <VideoCallModal name={name} pphoto={p}/>
+          <button className="btn btn-outline-light text-warning" onClick={modalToggleVideo} id="Tooltip-Video-Call">
+                <FeatherIcon.Video/>
+            </button>
+            <Tooltip
+                placement="bottom"
+                isOpen={tooltipOpenVideo}
+                target={"Tooltip-Video-Call"}
+                toggle={tooltipToggleVideo}>
+                Video Call
+            </Tooltip>
           </li>
           <li
             className="list-inline-item"
