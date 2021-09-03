@@ -965,6 +965,11 @@ io.on("connection", function (socket) {
           });
         })
     });
+
+    //video calls
+    socket.on('startCall',({chat_uid,id})=>{
+      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
+    })
   } catch {
     console.log("problema");
   }

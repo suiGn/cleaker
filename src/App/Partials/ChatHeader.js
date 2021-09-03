@@ -29,6 +29,9 @@ function ChatHeader(props) {
     setPCall,
     modalToggleCall,
     modalToggleVideo
+    openUserProfile,
+    chat_uid,
+    id
   } = props;
 
 
@@ -168,6 +171,10 @@ function ChatHeader(props) {
     //document.body.classList.add("navigation-open");
     props.setClicked([]);
   }
+  const handleVideo = (e) =>{
+    console.log('streaming');
+    socket.emit('startCall',{chat_uid,id});
+  }
 
   return (
     <div className="chat-header">
@@ -225,6 +232,10 @@ function ChatHeader(props) {
             </Tooltip>
           </li>
           <li className="list-inline-item">
+             {/* <VideoCallModal name={name} pphoto={p}/> */}
+             <button className="btn btn-outline-light text-success" onClick={handleVideo} id="Tooltip-Voice-Call">
+                <FeatherIcon.Video/>
+            </button>
           <button className="btn btn-outline-light text-warning" onClick={modalToggleVideo} id="Tooltip-Video-Call">
                 <FeatherIcon.Video/>
             </button>
