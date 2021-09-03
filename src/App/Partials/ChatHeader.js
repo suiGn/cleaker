@@ -28,8 +28,7 @@ function ChatHeader(props) {
     setNameCall,
     setPCall,
     modalToggleCall,
-    modalToggleVideo
-    openUserProfile,
+    modalToggleVideo,
     chat_uid,
     id
   } = props;

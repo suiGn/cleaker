@@ -53,7 +53,7 @@ function Layout(props) {
   const [mediaProfileType, setMediaProfileType] = useState(0);
   const [messageDetail, setMessageDetail] = useState(0); 
 
-  const [nameCall, setNameCall] = useState(""); 
+  const [nameCallU, setNameCallU] = useState(""); 
   const [pCall, setPCall] = useState("");
   const [modalCall, setModalCall] = useState(false);
   const [modalVideo, setModalVideo] = useState(false);
@@ -212,7 +212,7 @@ function Layout(props) {
           filePreviewChange = {filePreviewChange}
           setFilePreviewChange = {setFilePreviewChange}
           setChat={setChat}
-          setNameCall={setNameCall}
+          setNameCall={setNameCallU}
           setPCall={setPCall}
           modalToggleCall={modalToggleCall}
           modalToggleVideo={modalToggleVideo}
@@ -342,11 +342,11 @@ function Layout(props) {
         name={nameCall}
         pphoto={photoCall}/>
         <DisconnectedModal />
-        <VoiceCallModal name={nameCall} 
+        <VoiceCallModal name={nameCallU} 
         pphoto={pCall}
         modalCall={modalCall}
         modalToggle={modalToggleCall}/>
-        <VideoCallUserModal name={nameCall} 
+        <VideoCallUserModal name={nameCallU} 
         pphoto={pCall}
         modalVideo={modalVideo}
         modalToggle={modalToggleVideo}/>
