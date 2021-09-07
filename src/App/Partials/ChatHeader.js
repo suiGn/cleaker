@@ -171,7 +171,7 @@ function ChatHeader(props) {
     props.setClicked([]);
   }
   const handleVideo = (e) =>{
-    console.log('streaming');
+    modalToggleVideo();
     socket.emit('startCall',{chat_uid,id});
   }
 
@@ -231,12 +231,8 @@ function ChatHeader(props) {
             </Tooltip>
           </li>
           <li className="list-inline-item">
-             {/* <VideoCallModal name={name} pphoto={p}/> */}
-             <button className="btn btn-outline-light text-success" onClick={handleVideo} id="Tooltip-Voice-Call">
-                <FeatherIcon.Video/>
-            </button>
-          <button className="btn btn-outline-light text-warning" onClick={modalToggleVideo} id="Tooltip-Video-Call">
-                <FeatherIcon.Video/>
+            <button className="btn btn-outline-light text-success" onClick={handleVideo} id="Tooltip-Video-Call">
+              <FeatherIcon.Video/>
             </button>
             <Tooltip
                 placement="bottom"
