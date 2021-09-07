@@ -8,6 +8,9 @@ function VideoCallModal(props) {
 
     
     const modalToggle = () => setModal(!modal);
+    const handleReject = ()=>{
+        modalToggle();
+    }
 
     return (
         <div>
@@ -20,7 +23,7 @@ function VideoCallModal(props) {
                             </figure>
                             <h4>{name} <span className="text-success">video calling...</span></h4>
                             <div className="action-button">
-                                <button type="button" onClick={modalToggle}
+                                <button type="button" onClick={handleReject}
                                         className="btn btn-danger btn-floating btn-lg"
                                         data-dismiss="modal">
                                     <FeatherIcon.X/>

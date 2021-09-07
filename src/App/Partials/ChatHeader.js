@@ -30,7 +30,8 @@ function ChatHeader(props) {
     modalToggleCall,
     modalToggleVideo,
     chat_uid,
-    id
+    id,
+    setIdUserCall
   } = props;
 
 
@@ -172,6 +173,7 @@ function ChatHeader(props) {
   }
   const handleVideo = (e) =>{
     modalToggleVideo();
+    setIdUserCall(id);
     socket.emit('startCall',{chat_uid,id});
   }
 

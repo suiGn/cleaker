@@ -968,11 +968,15 @@ io.on("connection", function (socket) {
 
     //video calls
     socket.on('startCall',({chat_uid,id})=>{
-      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
-    })
+      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:id}));
+    });
+    socket.on('rejectVideoCall',({idUserCall})=>{
+      console.log(idUserCall);
+      io.to(idUserCall).emit('rejectVideoCallModal');
+    });
     socket.on('startVoiceCall',({chat_uid,id})=>{
       io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
-    })
+    });
   } catch {
     console.log("problema");
   }

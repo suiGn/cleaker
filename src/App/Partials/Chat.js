@@ -79,7 +79,7 @@ function Chat(props) {
     socket, clicked, scrollEl, setScrollEl, setOpenSearchSidebar, openSearchSidebar,
     messageRespond, setMessageRespond, viewChatAnswerPreview, setViewChatAnswerPreview,
     isResponse, setisResponse, openMessageDetail, setOpenMessageDetail, setMessageDetail,
-    filePreviewChange, setFilePreviewChange
+    filePreviewChange, setFilePreviewChange, setIdUserCall
   } = props;
 
   useEffect(() => {
@@ -782,6 +782,7 @@ function Chat(props) {
         setPCall={props.setPCall}
         modalToggleCall={props.modalToggleCall}
         modalToggleVideo={props.modalToggleVideo}
+        setIdUserCall={setIdUserCall}
       />
       <div className="loader-chat" hidden={loadHidden}></div>
       <PerfectScrollbar

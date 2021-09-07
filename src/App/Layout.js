@@ -71,6 +71,7 @@ function Layout(props) {
   const [nameCall,setNameCall] =  useState(null);
   const [photoCall,setPhotoCall] = useState(null);
   const [modalVoice, setModalVoice] = useState(false);
+  const [idUserCall, setIdUserCall] =  useState(null);
   
 
   useEffect(() => {
@@ -89,13 +90,16 @@ function Layout(props) {
     });
     props.socket.on("NotifyCall",NotifyCall);
     props.socket.on("NotifyVoiceCall",NotifyVoiceCall);
+    props.socket.on("rejectVideoCallModal",rejectVoiceCall);
     return () => {
       props.socket.off("NotifyCall", NotifyCall);
       props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
+      props.socket.off("rejectVideoCallModal",rejectVoiceCall);
     };
   }, [my_uid]);
 
-  const NotifyCall=({chat_uid,name,pphoto})=>{
+  const NotifyCall=({chat_uid,name,pphoto,idUserCall})=>{
+    //console.log(idUserCall);
     if (pphoto === "" || pphoto === null) {
       const chat_initial = name.substring(0, 1);
       setPhotoCall(
@@ -107,8 +111,13 @@ function Layout(props) {
       setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
     }
     setNameCall(name);
+    //setIdUserCall(idUserCall)
     setModal(!modal);
   };
+  const rejectVoiceCall = () =>{
+    console.log('reject');
+    setModal(modal);
+  }
   
   const NotifyVoiceCall=({name,pphoto})=>{
     if (pphoto === "" || pphoto === null) {
@@ -232,6 +241,7 @@ function Layout(props) {
           setPCall={setPCall}
           modalToggleCall={modalToggleCall}
           modalToggleVideo={modalToggleVideo}
+          setIdUserCall={setIdUserCall}
         />
         <ChatNoMessage
           files={files}
@@ -370,7 +380,9 @@ function Layout(props) {
         <VideoCallUserModal name={nameCallU} 
         pphoto={pCall}
         modalVideo={modalVideo}
-        modalToggle={modalToggleVideo}/>
+        modalToggle={modalToggleVideo}
+        socket={socket}
+        idUserCall={idUserCall}/>
       </div>
     </div>
   );
