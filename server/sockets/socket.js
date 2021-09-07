@@ -970,6 +970,9 @@ io.on("connection", function (socket) {
     socket.on('startCall',({chat_uid,id})=>{
       io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
     })
+    socket.on('startVoiceCall',({chat_uid,id})=>{
+      io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
+    })
   } catch {
     console.log("problema");
   }

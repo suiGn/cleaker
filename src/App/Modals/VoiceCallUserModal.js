@@ -1,15 +1,14 @@
 import React, {useState} from 'react'
-import {Modal, ModalBody} from 'reactstrap'
+import {Modal, ModalBody, Tooltip} from 'reactstrap'
 import * as FeatherIcon from 'react-feather'
+import ManAvatar5 from "../../assets/img/man_avatar5.jpg"
 
 function VoiceCallModal(props) {
 
-    const {name,pphoto,modal,setModal} = props
-
-    const modalToggle = () => setModal(!modal);
+    const {name,pphoto,modalCall,modalToggle} = props
 
     return (
-        <Modal isOpen={modal} toggle={modalToggle} centered className="modal-dialog-zoom">
+        <Modal isOpen={modalCall} toggle={modalToggle} centered className="modal-dialog-zoom">
             <ModalBody>
                 <div className="call">
                     <div>

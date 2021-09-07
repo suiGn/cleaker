@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import {Modal, ModalBody, Tooltip} from 'reactstrap'
+import {Modal, ModalBody} from 'reactstrap'
 import * as FeatherIcon from 'react-feather'
-import WomenAvatar1 from "../../assets/img/women_avatar1.jpg"
 
 function VideoCallModal(props) {
 
@@ -10,22 +9,8 @@ function VideoCallModal(props) {
     
     const modalToggle = () => setModal(!modal);
 
-    const [tooltipOpen, setTooltipOpen] = useState(false);
-
-    const tooltipToggle = () => setTooltipOpen(!tooltipOpen);
-
     return (
         <div>
-            {/* <button className="btn btn-outline-light text-warning" onClick={modalToggle} id="Tooltip-Video-Call">
-                <FeatherIcon.Video/>
-            </button>
-            <Tooltip
-                placement="bottom"
-                isOpen={tooltipOpen}
-                target={"Tooltip-Video-Call"}
-                toggle={tooltipToggle}>
-                Video Call
-            </Tooltip> */}
             <Modal isOpen={modal} toggle={modalToggle} centered className="modal-dialog-zoom call">
                 <ModalBody>
                     <div className="call">

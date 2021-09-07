@@ -15,6 +15,7 @@ import DisconnectedModal from "./Modals/DisconnectedModal";
 import ChatNoMessage from "./Partials/ChatNoMessage";
 import Media from "./Sidebars/Media";
 import VideoCallUserModal from "./Modals/VideoCallUserModal";
+import VoiceCallUserModal from "./Modals/VoiceCallUserModal";
 import VoiceCallModal from "./Modals/VoiceCallModal";
 import VideoCallModal from "./Modals/VideoCallModal";
 // import socketIOClient from "socket.io-client";
@@ -69,6 +70,7 @@ function Layout(props) {
   const [modal, setModal] = useState(false);
   const [nameCall,setNameCall] =  useState(null);
   const [photoCall,setPhotoCall] = useState(null);
+  const [modalVoice, setModalVoice] = useState(false);
   
 
   useEffect(() => {
@@ -86,15 +88,15 @@ function Layout(props) {
       setMy_Id({ id: data.user[0].u_id });
     });
     props.socket.on("NotifyCall",NotifyCall);
+    props.socket.on("NotifyVoiceCall",NotifyVoiceCall);
     return () => {
       props.socket.off("NotifyCall", NotifyCall);
-      
+      props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
     };
   }, [my_uid]);
+
   const NotifyCall=({chat_uid,name,pphoto})=>{
-    //console.log(name);
     if (pphoto === "" || pphoto === null) {
-      
       const chat_initial = name.substring(0, 1);
       setPhotoCall(
         <span className="avatar-title bg-info rounded-circle">
@@ -108,6 +110,20 @@ function Layout(props) {
     setModal(!modal);
   };
   
+  const NotifyVoiceCall=({name,pphoto})=>{
+    if (pphoto === "" || pphoto === null) {
+      const chat_initial = name.substring(0, 1);
+      setPhotoCall(
+        <span className="avatar-title bg-info rounded-circle">
+          {chat_initial}
+        </span>
+      );
+    } else {
+      setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
+    }
+    setNameCall(name);
+    setModalVoice(!modal);
+  };
 
   const tourSteps = [
     {
@@ -341,8 +357,13 @@ function Layout(props) {
         modal={modal}
         name={nameCall}
         pphoto={photoCall}/>
+        <VoiceCallModal 
+        setModal={setModalVoice}
+        modal={modalVoice}
+        name={nameCall}
+        pphoto={photoCall}/>
         <DisconnectedModal />
-        <VoiceCallModal name={nameCallU} 
+        <VoiceCallUserModal name={nameCallU} 
         pphoto={pCall}
         modalCall={modalCall}
         modalToggle={modalToggleCall}/>

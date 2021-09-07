@@ -175,6 +175,11 @@ function ChatHeader(props) {
     socket.emit('startCall',{chat_uid,id});
   }
 
+  const handleCall = (e) =>{
+    modalToggleCall();
+    socket.emit('startVoiceCall',{chat_uid,id});
+  }
+
   return (
     <div className="chat-header">
       <button onClick={CloseChat} className="hide-x-icon col-2">
@@ -219,7 +224,7 @@ function ChatHeader(props) {
             </button>
           </li> */}
           <li className="list-inline-item">
-            <button className="btn btn-outline-light text-success" onClick={modalToggleCall} id="Tooltip-Voice-Call">
+            <button className="btn btn-outline-light text-success" onClick={handleCall} id="Tooltip-Voice-Call">
                 <FeatherIcon.Phone/>
             </button>
             <Tooltip
