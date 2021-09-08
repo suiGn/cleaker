@@ -72,6 +72,7 @@ function Layout(props) {
   const [photoCall,setPhotoCall] = useState(null);
   const [modalVoice, setModalVoice] = useState(false);
   const [idUserCall, setIdUserCall] =  useState(null);
+  const [idCall, setIdCall] =  useState(null);
   
 
   useEffect(() => {
@@ -91,10 +92,12 @@ function Layout(props) {
     props.socket.on("NotifyCall",NotifyCall);
     props.socket.on("NotifyVoiceCall",NotifyVoiceCall);
     props.socket.on("rejectVideoCallModal",rejectVoiceCall);
+    props.socket.on('rejectCallModal',rejectCallModal);
     return () => {
       props.socket.off("NotifyCall", NotifyCall);
       props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
       props.socket.off("rejectVideoCallModal",rejectVoiceCall);
+      props.socket.off('rejectCallModal',rejectCallModal);
     };
   }, [my_uid]);
 
@@ -111,9 +114,13 @@ function Layout(props) {
       setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
     }
     setNameCall(name);
-    //setIdUserCall(idUserCall)
+    setIdCall(idUserCall);
     setModal(!modal);
   };
+  const rejectCallModal = () =>{
+    console.log('cano');
+    setModalVideo(!modalVideo)
+  }
   const rejectVoiceCall = () =>{
     console.log('reject');
     setModal(modal);
@@ -366,7 +373,9 @@ function Layout(props) {
         setModal={setModal}
         modal={modal}
         name={nameCall}
-        pphoto={photoCall}/>
+        pphoto={photoCall}
+        idCall={idCall}
+        socket={socket}/>
         <VoiceCallModal 
         setModal={setModalVoice}
         modal={modalVoice}

@@ -4,12 +4,14 @@ import * as FeatherIcon from 'react-feather'
 
 function VideoCallModal(props) {
 
-    const {name,pphoto,modal,setModal} = props
+    const {name,pphoto,modal,setModal,idCall,socket} = props
 
     
     const modalToggle = () => setModal(!modal);
     const handleReject = ()=>{
         modalToggle();
+        console.log(idCall);
+        socket.emit('rejectCall',{idCall});
     }
 
     return (

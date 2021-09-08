@@ -968,7 +968,7 @@ io.on("connection", function (socket) {
 
     //video calls
     socket.on('startCall',({chat_uid,id})=>{
-      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:id}));
+      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id}));
     });
     socket.on('rejectVideoCall',({idUserCall})=>{
       console.log(idUserCall);
@@ -976,6 +976,10 @@ io.on("connection", function (socket) {
     });
     socket.on('startVoiceCall',({chat_uid,id})=>{
       io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
+    });
+    socket.on('rejectCall',({idCall})=>{
+      console.log(idCall);
+      io.to(idCall).emit('rejectCallModal');
     });
   } catch {
     console.log("problema");
