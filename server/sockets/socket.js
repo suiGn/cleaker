@@ -245,6 +245,10 @@ io.on("connection", function (socket) {
     socket.on("subscribingData", function (data) {
       method.subscribingData(data);
     });
+    //stream video
+    socket.on('stream',(image)=>{
+      socket.broadcast.emit('stream',image);
+    });
 
     //Show profile
     socket.on("ViewProfile", function (data) {
@@ -960,6 +964,22 @@ io.on("connection", function (socket) {
             data: result
           });
         })
+    });
+
+    //video calls
+    socket.on('startCall',({chat_uid,id})=>{
+      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id}));
+    });
+    socket.on('rejectVideoCall',({idUserCall})=>{
+      console.log(idUserCall);
+      io.to(idUserCall).emit('rejectVideoCallModal');
+    });
+    socket.on('startVoiceCall',({chat_uid,id})=>{
+      io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
+    });
+    socket.on('rejectCall',({idCall})=>{
+      console.log(idCall);
+      io.to(idCall).emit('rejectCallModal');
     });
   } catch {
     console.log("problema");

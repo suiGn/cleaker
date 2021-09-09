@@ -14,6 +14,10 @@ import { pageTourAction } from "../Store/Actions/pageTourAction";
 import DisconnectedModal from "./Modals/DisconnectedModal";
 import ChatNoMessage from "./Partials/ChatNoMessage";
 import Media from "./Sidebars/Media";
+import VideoCallUserModal from "./Modals/VideoCallUserModal";
+import VoiceCallUserModal from "./Modals/VoiceCallUserModal";
+import VoiceCallModal from "./Modals/VoiceCallModal";
+import VideoCallModal from "./Modals/VideoCallModal";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
 
@@ -50,7 +54,25 @@ function Layout(props) {
   const [mediaProfileType, setMediaProfileType] = useState(0);
   const [messageDetail, setMessageDetail] = useState(0); 
 
+  const [nameCallU, setNameCallU] = useState(""); 
+  const [pCall, setPCall] = useState("");
+  const [modalCall, setModalCall] = useState(false);
+  const [modalVideo, setModalVideo] = useState(false);
+
+  const modalToggleCall = () => setModalCall(!modalCall);
+
+  const modalToggleVideo = () => setModalVideo(!modalVideo);
+
+
   const [filePreviewChange, setFilePreviewChange] = useState([]); 
+
+  //video call state
+  const [modal, setModal] = useState(false);
+  const [nameCall,setNameCall] =  useState(null);
+  const [photoCall,setPhotoCall] = useState(null);
+  const [modalVoice, setModalVoice] = useState(false);
+  const [idUserCall, setIdUserCall] =  useState(null);
+  const [idCall, setIdCall] =  useState(null);
   
 
   useEffect(() => {
@@ -67,7 +89,57 @@ function Layout(props) {
     props.socket.once("my_uid response", (data) => {
       setMy_Id({ id: data.user[0].u_id });
     });
+    props.socket.on("NotifyCall",NotifyCall);
+    props.socket.on("NotifyVoiceCall",NotifyVoiceCall);
+    props.socket.on("rejectVideoCallModal",rejectVoiceCall);
+    props.socket.on('rejectCallModal',rejectCallModal);
+    return () => {
+      props.socket.off("NotifyCall", NotifyCall);
+      props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
+      props.socket.off("rejectVideoCallModal",rejectVoiceCall);
+      props.socket.off('rejectCallModal',rejectCallModal);
+    };
   }, [my_uid]);
+
+  const NotifyCall=({chat_uid,name,pphoto,idUserCall})=>{
+    //console.log(idUserCall);
+    if (pphoto === "" || pphoto === null) {
+      const chat_initial = name.substring(0, 1);
+      setPhotoCall(
+        <span className="avatar-title bg-info rounded-circle">
+          {chat_initial}
+        </span>
+      );
+    } else {
+      setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
+    }
+    setNameCall(name);
+    setIdCall(idUserCall);
+    setModal(!modal);
+  };
+  const rejectCallModal = () =>{
+    console.log('cano');
+    setModalVideo(!modalVideo)
+  }
+  const rejectVoiceCall = () =>{
+    console.log('reject');
+    setModal(modal);
+  }
+  
+  const NotifyVoiceCall=({name,pphoto})=>{
+    if (pphoto === "" || pphoto === null) {
+      const chat_initial = name.substring(0, 1);
+      setPhotoCall(
+        <span className="avatar-title bg-info rounded-circle">
+          {chat_initial}
+        </span>
+      );
+    } else {
+      setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
+    }
+    setNameCall(name);
+    setModalVoice(!modal);
+  };
 
   const tourSteps = [
     {
@@ -172,6 +244,11 @@ function Layout(props) {
           filePreviewChange = {filePreviewChange}
           setFilePreviewChange = {setFilePreviewChange}
           setChat={setChat}
+          setNameCall={setNameCallU}
+          setPCall={setPCall}
+          modalToggleCall={modalToggleCall}
+          modalToggleVideo={modalToggleVideo}
+          setIdUserCall={setIdUserCall}
         />
         <ChatNoMessage
           files={files}
@@ -292,7 +369,29 @@ function Layout(props) {
         my_uid={my_uid}
         />
         <TourModal />
+        <VideoCallModal 
+        setModal={setModal}
+        modal={modal}
+        name={nameCall}
+        pphoto={photoCall}
+        idCall={idCall}
+        socket={socket}/>
+        <VoiceCallModal 
+        setModal={setModalVoice}
+        modal={modalVoice}
+        name={nameCall}
+        pphoto={photoCall}/>
         <DisconnectedModal />
+        <VoiceCallUserModal name={nameCallU} 
+        pphoto={pCall}
+        modalCall={modalCall}
+        modalToggle={modalToggleCall}/>
+        <VideoCallUserModal name={nameCallU} 
+        pphoto={pCall}
+        modalVideo={modalVideo}
+        modalToggle={modalToggleVideo}
+        socket={socket}
+        idUserCall={idUserCall}/>
       </div>
     </div>
   );

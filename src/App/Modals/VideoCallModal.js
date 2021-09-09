@@ -1,39 +1,31 @@
 import React, {useEffect, useState} from 'react'
-import {Modal, ModalBody, Tooltip} from 'reactstrap'
+import {Modal, ModalBody} from 'reactstrap'
 import * as FeatherIcon from 'react-feather'
-import WomenAvatar1 from "../../assets/img/women_avatar1.jpg"
 
-function VideoCallModal() {
-    const [modal, setModal] = useState(false);
+function VideoCallModal(props) {
 
+    const {name,pphoto,modal,setModal,idCall,socket} = props
+
+    
     const modalToggle = () => setModal(!modal);
-
-    const [tooltipOpen, setTooltipOpen] = useState(false);
-
-    const tooltipToggle = () => setTooltipOpen(!tooltipOpen);
+    const handleReject = ()=>{
+        modalToggle();
+        console.log(idCall);
+        socket.emit('rejectCall',{idCall});
+    }
 
     return (
         <div>
-            <button className="btn btn-outline-light text-warning" onClick={modalToggle} id="Tooltip-Video-Call">
-                <FeatherIcon.Video/>
-            </button>
-            <Tooltip
-                placement="bottom"
-                isOpen={tooltipOpen}
-                target={"Tooltip-Video-Call"}
-                toggle={tooltipToggle}>
-                Video Call
-            </Tooltip>
             <Modal isOpen={modal} toggle={modalToggle} centered className="modal-dialog-zoom call">
                 <ModalBody>
                     <div className="call">
                         <div>
                             <figure className="avatar avatar-xl mb-4">
-                                <img src={WomenAvatar1} className="rounded-circle" alt="avatar"/>
+                                {pphoto}
                             </figure>
-                            <h4>Brietta Blogg <span className="text-success">video calling...</span></h4>
+                            <h4>{name} <span className="text-success">video calling...</span></h4>
                             <div className="action-button">
-                                <button type="button" onClick={modalToggle}
+                                <button type="button" onClick={handleReject}
                                         className="btn btn-danger btn-floating btn-lg"
                                         data-dismiss="modal">
                                     <FeatherIcon.X/>

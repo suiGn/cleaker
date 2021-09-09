@@ -17,6 +17,7 @@ import * as FeatherIcon from "react-feather";
 import ModalImage from "react-modal-image";
 import VideoThumbnail from 'react-video-thumbnail';
 import DeleteMessageModal from "../Modals/DeleteMessageModal";
+import ImageModal from "../Modals/ImageModal";
 
 function Chat(props) {
   const [inputMsg, setInputMsg] = useState("");
@@ -54,7 +55,8 @@ function Chat(props) {
   const [loadHidden, setLoadHidden] = useState(true);
 
   const [lastIsImage, setlastIsImage] = useState(false);
-  
+
+  const [images, setImages] = useState([]);
 
   let dayN = 0;
 
@@ -77,7 +79,7 @@ function Chat(props) {
     socket, clicked, scrollEl, setScrollEl, setOpenSearchSidebar, openSearchSidebar,
     messageRespond, setMessageRespond, viewChatAnswerPreview, setViewChatAnswerPreview,
     isResponse, setisResponse, openMessageDetail, setOpenMessageDetail, setMessageDetail,
-    filePreviewChange, setFilePreviewChange
+    filePreviewChange, setFilePreviewChange, setIdUserCall
   } = props;
 
   useEffect(() => {
@@ -168,6 +170,10 @@ function Chat(props) {
           messages.push.apply(messages, dummyArray);
         }
         setChatMessages(messages);
+        var imagesL = messages.filter((messages) => {
+          return messages.is_image
+        })
+        setImages(imagesL.reverse())
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
@@ -389,8 +395,16 @@ function Chat(props) {
   }
 
   const MessagesView = (props) => {
-    const { message } = props;
-    const { group } = props;
+    const { message, group, key } = props;
+    var position
+    if(message.is_image){
+      for(var i = 0; i < images.length; i++) {
+        if (images[i].file == message.file) {
+          position = i;
+            break;
+          }
+      }
+    }
     var dateM = new Date(message.time);
     const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
     if (year != 0) {
@@ -502,11 +516,7 @@ function Chat(props) {
                       : message.is_image ?
                       <div>
                           <figure className="avatar img-chat">
-                            <ModalImage
-                              small={message.file}
-                              large={message.file}
-                              alt="image"
-                            />
+                            <ImageModal file={message.file} images={images} position={position}/>
                           </figure>
                           <div className="word-break">{message.message}</div>
                         </div>
@@ -633,19 +643,11 @@ function Chat(props) {
                           }
                           {message.unread_messages == 2 ?
                             <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
-                              <ModalImage
-                                small={message.file}
-                                large={message.file}
-                                alt="image"
-                              />
+                              <ImageModal file={message.file} images={images} position={position}/>
                             </figure>
                             :
                             <figure className="avatar img-chat">
-                              <ModalImage
-                                small={message.file}
-                                large={message.file}
-                                alt="image"
-                              />
+                              <ImageModal file={message.file} images={images} position={position}/>
                             </figure>
                           }
                           <div className="word-break">{message.message}</div>
@@ -776,6 +778,11 @@ function Chat(props) {
         openSearchSidebar={openSearchSidebar}
         setOpenSearchSidebar={setOpenSearchSidebar}
         setClicked={props.setClicked}
+        setNameCall={props.setNameCall}
+        setPCall={props.setPCall}
+        modalToggleCall={props.modalToggleCall}
+        modalToggleVideo={props.modalToggleVideo}
+        setIdUserCall={setIdUserCall}
       />
       <div className="loader-chat" hidden={loadHidden}></div>
       <PerfectScrollbar

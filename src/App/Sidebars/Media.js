@@ -4,9 +4,8 @@ import {
 } from "reactstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import classnames from "classnames";
-import ModalImage from "react-modal-image";
 import * as FeatherIcon from "react-feather";
-import VideoThumbnail from 'react-video-thumbnail';
+import ImageModal from "../Modals/ImageModal";
 
 function ProfileGroup(props) {
   const {
@@ -125,12 +124,7 @@ function ProfileGroup(props) {
                     <ul class="flex-container wrap">
                       {images.map((message, i) => (
                         <li class="flex-item">
-                          <ModalImage
-                            className="card-img-top"
-                            small={message.file}
-                            large={message.file}
-                            alt="image"
-                          />
+                          <ImageModal file={message.file} images={images} position={i}/>
                         </li>
                       ))
                       }
