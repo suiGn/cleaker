@@ -91,12 +91,14 @@ function Layout(props) {
     });
     props.socket.on("NotifyCall",NotifyCall);
     props.socket.on("NotifyVoiceCall",NotifyVoiceCall);
-    props.socket.on("rejectVideoCallModal",rejectVoiceCall);
+    props.socket.on("rejectVideoCallModal",rejectVideoCall);
+    props.socket.on("rejectVoiceCallModal",rejectVoiceCall);
     props.socket.on('rejectCallModal',rejectCallModal);
     return () => {
       props.socket.off("NotifyCall", NotifyCall);
       props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
-      props.socket.off("rejectVideoCallModal",rejectVoiceCall);
+      props.socket.off("rejectVideoCallModal",rejectVideoCall);
+      props.socket.on("rejectVoiceCallModal",rejectVoiceCall);
       props.socket.off('rejectCallModal',rejectCallModal);
     };
   }, [my_uid]);
@@ -117,15 +119,17 @@ function Layout(props) {
     setIdCall(idUserCall);
     setModal(!modal);
   };
+
   const rejectCallModal = () =>{
-    console.log('cano');
     setModalVideo(!modalVideo)
   }
-  const rejectVoiceCall = () =>{
-    console.log('reject');
+  const rejectVideoCall = () =>{
     setModal(modal);
   }
-  
+
+  const rejectVoiceCall = ()=>{
+    setModalVoice(modalVoice)
+  }
   const NotifyVoiceCall=({name,pphoto})=>{
     if (pphoto === "" || pphoto === null) {
       const chat_initial = name.substring(0, 1);
@@ -385,7 +389,9 @@ function Layout(props) {
         <VoiceCallUserModal name={nameCallU} 
         pphoto={pCall}
         modalCall={modalCall}
-        modalToggle={modalToggleCall}/>
+        modalToggle={modalToggleCall}
+        socket={socket}
+        idUserCall={idUserCall}/>
         <VideoCallUserModal name={nameCallU} 
         pphoto={pCall}
         modalVideo={modalVideo}

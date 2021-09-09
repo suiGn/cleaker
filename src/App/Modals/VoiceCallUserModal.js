@@ -1,12 +1,16 @@
 import React, {useState} from 'react'
-import {Modal, ModalBody, Tooltip} from 'reactstrap'
+import {Modal, ModalBody} from 'reactstrap'
 import * as FeatherIcon from 'react-feather'
 import ManAvatar5 from "../../assets/img/man_avatar5.jpg"
 
 function VoiceCallModal(props) {
 
-    const {name,pphoto,modalCall,modalToggle} = props
-
+    const {name,pphoto,modalCall,modalToggle,socket,idUserCall} = props
+    
+    const handleReject =()=>{
+        modalToggle();
+        socket.emit('rejectVoiceCall',{idUserCall});
+    }
     return (
         <Modal isOpen={modalCall} toggle={modalToggle} centered className="modal-dialog-zoom">
             <ModalBody>
@@ -17,14 +21,10 @@ function VoiceCallModal(props) {
                         </figure>
                         <h4>{name} <span className="text-success">calling...</span></h4>
                         <div className="action-button">
-                            <button type="button" onClick={modalToggle}
+                            <button type="button" onClick={handleReject}
                                     className="btn btn-danger btn-floating btn-lg"
                                     data-dismiss="modal">
                                 <FeatherIcon.X/>
-                            </button>
-                            <button type="button" onClick={modalToggle}
-                                    className="btn btn-success btn-pulse btn-floating btn-lg">
-                                <FeatherIcon.Phone/>
                             </button>
                         </div>
                     </div>

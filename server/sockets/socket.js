@@ -977,6 +977,10 @@ io.on("connection", function (socket) {
     socket.on('startVoiceCall',({chat_uid,id})=>{
       io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
     });
+    socket.on('rejectVoiceCall',({idUserCall})=>{
+      console.log(idUserCall);
+      io.to(idUserCall).emit('rejectVoiceCallModal');
+    });
     socket.on('rejectCall',({idCall})=>{
       console.log(idCall);
       io.to(idCall).emit('rejectCallModal');
