@@ -384,7 +384,9 @@ function Layout(props) {
         setModal={setModalVoice}
         modal={modalVoice}
         name={nameCall}
-        pphoto={photoCall}/>
+        pphoto={photoCall}
+        socket={socket}
+        idUserCall={idUserCall}/>
         <DisconnectedModal />
         <VoiceCallUserModal name={nameCallU} 
         pphoto={pCall}
