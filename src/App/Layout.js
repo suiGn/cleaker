@@ -94,17 +94,18 @@ function Layout(props) {
     props.socket.on("rejectVideoCallModal",rejectVideoCall);
     props.socket.on("rejectVoiceCallModal",rejectVoiceCall);
     props.socket.on('rejectCallModal',rejectCallModal);
+    props.socket.on('rejectCallModalVoice',rejectVoiceModal);
     return () => {
       props.socket.off("NotifyCall", NotifyCall);
       props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
       props.socket.off("rejectVideoCallModal",rejectVideoCall);
       props.socket.off("rejectVoiceCallModal",rejectVoiceCall);
       props.socket.off('rejectCallModal',rejectCallModal);
+      props.socket.off('rejectCallModalVoice',rejectVoiceModal);
     };
   }, [my_uid]);
 
   const NotifyCall=({chat_uid,name,pphoto,idUserCall})=>{
-    //console.log(idUserCall);
     if (pphoto === "" || pphoto === null) {
       const chat_initial = name.substring(0, 1);
       setPhotoCall(
@@ -132,7 +133,7 @@ function Layout(props) {
   }
 
   const rejectVoiceModal = ()=>{
-    modalToggleCall()
+    setModalCall(false)
   }
   
   const NotifyVoiceCall=({name,pphoto,idUserCall})=>{
@@ -148,7 +149,6 @@ function Layout(props) {
     }
     setNameCall(name);
     setIdCall(idUserCall);
-    console.log(modalVoice)
     setModalVoice(!modalVoice);
   };
 

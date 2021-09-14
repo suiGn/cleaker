@@ -10,7 +10,7 @@ function VoiceCallModal(props) {
 
     const handleReject = ()=>{
         modalToggle();
-        socket.emit('rejectVoiceCall',{idCall});
+        socket.emit('rejectCallVoice',{idCall});
     }
 
     const handleCall = ()=>{

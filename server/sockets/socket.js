@@ -971,21 +971,22 @@ io.on("connection", function (socket) {
       io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id}));
     });
     socket.on('rejectVideoCall',({idUserCall})=>{
-      console.log(idUserCall);
       io.to(idUserCall).emit('rejectVideoCallModal');
     });
     socket.on('startVoiceCall',({chat_uid,id})=>{
       io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id}));
     });
     socket.on('rejectVoiceCall',({idUserCall})=>{
-      console.log(idUserCall);
       io.to(idUserCall).emit('rejectVoiceCallModal');
     });
     socket.on('rejectCall',({idCall})=>{
-      console.log(idCall);
       io.to(idCall).emit('rejectCallModal');
     });
     socket.on('aceptVoiceCall',({idCall})=>{
+      io.to(idCall).emit('rejectCallModalVoice');
+    });
+    socket.on('rejectCallVoice',({idCall})=>{
+      io.to(idCall).emit('rejectCallModalVoice');
     });
   } catch {
     console.log("problema");
