@@ -3,7 +3,7 @@ import {Modal, ModalBody} from 'reactstrap'
 import * as FeatherIcon from 'react-feather'
 import ManAvatar5 from "../../assets/img/man_avatar5.jpg"
 
-function VoiceCallModal(props) {
+function VoiceCallUserModal(props) {
 
     const {name,pphoto,modalCall,modalToggle,socket,idUserCall} = props
     
@@ -34,4 +34,4 @@ function VoiceCallModal(props) {
     )
 }
 
-export default VoiceCallModal
+export default VoiceCallUserModal

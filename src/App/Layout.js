@@ -98,7 +98,7 @@ function Layout(props) {
       props.socket.off("NotifyCall", NotifyCall);
       props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
       props.socket.off("rejectVideoCallModal",rejectVideoCall);
-      props.socket.on("rejectVoiceCallModal",rejectVoiceCall);
+      props.socket.off("rejectVoiceCallModal",rejectVoiceCall);
       props.socket.off('rejectCallModal',rejectCallModal);
     };
   }, [my_uid]);
@@ -128,9 +128,14 @@ function Layout(props) {
   }
 
   const rejectVoiceCall = ()=>{
-    setModalVoice(modalVoice)
+    setModalVoice(false);
   }
-  const NotifyVoiceCall=({name,pphoto})=>{
+
+  const rejectVoiceModal = ()=>{
+    modalToggleCall()
+  }
+  
+  const NotifyVoiceCall=({name,pphoto,idUserCall})=>{
     if (pphoto === "" || pphoto === null) {
       const chat_initial = name.substring(0, 1);
       setPhotoCall(
@@ -142,7 +147,9 @@ function Layout(props) {
       setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
     }
     setNameCall(name);
-    setModalVoice(!modal);
+    setIdCall(idUserCall);
+    console.log(modalVoice)
+    setModalVoice(!modalVoice);
   };
 
   const tourSteps = [
@@ -386,7 +393,7 @@ function Layout(props) {
         name={nameCall}
         pphoto={photoCall}
         socket={socket}
-        idUserCall={idUserCall}/>
+        idCall={idCall}/>
         <DisconnectedModal />
         <VoiceCallUserModal name={nameCallU} 
         pphoto={pCall}
