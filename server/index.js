@@ -168,6 +168,8 @@ const server = express()
   //Passport
   .get("/lock-screen", routes.lockScreen)
   .post("/edProf", isLoggedIn, routes.editProfile)
+  //video call
+  .post("/startvideocall",isLoggedIn,routes.call)
   .post("/uploadpPhoto", (req, res) => {
     //Multer
     const storage = multer.diskStorage({
