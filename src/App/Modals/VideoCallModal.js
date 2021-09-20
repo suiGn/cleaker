@@ -24,6 +24,7 @@ function VideoCallModal(props) {
         // if(res.status == 200){
         //     window.location = "/call/"+res.data.roomid;
         // }
+        socket.emit('aceptedVideoCall',{idCall,roomid});
         window.location = "/call/"+roomid;
         //return render;
     }

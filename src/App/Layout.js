@@ -96,6 +96,7 @@ function Layout(props) {
     props.socket.on("rejectVoiceCallModal",rejectVoiceCall);
     props.socket.on('rejectCallModal',rejectCallModal);
     props.socket.on('rejectCallModalVoice',rejectVoiceModal);
+    props.socket.on('aceptedVideoCallRedirect',aceptedVideoCall);
     return () => {
       props.socket.off("NotifyCall", NotifyCall);
       props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
@@ -103,6 +104,7 @@ function Layout(props) {
       props.socket.off("rejectVoiceCallModal",rejectVoiceCall);
       props.socket.off('rejectCallModal',rejectCallModal);
       props.socket.off('rejectCallModalVoice',rejectVoiceModal);
+      props.socket.off('aceptedVideoCallRedirect',aceptedVideoCall);
     };
   }, [my_uid]);
 
@@ -152,6 +154,10 @@ function Layout(props) {
     setNameCall(name);
     setIdCall(idUserCall);
     setModalVoice(!modalVoice);
+  };
+
+  const aceptedVideoCall = ({roomid})=>{
+    window.location = "/call/"+roomid;
   };
 
   const tourSteps = [
