@@ -6,7 +6,7 @@ import axios from "axios";
 
 function VideoCallModal(props) {
 
-    const {name,pphoto,modal,setModal,idCall,socket} = props
+    const {name,pphoto,modal,setModal,idCall,socket,roomid} = props
 
     
     const modalToggle = () => setModal(!modal);
@@ -16,14 +16,15 @@ function VideoCallModal(props) {
         socket.emit('rejectCall',{idCall});
     }
     const handleAcceptCall = async() => {
-        const body = {
-            idCall
-        }
-        const res = await axios.post('/startvideocall',body);
-        let render = null
-        if(res.status == 200){
-            window.location = "/call/"+res.data.roomid;
-        }
+        // const body = {
+        //     idCall
+        // } 
+        // const res = await axios.post('/startvideocall',body);
+        // let render = null
+        // if(res.status == 200){
+        //     window.location = "/call/"+res.data.roomid;
+        // }
+        window.location = "/call/"+roomid;
         //return render;
     }
 

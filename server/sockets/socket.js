@@ -968,7 +968,12 @@ io.on("connection", function (socket) {
 
     //video calls
     socket.on('startCall',({chat_uid,id})=>{
-      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id}));
+      const roomid = uuid.v4();
+      orgboatDB.query(`INSERT INTO room (create_time,update_time,room_id,room_name) 
+      VALUES (${Date.now()},${Date.now()},'${roomid}','default')`);
+      orgboatDB.query(`INSERT INTO room_users (room_id,u_id) VALUES('${roomid}','${id}')`);
+      orgboatDB.query(`INSERT INTO room_users (room_id,u_id) VALUES('${roomid}','${user.u_id}')`);
+      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id,roomid}));
     });
     socket.on('rejectVideoCall',({idUserCall})=>{
       io.to(idUserCall).emit('rejectVideoCallModal');

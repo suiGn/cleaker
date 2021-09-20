@@ -73,6 +73,7 @@ function Layout(props) {
   const [modalVoice, setModalVoice] = useState(false);
   const [idUserCall, setIdUserCall] =  useState(null);
   const [idCall, setIdCall] =  useState(null);
+  const [roomid,setRoomid] =  useState(null);
   
 
   useEffect(() => {
@@ -105,7 +106,7 @@ function Layout(props) {
     };
   }, [my_uid]);
 
-  const NotifyCall=({chat_uid,name,pphoto,idUserCall})=>{
+  const NotifyCall=({chat_uid,name,pphoto,idUserCall,roomid})=>{
     if (pphoto === "" || pphoto === null) {
       const chat_initial = name.substring(0, 1);
       setPhotoCall(
@@ -117,6 +118,7 @@ function Layout(props) {
       setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
     }
     setNameCall(name);
+    setRoomid(roomid);
     setIdCall(idUserCall);
     setModal(!modal);
   };
@@ -386,7 +388,8 @@ function Layout(props) {
         name={nameCall}
         pphoto={photoCall}
         idCall={idCall}
-        socket={socket}/>
+        socket={socket}
+        roomid={roomid}/>
         <VoiceCallModal 
         setModal={setModalVoice}
         modal={modalVoice}
