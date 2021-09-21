@@ -189,7 +189,7 @@ function App() {
           path="/notverify-email"
           render={(props) => <NotValidateEmail />}
         />
-        <Route path="/call/:roomid" >{loggedIn ? ( <VideoChat setLoaded={setLoaded}/>): (
+        <Route path="/call/:roomid" >{loggedIn ? ( <VideoChat setLoaded={setLoaded} socket={socket}/>): (
             <SignIn setLoaded={setLoaded} isBadLogin={""} />
           )}</Route>
         <Route path="/verify-email" component={ValidateEmail} />

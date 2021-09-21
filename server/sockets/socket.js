@@ -997,6 +997,15 @@ io.on("connection", function (socket) {
     socket.on('rejectCallVoice',({idCall})=>{
       io.to(idCall).emit('rejectCallModalVoice');
     });
+    socket.on("validateRoom",({roomid})=>{
+      orgboatDB.query(`SELECT room_id FROM room_users WHERE room_id='${roomid}' and u_id='${user.u_id}'`,(err, rows)=>{
+          //console.log(rows);
+          let status = false;
+          if(rows)
+            status= true
+          io.to(user.u_id).emit('validate',{status});
+      });
+    });
   } catch {
     console.log("problema");
   }
