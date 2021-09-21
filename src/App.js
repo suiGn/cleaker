@@ -189,13 +189,15 @@ function App() {
           path="/notverify-email"
           render={(props) => <NotValidateEmail />}
         />
+        <Route path="/call/:roomid" >{loggedIn ? ( <VideoChat setLoaded={setLoaded}/>): (
+            <SignIn setLoaded={setLoaded} isBadLogin={""} />
+          )}</Route>
         <Route path="/verify-email" component={ValidateEmail} />
         <Route path="/sign-up" component={SignUp} />
         <Route path="/lock-screen" component={LockScreen} />
         <Route path="/reset-password" component={ResetPassword} />
         <Route path="/pwdRst" component={NewPassword} />
         <Route path="/phone-code" component={PhoneCode} />
-        <Route path="/call/:roomid" component={VideoChat}/>
         <Route render={() => <h2>404 not found</h2>} />
         
       </Switch>
