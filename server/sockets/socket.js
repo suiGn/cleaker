@@ -988,7 +988,8 @@ io.on("connection", function (socket) {
       io.to(idCall).emit('rejectCallModal');
     });
     socket.on('aceptVoiceCall',({idCall})=>{
-      io.to(idCall).emit('rejectCallModalVoice');
+      io.to(idCall).emit('aceptedVoiceCallRedirect');
+      io.to(user.u_id).emit('aceptedVoiceCallRedirectUser');
     });
     socket.on('aceptedVideoCall',({idCall,roomid})=>{
       io.to(idCall).emit('aceptedVideoCallRedirect',{roomid});

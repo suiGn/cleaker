@@ -18,6 +18,7 @@ import VideoCallUserModal from "./Modals/VideoCallUserModal";
 import VoiceCallUserModal from "./Modals/VoiceCallUserModal";
 import VoiceCallModal from "./Modals/VoiceCallModal";
 import VideoCallModal from "./Modals/VideoCallModal";
+import CallView from "./Partials/CallView";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
 
@@ -44,6 +45,7 @@ function Layout(props) {
   const [videoPreview, setVideoPreview] = useState([]);
   const [files, setFile] = useState([]);
   const [viewPreview, setViewPreview] = useState(false);
+  const [viewCall, setViewCall] = useState(false);
   const [imageOrFile, setImageOrFile] = useState(0);
   const [limitChat, setLimitChat] = useState(20);
   const [chat_uid, setChat_uid] = useState("");
@@ -97,6 +99,8 @@ function Layout(props) {
     props.socket.on('rejectCallModal',rejectCallModal);
     props.socket.on('rejectCallModalVoice',rejectVoiceModal);
     props.socket.on('aceptedVideoCallRedirect',aceptedVideoCall);
+    props.socket.on('aceptedVoiceCallRedirect',aceptedVoiceCall);
+    props.socket.on('aceptedVoiceCallRedirectUser',aceptedVoiceCallUser);
     return () => {
       props.socket.off("NotifyCall", NotifyCall);
       props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
@@ -105,6 +109,8 @@ function Layout(props) {
       props.socket.off('rejectCallModal',rejectCallModal);
       props.socket.off('rejectCallModalVoice',rejectVoiceModal);
       props.socket.off('aceptedVideoCallRedirect',aceptedVideoCall);
+      props.socket.off('aceptedVoiceCallRedirect',aceptedVoiceCall);
+      props.socket.off('aceptedVoiceCallRedirectUser',aceptedVoiceCallUser);
     };
   }, [my_uid]);
 
@@ -159,6 +165,15 @@ function Layout(props) {
   const aceptedVideoCall = ({roomid})=>{
     window.location = "/call/"+roomid;
   };
+
+  function aceptedVoiceCallUser(){
+    setViewCall(true)
+  }
+
+  function aceptedVoiceCall(){
+    setViewCall(true)
+    setModalCall(false)
+  }
 
   const tourSteps = [
     {
@@ -395,14 +410,16 @@ function Layout(props) {
         pphoto={photoCall}
         idCall={idCall}
         socket={socket}
-        roomid={roomid}/>
+        roomid={roomid}
+        setViewCall={setViewCall}/>
         <VoiceCallModal 
         setModal={setModalVoice}
         modal={modalVoice}
         name={nameCall}
         pphoto={photoCall}
         socket={socket}
-        idCall={idCall}/>
+        idCall={idCall}
+        setViewCall={setViewCall}/>
         <DisconnectedModal />
         <VoiceCallUserModal name={nameCallU} 
         pphoto={pCall}
@@ -416,6 +433,10 @@ function Layout(props) {
         modalToggle={modalToggleVideo}
         socket={socket}
         idUserCall={idUserCall}/>
+        <CallView
+        viewCall={viewCall}
+        setViewCall={setViewCall}
+        />
       </div>
     </div>
   );
