@@ -245,10 +245,7 @@ io.on("connection", function (socket) {
     socket.on("subscribingData", function (data) {
       method.subscribingData(data);
     });
-    //stream video
-    socket.on('stream',(image)=>{
-      socket.broadcast.emit('stream',image);
-    });
+    
 
     //Show profile
     socket.on("ViewProfile", function (data) {
@@ -1010,6 +1007,13 @@ io.on("connection", function (socket) {
             status= true
           io.to(user.u_id).emit('validate',{status});
       });
+    });
+    //stream video
+    socket.on('stream',({roomid,stream})=>{
+      orgboatDB.query(`SELECT u_id FROM room_users WHERE room_id='${roomid}' and u_id!='${user.u_id}'`,(err, rows)=>{
+        io.to(rows[0].u_id).emit('stream',{stream});
+      });
+      //socket.broadcast.emit('stream',image);
     });
   } catch {
     console.log("problema");
