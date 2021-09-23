@@ -146,7 +146,7 @@ function Layout(props) {
     setModalCall(false)
   }
   
-  const NotifyVoiceCall=({name,pphoto,idUserCall})=>{
+  const NotifyVoiceCall=({name,pphoto,idUserCall,roomid})=>{
     if (pphoto === "" || pphoto === null) {
       const chat_initial = name.substring(0, 1);
       setPhotoCall(
@@ -159,6 +159,7 @@ function Layout(props) {
     }
     setNameCall(name);
     setIdCall(idUserCall);
+    setRoomid(roomid);
     setModalVoice(!modalVoice);
   };
 
@@ -166,13 +167,13 @@ function Layout(props) {
     window.location = "/call/"+roomid;
   };
 
-  function aceptedVoiceCallUser(){
-    setViewCall(true)
+  function aceptedVoiceCallUser(roomid){
+    /*window.location = "/call/"+roomid;*/
   }
 
   function aceptedVoiceCall(){
-    setViewCall(true)
-    setModalCall(false)
+    /*setViewCall(true)
+    setModalCall(false)*/
   }
 
   const tourSteps = [
@@ -419,6 +420,7 @@ function Layout(props) {
         pphoto={photoCall}
         socket={socket}
         idCall={idCall}
+        roomid={roomid}
         setViewCall={setViewCall}/>
         <DisconnectedModal />
         <VoiceCallUserModal name={nameCallU} 

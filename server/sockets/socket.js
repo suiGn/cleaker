@@ -979,7 +979,12 @@ io.on("connection", function (socket) {
       io.to(idUserCall).emit('rejectVideoCallModal');
     });
     socket.on('startVoiceCall',({chat_uid,id})=>{
-      io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id}));
+      const roomid = uuid.v4();
+      orgboatDB.query(`INSERT INTO room (create_time,update_time,room_id,room_name) 
+      VALUES (${Date.now()},${Date.now()},'${roomid}','default')`);
+      orgboatDB.query(`INSERT INTO room_users (room_id,u_id) VALUES('${roomid}','${id}')`);
+      orgboatDB.query(`INSERT INTO room_users (room_id,u_id) VALUES('${roomid}','${user.u_id}')`);
+      io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id,roomid}));
     });
     socket.on('rejectVoiceCall',({idUserCall})=>{
       io.to(idUserCall).emit('rejectVoiceCallModal');
@@ -987,9 +992,9 @@ io.on("connection", function (socket) {
     socket.on('rejectCall',({idCall})=>{
       io.to(idCall).emit('rejectCallModal');
     });
-    socket.on('aceptVoiceCall',({idCall})=>{
-      io.to(idCall).emit('aceptedVoiceCallRedirect');
-      io.to(user.u_id).emit('aceptedVoiceCallRedirectUser');
+    socket.on('aceptVoiceCall',({idCall,roomid})=>{
+      io.to(idCall).emit('aceptedVoiceCallRedirect',{roomid});
+      io.to(user.u_id).emit('aceptedVoiceCallRedirectUser',{roomid});
     });
     socket.on('aceptedVideoCall',({idCall,roomid})=>{
       io.to(idCall).emit('aceptedVideoCallRedirect',{roomid});
