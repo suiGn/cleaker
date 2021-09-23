@@ -18,6 +18,7 @@ import VideoCallUserModal from "./Modals/VideoCallUserModal";
 import VoiceCallUserModal from "./Modals/VoiceCallUserModal";
 import VoiceCallModal from "./Modals/VoiceCallModal";
 import VideoCallModal from "./Modals/VideoCallModal";
+import CallView from "./Partials/CallView";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
 
@@ -44,6 +45,7 @@ function Layout(props) {
   const [videoPreview, setVideoPreview] = useState([]);
   const [files, setFile] = useState([]);
   const [viewPreview, setViewPreview] = useState(false);
+  const [viewCall, setViewCall] = useState(false);
   const [imageOrFile, setImageOrFile] = useState(0);
   const [limitChat, setLimitChat] = useState(20);
   const [chat_uid, setChat_uid] = useState("");
@@ -73,6 +75,7 @@ function Layout(props) {
   const [modalVoice, setModalVoice] = useState(false);
   const [idUserCall, setIdUserCall] =  useState(null);
   const [idCall, setIdCall] =  useState(null);
+  const [roomid,setRoomid] =  useState(null);
   
 
   useEffect(() => {
@@ -91,18 +94,59 @@ function Layout(props) {
     });
     props.socket.on("NotifyCall",NotifyCall);
     props.socket.on("NotifyVoiceCall",NotifyVoiceCall);
-    props.socket.on("rejectVideoCallModal",rejectVoiceCall);
+    props.socket.on("rejectVideoCallModal",rejectVideoCall);
+    props.socket.on("rejectVoiceCallModal",rejectVoiceCall);
     props.socket.on('rejectCallModal',rejectCallModal);
+    props.socket.on('rejectCallModalVoice',rejectVoiceModal);
+    props.socket.on('aceptedVideoCallRedirect',aceptedVideoCall);
+    props.socket.on('aceptedVoiceCallRedirect',aceptedVoiceCall);
+    props.socket.on('aceptedVoiceCallRedirectUser',aceptedVoiceCallUser);
     return () => {
       props.socket.off("NotifyCall", NotifyCall);
       props.socket.off("NotifyVoiceCall", NotifyVoiceCall);
-      props.socket.off("rejectVideoCallModal",rejectVoiceCall);
+      props.socket.off("rejectVideoCallModal",rejectVideoCall);
+      props.socket.off("rejectVoiceCallModal",rejectVoiceCall);
       props.socket.off('rejectCallModal',rejectCallModal);
+      props.socket.off('rejectCallModalVoice',rejectVoiceModal);
+      props.socket.off('aceptedVideoCallRedirect',aceptedVideoCall);
+      props.socket.off('aceptedVoiceCallRedirect',aceptedVoiceCall);
+      props.socket.off('aceptedVoiceCallRedirectUser',aceptedVoiceCallUser);
     };
   }, [my_uid]);
 
-  const NotifyCall=({chat_uid,name,pphoto,idUserCall})=>{
-    //console.log(idUserCall);
+  const NotifyCall=({chat_uid,name,pphoto,idUserCall,roomid})=>{
+    if (pphoto === "" || pphoto === null) {
+      const chat_initial = name.substring(0, 1);
+      setPhotoCall(
+        <span className="avatar-title bg-info rounded-circle">
+          {chat_initial}
+        </span>
+      );
+    } else {
+      setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
+    }
+    setNameCall(name);
+    setRoomid(roomid);
+    setIdCall(idUserCall);
+    setModal(!modal);
+  };
+
+  const rejectCallModal = () =>{
+    setModalVideo(!modalVideo)
+  }
+  const rejectVideoCall = () =>{
+    setModal(modal);
+  }
+
+  const rejectVoiceCall = ()=>{
+    setModalVoice(false);
+  }
+
+  const rejectVoiceModal = ()=>{
+    setModalCall(false)
+  }
+  
+  const NotifyVoiceCall=({name,pphoto,idUserCall,roomid})=>{
     if (pphoto === "" || pphoto === null) {
       const chat_initial = name.substring(0, 1);
       setPhotoCall(
@@ -115,31 +159,22 @@ function Layout(props) {
     }
     setNameCall(name);
     setIdCall(idUserCall);
-    setModal(!modal);
+    setRoomid(roomid);
+    setModalVoice(!modalVoice);
   };
-  const rejectCallModal = () =>{
-    console.log('cano');
-    setModalVideo(!modalVideo)
-  }
-  const rejectVoiceCall = () =>{
-    console.log('reject');
-    setModal(modal);
-  }
-  
-  const NotifyVoiceCall=({name,pphoto})=>{
-    if (pphoto === "" || pphoto === null) {
-      const chat_initial = name.substring(0, 1);
-      setPhotoCall(
-        <span className="avatar-title bg-info rounded-circle">
-          {chat_initial}
-        </span>
-      );
-    } else {
-      setPhotoCall(<img src={pphoto} className="rounded-circle" alt="image" />);
-    }
-    setNameCall(name);
-    setModalVoice(!modal);
+
+  const aceptedVideoCall = ({roomid})=>{
+    window.location = "/call/"+roomid;
   };
+
+  function aceptedVoiceCallUser(roomid){
+    /*window.location = "/call/"+roomid;*/
+  }
+
+  function aceptedVoiceCall(){
+    /*setViewCall(true)
+    setModalCall(false)*/
+  }
 
   const tourSteps = [
     {
@@ -375,23 +410,35 @@ function Layout(props) {
         name={nameCall}
         pphoto={photoCall}
         idCall={idCall}
-        socket={socket}/>
+        socket={socket}
+        roomid={roomid}
+        setViewCall={setViewCall}/>
         <VoiceCallModal 
         setModal={setModalVoice}
         modal={modalVoice}
         name={nameCall}
-        pphoto={photoCall}/>
+        pphoto={photoCall}
+        socket={socket}
+        idCall={idCall}
+        roomid={roomid}
+        setViewCall={setViewCall}/>
         <DisconnectedModal />
         <VoiceCallUserModal name={nameCallU} 
         pphoto={pCall}
         modalCall={modalCall}
-        modalToggle={modalToggleCall}/>
+        modalToggle={modalToggleCall}
+        socket={socket}
+        idUserCall={idUserCall}/>
         <VideoCallUserModal name={nameCallU} 
         pphoto={pCall}
         modalVideo={modalVideo}
         modalToggle={modalToggleVideo}
         socket={socket}
         idUserCall={idUserCall}/>
+        <CallView
+        viewCall={viewCall}
+        setViewCall={setViewCall}
+        />
       </div>
     </div>
   );

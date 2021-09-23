@@ -585,3 +585,12 @@ exports.validateExistChat = async function (user_uid, contact_uid) {
     );
   });
 };
+
+//call
+exports.call = (req,res)=>{
+  //console.log(req.body);
+  const roomid =  uuid.v4();
+  //console.log(`/call/${roomid}`);
+  return res.status(200).json({roomid});
+  //return res.redirect("/");
+};

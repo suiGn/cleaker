@@ -4,9 +4,24 @@ import * as FeatherIcon from 'react-feather'
 
 function VoiceCallModal(props) {
 
-    const {name,pphoto,modal,setModal} = props
+    const {name,pphoto,modal,setModal,idCall,socket,roomid} = props
 
     const modalToggle = () => setModal(!modal);
+
+    const handleReject = ()=>{
+        modalToggle();
+        socket.emit('rejectCallVoice',{idCall});
+    }
+
+    /*const handleCall = ()=>{
+        modalToggle();
+        socket.emit('aceptVoiceCall',{idCall});
+    }*/
+
+    const handleAcceptCall = async() => {
+        socket.emit('aceptedVideoCall',{idCall,roomid});
+        window.location = "/call/"+roomid;
+    }
 
     return (
         <Modal isOpen={modal} toggle={modalToggle} centered className="modal-dialog-zoom">
@@ -18,12 +33,12 @@ function VoiceCallModal(props) {
                         </figure>
                         <h4>{name} <span className="text-success">calling...</span></h4>
                         <div className="action-button">
-                            <button type="button" onClick={modalToggle}
+                            <button type="button" onClick={handleReject}
                                     className="btn btn-danger btn-floating btn-lg"
                                     data-dismiss="modal">
                                 <FeatherIcon.X/>
                             </button>
-                            <button type="button" onClick={modalToggle}
+                            <button type="button" onClick={handleAcceptCall}
                                     className="btn btn-success btn-pulse btn-floating btn-lg">
                                 <FeatherIcon.Phone/>
                             </button>

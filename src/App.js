@@ -19,6 +19,8 @@ import PhoneCode from "./Pages/PhoneCode";
 import Layout from "./App/Layout";
 import io from "socket.io-client";
 import { LogIn } from "react-feather";
+import CallPage from "./Pages/CallPage";
+import VideoChat from "./App/VideoChat";
 const ENDPOINT = "http://localhost:5000/";
 const socket = io({
   transports: ["websocket"],
@@ -187,6 +189,9 @@ function App() {
           path="/notverify-email"
           render={(props) => <NotValidateEmail />}
         />
+        <Route path="/call/:roomid" >{loggedIn ? ( <VideoChat setLoaded={setLoaded} socket={socket}/>): (
+            <SignIn setLoaded={setLoaded} isBadLogin={""} />
+          )}</Route>
         <Route path="/verify-email" component={ValidateEmail} />
         <Route path="/sign-up" component={SignUp} />
         <Route path="/lock-screen" component={LockScreen} />
@@ -194,6 +199,7 @@ function App() {
         <Route path="/pwdRst" component={NewPassword} />
         <Route path="/phone-code" component={PhoneCode} />
         <Route render={() => <h2>404 not found</h2>} />
+        
       </Switch>
     </Router>
   );

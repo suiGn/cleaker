@@ -5,9 +5,9 @@ import * as FeatherIcon from 'react-feather'
 function VideoCallUserModal(props) {
 
     const {name,pphoto,modalVideo,modalToggle,socket,idUserCall} = props
+
     const handleReject =()=>{
         modalToggle();
-        console.log(idUserCall)
         socket.emit('rejectVideoCall',{idUserCall});
     }
 
@@ -26,10 +26,6 @@ function VideoCallUserModal(props) {
                                     data-dismiss="modal">
                                 <FeatherIcon.X/>
                             </button>
-                            {/* <button type="button" onClick={modalToggle}
-                                    className="btn btn-success btn-pulse btn-floating btn-lg">
-                                <FeatherIcon.Video/>
-                            </button> */}
                         </div>
                     </div>
                 </div>

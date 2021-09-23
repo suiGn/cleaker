@@ -179,6 +179,7 @@ function ChatHeader(props) {
 
   const handleCall = (e) =>{
     modalToggleCall();
+    setIdUserCall(id);
     socket.emit('startVoiceCall',{chat_uid,id});
   }
 

@@ -968,18 +968,48 @@ io.on("connection", function (socket) {
 
     //video calls
     socket.on('startCall',({chat_uid,id})=>{
-      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id}));
+      const roomid = uuid.v4();
+      orgboatDB.query(`INSERT INTO room (create_time,update_time,room_id,room_name) 
+      VALUES (${Date.now()},${Date.now()},'${roomid}','default')`);
+      orgboatDB.query(`INSERT INTO room_users (room_id,u_id) VALUES('${roomid}','${id}')`);
+      orgboatDB.query(`INSERT INTO room_users (room_id,u_id) VALUES('${roomid}','${user.u_id}')`);
+      io.to(id).emit('NotifyCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id,roomid}));
     });
     socket.on('rejectVideoCall',({idUserCall})=>{
-      console.log(idUserCall);
       io.to(idUserCall).emit('rejectVideoCallModal');
     });
     socket.on('startVoiceCall',({chat_uid,id})=>{
-      io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto}));
+      const roomid = uuid.v4();
+      orgboatDB.query(`INSERT INTO room (create_time,update_time,room_id,room_name) 
+      VALUES (${Date.now()},${Date.now()},'${roomid}','default')`);
+      orgboatDB.query(`INSERT INTO room_users (room_id,u_id) VALUES('${roomid}','${id}')`);
+      orgboatDB.query(`INSERT INTO room_users (room_id,u_id) VALUES('${roomid}','${user.u_id}')`);
+      io.to(id).emit('NotifyVoiceCall',({chat_uid,name:user.name,pphoto:user.pphoto,idUserCall:user.u_id,roomid}));
+    });
+    socket.on('rejectVoiceCall',({idUserCall})=>{
+      io.to(idUserCall).emit('rejectVoiceCallModal');
     });
     socket.on('rejectCall',({idCall})=>{
-      console.log(idCall);
       io.to(idCall).emit('rejectCallModal');
+    });
+    socket.on('aceptVoiceCall',({idCall,roomid})=>{
+      io.to(idCall).emit('aceptedVoiceCallRedirect',{roomid});
+      io.to(user.u_id).emit('aceptedVoiceCallRedirectUser',{roomid});
+    });
+    socket.on('aceptedVideoCall',({idCall,roomid})=>{
+      io.to(idCall).emit('aceptedVideoCallRedirect',{roomid});
+    });
+    socket.on('rejectCallVoice',({idCall})=>{
+      io.to(idCall).emit('rejectCallModalVoice');
+    });
+    socket.on("validateRoom",({roomid})=>{
+      orgboatDB.query(`SELECT room_id FROM room_users WHERE room_id='${roomid}' and u_id='${user.u_id}'`,(err, rows)=>{
+          //console.log(rows);
+          let status = false;
+          if(rows)
+            status= true
+          io.to(user.u_id).emit('validate',{status});
+      });
     });
   } catch {
     console.log("problema");
