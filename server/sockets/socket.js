@@ -1015,6 +1015,28 @@ io.on("connection", function (socket) {
       });
       //socket.broadcast.emit('stream',image);
     });
+    socket.on('GetRoomInfo',(roomName)=>{
+      orgboatDB.query( `select  usrname, name, room_users.u_id, room_users.room_id, pphoto from room_users  
+      inner join usrs on room_users.u_id COLLATE utf8mb4_unicode_ci   = usrs.u_id
+      inner join room on room_users.room_id   = room.room_id
+      where room_users.room_id ='${roomName.room_id}'`,
+      (err, rows) => {
+        io.to(user.u_id).emit("retrive GetRoomInfo", {
+          info: rows
+        });
+      })
+    });
+    socket.on('EndCall',(roomName)=>{
+      orgboatDB.query( `select  room_users.u_id as u_id from room_users  
+      inner join usrs on room_users.u_id COLLATE utf8mb4_unicode_ci   = usrs.u_id
+      inner join room on room_users.room_id   = room.room_id
+      where room_users.room_id ='${roomName.room_id}'`,
+      (err, rows) => {
+        rows.forEach((usersCall) => {
+          io.to(usersCall.u_id).emit("retrive EndCall");
+        })
+      })
+    });
   } catch {
     console.log("problema");
   }
