@@ -235,7 +235,7 @@ function ProfileGroup(props) {
     socket.once("retrive RemoveGroupMember", function (data) {
       setOpenGroupProfile(!openGroupProfile);
       socket.emit("get chats");
-      props.setClicked([]);
+      //props.setClicked([]);
     });
   }
 

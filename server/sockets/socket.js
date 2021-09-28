@@ -923,8 +923,8 @@ io.on("connection", function (socket) {
     })
     socket.on("RemoveGroupMember", (data) => {
       orgboatDB.query(
-        `delete from chats_users 
-        where chat_uid = '${data.chat_uid}' 
+        `UPDATE chats_users SET group_exit=1 WHERE
+        chat_uid = '${data.chat_uid}' 
         and u_id = "${data.u_id}";
         `,
         (err, rows) => {
