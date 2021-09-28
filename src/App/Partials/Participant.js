@@ -7,13 +7,23 @@ export default function Participant({roomid,socket}) {
     //const [permision,setPermission] = useState(false);
     const videoRef = useRef(null);
     const audioRef = useRef(null);
-    const imgRef = useRef(null);
+    const canvasRef = useRef(null);
+    const imageRef =  useRef(null);
     useEffect(() => {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');
+        canvas.width =  512;
+        canvas.height = 384;
+        canvas.style.display = 'none';
+        context.width = canvas.width;
+        context.height= canvas.height;
         const getUserMediaVideo = async (status) => {
           try {
             const stream = await navigator.mediaDevices.getUserMedia({video: status,audio: true});
             videoRef.current.srcObject = stream;
-            socket.emit('stream',{roomid,stream});
+            var intervalo = setInterval(()=>{
+                verVideo(stream,context,canvas);
+           },30)
           } catch (err) {
             console.log(err);
           }
@@ -36,9 +46,14 @@ export default function Participant({roomid,socket}) {
             socket.off('stream',playVideo);
         }
     }, []);
+    const verVideo =(stream,context,canvas) =>{
+        context.fillStyle = '#000000'
+        context.fillRect(stream,0, 0, context.canvas.width, context.canvas.height)
+        socket.emit('stream',{roomid,stream:canvas.toDataURL('image/webp')});
+    }
     const playVideo = ({stream}) =>{
         console.log('test video stream');
-        imgRef.current.src = new MediaStream(stream);
+        imageRef.current.src = stream;
     };
     const checkPermissionsVideo = () =>{
         setVideoTracks(!videoTracks);
@@ -51,8 +66,8 @@ export default function Participant({roomid,socket}) {
             <h3>{roomid}</h3>
             <video ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} autoPlay={true} muted={true} />
-            <video ref={imgRef} autoPlay={true}/>
-            {/* <img ref={reciveRef}/> */}
+            <canvas ref={canvasRef}/>
+            <img ref={imageRef}/>
             <button className="btn btn-outline-light text-success" onClick={checkPermissionsVideo}>
                 <FeatherIcon.Video/>
             </button> 
