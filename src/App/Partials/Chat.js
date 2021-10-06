@@ -858,6 +858,7 @@ function Chat(props) {
         ogTitle={ogTitle}
         twitterDescription={twitterDescription}
         ogImage={ogImage}
+        group_exit={props.clicked.group_exit}
       />
       <DeleteMessageModal
         deleteButton={deleteButton}

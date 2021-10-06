@@ -43,7 +43,7 @@ io.on("connection", function (socket) {
 			select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
         m.u_id as last_message_user_uid, m.message as last_message_message, m.time as last_message_time,chats_users.archiveChat
         ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
-        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage
+        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage, chats_users.group_exit
 			
 			from chats_users  
 
@@ -245,10 +245,7 @@ io.on("connection", function (socket) {
     socket.on("subscribingData", function (data) {
       method.subscribingData(data);
     });
-    //stream video
-    socket.on('stream',(image)=>{
-      socket.broadcast.emit('stream',image);
-    });
+    
 
     //Show profile
     socket.on("ViewProfile", function (data) {
@@ -926,8 +923,8 @@ io.on("connection", function (socket) {
     })
     socket.on("RemoveGroupMember", (data) => {
       orgboatDB.query(
-        `delete from chats_users 
-        where chat_uid = '${data.chat_uid}' 
+        `UPDATE chats_users SET group_exit=1 WHERE
+        chat_uid = '${data.chat_uid}' 
         and u_id = "${data.u_id}";
         `,
         (err, rows) => {
@@ -1010,6 +1007,35 @@ io.on("connection", function (socket) {
             status= true
           io.to(user.u_id).emit('validate',{status});
       });
+    });
+    //stream video
+    socket.on('stream',({roomid,stream})=>{
+      orgboatDB.query(`SELECT u_id FROM room_users WHERE room_id='${roomid}' and u_id!='${user.u_id}'`,(err, rows)=>{
+        io.to(rows[0].u_id).emit('stream',{stream});
+      });
+      //socket.broadcast.emit('stream',image);
+    });
+    socket.on('GetRoomInfo',(roomName)=>{
+      orgboatDB.query( `select  usrname, name, room_users.u_id, room_users.room_id, pphoto from room_users  
+      inner join usrs on room_users.u_id COLLATE utf8mb4_unicode_ci   = usrs.u_id
+      inner join room on room_users.room_id   = room.room_id
+      where room_users.room_id ='${roomName.room_id}'`,
+      (err, rows) => {
+        io.to(user.u_id).emit("retrive GetRoomInfo", {
+          info: rows
+        });
+      })
+    });
+    socket.on('EndCall',(roomName)=>{
+      orgboatDB.query( `select  room_users.u_id as u_id from room_users  
+      inner join usrs on room_users.u_id COLLATE utf8mb4_unicode_ci   = usrs.u_id
+      inner join room on room_users.room_id   = room.room_id
+      where room_users.room_id ='${roomName.room_id}'`,
+      (err, rows) => {
+        rows.forEach((usersCall) => {
+          io.to(usersCall.u_id).emit("retrive EndCall");
+        })
+      })
     });
   } catch {
     console.log("problema");

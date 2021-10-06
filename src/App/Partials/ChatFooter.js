@@ -189,64 +189,68 @@ function ChatFooter(props) {
   return (
     <div className="chat-footer">
       {/*<FilePreview inputPreview={inputPreview} imgPreview={props.imgPreview} file={props.file}/>*/}
-      <form onSubmit={handleSubmit}>
-        <div className="position-relative" style={{ display:  "flex"}} >
-          <div
-            onClick={EmojiMenuOpen}
-            color="light"
-            className="mr-3 no-border-button"
-            title="Emoji"
-          >
-            <FeatherIcon.Smile />
+      {props.group_exit?
+        <div  style={{ textAlign:  "center"}} >No puedes escribir en este chat por que ya no estas en el grupo</div>
+        :
+        <form onSubmit={handleSubmit}>
+          <div className="position-relative" style={{ display:  "flex"}} >
+            <div
+              onClick={EmojiMenuOpen}
+              color="light"
+              className="mr-3 no-border-button"
+              title="Emoji"
+            >
+              <FeatherIcon.Smile />
+            </div>
+            <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle tag="span" data-toggle="dropdown" aria-expanded={dropdownOpen}>
+                  <div className="no-border-button" color="light">
+                    <FeatherIcon.Paperclip />
+                  </div>
+                  <input type="file" hidden ref={inputFile}  id="customFileI" name="customFileI" onChange={(e) =>onChangeFile(e)}
+                  accept=".pdf" multiple/>
+                  <input type="file" hidden ref={inputImage}  id="customFileF" name="customFileF" onChange={(e) =>onChangePhoto(e)}
+                  accept=".png,.gif,.jpg" multiple/>
+                  <input type="file" hidden ref={inputVideo}  id="customFileV" name="customFileV" onChange={(e) =>onChangeVideo(e)}
+                  accept=".mp4,.webm" multiple/>
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem onClick={() => onButtonClickImage()}><FeatherIcon.Image/> Image</DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={() => onButtonClickFile()}><FeatherIcon.File/> File</DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={() => onButtonClickVideo()}><FeatherIcon.Video/> Video</DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+            <span
+              className={"emoji-picker " + (emojiMenuOpen ? "show" : "hidden ")}
+            >
+              <Picker
+                onSelect={AddEmoji}
+                theme={props.darkSwitcherTooltipOpen ? "light" : "dark"}
+                showPreview={false}
+                showSkinTones={false}
+                set="apple"
+              />
+            </span>
           </div>
-          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-              <DropdownToggle tag="span" data-toggle="dropdown" aria-expanded={dropdownOpen}>
-                <div className="no-border-button" color="light">
-                  <FeatherIcon.Paperclip />
-                </div>
-                <input type="file" hidden ref={inputFile}  id="customFileI" name="customFileI" onChange={(e) =>onChangeFile(e)}
-                accept=".pdf" multiple/>
-                <input type="file" hidden ref={inputImage}  id="customFileF" name="customFileF" onChange={(e) =>onChangePhoto(e)}
-                accept=".png,.gif,.jpg" multiple/>
-                <input type="file" hidden ref={inputVideo}  id="customFileV" name="customFileV" onChange={(e) =>onChangeVideo(e)}
-                accept=".mp4,.webm" multiple/>
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem onClick={() => onButtonClickImage()}><FeatherIcon.Image/> Image</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={() => onButtonClickFile()}><FeatherIcon.File/> File</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={() => onButtonClickVideo()}><FeatherIcon.Video/> Video</DropdownItem>
-              </DropdownMenu>
-          </Dropdown>
-          <span
-            className={"emoji-picker " + (emojiMenuOpen ? "show" : "hidden ")}
-          >
-            <Picker
-              onSelect={AddEmoji}
-              theme={props.darkSwitcherTooltipOpen ? "light" : "dark"}
-              showPreview={false}
-              showSkinTones={false}
-              set="apple"
-            />
-          </span>
-        </div>
-        <Input
-          type="text"
-          className="form-control"
-          placeholder="Write a message."
-          onChange={handleChange}
-          onKeyDown={onKeyDown}
-          ref={inputMessage}
-          id={"inputMessage"}
-          autocomplete="off"
-        />
-        <div className="form-buttons">
-          <Button type="submit" color="primary">
-            <FeatherIcon.Send />
-          </Button>
-        </div>
-      </form>
+          <Input
+            type="text"
+            className="form-control"
+            placeholder="Write a message."
+            onChange={handleChange}
+            onKeyDown={onKeyDown}
+            ref={inputMessage}
+            id={"inputMessage"}
+            autocomplete="off"
+          />
+          <div className="form-buttons">
+            <Button type="submit" color="primary">
+              <FeatherIcon.Send />
+            </Button>
+          </div>
+        </form>
+      }
     </div>
   );
 }
