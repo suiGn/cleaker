@@ -135,6 +135,7 @@ io.on("connection", function (socket) {
       ogTitle = msg.ogTitle?msg.ogTitle: "";
       ogDescription = msg.ogDescription?msg.ogDescription: "";
       ogImage = msg.ogImage?msg.ogImage: "";
+      isExitGroup = msg.isExitGroup ? msg.isExitGroup : 0;
       orgboatDB.query(
         `
 			select * from chats_users 
@@ -163,6 +164,7 @@ io.on("connection", function (socket) {
                 ogTitle: ogTitle,
                 ogDescription: ogDescription,
                 ogImage: ogImage,
+                isExitGroup: isExitGroup
               });
             }
           });
@@ -171,10 +173,10 @@ io.on("connection", function (socket) {
       timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
       orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,
         unread_messages,is_image,is_file,is_video,file,is_response,response,response_from
-        ,response_type,response_file,ogTitle, ogDescription, ogImage) 
+        ,response_type,response_file,ogTitle, ogDescription, ogImage, isExitGroup) 
       values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}'
       ,'${is_video}','${file}','${is_response}','${response}','${response_from}'
-      ,'${response_type}','${responseFile}','${ogTitle}','${ogDescription}','${ogImage}')`);
+      ,'${response_type}','${responseFile}','${ogTitle}','${ogDescription}','${ogImage}','${isExitGroup}')`);
     });
 
     //Client request the messages
@@ -1036,6 +1038,9 @@ io.on("connection", function (socket) {
           io.to(usersCall.u_id).emit("retrive EndCall");
         })
       })
+    });
+    socket.on('MensajeSalirGrupo',()=>{
+      io.to(user.u_id).emit('retrieve MensajeSalirGrupo');
     });
   } catch {
     console.log("problema");

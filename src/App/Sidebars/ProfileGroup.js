@@ -225,17 +225,17 @@ function ProfileGroup(props) {
     )
   }
 
-  function ExitGroup(chat){
+  function ExitGroup(e){
     var remove = 
     {
       chat_uid: props.group.id,
       u_id: props.my_uid.id
     }
     socket.emit("RemoveGroupMember", remove );
+    socket.emit("MensajeSalirGrupo");
     socket.once("retrive RemoveGroupMember", function (data) {
       setOpenGroupProfile(!openGroupProfile);
       socket.emit("get chats");
-      //props.setClicked([]);
     });
   }
 

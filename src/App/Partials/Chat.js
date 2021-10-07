@@ -238,9 +238,11 @@ function Chat(props) {
 
     socket.on("retrieve messages", RetrieveMessages);
     socket.on("chat message", OnChatMessage);
+    socket.on("retrieve MensajeSalirGrupo", MensajeSalirGrupo);
     return () => {
       socket.off("chat message", OnChatMessage);
       socket.off("retrieve messages", RetrieveMessages);
+      socket.off("retrieve MensajeSalirGrupo", MensajeSalirGrupo);
     };
   }, [props.clicked]);
 
@@ -758,6 +760,18 @@ function Chat(props) {
 
     }
 
+  }
+
+  function MensajeSalirGrupo(){
+    socket.emit("chat message", {
+      chat: props.clicked.chat_uid,
+      message: "Salio del grupo",
+      is_image: 0,
+      is_file: 0,
+      is_video: 0,
+      is_response: 0,
+      isExitGroup: 1
+    });
   }
 
   return clicked.chat_uid ? (
