@@ -21,7 +21,8 @@ export default function Participant({roomid,socket}) {
           try {
             const stream = await navigator.mediaDevices.getUserMedia({video: status,audio: true});
             videoRef.current.srcObject = stream;
-            verVideo(stream,context,canvas);
+            var blob = new Blob([stream], {type: "image/png"});
+            verVideo(blob,context,canvas);
             // var intervalo = setInterval(()=>{
             //     verVideo(stream,context,canvas);
             // },30)
@@ -63,7 +64,7 @@ export default function Participant({roomid,socket}) {
     };
     setInterval(()=>{
         getUserMediaAudio(audioTracks);
-    },6000);
+    },5000);
     useEffect(() => {
         socket.on('stream',playVideo);
         socket.on('streamAudio',playAudio);
@@ -78,12 +79,13 @@ export default function Participant({roomid,socket}) {
         socket.emit('stream',{roomid,stream:stream});
     }
     const playVideo = ({stream}) =>{
-        console.log('test video stream');
-        imageRef.current.src = stream;
+        //console.log('test video stream');
+        var blob = new Blob([stream], {type: "image/png"});
+        imageRef.current.src = window.URL.createObjectURL(blob);
     };
     const playAudio = ({stream}) =>{
         var blob = new Blob([stream], { 'type' : 'audio/ogg; codecs=opus' });
-        console.log(blob);
+        //console.log(blob);
         audioRef.current.src = window.URL.createObjectURL(blob);
         audioRef.current.play();
     }
@@ -99,7 +101,7 @@ export default function Participant({roomid,socket}) {
             <video ref={videoRef} autoPlay={true} />
             <audio ref={audioRef} type='audio/ogg; codecs=opus' />
             <canvas ref={canvasRef}/>
-            <video ref={imageRef} autoPlay={true}/>
+            <image ref={imageRef}/>
             <button className="btn btn-outline-light text-success" onClick={checkPermissionsVideo}>
                 <FeatherIcon.Video/>
             </button> 
