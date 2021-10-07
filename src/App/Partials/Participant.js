@@ -21,9 +21,9 @@ export default function Participant({roomid,socket}) {
           try {
             const stream = await navigator.mediaDevices.getUserMedia({video: status,audio: true});
             videoRef.current.srcObject = stream;
-            var intervalo = setInterval(()=>{
-                verVideo(stream,context,canvas);
-           },30)
+        //     var intervalo = setInterval(()=>{
+        //         verVideo(stream,context,canvas);
+        //    },30)
           } catch (err) {
             console.log(err);
           }
