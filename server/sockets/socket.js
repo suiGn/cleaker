@@ -140,7 +140,7 @@ io.on("connection", function (socket) {
         `
 			select * from chats_users 
 			inner join chats on chats.chat_uid = chats_users.chat_uid
-			where chats_users.chat_uid = '${chat} and chats_users.group_exit != 1'
+			where chats_users.chat_uid = '${chat}'
 		`,
         function (err, chats) {
           chats.forEach((qchat) => {
