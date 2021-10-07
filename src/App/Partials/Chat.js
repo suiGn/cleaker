@@ -397,7 +397,7 @@ function Chat(props) {
   }
 
   const MessagesView = (props) => {
-    const { message, group, key } = props;
+    const { message, group } = props;
     var position
     if(message.is_image){
       for(var i = 0; i < images.length; i++) {
@@ -607,6 +607,7 @@ function Chat(props) {
         return (
           <div className="messages-container">
             {year != 0 ? getTodayLabel(getDateLabel(dateM), message.message_user_uid) : ""}
+            {message.isExitGroup!=1?
             <div id={message.message_id} className={"message-item padding-no-response " + type}>
               {message.media ? (
                 message.media
@@ -735,6 +736,11 @@ function Chat(props) {
                 </div>
               )}
             </div>
+            :
+            <div
+              className="message-item messages-divider sticky-top"
+              data-label={message.message}
+            ></div>}
           </div>);
       }
     }
@@ -772,6 +778,9 @@ function Chat(props) {
       is_response: 0,
       isExitGroup: 1
     });
+    /*var dummyNumberN = dummyNumber + 1
+    setFirstTime(true)
+    setDummyNumber(dummyNumberN)*/
   }
 
   return clicked.chat_uid ? (
