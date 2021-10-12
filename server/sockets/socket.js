@@ -779,7 +779,8 @@ io.on("connection", function (socket) {
     //get grupo
     socket.on("GetGrupo", function (data) {
       orgboatDB.query(
-        `select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat, usrs.name, usrs.pphoto, chats.groupphoto, chats.about_chat
+        `select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat, usrs.name, usrs.pphoto, 
+        chats.groupphoto, chats.about_chat, chats2.admin_group
 
         from chats_users  
 

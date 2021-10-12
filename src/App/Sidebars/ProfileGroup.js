@@ -44,12 +44,16 @@ function ProfileGroup(props) {
   const [addFriends, setAddFriends] = useState([]);
   const [ToDelete, setToDelete] = useState([]);
   const [loadHidden, setLoadHidden] = useState(true);
+  const [my_uid, setMy_uid] = useState("");
+  const [isAdmin, setisAdmin] = useState(0);
   
+
   useEffect(() => {
     setActiveTab("1")
     if(props.chat.id){
       props.group.chat_id = props.chat.id
     }
+    setMy_uid(props.my_uid)
     socket.emit("GetGrupo", props.group);
   }, [props.group]);
 
@@ -212,13 +216,16 @@ function ProfileGroup(props) {
                   {chat.name}
                 </h5>
               </div>
+              {isAdmin==1?
               <div className="group-member-list-dropdown" style={{  position: "absolute", left: "220px"}}>
                 <ProfileDropdown
                   chat={chat}
                   modalToggleDelete={modalToggleDelete}
                   modalDelete={modalDelete}
                   setToDelete={setToDelete}/>
-              </div>
+              </div>:
+              ""
+              }
             </div>
           </div>
       </li>
