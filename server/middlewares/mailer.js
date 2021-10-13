@@ -1,7 +1,7 @@
-const index = require("./index");
+const index = require("../index");
 const nodemailer = require("nodemailer");
 const uuid = require("node-uuid");
-require("./configs/config");
+require("../configs/config");
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
   // host: "smtp.fatcow.com",
