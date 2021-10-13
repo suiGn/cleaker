@@ -43,7 +43,7 @@ io.on("connection", function (socket) {
 			select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
         m.u_id as last_message_user_uid, m.message as last_message_message, m.time as last_message_time,chats_users.archiveChat
         ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
-        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage, chats_users.group_exit
+        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage, chats_users.group_exit, chats_users.admin_group
 			
 			from chats_users  
 
@@ -779,7 +779,8 @@ io.on("connection", function (socket) {
     //get grupo
     socket.on("GetGrupo", function (data) {
       orgboatDB.query(
-        `select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat, usrs.name, usrs.pphoto, chats.groupphoto, chats.about_chat
+        `select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat, usrs.name, usrs.pphoto, 
+        chats.groupphoto, chats.about_chat, chats2.admin_group
 
         from chats_users  
 
@@ -1048,6 +1049,32 @@ io.on("connection", function (socket) {
     });
     socket.on('MensajeSalirGrupo',()=>{
       io.to(user.u_id).emit('retrieve MensajeSalirGrupo');
+    });
+    socket.on('MakeAdmin',(data)=>{
+      orgboatDB.query(
+        `UPDATE chats_users SET admin_group=1 WHERE
+        chat_uid = '${data.chat_uid}' 
+        and u_id = "${data.user_chat}";
+        `,
+        (err, rows) => {
+          io.to(user.u_id).emit("retrive MakeAdmin", {
+            data: rows
+          });
+        }
+      );
+    });
+    socket.on('RemoveAdmin',(data)=>{
+      orgboatDB.query(
+        `UPDATE chats_users SET admin_group=0 WHERE
+        chat_uid = '${data.chat_uid}' 
+        and u_id = "${data.user_chat}";
+        `,
+        (err, rows) => {
+          io.to(user.u_id).emit("retrive RemoveAdmin", {
+            data: rows
+          });
+        }
+      );
     });
   } catch {
     console.log("problema");
