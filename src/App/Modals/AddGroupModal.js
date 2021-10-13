@@ -38,32 +38,11 @@ function AddGroupModal(props) {
 
   const tooltipToggle = () => setTooltipOpen(!tooltipOpen);
 
-  const [tooltipOpen2, setTooltipOpen2] = useState(false);
-
-  const tooltipToggle2 = () => setTooltipOpen2(!tooltipOpen2);
-
   const [modalFriend, setModalFriend] = useState(false);
 
   const modalToggleFriend = () => setModalFriend(!modalFriend);
 
   const [one, setIOne] = useState("");
-
-  const AvatarTooltip = (props) => {
-    const [tooltipOpen, setTooltipOpen] = useState(false);
-
-    const toggle = () => setTooltipOpen(!tooltipOpen);
-
-    return (
-      <Tooltip
-        placement="top"
-        isOpen={tooltipOpen}
-        target={"Tooltip-Avatar" + props.id}
-        toggle={toggle}
-      >
-        {props.name}
-      </Tooltip>
-    );
-  };
 
   function AddGroup(e) {
     e.preventDefault();

@@ -1050,6 +1050,32 @@ io.on("connection", function (socket) {
     socket.on('MensajeSalirGrupo',()=>{
       io.to(user.u_id).emit('retrieve MensajeSalirGrupo');
     });
+    socket.on('MakeAdmin',(data)=>{
+      orgboatDB.query(
+        `UPDATE chats_users SET admin_group=1 WHERE
+        chat_uid = '${data.chat_uid}' 
+        and u_id = "${data.user_chat}";
+        `,
+        (err, rows) => {
+          io.to(user.u_id).emit("retrive MakeAdmin", {
+            data: rows
+          });
+        }
+      );
+    });
+    socket.on('RemoveAdmin',(data)=>{
+      orgboatDB.query(
+        `UPDATE chats_users SET admin_group=0 WHERE
+        chat_uid = '${data.chat_uid}' 
+        and u_id = "${data.user_chat}";
+        `,
+        (err, rows) => {
+          io.to(user.u_id).emit("retrive RemoveAdmin", {
+            data: rows
+          });
+        }
+      );
+    });
   } catch {
     console.log("problema");
   }

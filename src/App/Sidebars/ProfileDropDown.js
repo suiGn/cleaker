@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Dropdown,
   DropdownToggle,
@@ -8,7 +8,7 @@ import {
 import * as FeatherIcon from "react-feather";
 
 const ProfileDropdown = (props) => {
-  const { modalToggleDelete,modalDelete,setToDelete } = props;
+  const { modalToggleDelete,modalDelete,setToDelete,socket } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -16,6 +16,14 @@ const ProfileDropdown = (props) => {
   function RemoveMember(chat){
     setToDelete(chat)
     modalToggleDelete(!modalDelete)
+  }
+
+  function MakeAdmin(chat){
+    socket.emit("MakeAdmin", chat);
+  }
+
+  function RemoveAdmin(chat){
+    socket.emit("RemoveAdmin", chat);
   }
 
   return (
@@ -26,6 +34,9 @@ const ProfileDropdown = (props) => {
         </DropdownToggle>
       </div>
       <DropdownMenu>
+          {props.chat.admin_group==1?
+          <DropdownItem onClick={() => RemoveAdmin(props.chat)}>Remove Admin</DropdownItem>:
+          <DropdownItem onClick={() => MakeAdmin(props.chat)}>Make Admin</DropdownItem>}
           <DropdownItem onClick={() => RemoveMember(props.chat)}>Remove Member</DropdownItem>
       </DropdownMenu>
     </Dropdown>

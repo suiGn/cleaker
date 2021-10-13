@@ -216,13 +216,14 @@ function ProfileGroup(props) {
                   {chat.name}
                 </h5>
               </div>
-              {isAdmin==1?
+              {isAdmin==0?
               <div className="group-member-list-dropdown" style={{  position: "absolute", left: "220px"}}>
                 <ProfileDropdown
                   chat={chat}
                   modalToggleDelete={modalToggleDelete}
                   modalDelete={modalDelete}
-                  setToDelete={setToDelete}/>
+                  setToDelete={setToDelete}
+                  socket={socket}/>
               </div>:
               ""
               }
