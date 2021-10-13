@@ -1,6 +1,0 @@
-Sebas:
-    - Limpieza del server
-Karla:
-    - cambio de los sockets en el Front (Mensajes)
-Jose:
-    - redirect to workspace if have cookies
