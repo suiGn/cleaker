@@ -14,7 +14,7 @@
 
 //orgboat
 //dependencies
-const index = require("./index");
+const index = require("../index");
 
 /**
 ██████  ███████  ██████  ███████ ██   ██ 
