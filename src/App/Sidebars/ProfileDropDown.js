@@ -20,10 +20,16 @@ const ProfileDropdown = (props) => {
 
   function MakeAdmin(chat){
     socket.emit("MakeAdmin", chat);
+    socket.once("retrive MakeAdmin", function (data) {
+      socket.emit("GetGrupo", {id:chat.chat_uid});
+    });
   }
 
   function RemoveAdmin(chat){
     socket.emit("RemoveAdmin", chat);
+    socket.once("retrive RemoveAdmin", function (data) {
+      socket.emit("GetGrupo", {id:chat.chat_uid});
+    });
   }
 
   return (
