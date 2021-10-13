@@ -4,7 +4,7 @@ const uuid = require("node-uuid");
 const { formatLocalDate } = require("../middlewares/authentication");
 const routes = require("../routes");
 const { use } = require("passport");
-const { logger } = require("../logs/log");
+const { logger } = require("../middlewares/winston/logs/log");
 
 io.on("connection", function (socket) {
   //login in socket

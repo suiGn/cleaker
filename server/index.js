@@ -18,8 +18,8 @@ const { sanitizeBody } = require("express-validator");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const routes = require("./routes");
-const method = require("./methods");
-const mailer = require("./mailer");
+const method = require("./middlewares/methods");
+const mailer = require("./middlewares/mailer");
 const multer = require("multer");
 var unicorn = "🍺🦄🍺";
 var uuid = require("node-uuid");
@@ -37,7 +37,7 @@ const {
   onAuthorizeFail,
   onAuthorizeSuccess,
 } = require("./middlewares/authentication");
-const { logger } = require("./logs/log");
+const { logger } = require("./middlewares/winston/logs/log");
 
 //const cookieSession = require('cookie-session');
 var flash = require("connect-flash");
