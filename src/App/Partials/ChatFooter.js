@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import { Button, Input } from "reactstrap";
 import * as FeatherIcon from "react-feather";
 import "emoji-mart/css/emoji-mart.css";
@@ -17,7 +17,7 @@ import { Console } from "winston/lib/winston/transports";
 import { is } from "core-js/core/object";
 
 function ChatFooter(props) {
-  const {isResponse,messageRespond} = props
+  const {isResponse,messageRespond,socket} = props
   const [emojiMenuOpen, setEmojiMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //const [imgPreview, setImgPreview] = useState(false);
@@ -185,6 +185,18 @@ function ChatFooter(props) {
   const onButtonClickVideo = () =>{
     inputVideo.current.click();
   }
+
+  function GroupExit(){
+    console.log("hola")
+    props.group_exit = 0;
+  }
+
+  useEffect(() => {
+    socket.on("retrieve MensajeSalirGrupoFoot", GroupExit );
+    return () => {
+      socket.off("retrieve MensajeSalirGrupoFoot", GroupExit);
+    };
+  });
 
   return (
     <div className="chat-footer">

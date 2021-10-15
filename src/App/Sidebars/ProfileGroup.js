@@ -244,6 +244,12 @@ function ProfileGroup(props) {
     socket.once("retrive RemoveGroupMember", function (data) {
       setOpenGroupProfile(!openGroupProfile);
       socket.emit("get chats");
+      socket.emit("get messages", {
+        id: props.group.id,
+        page: 1,
+        inChat: true,
+        limit: 20,
+      });
     });
   }
 

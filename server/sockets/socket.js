@@ -1063,6 +1063,7 @@ io.on("connection", function (socket) {
     });
     socket.on('MensajeSalirGrupo',()=>{
       io.to(user.u_id).emit('retrieve MensajeSalirGrupo');
+      io.to(user.u_id).emit('retrieve MensajeSalirGrupoFoot');
     });
     socket.on('MakeAdmin',(data)=>{
       orgboatDB.query(

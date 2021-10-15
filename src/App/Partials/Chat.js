@@ -778,9 +778,9 @@ function Chat(props) {
       is_response: 0,
       isExitGroup: 1
     });
-    /*var dummyNumberN = dummyNumber + 1
+    var dummyNumberN = dummyNumber + 1
     setFirstTime(true)
-    setDummyNumber(dummyNumberN)*/
+    setDummyNumber(dummyNumberN)
   }
 
   return clicked.chat_uid ? (
