@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
+import RecordRTC from 'recordrtc';
 import "../../assets/css/styles.css";
 import Participant from './Participant';
 import * as FeatherIcon from 'react-feather'
+import ParticipantVideCall from './ParticipantVideCall';
 
 export default function Lobby({roomName,socket}) {
 
     const [members, setMembers] = useState([]);
+    let recordAudio;
 
     function CloseCall (){
         socket.emit("EndCall", {room_id:roomName});
@@ -25,7 +28,42 @@ export default function Lobby({roomName,socket}) {
             socket.off("retrive EndCall",ReturnToWorkspace);
           };
     },[roomName])
-  
+    
+
+    const getUserMediaAudio = async (status) => {
+        try {
+            navigator.mediaDevices.getUserMedia({audio: true}).then((mediaStream)=>{
+              var mediaRecorder = new MediaRecorder(mediaStream);
+              mediaRecorder.onstart = function(e) {
+                  this.chunks = [];
+              };
+              mediaRecorder.ondataavailable = function(e) {
+                  this.chunks.push(e.data);
+              };
+              mediaRecorder.onstop = function(e) {
+                  var blob = new Blob(this.chunks, { 'type' : 'audio/ogg; codecs=opus' });
+                  socket.emit('audio', {room_id:roomName,stream:blob});
+              };
+          
+              // Start recording
+              mediaRecorder.start();
+          
+              // Stop recording after 5 seconds and broadcast it to server
+              setTimeout(function() {
+                  mediaRecorder.stop();
+                  mediaRecorder.start();
+              }, 3000);
+            });
+            //audioRef.current.srcObject = stream;
+            //socket.emit('stream',{roomid,stream});
+          } catch (err) {
+            console.log(err);
+          }
+    };
+    setInterval(()=>{
+        getUserMediaAudio(true);
+    },3000);
+
     return (
         <div>
             <div className="action-button">
@@ -36,19 +74,9 @@ export default function Lobby({roomName,socket}) {
                 </button>
             </div>
             {members.map((chat, i) => (
-                <div className="text-center">
-                    <figure className="avatar user-profile mb-3">
-                        {chat.pphoto==""||chat.pphoto==null?
-                        <span className="avatar-title bg-info rounded-circle">
-                            {chat.name.substring(0, 1)}
-                        </span>:
-                        <img src={chat.pphoto} className="rounded-circle" alt="image" />}
-                    </figure>
-                    <h5 className="mb-1">{chat.name}</h5>
-                </div>
-                
+                <ParticipantVideCall chat={chat} roomid={roomName} socket={socket}/>
             ))}
-            <Participant roomid={roomName} socket={socket}/>
+            {/* <Participant roomid={roomName} socket={socket}/> */}
         </div>
     )
 }

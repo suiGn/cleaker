@@ -1033,8 +1033,10 @@ io.on("connection", function (socket) {
       //socket.broadcast.emit('stream',image);
     });
     //stream audio
-    socket.on('audio',({roomid,stream})=>{
-      orgboatDB.query(`SELECT u_id FROM room_users WHERE room_id='${roomid}' and u_id!='${user.u_id}'`,(err, rows)=>{
+    socket.on('audio',({room_id,stream})=>{
+      //console.log(`SELECT u_id FROM room_users WHERE room_id='${room_id}' and u_id!='${user.u_id}'`);
+      orgboatDB.query(`SELECT u_id FROM room_users WHERE room_id='${room_id}' and u_id!='${user.u_id}'`,(err, rows)=>{
+        //console.log(rows);
         io.to(rows[0].u_id).emit('streamAudio',{stream});
       });
       //socket.broadcast.emit('stream',image);
