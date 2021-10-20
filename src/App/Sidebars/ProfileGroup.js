@@ -45,7 +45,8 @@ function ProfileGroup(props) {
   const [ToDelete, setToDelete] = useState([]);
   const [loadHidden, setLoadHidden] = useState(true);
   const [my_uid, setMy_uid] = useState("");
-  const [isAdmin, setisAdmin] = useState(0);
+  const [isAdmin, setisAdmin] = useState(1);
+  const [isExit, setisExit] = useState(0);
   
 
   useEffect(() => {
@@ -53,9 +54,27 @@ function ProfileGroup(props) {
     if(props.chat.id){
       props.group.chat_id = props.chat.id
     }
-    setMy_uid(props.my_uid)
+    setMy_uid(props.my_uid.id)
+    setisAdmin(props.clicked.admin_group)
+    setisExit(props.clicked.group_exit)
     socket.emit("GetGrupo", props.group);
   }, [props.group]);
+
+  
+
+  useEffect(() => {
+    socket.on("retrieve GetGrupo", RetrieveGetGrupo );
+    return () => {
+      socket.off("retrieve GetGrupo", RetrieveGetGrupo);
+    };
+  });
+
+  useEffect(() => {
+    socket.on("retrieve group photo", RetrieveGroupPhoto);
+    return () => {
+      socket.off("retrieve group photo", RetrieveGroupPhoto);
+    };
+  });
 
   function RetrieveGetGrupo(data){
     var userData = data.chats[0];
@@ -82,20 +101,6 @@ function ProfileGroup(props) {
       setMedia(data.files)
     }
   }
-
-  useEffect(() => {
-    socket.on("retrieve GetGrupo", RetrieveGetGrupo );
-    return () => {
-      socket.off("retrieve GetGrupo", RetrieveGetGrupo);
-    };
-  }, [name]);
-
-  useEffect(() => {
-    socket.on("retrieve group photo", RetrieveGroupPhoto);
-    return () => {
-      socket.off("retrieve group photo", RetrieveGroupPhoto);
-    };
-  });
 
   function RetrieveGroupPhoto(){
     setLoadHidden(true)
@@ -216,7 +221,7 @@ function ProfileGroup(props) {
                   {chat.name}
                 </h5>
               </div>
-              {isAdmin==0?
+              {isAdmin==1&&isExit==0?
               <div className="group-member-list-dropdown" style={{  position: "absolute", left: "220px"}}>
                 <ProfileDropdown
                   chat={chat}
@@ -244,6 +249,12 @@ function ProfileGroup(props) {
     socket.once("retrive RemoveGroupMember", function (data) {
       setOpenGroupProfile(!openGroupProfile);
       socket.emit("get chats");
+      socket.emit("get messages", {
+        id: props.group.id,
+        page: 1,
+        inChat: true,
+        limit: 20,
+      });
     });
   }
 
@@ -381,7 +392,7 @@ function ProfileGroup(props) {
                     </h5>
                   </div>
                   <div className="border-none align-self-center">
-                    {openContentEditable ? (
+                    {openContentEditable? (
                       <Button
                         onClick={(e) => openContentEditableToggler(true, e)}
                         color="light"
@@ -462,21 +473,26 @@ function ProfileGroup(props) {
                   </div> 
                   <div className="sidebar-body">
                     <PerfectScrollbar>
-                    <li  onClick={(e) => OpenModal(e)} className="list-group-item">
-                      <FeatherIcon.UserPlus/>
-                        Add members
-                      </li>
                       <ul className="list-group list-group-flush">
-                      {members.map((chat, i) => (
-                        <MemberView
-                          chat={chat}
-                          key={i}
-                        />
-                      ))}  
-                      <li  onClick={(e) => ExitGroup(e)} className="list-group-item">
-                      <FeatherIcon.LogOut />
-                        Exit group
-                      </li>
+                        {isAdmin==1&&isExit==0?
+                        <li  onClick={(e) => OpenModal(e)} className="list-group-item">
+                          <FeatherIcon.UserPlus/>
+                            Add members
+                        </li>
+                        :
+                        ""}
+                        {members.map((chat, i) => (
+                          <MemberView
+                            chat={chat}
+                            key={i}
+                          />
+                        ))}  
+                        {isExit==0?
+                        <li  onClick={(e) => ExitGroup(e)} className="list-group-item">
+                        <FeatherIcon.LogOut />
+                          Exit group
+                        </li>
+                        :""}
                       </ul>
                     </PerfectScrollbar>
                   </div>        

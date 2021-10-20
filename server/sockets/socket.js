@@ -226,7 +226,21 @@ io.on("connection", function (socket) {
       messages.ogDescription,  messages.ogImage, messages.isExitGroup
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
-			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 order by time desc limit ${msg.limit};
+			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 
+      union
+      select messages.u_id as message_user_uid, messages.message, messages.time, 
+      usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message,
+      messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
+      chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
+      messages.is_response, messages.response, messages.response_from, messages.response_type, 
+      messages.response_file,  messages.unread_messages, messages.time_read,  messages.ogTitle, 
+      messages.ogDescription,  messages.ogImage, messages.isExitGroup
+			from messages inner join usrs on messages.u_id = usrs.u_id
+			inner join chats on chats.chat_uid = messages.chat_uid
+			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 1 
+			AND  messages.delete_message_to = 0
+      AND   usrs.u_id!='${user.u_id}'
+      order by time desc limit ${msg.limit};
 		 `,
         function (err, rows) {
           orgboatDB.query(`select COUNT(messages.u_id) as countrow
@@ -1019,8 +1033,10 @@ io.on("connection", function (socket) {
       //socket.broadcast.emit('stream',image);
     });
     //stream audio
-    socket.on('audio',({roomid,stream})=>{
-      orgboatDB.query(`SELECT u_id FROM room_users WHERE room_id='${roomid}' and u_id!='${user.u_id}'`,(err, rows)=>{
+    socket.on('audio',({room_id,stream})=>{
+      //console.log(`SELECT u_id FROM room_users WHERE room_id='${room_id}' and u_id!='${user.u_id}'`);
+      orgboatDB.query(`SELECT u_id FROM room_users WHERE room_id='${room_id}' and u_id!='${user.u_id}'`,(err, rows)=>{
+        //console.log(rows);
         io.to(rows[0].u_id).emit('streamAudio',{stream});
       });
       //socket.broadcast.emit('stream',image);
@@ -1049,6 +1065,7 @@ io.on("connection", function (socket) {
     });
     socket.on('MensajeSalirGrupo',()=>{
       io.to(user.u_id).emit('retrieve MensajeSalirGrupo');
+      io.to(user.u_id).emit('retrieve MensajeSalirGrupoFoot');
     });
     socket.on('MakeAdmin',(data)=>{
       orgboatDB.query(

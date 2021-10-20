@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import { Button, Input } from "reactstrap";
 import * as FeatherIcon from "react-feather";
 import "emoji-mart/css/emoji-mart.css";
@@ -17,9 +17,10 @@ import { Console } from "winston/lib/winston/transports";
 import { is } from "core-js/core/object";
 
 function ChatFooter(props) {
-  const {isResponse,messageRespond} = props
+  const {isResponse,messageRespond,socket} = props
   const [emojiMenuOpen, setEmojiMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [groupExit, setGroupExit] = useState(0);
   //const [imgPreview, setImgPreview] = useState(false);
   //const [file, setFile] = useState(null);
   const inputMessage = useRef(null);
@@ -186,10 +187,22 @@ function ChatFooter(props) {
     inputVideo.current.click();
   }
 
+  function GroupExit(){
+    setGroupExit(1)
+  }
+
+  useEffect(() => {
+    setGroupExit(props.group_exit)
+    socket.on("retrieve MensajeSalirGrupoFoot", GroupExit );
+    return () => {
+      socket.off("retrieve MensajeSalirGrupoFoot", GroupExit);
+    };
+  },[props.chat_uid]);
+
   return (
     <div className="chat-footer">
       {/*<FilePreview inputPreview={inputPreview} imgPreview={props.imgPreview} file={props.file}/>*/}
-      {props.group_exit?
+      {groupExit==1?
         <div  style={{ textAlign:  "center"}} >No puedes escribir en este chat por que ya no estas en el grupo</div>
         :
         <form onSubmit={handleSubmit}>
