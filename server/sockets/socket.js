@@ -794,7 +794,7 @@ io.on("connection", function (socket) {
     socket.on("GetGrupo", function (data) {
       orgboatDB.query(
         `select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat, usrs.name, usrs.pphoto, 
-        chats.groupphoto, chats.about_chat, chats2.admin_group
+        chats.groupphoto, chats.about_chat, chats2.admin_group, chats2.group_exit
 
         from chats_users  
 
@@ -819,7 +819,8 @@ io.on("connection", function (socket) {
           orgboatDB.query(
             `SELECT 
             distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
-            messages.is_video, messages.is_image, messages.is_file FROM messages
+            messages.is_video, messages.is_image, messages.is_file,
+            chats_users.group_exit, chats_users.admin_group FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.delete_message = 0 

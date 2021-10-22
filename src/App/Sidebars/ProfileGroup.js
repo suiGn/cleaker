@@ -46,7 +46,7 @@ function ProfileGroup(props) {
   const [loadHidden, setLoadHidden] = useState(true);
   const [my_uid, setMy_uid] = useState("");
   const [isAdmin, setisAdmin] = useState(1);
-  const [isExit, setisExit] = useState(0);
+  const [isExit, setisExit] = useState(1);
   
 
   useEffect(() => {
@@ -55,8 +55,6 @@ function ProfileGroup(props) {
       props.group.chat_id = props.chat.id
     }
     setMy_uid(props.my_uid.id)
-    setisAdmin(props.clicked.admin_group)
-    setisExit(props.clicked.group_exit)
     socket.emit("GetGrupo", props.group);
   }, [props.group]);
 
@@ -98,7 +96,13 @@ function ProfileGroup(props) {
       setName(nameD);
       setAbout(about_chatD)
       setMembers(data.chats)
-      setMedia(data.files)
+      setMedia(data.files) 
+      data.chats.forEach(chat => {
+        if(chat.user_chat==my_uid){
+          setisAdmin(chat.admin_group)
+          setisExit(chat.group_exit)
+        }
+      });
     }
   }
 
@@ -239,6 +243,7 @@ function ProfileGroup(props) {
   }
 
   function ExitGroup(e){
+    setisExit(1)
     var remove = 
     {
       chat_uid: props.group.id,
