@@ -7,8 +7,10 @@ export default function ParticipantVideCall({chat,roomid,socket}) {
     //socket
     useEffect(() => {
         socket.on('streamAudio',playAudio);
+        socket.on('stream',playVideo);
         return () => {
             socket.off('streamAudio',playAudio);
+            socket.off('stream',playVideo);
         }
     }, []);
     const playAudio = ({stream}) =>{
@@ -17,9 +19,14 @@ export default function ParticipantVideCall({chat,roomid,socket}) {
         audioRef.current.src = window.URL.createObjectURL(blob);
         audioRef.current.play();
     }
+    const playVideo = ({stream})=>{
+        //var blob = new Blob([stream],{type: "image/png"});
+        //console.log(blob);
+        videoRef.current.src = stream;
+    }
     return (
         <div>
-            <video ref={videoRef} autoPlay={true} />
+            <img ref={videoRef} />
             <audio ref={audioRef} type='audio/ogg; codecs=opus' />
             <div className="text-center">
                     <figure className="avatar user-profile mb-3">

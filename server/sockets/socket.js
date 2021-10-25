@@ -1027,8 +1027,8 @@ io.on("connection", function (socket) {
       });
     });
     //stream video
-    socket.on('stream',({roomid,stream})=>{
-      orgboatDB.query(`SELECT u_id FROM room_users WHERE room_id='${roomid}' and u_id!='${user.u_id}'`,(err, rows)=>{
+    socket.on('stream',({room_id,stream})=>{
+      orgboatDB.query(`SELECT u_id FROM room_users WHERE room_id='${room_id}' and u_id!='${user.u_id}'`,(err, rows)=>{
         io.to(rows[0].u_id).emit('stream',{stream});
       });
       //socket.broadcast.emit('stream',image);
