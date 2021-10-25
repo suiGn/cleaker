@@ -1094,6 +1094,19 @@ io.on("connection", function (socket) {
         }
       );
     });
+    socket.on('Delete Group',(data)=>{
+      orgboatDB.query(
+        ` Delete from chats_users  WHERE
+        chat_uid = '${data.chat_uid}' 
+        and u_id = "${data.u_id}";
+        `,
+        (err, rows) => {
+          io.to(user.u_id).emit("retrive Delete Group", {
+            data: rows
+          });
+        }
+      );
+    });
   } catch {
     console.log("problema");
   }

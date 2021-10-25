@@ -233,6 +233,8 @@ function Index(props) {
                     openGroupProfile={openGroupProfile}
                     setOpenGroupProfile={setOpenGroupProfile}
                     setChat={setChat}
+                    groupExit={chat.group_exit}
+                    adminGroup={chat.admin_group}
                   />
                 </div>
               </div>
@@ -255,6 +257,8 @@ function Index(props) {
                     openGroupProfile={openGroupProfile}
                     setOpenGroupProfile={setOpenGroupProfile}
                     setChat={setChat}
+                    groupExit={chat.group_exit}
+                    adminGroup={chat.admin_group}
                   />
                 </div>
                 {

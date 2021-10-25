@@ -8,40 +8,51 @@ import {
 import * as FeatherIcon from "react-feather";
 
 const ChatsDropdown = (props) => {
-  const { socket, setChat } = props;
+  const { socket, setChat, setUser, setOpenUserProfile, chat_type,
+    setOpenProfile, openProfile, openUserProfile, setOpenGroupProfile,
+    chat_uid, id, openGroupProfile,setClicked, setGroup,groupExit,adminGroup } = props;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
-  function DeleteChat(idchat) {
-    socket.emit("Delete Chat", { chat_uid: idchat });
+
+  function DeleteChat() {
+    socket.emit("Delete Chat", { chat_uid: chat_uid });
     socket.once("retrive delete chat", () => {
       socket.emit("get chats");
-      props.setClicked([]);
+      setClicked([]);
+    });
+  }
+
+  function DeleteGroup(){
+    socket.emit("Delete Group", { chat_uid: chat_uid, u_id: id });
+    socket.once("retrive Delete Group", () => {
+      socket.emit("get chats");
+      setClicked([]);
     });
   }
 
   const openUserProfileToggler = (e) => {
-    props.setChat({ id: props.chat_uid });
-    props.setUser({ id: props.id });
-    props.setOpenUserProfile(!props.openUserProfile);
-    if (props.openProfile) {
-      props.setOpenProfile(!props.openProfile);
+    setChat({ id: chat_uid });
+    setUser({ id: id });
+    setOpenUserProfile(!openUserProfile);
+    if (openProfile) {
+      setOpenProfile(!openProfile);
     }
-    if (props.openGroupProfile) {
-      props.setOpenGroupProfile(!props.openGroupProfile);
+    if (openGroupProfile) {
+      setOpenGroupProfile(!openGroupProfile);
     }
   };
 
   const GroupProfileAction = () => {
-    props.setChat({ id: props.chat_uid });
-    props.setGroup({ id: props.chat_uid });
-    props.setOpenGroupProfile(!props.openGroupProfile);
-    if (props.openProfile) {
-      props.setOpenProfile(!props.openProfile);
+    setChat({ id:chat_uid });
+    setGroup({ id:chat_uid });
+    setOpenGroupProfile(!openGroupProfile);
+    if (openProfile) {
+      setOpenProfile(!openProfile);
     }
-    if (props.openUserProfile) {
-      props.setOpenUserProfile(!props.openUserProfile);
+    if (openUserProfile) {
+      setOpenUserProfile(!openUserProfile);
     }
   };
 
@@ -51,18 +62,20 @@ const ChatsDropdown = (props) => {
         <FeatherIcon.MoreHorizontal />
       </DropdownToggle>
       <DropdownMenu>
-        {props.chat_type == 0 ? (
+        {chat_type == 0 ? (
           <DropdownItem onClick={openUserProfileToggler}>Profile</DropdownItem>
         ) : (
           <DropdownItem onClick={GroupProfileAction}>Group Info.</DropdownItem>
         )}
-        {props.chat_type == 0 ? (
-          <DropdownItem onClick={() => DeleteChat(props.chat_uid)}>
+        {chat_type == 0 ? 
+          <DropdownItem onClick={() => DeleteChat()}>
             Delete
           </DropdownItem>
-        ) : (
-          ""
-        )}
+         : groupExit  == 1 ?
+          <DropdownItem onClick={() => DeleteGroup()}>
+            Delete group
+          </DropdownItem>:""
+      }
       </DropdownMenu>
     </Dropdown>
   );
