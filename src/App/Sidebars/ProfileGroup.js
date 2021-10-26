@@ -368,6 +368,7 @@ function ProfileGroup(props) {
                   className="d-none"
                   onChange={onChangePhoto}
                 />
+                {isAdmin==1&&isExit==0?
                 <button
                   onClick={openFileUploader}
                   className="profile-image-holder rounded-circle mb-4"
@@ -381,6 +382,14 @@ function ProfileGroup(props) {
                     {p}
                   </figure>
                 </button>
+                :
+                <figure className="avatar user-profile mb-3">
+                  {p}
+                </figure>
+                }
+                
+
+                {isAdmin==1&&isExit==0?
                 <div className="d-flex justify-content-center">
                   <div className="ml-3 mr-3">
                     <h5
@@ -414,6 +423,8 @@ function ProfileGroup(props) {
                     )}
                   </div>
                 </div>
+                : <h5 className="mb-1">{name}</h5>
+                }
 
                 <small className="text-muted font-italic">
                   Last seen: Today
@@ -440,6 +451,7 @@ function ProfileGroup(props) {
               </div>
               <TabContent activeTab={activeTab}>
                 <TabPane tabId="1">
+                {isAdmin==1&&isExit==0?
                   <div className="mt-4 mb-4">
                     <div className="d-flex">
                       <div className="ml-3 mr-3">
@@ -475,7 +487,12 @@ function ProfileGroup(props) {
                         )}
                       </div>
                     </div>
-                  </div> 
+                  </div> :
+                  <div className="mt-4 mb-4">
+                    <h6>About</h6>
+                    <p className="text-muted">{about}</p>
+                  </div>
+                  }
                   <div className="sidebar-body">
                     <PerfectScrollbar>
                       <ul className="list-group list-group-flush">
