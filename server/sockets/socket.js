@@ -781,7 +781,7 @@ io.on("connection", function (socket) {
         );
       });
       orgboatDB.query(
-        `INSERT  INTO chats_users (chat_uid,u_id,archiveChat) VALUES ('${uuid_numbr}','${info.id}',${chat_type})`,
+        `INSERT  INTO chats_users (chat_uid,u_id,archiveChat,admin_group) VALUES ('${uuid_numbr}','${info.id}',${chat_type},1)`,
         (err, data) => {
           io.to(user.u_id).emit("retrive addgrupo", {
             chat: uuid_numbr,
