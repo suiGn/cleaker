@@ -41,7 +41,7 @@ io.on("connection", function (socket) {
       orgboatDB.query(
         `
 			select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
-        m.u_id as last_message_user_uid, m.message as last_message_message, m.time as last_message_time,chats_users.archiveChat
+        m.u_id as last_message_user_uid,CONVERT(FROM_BASE64( m.message) USING utf8) as last_message_message, m.time as last_message_time,chats_users.archiveChat
         ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
         chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage, chats_users.group_exit, chats_users.admin_group
 			
@@ -120,7 +120,7 @@ io.on("connection", function (socket) {
     //Transmit the messages from one user to another
     socket.on("chat message", function (msg) {
       chat = msg.chat;
-      message = msg.message;
+      message = Buffer.from(msg.message).toString('base64');
       is_image = msg.is_image;
       is_file = msg.is_file;
       is_video = msg.is_video;
@@ -217,7 +217,7 @@ io.on("connection", function (socket) {
       //initMsg
       orgboatDB.query(
         `
-			select messages.u_id as message_user_uid, messages.message, messages.time, 
+			select messages.u_id as message_user_uid, CONVERT(FROM_BASE64(message) USING utf8) as message, messages.time, 
       usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message,
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
@@ -228,7 +228,7 @@ io.on("connection", function (socket) {
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 
       union
-      select messages.u_id as message_user_uid, messages.message, messages.time, 
+      select messages.u_id as message_user_uid, CONVERT(FROM_BASE64(message) USING utf8) as message, messages.time, 
       usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message,
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
@@ -301,7 +301,7 @@ io.on("connection", function (socket) {
         function (err, rowsUser) {
           orgboatDB.query(
             `SELECT 
-            distinct messages.message, messages.time, usrs.name, message_id, messages.u_id,
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id,
             messages.file, messages.is_file, messages.is_image, messages.is_video FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
@@ -310,7 +310,7 @@ io.on("connection", function (socket) {
             and messages.u_id='${data.id}'
             UNION 
             SELECT 
-            distinct messages.message, messages.time, usrs.name, message_id, messages.u_id,
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id,
             messages.file, messages.is_file, messages.is_image, messages.is_video  FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
@@ -616,14 +616,14 @@ io.on("connection", function (socket) {
           chat_uids = chat_uids.replace(/,\s*$/, "");
           orgboatDB.query(
             `SELECT 
-            distinct messages.message, messages.time, usrs.name, message_id, messages.u_id FROM messages
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.favorite=1 and messages.chat_uid in (${chat_uids}) 
             and messages.u_id!='${data.id}'
             UNION 
             SELECT 
-            distinct messages.message, messages.time, usrs.name, message_id, messages.u_id FROM messages
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.favorite_to=1 and messages.chat_uid in (${chat_uids}) 
