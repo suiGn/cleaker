@@ -99,6 +99,7 @@ export default function Lobby({roomName,socket}) {
 
             canvas.width = video.video.videoWidth;
             canvas.height = video.video.videoHeight;
+            canvas.style.display= 'none';
 
             // We want also the canvas to display de image mirrored
             ctx.translate(canvas.width, 0);
@@ -116,6 +117,7 @@ export default function Lobby({roomName,socket}) {
             ctx.stroke();
             socket.emit('stream',{room_id:roomName,stream:canvas.toDataURL('image/webp')});
             setTimeout(drawImge, 33);
+    
         }
     }
     setTimeout(drawImge, 33);
@@ -156,10 +158,10 @@ export default function Lobby({roomName,socket}) {
                 ref={webcamRef}
                 mirrored
                 style={{
-                    width: "90%", height: "90%"
+                    width: "40%", height: "40%"
                 }}
             />
-            <canvas ref={canvasRef} style={{ width: "90%", height: "90%" }} />
+            <canvas ref={canvasRef} style={{ width: "40%", height: "40%" }} />
             {members.map((chat, i) => (
                 <ParticipantVideCall chat={chat} roomid={roomName} socket={socket}/>
             ))}
