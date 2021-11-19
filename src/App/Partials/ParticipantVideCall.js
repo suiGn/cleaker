@@ -1,6 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react'
 
-export default function ParticipantVideCall({chat,roomid,socket}) {
+export default function ParticipantVideCall({chat,roomid,socket,isVoiceCall}) {
     const videoRef = useRef(null);
     const audioRef = useRef(null);
 
@@ -26,18 +26,33 @@ export default function ParticipantVideCall({chat,roomid,socket}) {
     }
     return (
         <div>
-            <img ref={videoRef} />
-            <audio ref={audioRef} type='audio/ogg; codecs=opus' />
-            <div className="text-center">
-                    <figure className="avatar user-profile mb-3">
-                        {chat.pphoto==""||chat.pphoto==null?
-                        <span className="avatar-title bg-info rounded-circle">
-                            {chat.name.substring(0, 1)}
-                        </span>:
-                        <img src={chat.pphoto} className="rounded-circle" alt="image" />}
-                    </figure>
-                    <h5 className="mb-1">{chat.name}</h5>
-            </div>
+            {
+                isVoiceCall?
+                <div>
+                    <img ref={videoRef} />
+                    <audio ref={audioRef} type='audio/ogg; codecs=opus' />
+                    <div className="text-center">
+                        <figure className="avatar user-profile mb-3">
+                            {chat.pphoto==""||chat.pphoto==null?
+                            <span className="avatar-title bg-info rounded-circle">
+                                {chat.name.substring(0, 1)}
+                            </span>:
+                            <img src={chat.pphoto} className="rounded-circle" alt="image" />}
+                        </figure>
+                        <h5 className="mb-1">{chat.name}</h5>
+                    </div>
+                </div>:
+                <div className="text-center">
+                 <figure className="avatar user-profile mb-3">
+                     {chat.pphoto==""||chat.pphoto==null?
+                     <span className="avatar-title bg-info rounded-circle">
+                         {chat.name.substring(0, 1)}
+                     </span>:
+                     <img src={chat.pphoto} className="rounded-circle" alt="image" />}
+                 </figure>
+                 <h5 className="mb-1">{chat.name}</h5>
+                </div>
+            }
         </div>
     )
 }

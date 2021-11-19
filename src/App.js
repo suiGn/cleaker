@@ -21,6 +21,7 @@ import io from "socket.io-client";
 import { LogIn } from "react-feather";
 import CallPage from "./Pages/CallPage";
 import VideoChat from "./App/VideoChat";
+import VoiceChat from "./App/VoiceChat";
 const ENDPOINT = "http://localhost:5000/";
 const socket = io({
   transports: ["websocket"],
@@ -190,6 +191,9 @@ function App() {
           render={(props) => <NotValidateEmail />}
         />
         <Route path="/call/:roomid" >{loggedIn ? ( <VideoChat setLoaded={setLoaded} socket={socket}/>): (
+            <SignIn setLoaded={setLoaded} isBadLogin={""} />
+          )}</Route>
+           <Route path="/voicecall/:roomid" >{loggedIn ? ( <VoiceChat setLoaded={setLoaded} socket={socket}/>): (
             <SignIn setLoaded={setLoaded} isBadLogin={""} />
           )}</Route>
         <Route path="/verify-email" component={ValidateEmail} />

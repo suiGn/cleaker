@@ -172,8 +172,7 @@ function Layout(props) {
   }
 
   function aceptedVoiceCall(){
-    /*setViewCall(true)
-    setModalCall(false)*/
+    window.location = "/voicecall/"+roomid;
   }
 
   const tourSteps = [

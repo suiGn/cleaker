@@ -5,7 +5,7 @@ import Participant from './Participant';
 import * as FeatherIcon from 'react-feather'
 import ParticipantVideCall from './ParticipantVideCall';
 
-export default function Lobby({roomName,socket}) {
+export default function Lobby({roomName,socket,isVoiceCall}) {
 
     const [members, setMembers] = useState([]);
     let recordAudio;
@@ -153,17 +153,19 @@ export default function Lobby({roomName,socket}) {
                     <FeatherIcon.X/>
                 </button>
             </div>
-             <Webcam
+            {isVoiceCall?"":
+                <Webcam
                 audio={true}
                 ref={webcamRef}
                 mirrored
                 style={{
                     width: "40%", height: "40%"
                 }}
-            />
+                />
+            } 
             <canvas ref={canvasRef} style={{ width: "40%", height: "40%" }} />
             {members.map((chat, i) => (
-                <ParticipantVideCall chat={chat} roomid={roomName} socket={socket}/>
+                <ParticipantVideCall chat={chat} roomid={roomName} socket={socket} isVoiceCall={isVoiceCall}/>
             ))}
             {/* <Participant roomid={roomName} socket={socket}/> */}
         </div>

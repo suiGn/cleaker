@@ -19,8 +19,8 @@ function VoiceCallModal(props) {
     }*/
 
     const handleAcceptCall = async() => {
-        socket.emit('aceptedVideoCall',{idCall,roomid});
-        window.location = "/call/"+roomid;
+        socket.emit('aceptedVoiceCall',{idCall,roomid});
+        window.location = "/voicecall/"+roomid;
     }
 
     return (
