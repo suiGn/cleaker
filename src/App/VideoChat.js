@@ -22,7 +22,7 @@ export default function VideoChat({setLoaded,socket}) {
         setPermission(status);
     };
     if(permission)
-        return (<div><Lobby roomName={roomid} socket={socket}/></div>)
+        return (<div><Lobby roomName={roomid} socket={socket} isVoiceCall={false}/></div>)
     else
         return (<div><h5>no tienes permisos</h5></div>)
 }
