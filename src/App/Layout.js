@@ -168,10 +168,10 @@ function Layout(props) {
   };
 
   function aceptedVoiceCallUser(roomid){
-    /*window.location = "/call/"+roomid;*/
+    //window.location = "/call/"+roomid;
   }
 
-  function aceptedVoiceCall(){
+  function aceptedVoiceCall({roomid}){
     window.location = "/voicecall/"+roomid;
   }
 

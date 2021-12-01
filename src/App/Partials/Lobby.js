@@ -120,7 +120,9 @@ export default function Lobby({roomName,socket,isVoiceCall}) {
     
         }
     }
-    setTimeout(drawImge, 33);
+    if(!isVoiceCall){
+        setTimeout(drawImge, 33);
+    }
     // const getUserMediaVideo = async (status) => {
     //     try {
     //       const stream = await navigator.mediaDevices.getUserMedia({video: true});
