@@ -153,6 +153,27 @@ exports.pwdRst = function (req, res) {
   );
 };
 
+exports.publicUser = function(req,res){
+  var usrname = req.body.usrname;
+  index.orgboatDB.query(
+    "SELECT * FROM usrs WHERE usrname = ?",
+    [usrname],(error, resp)=>{
+      if (error) {
+        console.log(error)
+        res.json({
+          opt1: "Error",
+          opt2: "Something weird happened. Please try again.",
+        });
+      } else {
+        console.log(res)
+        res.json({
+          opt1: resp[0].name,
+          opt2: resp[0].pphoto,
+        });
+      }
+    })
+}
+
 exports.verMail = function (req, res) {
   var uuid = req.body.uuid;
   var email = req.body.em;
