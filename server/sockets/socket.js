@@ -397,7 +397,6 @@ io.on("connection", function (socket) {
     });
     //Change theme user
     socket.on("change theme", () => {
-      console.log("tema");
       orgboatDB.query(
         `UPDATE usrs SET theme = !theme WHERE u_id='${user.u_id}'`,
         (err, rows) => {

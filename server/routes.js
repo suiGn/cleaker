@@ -165,6 +165,13 @@ exports.verMail = function (req, res) {
         var usr = resp[0];
         if (usr.u_id === uuid) {
           index.orgboatDB.query(
+            "INSERT INTO usr_domain ( domain_name, u_id_usr) VALUES (?, ?)",
+            [usr.usrname+".cleaker.me", uuid],(error,result)=>{
+              if (error) {
+                console.log(error)
+              }
+          })
+          index.orgboatDB.query(
             "UPDATE usrs SET verified = ? WHERE email = ?",
             [verified, email],
             (error, results) => {
