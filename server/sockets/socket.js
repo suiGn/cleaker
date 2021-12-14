@@ -343,13 +343,37 @@ io.on("connection", function (socket) {
     socket.on("SaveOwnProfile", function (data) {
       //console.log(`[Socket.io] - Entro SaveOwnProfile`);
       orgboatDB.query(
-        `UPDATE usrs SET name='${data.name}',about='${data.about}',phone='${data.phone}',city='${data.city}',website='${data.website}' WHERE  u_id='${data.id}'`,
-        function (err, rows) {
-          io.to(user.u_id).emit("retrieve saveownprofile", {
-            u_id: data.id,
-          });
-        }
-      );
+        `select usrname from usrs where u_id='${user.u_id}'`,(err,res)=>{
+          if(res[0].usrname !=data.username){
+            orgboatDB.query(
+              `select usrname from usrs where usrname ='${data.username}'`,(err,usernamesRes)=>{
+                if(usernamesRes.length == 0)
+                {
+                  console.log("Entro 1")
+                  orgboatDB.query(
+                    `UPDATE usrs SET name='${data.name}',about='${data.about}',phone='${data.phone}',
+                    city='${data.city}',usrname='${data.username}',website='${data.website}' WHERE  u_id='${data.id}'`,
+                    function (err, rows) {
+                      io.to(user.u_id).emit("retrieve saveownprofile", {
+                        u_id: data.id,
+                      });
+                    }
+                  );
+                }
+              })
+          }else{
+            console.log("Entro 2")
+            orgboatDB.query(
+              `UPDATE usrs SET name='${data.name}',about='${data.about}',phone='${data.phone}',
+              city='${data.city}',usrname='${data.username}',website='${data.website}' WHERE  u_id='${data.id}'`,
+              function (err, rows) {
+                io.to(user.u_id).emit("retrieve saveownprofile", {
+                  u_id: data.id,
+                });
+              }
+            );
+          }
+        })
     });
     // Show own profile 2
     socket.on("ViewOwnProfile2", function (data) {

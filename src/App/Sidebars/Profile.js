@@ -21,6 +21,7 @@ function Profile(props) {
 
   //const [activeTab, setActiveTab] = useState('1');
   const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
   const [website, setWebSite] = useState("");
@@ -35,6 +36,7 @@ function Profile(props) {
   const [loadHidden, setLoadHidden] = useState(true);
 
   const nameRef = useRef();
+  const usernameRef = useRef();
   const aboutRef = useRef();
   const phoneRef = useRef();
   const inputFile = useRef(null);
@@ -73,6 +75,7 @@ function Profile(props) {
     var userData = data.usrprofile[0];
     if (userData) {
       let nameD = userData.name != "null" ? userData.name : "";
+      let usernameD = userData.usrname != "null" ? userData.usrname : "";
       let cityD = userData.city != "null" ? userData.city : "";
       let phoneD = userData.phone != "null" ? userData.phone : "";
       let aboutD = userData.about != "null" ? userData.about : "";
@@ -92,6 +95,7 @@ function Profile(props) {
         setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
       }
       setName(nameD);
+      setUserName(usernameD);
       setCity(cityD);
       setPhone(phoneD);
       setWebSite(websiteD);
@@ -116,6 +120,7 @@ function Profile(props) {
     if (name != "") {
       userData = {
         name: name,
+        username: username,
         phone: phone,
         city: city,
         about: about ? about : "",
@@ -125,9 +130,6 @@ function Profile(props) {
       socket.emit("SaveOwnProfile", userData);
       socket.once("retrieve saveownprofile", function (data) {
         socket.emit("ViewOwnProfile", { id: data.u_id });
-        socket.once("retrieve viewownprofile", ()=> {
-          socket.emit("my_uid");
-        })
       });
       socket.emit("my_uid");
     }
@@ -168,6 +170,11 @@ function Profile(props) {
   function handleSetName(e) {
     e.preventDefault();
     setName(nameRef.current.innerText);
+  }
+
+  function handleSetUserName(e) {
+    e.preventDefault();
+    setUserName(usernameRef.current.innerText);
   }
 
   function handleSetAbout(e) {
@@ -267,6 +274,45 @@ function Profile(props) {
                         onBlur={(e) => handleSetName(e)}
                       >
                         {name}
+                      </h5>
+                      <div className="border-none align-self-center"  >
+                        {openContentEditable ? (
+                          <div
+                            onClick={(e) => openContentEditableToggler(true, e)}
+                            color="light"
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
+                          >
+                            <FeatherIcon.Save />
+                          </div>
+                        ) : (
+                          <div
+                            style={{ position: "relative",left: "110px",bottom:" 25px"}}
+                            onClick={(e) => openContentEditableToggler(false, e)}
+                            color="light"
+                          >
+                            <FeatherIcon.Edit />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="d-flex justify-content-center" style={{ paddingBottom: "30px"}}>
+                  <div className="ml-3 mr-3">
+                    <h7 style={{ position: "absolute",left: "15px"}}>Username</h7>
+                    <div>
+                      <h5
+                       style={{ position: "relative",top: "20px",height: "30px"}}
+                        ref={usernameRef}
+                        className={
+                          openContentEditable
+                            ? "outline-none selected-input mb-1 pl-2 pr-2 pb-2 pt-2"
+                            : "fake-border mb-1 pl-2 pr-2 pb-2 pt-2"
+                        }
+                        contentEditable={openContentEditable}
+                        onBlur={(e) => handleSetUserName(e)}
+                      >
+                        {username}
                       </h5>
                       <div className="border-none align-self-center"  >
                         {openContentEditable ? (

@@ -68,7 +68,7 @@ exports.authFacebook = (req,res)=>{
           //STORES DATA
           index.orgboatDB.query(
             "INSERT INTO usrs (name, usrname, email, Verified, last_update, u_id, created, u_type, pphoto) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)",
-            [name, usrname, email, 1, dt, uuid_numbr, dt, u_type, profile_pic],
+            [name, uuid_numbr, email, 1, dt, uuid_numbr, dt, u_type, profile_pic],
             (error, results) => {
               if (error) {
                 res.redirect("/");
@@ -107,7 +107,7 @@ exports.authGoogle = (req, res) => {
           //STORES DATA
           index.orgboatDB.query(
             "INSERT INTO usrs (name, usrname, email, Verified, last_update, u_id, created, u_type, pphoto) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)",
-            [name, usrname, email, 1, dt, uuid_numbr, dt, u_type, profile_pic],
+            [name, uuid_numbr, email, 1, dt, uuid_numbr, dt, u_type, profile_pic],
             (error, results) => {
               if (error) {
                 res.redirect("/");
