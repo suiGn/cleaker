@@ -297,6 +297,8 @@ function Profile(props) {
                     </div>
                   </div>
                 </div>
+                {
+                props.user.id==username?
                 <div className="d-flex justify-content-center" style={{ paddingBottom: "30px"}}>
                   <div className="ml-3 mr-3">
                     <h7 style={{ position: "absolute",left: "15px"}}>Username</h7>
@@ -336,6 +338,7 @@ function Profile(props) {
                     </div>
                   </div>
                 </div>
+                :""}
                 <div className="d-flex justify-content-center" style={{ paddingBottom: "30px"}}>
                   <div className="ml-3 mr-3">
                     <h7 style={{ position: "absolute",left: "15px"}}>About</h7>
