@@ -349,7 +349,6 @@ io.on("connection", function (socket) {
               `select usrname from usrs where usrname ='${data.username}'`,(err,usernamesRes)=>{
                 if(usernamesRes.length == 0)
                 {
-                  console.log("Entro 1")
                   orgboatDB.query(
                     `UPDATE usrs SET name='${data.name}',about='${data.about}',phone='${data.phone}',
                     city='${data.city}',usrname='${data.username}',website='${data.website}' WHERE  u_id='${data.id}'`,
@@ -362,7 +361,6 @@ io.on("connection", function (socket) {
                 }
               })
           }else{
-            console.log("Entro 2")
             orgboatDB.query(
               `UPDATE usrs SET name='${data.name}',about='${data.about}',phone='${data.phone}',
               city='${data.city}',usrname='${data.username}',website='${data.website}' WHERE  u_id='${data.id}'`,
@@ -706,7 +704,7 @@ io.on("connection", function (socket) {
     socket.on("Delete message", (message) => {
       if (message.to) {
         orgboatDB.query(
-          `UPDATE messages SET delete_message_to=1, delete_message=1  WHERE message_id='${message.id}'`,
+          `UPDATE messages SET delete_message_to=1, delete_message=1  WHERE message_id='${message.messageToDelete.message_id}'`,
           (err, data) => {
             if (err) {
               return json({
@@ -720,20 +718,37 @@ io.on("connection", function (socket) {
           }
         );
       } else {
-        orgboatDB.query(
-          `UPDATE messages SET delete_message=1 WHERE message_id='${message.id}'`,
-          (err, data) => {
-            if (err) {
-              return json({
-                ok: false,
-                err: {
-                  message: "error al eliminar chat",
-                },
-              });
+        if(message.messageToDelete.message_user_uid!=user.u_id){
+          orgboatDB.query(
+            `UPDATE messages SET delete_message_to=1 WHERE message_id='${message.messageToDelete.message_id}'`,
+            (err, data) => {
+              if (err) {
+                return json({
+                  ok: false,
+                  err: {
+                    message: "error al eliminar chat",
+                  },
+                });
+              }
+              io.to(user.u_id).emit("retrive DeleteMessage");
             }
-            io.to(user.u_id).emit("retrive DeleteMessage");
-          }
-        );
+          );
+        }else{
+          orgboatDB.query(
+            `UPDATE messages SET delete_message=1 WHERE message_id='${message.messageToDelete.message_id}'`,
+            (err, data) => {
+              if (err) {
+                return json({
+                  ok: false,
+                  err: {
+                    message: "error al eliminar chat",
+                  },
+                });
+              }
+              io.to(user.u_id).emit("retrive DeleteMessage");
+            }
+          );
+        }
       }
     });
 
