@@ -427,7 +427,7 @@ function ProfileGroup(props) {
                 }
 
                 <small className="text-muted font-italic">
-                  Last seen: Today
+                  Grupo . {(members.length)} participantes
                 </small>
 
                 {
@@ -490,10 +490,11 @@ function ProfileGroup(props) {
                   </div> :
                   <div className="mt-4 mb-4">
                     <h6>About</h6>
-                    <p className="text-muted">{about}</p>
+                    <p className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
                   </div>
                   }
                   <div className="sidebar-body">
+                    <div>{(members.length)} participantes</div>
                     <PerfectScrollbar>
                       <ul className="list-group list-group-flush">
                         {isAdmin==1&&isExit==0?
