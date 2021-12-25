@@ -40,10 +40,11 @@ io.on("connection", function (socket) {
       console.log(`[Socket.io] - User ${user.usrname} asked for chats`);
       orgboatDB.query(
         `
-			select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
+			select chats.chat_uid, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
         m.u_id as last_message_user_uid,CONVERT(FROM_BASE64( m.message) USING utf8) as last_message_message, m.time as last_message_time,chats_users.archiveChat
         ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
-        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage, chats_users.group_exit, chats_users.admin_group
+        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage, chats_users.group_exit, chats_users.admin_group,
+        chats.creation_date
 			
 			from chats_users  
 
@@ -461,6 +462,7 @@ io.on("connection", function (socket) {
     socket.on("AddContact", (data) => {
       var chat_type = 0;
       var uuid_numbr = uuid.v4();
+      var timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
       routes.validateExistChat(user.u_id, data.u_id).then((result) => {
         var message =
           data.message != ""
@@ -469,7 +471,7 @@ io.on("connection", function (socket) {
         if (result === false) {
           console.log(result);
           orgboatDB.query(
-            `INSERT  INTO chats (chat_uid,chat_name,chat_type) VALUES ('${uuid_numbr}','Chat1:1',${chat_type})`
+            `INSERT  INTO chats (chat_uid,chat_name,chat_type, creation_date) VALUES ('${uuid_numbr}','Chat1:1',${chat_type},'${timeDB}')`
           );
           orgboatDB.query(
             `INSERT  INTO chats_users (chat_uid,u_id,archiveChat) VALUES ('${uuid_numbr}','${data.u_id}',${chat_type})`
@@ -568,7 +570,7 @@ io.on("connection", function (socket) {
     //Create a new chat
     socket.on("newChat", (chat) => {
       orgboatDB.query(
-        `  select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
+        `  select chats.chat_uid, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
         m.u_id as last_message_user_uid, m.message as last_message_message, m.time as last_message_time,chats_users.archiveChat
         ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
         chats.groupphoto, m.is_file , m.is_image,  m.is_video
@@ -809,8 +811,9 @@ io.on("connection", function (socket) {
     socket.on("AddGrupo", function (info) {
       var uuid_numbr = uuid.v4();
       var chat_type = 1;
+      var timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
       orgboatDB.query(
-        `INSERT  INTO chats (chat_uid,chat_name,chat_type) VALUES ('${uuid_numbr}','${info.groupName}',${chat_type})`
+        `INSERT  INTO chats (chat_uid,chat_name,chat_type,creation_date) VALUES ('${uuid_numbr}','${info.groupName}',${chat_type},'${timeDB}')`
       );
       chat_type = 0;
       info.addFriends.forEach(function (friend) {
@@ -832,7 +835,7 @@ io.on("connection", function (socket) {
     socket.on("GetGrupo", function (data) {
       orgboatDB.query(
         `select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat, usrs.name, usrs.pphoto, 
-        chats.groupphoto, chats.about_chat, chats2.admin_group, chats2.group_exit
+        chats.groupphoto, chats.about_chat, chats2.admin_group, chats2.group_exit, chats.creation_date
 
         from chats_users  
 
@@ -909,7 +912,7 @@ io.on("connection", function (socket) {
     });
     socket.on("get group name", (data) => {
       orgboatDB.query(
-        `select DISTINCT chats.chat_name, chats_users.chat_uid
+        `select DISTINCT chats.chat_name, chats_users.chat_uid, chats.creation_date
           from chats_users  
           inner join chats_users chats2 on chats2.chat_uid = chats_users.chat_uid
           inner join usrs on usrs.u_id = chats2.u_id

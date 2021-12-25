@@ -28,6 +28,7 @@ function ProfileGroup(props) {
 
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
+  const [createDate, setCreateDate] = useState("");
   const [activeTab, setActiveTab] = useState("1");
   const [p, setP] = useState("");
   const [members, setMembers] = useState([]);
@@ -97,6 +98,9 @@ function ProfileGroup(props) {
       setAbout(about_chatD)
       setMembers(data.chats)
       setMedia(data.files) 
+      let timeMessage = new Date(userData.creation_date);
+      let timeLabel = timeformat(timeMessage)
+      setCreateDate(timeLabel)
       data.chats.forEach(chat => {
         if(chat.user_chat==my_uid){
           setisAdmin(chat.admin_group)
@@ -104,6 +108,18 @@ function ProfileGroup(props) {
         }
       });
     }
+  }
+
+  
+  function timeformat(date) {
+    var h = date.getHours();
+    var m = date.getMinutes();
+    var x = h >= 12 ? "PM" : "AM";
+    h = h % 12;
+    h = h ? h : 12;
+    m = m < 10 ? "0" + m : m;
+    var mytime = h + ":" + m + " " + x;
+    return mytime;
   }
 
   function RetrieveGroupPhoto(){
@@ -468,6 +484,7 @@ function ProfileGroup(props) {
                           >
                           {about}
                         </p>
+                        <p>Grupo creado el {createDate}</p>
                       </div>
                       <div className="border-none align-self-end">
                         {openAboutEditable ? (
@@ -491,6 +508,7 @@ function ProfileGroup(props) {
                   <div className="mt-4 mb-4">
                     <h6>About</h6>
                     <p className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
+                    <p>Grupo creado el {createDate}</p>
                   </div>
                   }
                   <div className="sidebar-body">
