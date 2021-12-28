@@ -112,13 +112,17 @@ function ProfileGroup(props) {
 
   
   function timeformat(date) {
+    var d = date.getUTCDate() - 1;
+    var mn = date.getUTCMonth() + 1;
+    var y = date.getUTCFullYear();
     var h = date.getHours();
     var m = date.getMinutes();
     var x = h >= 12 ? "PM" : "AM";
     h = h % 12;
     h = h ? h : 12;
     m = m < 10 ? "0" + m : m;
-    var mytime = h + ":" + m + " " + x;
+    var mytime = d + "/" + mn + "/" + y  
+    + " " + h + ":" + m + " " + x;
     return mytime;
   }
 
@@ -484,7 +488,6 @@ function ProfileGroup(props) {
                           >
                           {about}
                         </p>
-                        <p>Grupo creado el {createDate}</p>
                       </div>
                       <div className="border-none align-self-end">
                         {openAboutEditable ? (
@@ -504,6 +507,7 @@ function ProfileGroup(props) {
                         )}
                       </div>
                     </div>
+                    <p>Grupo creado el {createDate}</p>
                   </div> :
                   <div className="mt-4 mb-4">
                     <h6>About</h6>
