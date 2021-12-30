@@ -59,7 +59,7 @@ function ImageModal(props) {
     return (
         <div>
             <img  onClick={modalToggle} class="card-img-top" src={file} alt="image"
-            style={{ cursor: "pointer",maxWidth:"100%", maxHeight:"100%"}}/>
+            />
             <Modal
             className="modal-dialog-zoom"
             isOpen={modal}
@@ -83,7 +83,8 @@ function ImageModal(props) {
                 right: "10%"}}>
                     <FeatherIcon.Download/>
                 </a>
-                <a>
+                <a  onClick={modalToggle} style={{
+                cursor: "pointer"}}>
                     <FeatherIcon.X/>
                 </a>
                 </span>
