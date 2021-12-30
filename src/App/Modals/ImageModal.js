@@ -21,7 +21,7 @@ function ImageModal(props) {
     }
     
     useEffect(() => {
-        if(images.length>0){
+        if(position&&images.length>0){
             setFileNow(images[position].file)
             setPositionNow(position)
         }
