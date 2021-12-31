@@ -18,6 +18,10 @@ function ImageModal(props) {
 
     const modalToggle = () => {
         setModal(!modal);
+        if(!modal){
+            setFileNow(images[position].file)
+            setPositionNow(position)
+        }
     }
     
     useEffect(() => {
