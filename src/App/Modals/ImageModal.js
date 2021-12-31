@@ -18,10 +18,14 @@ function ImageModal(props) {
 
     const modalToggle = () => {
         setModal(!modal);
+        if(!modal){
+            setFileNow(images[position].file)
+            setPositionNow(position)
+        }
     }
     
     useEffect(() => {
-        if(images.length>0){
+        if(position&&images.length>0){
             setFileNow(images[position].file)
             setPositionNow(position)
         }
@@ -59,7 +63,7 @@ function ImageModal(props) {
     return (
         <div>
             <img  onClick={modalToggle} class="card-img-top" src={file} alt="image"
-            style={{ cursor: "pointer",maxWidth:"100%", maxHeight:"100%"}}/>
+            />
             <Modal
             className="modal-dialog-zoom"
             isOpen={modal}
@@ -83,7 +87,8 @@ function ImageModal(props) {
                 right: "10%"}}>
                     <FeatherIcon.Download/>
                 </a>
-                <a>
+                <a  onClick={modalToggle} style={{
+                cursor: "pointer"}}>
                     <FeatherIcon.X/>
                 </a>
                 </span>
@@ -95,12 +100,9 @@ function ImageModal(props) {
                 <div class="modal-body" style={{display: "contents"}}>
                     <div class="img-preview-container" style={{
                         position: "fixed",
-                        top: "0",
-                        left: "0",
-                        right: "0",
-                        bottom: "0",
-                        margin: "auto",
-                        maxHeight: "600px"
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)"
                     }}>
                         <img src={fileNow} class="img-preview" alt="image"  style={{
                         maxWidth: "100%",

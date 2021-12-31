@@ -22,7 +22,7 @@ function DeleteMessageModal(props) {
 
   function DeleteMessageForMe() {
     modalToggle();
-    socket.emit("Delete message", { id: messageToDelete.message_id, to: false });
+    socket.emit("Delete message", { to: false , messageToDelete: messageToDelete });
     socket.emit("get messages", {
       id: props.chat_id,
       page: props.page,
@@ -34,7 +34,7 @@ function DeleteMessageModal(props) {
 
   function DeleteMessageForAll() {
     modalToggle();
-    socket.emit("Delete message", { id: messageToDelete.message_id, to: true });
+    socket.emit("Delete message", { to: true , messageToDelete: messageToDelete});
     socket.emit("get messages", {
       id: props.chat_id,
       page: props.page,

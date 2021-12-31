@@ -121,7 +121,7 @@ function ProfileGroup(props) {
                     <span>Images</span>
                   </h6>
                   <div className="flex-container" >
-                    <ul class="flex-container wrap">
+                    <ul class="flex-container wrap" style={{ cursor: "pointer",width:"100%"}}>
                       {images.map((message, i) => (
                         <li class="flex-item">
                           <ImageModal file={message.file} images={images} position={i}/>

@@ -28,6 +28,7 @@ function ProfileGroup(props) {
 
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
+  const [createDate, setCreateDate] = useState("");
   const [activeTab, setActiveTab] = useState("1");
   const [p, setP] = useState("");
   const [members, setMembers] = useState([]);
@@ -97,6 +98,9 @@ function ProfileGroup(props) {
       setAbout(about_chatD)
       setMembers(data.chats)
       setMedia(data.files) 
+      let timeMessage = new Date(userData.creation_date);
+      let timeLabel = timeformat(timeMessage)
+      setCreateDate(timeLabel)
       data.chats.forEach(chat => {
         if(chat.user_chat==my_uid){
           setisAdmin(chat.admin_group)
@@ -104,6 +108,22 @@ function ProfileGroup(props) {
         }
       });
     }
+  }
+
+  
+  function timeformat(date) {
+    var d = date.getUTCDate() - 1;
+    var mn = date.getUTCMonth() + 1;
+    var y = date.getUTCFullYear();
+    var h = date.getHours();
+    var m = date.getMinutes();
+    var x = h >= 12 ? "PM" : "AM";
+    h = h % 12;
+    h = h ? h : 12;
+    m = m < 10 ? "0" + m : m;
+    var mytime = d + "/" + mn + "/" + y  
+    + " " + h + ":" + m + " " + x;
+    return mytime;
   }
 
   function RetrieveGroupPhoto(){
@@ -427,7 +447,7 @@ function ProfileGroup(props) {
                 }
 
                 <small className="text-muted font-italic">
-                  Last seen: Today
+                  Grupo . {(members.length)} participantes
                 </small>
 
                 {
@@ -487,13 +507,16 @@ function ProfileGroup(props) {
                         )}
                       </div>
                     </div>
+                    <p>Grupo creado el {createDate}</p>
                   </div> :
                   <div className="mt-4 mb-4">
                     <h6>About</h6>
-                    <p className="text-muted">{about}</p>
+                    <p className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
+                    <p>Grupo creado el {createDate}</p>
                   </div>
                   }
                   <div className="sidebar-body">
+                    <div>{(members.length)} participantes</div>
                     <PerfectScrollbar>
                       <ul className="list-group list-group-flush">
                         {isAdmin==1&&isExit==0?
