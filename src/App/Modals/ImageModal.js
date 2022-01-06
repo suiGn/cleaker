@@ -43,6 +43,12 @@ function ImageModal(props) {
         setPositionNow(p)
     }
 
+    function ClickedFile(i){
+        setFileNow(images[(i)].file)
+        setPositionNow(i)
+        
+    }
+
     useEffect(() => {
         window.addEventListener("keydown", downHandler);
 
@@ -124,7 +130,8 @@ function ImageModal(props) {
                         {images.map((image, i) => (
                             <li>
                                 <div className="mini-preview-container" 
-                                style={{backgroundImage:"url("+image.file+")"}}>
+                                style={{backgroundImage:"url("+image.file+")"}}
+                                onClick={() => ClickedFile(i)}>
                                 </div>
                             </li>
                             ))}
