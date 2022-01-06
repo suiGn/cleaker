@@ -1609,3 +1609,76 @@
   background-image: url("/static/media/background_cleaker_web-02.a6651dea.svg");
   background-size: 90%;
 }
+
+.image-modal{
+  position: fixed;
+  top: 84%;
+    .file-list{
+      display:flex;
+      list-style-type: none;
+      .mini-preview-close{
+        position: absolute;
+        cursor: pointer;
+        z-index: 1;
+        top: 6px;
+        margin: 9px;
+      }
+      .mini-preview-container{
+        bottom:0%;
+        background-size: cover; /* or contain */
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: 100px;
+        height: 100px;
+        margin: 3px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 13px;
+
+        
+        .react-thumbnail-generator{
+
+          //width: 100px;
+          //height: 100px;
+          //padding: 0.3em;
+          //border-radius: 13px;
+
+
+          & > img {
+            width: 100px;
+            height: 100px;
+            padding: 0.3em;
+            border-radius: 13px;                
+          }
+
+          //img{
+          //  width: 100px;
+          //  height: 100px;
+          //  padding: 0.3em;
+          //  border-radius: 13px;
+          //}
+
+        }
+        .react-pdf__Page__canvas{
+          width: 100px;
+          height: 100px;
+        }
+      }
+      .mini-preview-container-add{
+        bottom:0%;
+        width: 100px;
+        height: 100px;
+        .mini-preview-container-add-text{
+          position: relative;
+          left: 25px;
+          width: 10px;
+          padding-top: 10px;
+        }
+        svg{
+          position: relative;
+          left: 35px;
+          top: 10px;
+        }
+      }
+  }
+}

@@ -118,6 +118,20 @@ function ImageModal(props) {
             <div style={{position: "fixed", right: "900px"}}>
                 <FeatherIcon.ArrowLeft style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileL()}/>
             </div>:""}
+            {images.length>1?
+                <div className="image-modal">
+                    <ul className="file-list">
+                        {images.map((image, i) => (
+                            <li>
+                                <div className="mini-preview-container" 
+                                style={{backgroundImage:"url("+image.file+")"}}>
+                                </div>
+                            </li>
+                            ))}
+                    </ul>
+               </div> 
+               :""
+            }
             </Modal>
         </div>);
     }
