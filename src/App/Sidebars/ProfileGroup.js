@@ -237,7 +237,7 @@ function ProfileGroup(props) {
             <div>
               <figure className="avatar">{p}</figure>
             </div>
-            <div className="users-list-body">
+            <div className="users-list-body users-list-body-profile">
               <div i={key}>
                 <h5
                   i={key}
@@ -246,7 +246,7 @@ function ProfileGroup(props) {
                 </h5>
               </div>
               {isAdmin==1&&isExit==0?
-              <div className="group-member-list-dropdown" style={{  position: "absolute", left: "220px"}}>
+              <div className="group-member-list-dropdown" style={{  position: "absolute", left: "200px"}}>
                 <ProfileDropdown
                   chat={chat}
                   modalToggleDelete={modalToggleDelete}
@@ -456,26 +456,12 @@ function ProfileGroup(props) {
                     Files ( {media.length} )
                   </div>:""
                 }
-
-                <Nav tabs className="justify-content-center mt-5">
-                  <NavItem>
-                    <NavLink
-                      className={classnames({
-                        active: activeTab === "1",
-                      })}
-                    >
-                      About
-                    </NavLink>
-                  </NavItem>
-                </Nav>
               </div>
-              <TabContent activeTab={activeTab}>
-                <TabPane tabId="1">
+              <div>
                 {isAdmin==1&&isExit==0?
                   <div className="mt-4 mb-4">
                     <div className="d-flex">
                       <div className="ml-3 mr-3">
-                        <h6>About</h6>
                         <p
                           ref={aboutRef}
                           className={
@@ -510,7 +496,6 @@ function ProfileGroup(props) {
                     <p>Grupo creado el {createDate}</p>
                   </div> :
                   <div className="mt-4 mb-4">
-                    <h6>About</h6>
                     <p className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
                     <p>Grupo creado el {createDate}</p>
                   </div>
@@ -540,9 +525,8 @@ function ProfileGroup(props) {
                         :""}
                       </ul>
                     </PerfectScrollbar>
-                  </div>        
-                </TabPane>
-              </TabContent>
+                  </div>
+              </div>
             </div>
           </PerfectScrollbar>
         </div>
