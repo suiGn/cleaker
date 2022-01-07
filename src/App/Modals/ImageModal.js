@@ -8,7 +8,7 @@ import * as FeatherIcon from "react-feather";
 
 function ImageModal(props) {
 
-    const{inputPreview, file, images, position} = props
+    const{inputPreview, file, images, position, classP} = props
 
     const [modal, setModal] = useState(false);
 
@@ -68,7 +68,7 @@ function ImageModal(props) {
 
     return (
         <div>
-            <img  onClick={modalToggle} class="card-img-top" src={file} alt="image"
+            <img  onClick={modalToggle} className={classP?classP:"card-img-top"} src={file} alt="image"
             />
             <Modal
             className="modal-dialog-zoom"

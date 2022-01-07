@@ -9,7 +9,7 @@ import axios from "axios";
 import ProfileDropdown from "./ProfileDropDown.js";
 import DeleteUserGroupModal from "../Modals/DeleteUserGroupModal";
 import AddMembersForm from "./AddMembersForm";
-
+import ImageModal from "../Modals/ImageModal";
 
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
@@ -506,9 +506,9 @@ function ProfileGroup(props) {
                       <ul className="preview-list">
                         {mediaPreview.map((image, i) => (
                             <li>
-                                <div className="mini-preview-container" 
-                                style={{backgroundImage:"url("+image.file+")"}}>
-                                </div>
+                              <div>
+                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={media} position={i}/>
+                              </div>
                             </li>
                             ))}
                       </ul>
