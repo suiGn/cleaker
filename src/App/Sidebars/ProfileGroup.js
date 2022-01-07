@@ -445,17 +445,9 @@ function ProfileGroup(props) {
                 </div>
                 : <h5 className="mb-1">{name}</h5>
                 }
-
                 <small className="text-muted font-italic">
                   Grupo . {(members.length)} participantes
                 </small>
-
-                {
-                  media.length>0? 
-                  <div className="media-show"  onClick={(e) => ViewMedia(e)}>
-                    Files ( {media.length} )
-                  </div>:""
-                }
               </div>
               <div>
                 {isAdmin==1&&isExit==0?
@@ -499,6 +491,14 @@ function ProfileGroup(props) {
                     <p className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
                     <p>Grupo creado el {createDate}</p>
                   </div>
+                  }
+                  {
+                    media.length>0? 
+                    <div className="media-show"  onClick={(e) => ViewMedia(e)}>
+                      <p>Media, links and docs</p>
+                      <p> {media.length} </p>
+                      {console.log(media)}
+                    </div>:""
                   }
                   <div className="sidebar-body">
                     <div>{(members.length)} participantes</div>

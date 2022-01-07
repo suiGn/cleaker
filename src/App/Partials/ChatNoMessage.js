@@ -653,7 +653,7 @@ function ChatNoMessage(props) {
                 <input type="file" hidden ref={inputImage}  id="customFileF" name="customFileF" onChange={(e) =>onChangePhoto(e)}
                 accept=".png,.gif,.jpg" multiple/>
                 <input type="file" hidden ref={inputVideo}  id="customFileV" name="customFileV" onChange={(e) =>onChangeVideo(e)}
-                accept=".mp4,.webm" multiple/>
+                accept=".mp4,.webm,.mov" multiple/>
                 <div className="mini-preview-container-add-text">Añadir archivo</div>
               </div>
               :imageOrFile == 2? 
@@ -664,7 +664,7 @@ function ChatNoMessage(props) {
                 <input type="file" hidden ref={inputImage}  id="customFileF" name="customFileF" onChange={(e) =>onChangePhoto(e)}
                 accept=".png,.gif,.jpg" multiple/>
                 <input type="file" hidden ref={inputVideo}  id="customFileV" name="customFileV" onChange={(e) =>onChangeVideo(e)}
-                accept=".mp4,.webm" multiple/>
+                accept=".mp4,.webm,.mov" multiple/>
                 <div className="mini-preview-container-add-text">Añadir archivo</div>
               </div>
               :imageOrFile == 3?
@@ -675,7 +675,7 @@ function ChatNoMessage(props) {
                 <input type="file" hidden ref={inputImage}  id="customFileF" name="customFileF" onChange={(e) =>onChangePhoto(e)}
                 accept=".png,.gif,.jpg" multiple/>
                 <input type="file" hidden ref={inputVideo}  id="customFileV" name="customFileV" onChange={(e) =>onChangeVideo(e)}
-                accept=".mp4,.webm" multiple/>
+                accept=".mp4,.webm,.mov" multiple/>
                 <div className="mini-preview-container-add-text">Añadir archivo</div>
               </div>:""
               }
