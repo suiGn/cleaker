@@ -48,9 +48,11 @@ function ProfileGroup(props) {
   const [my_uid, setMy_uid] = useState("");
   const [isAdmin, setisAdmin] = useState(1);
   const [isExit, setisExit] = useState(1);
+  const [mediaPreview, setMediaPreview] = useState([]);
   
 
   useEffect(() => {
+    setMediaPreview([])
     setActiveTab("1")
     if(props.chat.id){
       props.group.chat_id = props.chat.id
@@ -98,6 +100,8 @@ function ProfileGroup(props) {
       setAbout(about_chatD)
       setMembers(data.chats)
       setMedia(data.files) 
+      let mediaPreviewArray = data.files? data.files.slice(0,4):[] 
+      setMediaPreview(mediaPreviewArray)
       let timeMessage = new Date(userData.creation_date);
       let timeLabel = timeformat(timeMessage)
       setCreateDate(timeLabel)
@@ -494,10 +498,20 @@ function ProfileGroup(props) {
                   }
                   {
                     media.length>0? 
-                    <div className="media-show"  onClick={(e) => ViewMedia(e)}>
-                      <p>Media, links and docs</p>
-                      <p> {media.length} </p>
-                      {console.log(media)}
+                    <div className="media-show-preview">
+                      <div className="media-show-info">
+                        <p>Media, links and docs</p>
+                        <p className="media-show-arrow" onClick={(e) => ViewMedia(e)}> {media.length} <FeatherIcon.ArrowRight ></FeatherIcon.ArrowRight> </p>
+                      </div>
+                      <ul className="preview-list">
+                        {mediaPreview.map((image, i) => (
+                            <li>
+                                <div className="mini-preview-container" 
+                                style={{backgroundImage:"url("+image.file+")"}}>
+                                </div>
+                            </li>
+                            ))}
+                      </ul>
                     </div>:""
                   }
                   <div className="sidebar-body">

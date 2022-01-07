@@ -85,6 +85,34 @@
           .media-show{
             cursor: pointer;
           }
+          .media-show-preview{
+            .media-show-info{
+              display: flex;
+              .media-show-arrow{
+                cursor: pointer;
+                position: relative;
+                left: 100px;
+              }
+            }
+            .preview-list{
+              display:flex;
+              list-style-type: none;
+              right: 50px;
+              position: relative; 
+              .mini-preview-container{
+                bottom: 0;
+                background-size: cover;
+                background-position: 50%;
+                background-repeat: no-repeat;
+                width: 80px;
+                height: 80px;
+                margin: 1px;
+                background-color: #fff;
+                border-radius: 13px;
+                cursor: pointer;
+              }
+            }
+          }
           .profile-image-holder {
             overflow: hidden;
             margin: auto;
@@ -1621,13 +1649,6 @@
     .file-list{
       display:flex;
       list-style-type: none;
-      .mini-preview-close{
-        position: absolute;
-        cursor: pointer;
-        z-index: 1;
-        top: 6px;
-        margin: 9px;
-      }
       .mini-preview-container{
         bottom:0%;
         background-size: cover; /* or contain */
@@ -1643,46 +1664,16 @@
         
         .react-thumbnail-generator{
 
-          //width: 100px;
-          //height: 100px;
-          //padding: 0.3em;
-          //border-radius: 13px;
-
-
           & > img {
             width: 100px;
             height: 100px;
             padding: 0.3em;
             border-radius: 13px;                
           }
-
-          //img{
-          //  width: 100px;
-          //  height: 100px;
-          //  padding: 0.3em;
-          //  border-radius: 13px;
-          //}
-
         }
         .react-pdf__Page__canvas{
           width: 100px;
           height: 100px;
-        }
-      }
-      .mini-preview-container-add{
-        bottom:0%;
-        width: 100px;
-        height: 100px;
-        .mini-preview-container-add-text{
-          position: relative;
-          left: 25px;
-          width: 10px;
-          padding-top: 10px;
-        }
-        svg{
-          position: relative;
-          left: 35px;
-          top: 10px;
         }
       }
   }
