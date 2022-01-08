@@ -5,7 +5,7 @@ ______ _____ _   _ _____ _____ _____
 |    /| | | | | | | | | |  __| `--. \
 | |\ \\ \_/ / |_| | | | | |___/\__/ /
 \_| \_|\___/ \___/  \_/ \____/\____/ 
-              OrgBoat
+              Cleaker
 CODED BY: SUI GENERIS 
 where do we go from here?
 */
@@ -126,6 +126,7 @@ exports.authGoogle = (req, res) => {
 exports.resetPass = function (req, res) {
   res.redirect("/");
 };
+
 exports.pwdRst = function (req, res) {
   var uuid = req.query.uuid;
   var email = req.query.em;
