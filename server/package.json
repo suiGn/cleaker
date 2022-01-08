@@ -1,7 +1,7 @@
 {
-  "name": "orgboat",
-  "version": "3.3.3",
-  "description": "workspace",
+  "name": "cleaker",
+  "version": "7.7.7",
+  "description": "Taking all points within a fixed distance.",
   "engines": {
     "node": "12.x"
   },
