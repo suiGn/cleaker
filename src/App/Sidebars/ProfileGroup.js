@@ -519,9 +519,21 @@ function ProfileGroup(props) {
                     <PerfectScrollbar>
                       <ul className="list-group list-group-flush">
                         {isAdmin==1&&isExit==0?
-                        <li  onClick={(e) => OpenModal(e)} className="list-group-item">
-                          <FeatherIcon.UserPlus/>
-                            Add members
+                        <li onClick={(e) => OpenModal(e)} className="list-group-item">
+                          <div>
+                            <figure className="avatar">
+                              <span className="avatar-title bg-info rounded-circle">
+                                <FeatherIcon.UserPlus/>
+                              </span>
+                            </figure>
+                          </div>
+                          <div className="users-list-body">
+                            <div>
+                              <h5>
+                                Add members
+                              </h5>
+                            </div>
+                          </div>
                         </li>
                         :
                         ""}
