@@ -1,11 +1,10 @@
 /************************************
-APP: OrgBoat                        *
-____ ____ ____ ___  ____ ____ ___   *
-|  | |__/ | __ |__] |  | |__|  |    *
-|__| |  \ |__] |__] |__| |  |  |    *                                                                                                                                                                                                                                                                                                 
-Coded by Sui Gn		                *
+APP: Cleaker                        *
+Cleaker  							*                                                                                                                                                                                                                                                                                                 
+Sui Gn		                		*
 Copyrights Neurons Art & Technology *
 *************************************/
+
 const express = require("express");
 const cookieSession = require("cookie-session");
 const path = require("path");
@@ -30,6 +29,7 @@ var cors = require("cors");
 const aws = require("aws-sdk");
 
 const buildPath = path.join(__dirname, "..", "build");
+
 //middlewares
 const {
   isLoggedIn,
