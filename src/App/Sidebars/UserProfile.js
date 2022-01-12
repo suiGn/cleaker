@@ -10,7 +10,7 @@ import ImageModal from "../Modals/ImageModal";
 function UserProfile(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile, 
     setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia,
-    openMedia,setOpenMedia, media, setMediaProfileType } = props;
+    openMedia,setOpenMedia, media, setMediaProfileType,setMediaPreview,mediaPreview } = props;
 
   const openUserProfileToggler = (e) => {
     setOpenUserProfile(!openUserProfile);
@@ -35,14 +35,12 @@ function UserProfile(props) {
   const [activeTab, setActiveTab] = useState("1");
   const [p, setP] = useState("");
   const [favorites, setFavorites] = useState([]);
-  const [mediaPreview, setMediaPreview] = useState([]);
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
   useEffect(() => {
-    setMediaPreview([])
     setActiveTab("1")
     if(props.chat.id){
       props.user.chat_id = props.chat.id

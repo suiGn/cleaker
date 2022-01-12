@@ -14,7 +14,7 @@ import ImageModal from "../Modals/ImageModal";
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
     openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
-    setMediaProfileType} = props;
+    setMediaProfileType,mediaPreview, setMediaPreview} = props;
 
   const openGroupProfileToggler = (e) => {
     setOpenGroupProfile(!openGroupProfile);
@@ -48,11 +48,9 @@ function ProfileGroup(props) {
   const [my_uid, setMy_uid] = useState("");
   const [isAdmin, setisAdmin] = useState(1);
   const [isExit, setisExit] = useState(1);
-  const [mediaPreview, setMediaPreview] = useState([]);
   
 
   useEffect(() => {
-    setMediaPreview([])
     setActiveTab("1")
     if(props.chat.id){
       props.group.chat_id = props.chat.id
@@ -144,7 +142,7 @@ function ProfileGroup(props) {
       };
       socket.emit("SaveGroup", groupData);
       socket.once("retrive SaveGroup", function (data) {
-        socket.emit("GetGrupo", { id: data.chat_uid });
+        socket.emit("GetGrupo", props.group);
         socket.once("retrieve GetGrupo", ()=> {
           socket.emit("get chats");
           if(props.clicked.chat_uid==data.chat_uid){
@@ -458,6 +456,9 @@ function ProfileGroup(props) {
                   <div className="mt-4 mb-4">
                     <div className="d-flex">
                       <div className="ml-3 mr-3">
+                        {(about==""||about==null) &&!openAboutEditable?
+                        <p contentEditable={openAboutEditable} onClick={(e) => openAboutEditableToggler(false, e)} className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
+                        :
                         <p
                           ref={aboutRef}
                           className={
@@ -470,27 +471,12 @@ function ProfileGroup(props) {
                           >
                           {about}
                         </p>
-                      </div>
-                      <div className="border-none align-self-end">
-                        {openAboutEditable ? (
-                          <Button
-                            onClick={(e) => openAboutEditableToggler(true, e)}
-                            color="light"
-                          >
-                            <FeatherIcon.Save />
-                          </Button>
-                        ) : (
-                          <Button
-                            onClick={(e) => openAboutEditableToggler(false, e)}
-                            color="light"
-                          >
-                            <FeatherIcon.Edit />
-                          </Button>
-                        )}
+                        }
                       </div>
                     </div>
                     <p>Grupo creado el {createDate}</p>
-                  </div> :
+                  </div> 
+                  :
                   <div className="mt-4 mb-4">
                     <p className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
                     <p>Grupo creado el {createDate}</p>

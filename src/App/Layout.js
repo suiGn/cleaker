@@ -53,6 +53,7 @@ function Layout(props) {
   const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
   const [isResponse, setisResponse] = useState(false);
   const [media, setMedia] = useState([]);
+  const [mediaPreview, setMediaPreview] = useState([]);
   const [mediaProfileType, setMediaProfileType] = useState(0);
   const [messageDetail, setMessageDetail] = useState(0); 
 
@@ -347,6 +348,8 @@ function Layout(props) {
           chat={chat}
           setMedia={setMedia}
           media={media}
+          setMediaPreview={setMediaPreview}
+          mediaPreview={mediaPreview}
           setMediaProfileType={setMediaProfileType}
           clicked={clicked}
         />
@@ -375,6 +378,8 @@ function Layout(props) {
           setClicked={setClicked}
           setMedia={setMedia}
           media={media}
+          setMediaPreview={setMediaPreview}
+          mediaPreview={mediaPreview}
           setMediaProfileType={setMediaProfileType}
         />
         <Media 
