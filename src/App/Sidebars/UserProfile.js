@@ -5,11 +5,12 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import WomenAvatar5 from "../../assets/img/women_avatar5.jpg";
 import classnames from "classnames";
 import ModalImage from "react-modal-image";
+import ImageModal from "../Modals/ImageModal";
 
 function UserProfile(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile, 
     setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia,
-    openMedia,setOpenMedia, media, setMediaProfileType } = props;
+    openMedia,setOpenMedia, media, setMediaProfileType,setMediaPreview,mediaPreview } = props;
 
   const openUserProfileToggler = (e) => {
     setOpenUserProfile(!openUserProfile);
@@ -34,6 +35,7 @@ function UserProfile(props) {
   const [activeTab, setActiveTab] = useState("1");
   const [p, setP] = useState("");
   const [favorites, setFavorites] = useState([]);
+  const [favoritesMedia, setFavoritesMedia] = useState([]);
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -70,7 +72,11 @@ function UserProfile(props) {
           setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
         }
         setMedia(data.files)
+        let mediaPreviewArray = data.files? data.files.slice(0,4):[] 
+        setMediaPreview(mediaPreviewArray)
         setFavorites(data.favorites)
+        var favoritesMediaArray = data.favorites.filter(function(item){return item.is_image == 1})
+        setFavoritesMedia(favoritesMediaArray)
         setName(nameD);
         setCity(cityD);
         setPhone(phoneD);
@@ -141,11 +147,23 @@ function UserProfile(props) {
                   Last seen: Today
                 </small>
                 {
-                  media.length>0? 
-                  <div  className="media-show"  onClick={(e) => ViewMedia(e)}>
-                    Files ( {media.length} )
-                  </div>:""
-                }
+                    media.length>0? 
+                    <div className="media-show-preview">
+                      <div className="media-show-info">
+                        <p>Media, links and docs</p>
+                        <p className="media-show-arrow" onClick={(e) => ViewMedia(e)}> {media.length} <FeatherIcon.ArrowRight ></FeatherIcon.ArrowRight> </p>
+                      </div>
+                      <ul className="preview-list">
+                        {mediaPreview.map((image, i) => (
+                            <li>
+                              <div>
+                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={media} position={i}/>
+                              </div>
+                            </li>
+                            ))}
+                      </ul>
+                    </div>:""
+                  }
                 <Nav tabs className="justify-content-center mt-5">
                   <NavItem>
                     <NavLink
@@ -222,13 +240,9 @@ function UserProfile(props) {
                               </div>
                               <div class="message-content position-relative img-chat">
                                   <div>
-                                    <figure className="avatar img-chat">
-                                      <ModalImage
-                                        small={message.file}
-                                        large={message.file}
-                                        alt="image"
-                                      />
-                                    </figure>
+                                  <figure className="avatar img-chat">
+                                    <ImageModal  file={message.file} images={favoritesMedia} position={i}/>
+                                  </figure>
                                     <div className="word-break">{message.message}</div>
                                   </div>
                                 </div>

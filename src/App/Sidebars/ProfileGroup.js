@@ -9,12 +9,12 @@ import axios from "axios";
 import ProfileDropdown from "./ProfileDropDown.js";
 import DeleteUserGroupModal from "../Modals/DeleteUserGroupModal";
 import AddMembersForm from "./AddMembersForm";
-
+import ImageModal from "../Modals/ImageModal";
 
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
     openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
-    setMediaProfileType} = props;
+    setMediaProfileType,mediaPreview, setMediaPreview} = props;
 
   const openGroupProfileToggler = (e) => {
     setOpenGroupProfile(!openGroupProfile);
@@ -98,6 +98,8 @@ function ProfileGroup(props) {
       setAbout(about_chatD)
       setMembers(data.chats)
       setMedia(data.files) 
+      let mediaPreviewArray = data.files? data.files.slice(0,4):[] 
+      setMediaPreview(mediaPreviewArray)
       let timeMessage = new Date(userData.creation_date);
       let timeLabel = timeformat(timeMessage)
       setCreateDate(timeLabel)
@@ -140,7 +142,7 @@ function ProfileGroup(props) {
       };
       socket.emit("SaveGroup", groupData);
       socket.once("retrive SaveGroup", function (data) {
-        socket.emit("GetGrupo", { id: data.chat_uid });
+        socket.emit("GetGrupo", props.group);
         socket.once("retrieve GetGrupo", ()=> {
           socket.emit("get chats");
           if(props.clicked.chat_uid==data.chat_uid){
@@ -237,7 +239,7 @@ function ProfileGroup(props) {
             <div>
               <figure className="avatar">{p}</figure>
             </div>
-            <div className="users-list-body">
+            <div className="users-list-body users-list-body-profile">
               <div i={key}>
                 <h5
                   i={key}
@@ -246,7 +248,7 @@ function ProfileGroup(props) {
                 </h5>
               </div>
               {isAdmin==1&&isExit==0?
-              <div className="group-member-list-dropdown" style={{  position: "absolute", left: "220px"}}>
+              <div className="group-member-list-dropdown" style={{  position: "absolute", left: "200px"}}>
                 <ProfileDropdown
                   chat={chat}
                   modalToggleDelete={modalToggleDelete}
@@ -360,6 +362,15 @@ function ProfileGroup(props) {
     setMediaProfileType(2)
   }
 
+  function handleKeyPress (e){
+    if(e.key === 'Enter'){
+      setOpenAboutEditable(!openAboutEditable);
+      SaveProfile();
+    }else{
+      setAbout(aboutRef.current.innerText);
+    }
+  }
+
   return (
     <div className={`sidebar-group ${openGroupProfile ? "mobile-open" : ""}`}>
       <div className={openGroupProfile ? "sidebar active" : "sidebar"}>
@@ -445,37 +456,18 @@ function ProfileGroup(props) {
                 </div>
                 : <h5 className="mb-1">{name}</h5>
                 }
-
                 <small className="text-muted font-italic">
                   Grupo . {(members.length)} participantes
                 </small>
-
-                {
-                  media.length>0? 
-                  <div className="media-show"  onClick={(e) => ViewMedia(e)}>
-                    Files ( {media.length} )
-                  </div>:""
-                }
-
-                <Nav tabs className="justify-content-center mt-5">
-                  <NavItem>
-                    <NavLink
-                      className={classnames({
-                        active: activeTab === "1",
-                      })}
-                    >
-                      About
-                    </NavLink>
-                  </NavItem>
-                </Nav>
               </div>
-              <TabContent activeTab={activeTab}>
-                <TabPane tabId="1">
+              <div>
                 {isAdmin==1&&isExit==0?
                   <div className="mt-4 mb-4">
                     <div className="d-flex">
                       <div className="ml-3 mr-3">
-                        <h6>About</h6>
+                        {(about==""||about==null) &&!openAboutEditable?
+                        <p contentEditable={openAboutEditable} onClick={(e) => openAboutEditableToggler(false, e)} className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
+                        :
                         <p
                           ref={aboutRef}
                           className={
@@ -484,45 +476,59 @@ function ProfileGroup(props) {
                               : "fake-border text-muted mb-1 pl-2 pr-2 pb-2 pt-2"
                           }
                           contentEditable={openAboutEditable}
-                          onBlur={(e) => handleSetAbout(e)}
+                          onKeyPress={(e) => handleKeyPress(e)}
                           >
                           {about}
                         </p>
-                      </div>
-                      <div className="border-none align-self-end">
-                        {openAboutEditable ? (
-                          <Button
-                            onClick={(e) => openAboutEditableToggler(true, e)}
-                            color="light"
-                          >
-                            <FeatherIcon.Save />
-                          </Button>
-                        ) : (
-                          <Button
-                            onClick={(e) => openAboutEditableToggler(false, e)}
-                            color="light"
-                          >
-                            <FeatherIcon.Edit />
-                          </Button>
-                        )}
+                        }
                       </div>
                     </div>
                     <p>Grupo creado el {createDate}</p>
-                  </div> :
+                  </div> 
+                  :
                   <div className="mt-4 mb-4">
-                    <h6>About</h6>
-                    <p className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
+                    <p  className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
                     <p>Grupo creado el {createDate}</p>
                   </div>
+                  }
+                  {
+                    media.length>0? 
+                    <div className="media-show-preview">
+                      <div className="media-show-info">
+                        <p>Media, links and docs</p>
+                        <p className="media-show-arrow" onClick={(e) => ViewMedia(e)}> {media.length} <FeatherIcon.ArrowRight ></FeatherIcon.ArrowRight> </p>
+                      </div>
+                      <ul className="preview-list">
+                        {mediaPreview.map((image, i) => (
+                            <li>
+                              <div>
+                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={media} position={i}/>
+                              </div>
+                            </li>
+                            ))}
+                      </ul>
+                    </div>:""
                   }
                   <div className="sidebar-body">
                     <div>{(members.length)} participantes</div>
                     <PerfectScrollbar>
                       <ul className="list-group list-group-flush">
                         {isAdmin==1&&isExit==0?
-                        <li  onClick={(e) => OpenModal(e)} className="list-group-item">
-                          <FeatherIcon.UserPlus/>
-                            Add members
+                        <li onClick={(e) => OpenModal(e)} className="list-group-item">
+                          <div>
+                            <figure className="avatar">
+                              <span className="avatar-title bg-info rounded-circle">
+                                <FeatherIcon.UserPlus/>
+                              </span>
+                            </figure>
+                          </div>
+                          <div className="users-list-body">
+                            <div>
+                              <h5>
+                                Add members
+                              </h5>
+                            </div>
+                          </div>
                         </li>
                         :
                         ""}
@@ -540,9 +546,8 @@ function ProfileGroup(props) {
                         :""}
                       </ul>
                     </PerfectScrollbar>
-                  </div>        
-                </TabPane>
-              </TabContent>
+                  </div>
+              </div>
             </div>
           </PerfectScrollbar>
         </div>

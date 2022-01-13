@@ -225,7 +225,7 @@ function ChatFooter(props) {
                   <input type="file" hidden ref={inputImage}  id="customFileF" name="customFileF" onChange={(e) =>onChangePhoto(e)}
                   accept=".png,.gif,.jpg" multiple/>
                   <input type="file" hidden ref={inputVideo}  id="customFileV" name="customFileV" onChange={(e) =>onChangeVideo(e)}
-                  accept=".mp4,.webm" multiple/>
+                  accept=".mp4,.webm,.mov" multiple/>
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem onClick={() => onButtonClickImage()}><FeatherIcon.Image/> Image</DropdownItem>

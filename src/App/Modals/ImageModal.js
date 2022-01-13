@@ -8,7 +8,7 @@ import * as FeatherIcon from "react-feather";
 
 function ImageModal(props) {
 
-    const{inputPreview, file, images, position} = props
+    const{inputPreview, file, images, position, classP} = props
 
     const [modal, setModal] = useState(false);
 
@@ -43,6 +43,12 @@ function ImageModal(props) {
         setPositionNow(p)
     }
 
+    function ClickedFile(i){
+        setFileNow(images[(i)].file)
+        setPositionNow(i)
+        
+    }
+
     useEffect(() => {
         window.addEventListener("keydown", downHandler);
 
@@ -62,7 +68,7 @@ function ImageModal(props) {
 
     return (
         <div>
-            <img  onClick={modalToggle} class="card-img-top" src={file} alt="image"
+            <img  onClick={modalToggle} className={classP?classP:"card-img-top"} src={file} alt="image"
             />
             <Modal
             className="modal-dialog-zoom"
@@ -118,6 +124,21 @@ function ImageModal(props) {
             <div style={{position: "fixed", right: "900px"}}>
                 <FeatherIcon.ArrowLeft style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileL()}/>
             </div>:""}
+            {images.length>1?
+                <div className="image-modal">
+                    <ul className="file-list">
+                        {images.map((image, i) => (
+                            <li>
+                                <div className="mini-preview-container" 
+                                style={{backgroundImage:"url("+image.file+")"}}
+                                onClick={() => ClickedFile(i)}>
+                                </div>
+                            </li>
+                            ))}
+                    </ul>
+               </div> 
+               :""
+            }
             </Modal>
         </div>);
     }
