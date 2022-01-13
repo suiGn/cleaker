@@ -1,8 +1,7 @@
 {
-  "name": "Start on Heroku: Node.js",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-getting-started",
-  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
-  "keywords": ["node", "express", "heroku"],
+  "name": "Cleaker",
+  "description": "Taking all points within a fixed distance.",
+  "repository": "https://github.com/suiGn/cleaker",
+  "keywords": ["node", "express", "heroku", "cleaker"],
   "image": "heroku/nodejs"
 }
