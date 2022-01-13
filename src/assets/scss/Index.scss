@@ -85,6 +85,34 @@
           .media-show{
             cursor: pointer;
           }
+          .media-show-preview{
+            .media-show-info{
+              display: flex;
+              .media-show-arrow{
+                cursor: pointer;
+                position: relative;
+                left: 100px;
+              }
+            }
+            .preview-list{
+              display:flex;
+              list-style-type: none;
+              right: 50px;
+              position: relative; 
+              .mini-preview-container{
+                bottom: 0;
+                background-size: cover;
+                background-position: 50%;
+                background-repeat: no-repeat;
+                width: 80px;
+                height: 80px;
+                margin: 1px;
+                background-color: #fff;
+                border-radius: 13px;
+                cursor: pointer;
+              }
+            }
+          }
           .profile-image-holder {
             overflow: hidden;
             margin: auto;
@@ -685,6 +713,11 @@
                 z-index: 3;
               }
             }
+          }
+
+          .users-list-body-profile {
+            left: 49px;
+            bottom: 25px;
           }
 
           &:hover {
@@ -1608,4 +1641,40 @@
 .background-home-img{
   background-image: url("/static/media/background_cleaker_web-02.a6651dea.svg");
   background-size: 90%;
+}
+
+.image-modal{
+  position: fixed;
+  top: 84%;
+    .file-list{
+      display:flex;
+      list-style-type: none;
+      .mini-preview-container{
+        bottom:0%;
+        background-size: cover; /* or contain */
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: 100px;
+        height: 100px;
+        margin: 3px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 13px;
+        cursor: pointer;
+        
+        .react-thumbnail-generator{
+
+          & > img {
+            width: 100px;
+            height: 100px;
+            padding: 0.3em;
+            border-radius: 13px;                
+          }
+        }
+        .react-pdf__Page__canvas{
+          width: 100px;
+          height: 100px;
+        }
+      }
+  }
 }
