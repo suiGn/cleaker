@@ -35,6 +35,7 @@ function UserProfile(props) {
   const [activeTab, setActiveTab] = useState("1");
   const [p, setP] = useState("");
   const [favorites, setFavorites] = useState([]);
+  const [favoritesMedia, setFavoritesMedia] = useState([]);
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -74,6 +75,8 @@ function UserProfile(props) {
         let mediaPreviewArray = data.files? data.files.slice(0,4):[] 
         setMediaPreview(mediaPreviewArray)
         setFavorites(data.favorites)
+        var favoritesMediaArray = data.favorites.filter(function(item){return item.is_image == 1})
+        setFavoritesMedia(favoritesMediaArray)
         setName(nameD);
         setCity(cityD);
         setPhone(phoneD);
@@ -237,13 +240,9 @@ function UserProfile(props) {
                               </div>
                               <div class="message-content position-relative img-chat">
                                   <div>
-                                    <figure className="avatar img-chat">
-                                      <ModalImage
-                                        small={message.file}
-                                        large={message.file}
-                                        alt="image"
-                                      />
-                                    </figure>
+                                  <figure className="avatar img-chat">
+                                    <ImageModal  file={message.file} images={favoritesMedia} position={i}/>
+                                  </figure>
                                     <div className="word-break">{message.message}</div>
                                   </div>
                                 </div>
