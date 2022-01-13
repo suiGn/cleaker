@@ -1,11 +1,10 @@
 /************************************
-APP: OrgBoat                        *
-____ ____ ____ ___  ____ ____ ___   *
-|  | |__/ | __ |__] |  | |__|  |    *
-|__| |  \ |__] |__] |__| |  |  |    *                                                                                                                                                                                                                                                                                                 
-Coded by Sui Gn		                *
+APP: Cleaker                        *
+Cleaker  							*                                                                                                                                                                                                                                                                                                 
+Sui Gn		                		*
 Copyrights Neurons Art & Technology *
 *************************************/
+
 const express = require("express");
 const cookieSession = require("cookie-session");
 const path = require("path");
@@ -28,8 +27,8 @@ var cookieParser = require("cookie-parser");
 var passport = require("passport");
 var cors = require("cors");
 const aws = require("aws-sdk");
-
 const buildPath = path.join(__dirname, "..", "build");
+
 //middlewares
 const {
   isLoggedIn,
@@ -220,6 +219,8 @@ const server = express()
     //console.log(p);
     res.sendFile(path.join(__dirname, req.user[0].pphoto));
   })
+  
+  
   .get("/pphotoChat/:name", (req, res) => {
     (async () => {
       console.log(req.params.name);
@@ -227,6 +228,8 @@ const server = express()
       res.sendFile(path.join(__dirname, result));
     })();
   })
+  
+  
   .post("/uploadpChatFile", (req, res) => {
     const storage = multer.diskStorage({
       destination: "../build/uploads/",
@@ -286,11 +289,7 @@ require("./sockets/socket");
 http.listen(PORT, function () {
   console.log(
     ` 
- ██████  ██████   ██████  ██████   ██████   █████  ████████ 
-██    ██ ██   ██ ██       ██   ██ ██    ██ ██   ██    ██    
-██    ██ ██████  ██   ███ ██████  ██    ██ ███████    ██    
-██    ██ ██   ██ ██    ██ ██   ██ ██    ██ ██   ██    ██    
- ██████  ██   ██  ██████  ██████   ██████  ██   ██    ██   
-				Listening on port: ${PORT}`
+Cleaking 
+			 on port: ${PORT}`
   );
 });
