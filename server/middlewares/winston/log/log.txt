@@ -1238,3 +1238,5 @@
 {"level":"info","message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53"}
 {"level":"info","message":"[Socket.io] - Connected user: striderreimu94@gmail.com, u_id: 95f6c378-16f5-4c38-8ad5-3b1988dbeffe"}
 {"level":"info","message":"[Socket.io] - Connected user: bruno, u_id: f9e62a85-9f87-4e3f-9d8c-5c850c7b0d53"}
+{"level":"info","message":"[Socket.io] - Connected user: banDutch, u_id: 082e844a-5f81-463f-9a2c-8cf8629c8bfd"}
+{"level":"info","message":"LogOut"}
