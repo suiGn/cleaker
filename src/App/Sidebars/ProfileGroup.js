@@ -362,6 +362,15 @@ function ProfileGroup(props) {
     setMediaProfileType(2)
   }
 
+  function handleKeyPress (e){
+    if(e.key === 'Enter'){
+      setOpenAboutEditable(!openAboutEditable);
+      SaveProfile();
+    }else{
+      setAbout(aboutRef.current.innerText);
+    }
+  }
+
   return (
     <div className={`sidebar-group ${openGroupProfile ? "mobile-open" : ""}`}>
       <div className={openGroupProfile ? "sidebar active" : "sidebar"}>
@@ -467,7 +476,7 @@ function ProfileGroup(props) {
                               : "fake-border text-muted mb-1 pl-2 pr-2 pb-2 pt-2"
                           }
                           contentEditable={openAboutEditable}
-                          onBlur={(e) => handleSetAbout(e)}
+                          onKeyPress={(e) => handleKeyPress(e)}
                           >
                           {about}
                         </p>
@@ -478,7 +487,7 @@ function ProfileGroup(props) {
                   </div> 
                   :
                   <div className="mt-4 mb-4">
-                    <p className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
+                    <p  className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
                     <p>Grupo creado el {createDate}</p>
                   </div>
                   }
