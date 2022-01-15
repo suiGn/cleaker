@@ -367,7 +367,6 @@ function ProfileGroup(props) {
       setOpenAboutEditable(!openAboutEditable);
       SaveProfile();
     }else{
-      setAbout(aboutRef.current.innerText);
     }
   }
 
@@ -468,6 +467,9 @@ function ProfileGroup(props) {
                         {(about==""||about==null) &&!openAboutEditable?
                         <p contentEditable={openAboutEditable} onClick={(e) => openAboutEditableToggler(false, e)} className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
                         :
+                        (about!=""||about!=null) &&!openAboutEditable?
+                        <p contentEditable={openAboutEditable} onClick={(e) => openAboutEditableToggler(false, e)} className="text-muted">{about}</p>
+                        :
                         <p
                           ref={aboutRef}
                           className={
@@ -476,6 +478,7 @@ function ProfileGroup(props) {
                               : "fake-border text-muted mb-1 pl-2 pr-2 pb-2 pt-2"
                           }
                           contentEditable={openAboutEditable}
+                          onBlur={(e) => handleSetAbout(e)}
                           onKeyPress={(e) => handleKeyPress(e)}
                           >
                           {about}
