@@ -77,6 +77,10 @@
             border: 1px solid $style-color;
             padding: 10px 15px;
           }
+          .form-file{
+            position: relative;
+            z-index: 1;
+          }
         }
 
         & .sidebar-body {
@@ -850,12 +854,9 @@
           display: flex;
           text-align: center;
           .img-preview-container {
-            max-height: 374px;
-            position: relative;
-            top: 8%;
             .img-preview {
-              max-width: 80%;
-              max-height: 472px;
+              max-width: 68%;
+              max-height: 460px;
             }
           }.pdf-preview-container{
             max-height: 400px;
@@ -1367,7 +1368,9 @@
           }
         }
       }
-
+      .chat-footer-file {
+        border-top: 1px !important
+      }
       .chat-footer {
         border-top: 1px solid $style-color;
         padding: 17px 30px;
@@ -1385,8 +1388,8 @@
           padding: 10px;
           .send-file-button {
             position: relative;
-            bottom: 120%;
-            right: 2em;
+            bottom: 86%;
+            right: 30px;
           }
         }
 
