@@ -6,12 +6,14 @@ import FavoritesDropdown from "./FavoritesDropdown";
 import { mobileSidebarAction } from "../../../Store/Actions/mobileSidebarAction";
 import * as FeatherIcon from "react-feather";
 import ModalImage from "react-modal-image";
+import ImageModal from "../../Modals/ImageModal";
 
 function Index(props) {
   const { socket } = props;
   const [favoriteChats, setfavoriteChats] = useState([]);
   const [favoriteChatsFiltered, setfavoriteChatsFiltered] = useState([]);
   const [searchFavorite, setSearchFavorite] = useState("");
+  const [media, setMedia] = useState([]);
 
   useEffect(() => {
     // inputRef.current.focus();
@@ -20,6 +22,15 @@ function Index(props) {
 
   function RetrieveGetFavorites(data) {
     if (data.favorites) {
+      let i = 0;
+      var arrayMedia = data.favorites.filter(function(item){
+        if(item.is_image){
+          item.position = i
+          i++
+          return item
+        }
+      })
+      setMedia(arrayMedia)
       setfavoriteChats(data.favorites);
       setfavoriteChatsFiltered(data.favorites);
     }
@@ -83,11 +94,12 @@ function Index(props) {
                       <div class="message-content position-relative img-chat">
                           <div>
                             <figure className="avatar img-chat">
-                              <ModalImage
+                              {/*<ModalImage
                                 small={message.file}
                                 large={message.file}
                                 alt="image"
-                              />
+                              />*/}
+                              <ImageModal file={message.file} images={media} position={message.position}/>
                             </figure>
                             <div className="word-break">{message.message}</div>
                           </div>

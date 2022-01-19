@@ -639,14 +639,19 @@ io.on("connection", function (socket) {
           chat_uids = chat_uids.replace(/,\s*$/, "");
           orgboatDB.query(
             `SELECT 
-            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id FROM messages
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message,
+            messages.time, usrs.name, message_id, messages.u_id ,
+            messages.is_file, messages.file, messages.is_image 
+            FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.favorite=1 and messages.chat_uid in (${chat_uids}) 
             and messages.u_id!='${data.id}'
             UNION 
             SELECT 
-            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id FROM messages
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id ,
+            messages.is_file, messages.file, messages.is_image
+            FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.favorite_to=1 and messages.chat_uid in (${chat_uids}) 
