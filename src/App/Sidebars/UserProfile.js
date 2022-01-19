@@ -75,7 +75,14 @@ function UserProfile(props) {
         let mediaPreviewArray = data.files? data.files.slice(0,4):[] 
         setMediaPreview(mediaPreviewArray)
         setFavorites(data.favorites)
-        var favoritesMediaArray = data.favorites.filter(function(item){return item.is_image == 1})
+        let i = 0;
+        var favoritesMediaArray = data.favorites.filter(function(item){
+            if(item.is_image){
+              item.position = i
+              i++
+              return item
+          }
+        })
         setFavoritesMedia(favoritesMediaArray)
         setName(nameD);
         setCity(cityD);
@@ -241,7 +248,7 @@ function UserProfile(props) {
                               <div class="message-content position-relative img-chat">
                                   <div>
                                   <figure className="avatar img-chat">
-                                    <ImageModal  file={message.file} images={favoritesMedia} position={i}/>
+                                    <ImageModal  file={message.file} images={favoritesMedia} position={message.position}/>
                                   </figure>
                                     <div className="word-break">{message.message}</div>
                                   </div>
