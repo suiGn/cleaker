@@ -7,10 +7,10 @@ import classnames from "classnames";
 import * as FeatherIcon from "react-feather";
 import ImageModal from "../Modals/ImageModal";
 
-function ProfileGroup(props) {
+function Media(props) {
   const {
     openUserProfile, setOpenUserProfile, openGroupProfile, setOpenGroupProfile,
-    openMedia, setOpenMedia, setMediaProfileType, mediaProfileType } = props;
+    openMedia, setOpenMedia, setMediaProfileType, mediaProfileType, media } = props;
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   };
@@ -31,20 +31,25 @@ function ProfileGroup(props) {
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
   const [videos, setVideos] = useState([]);
+  const [links, setLinks] = useState([]);
 
   useEffect(() => {
-    var imagesL = props.media.filter((messages) => {
+    var imagesL = media.filter((messages) => {
       return messages.is_image
     })
-    var videosL = props.media.filter((messages) => {
+    var videosL = media.filter((messages) => {
       return messages.is_video
     })
-    var filesL = props.media.filter((messages) => {
+    var filesL = media.filter((messages) => {
       return messages.is_file
+    })
+    var linksL = media.filter((messages) => {
+      return messages.ogTitle!=""
     })
     setFiles(filesL)
     setImages(imagesL)
     setVideos(videosL)
+    setLinks(linksL)
   }, [props.media]);
 
   return (
@@ -113,6 +118,21 @@ function ProfileGroup(props) {
                       </NavLink>
                       </NavItem> : ""
                   }
+                  {
+                    links.length > 0 ?
+                    <NavItem>
+                      <NavLink
+                        className={classnames({
+                          active: activeTab === "4",
+                        })}
+                        onClick={() => {
+                          toggle('4');
+                        }}
+                      >
+                        Links
+                    </NavLink>
+                    </NavItem> : ""
+                  }
                 </Nav>
               </div>
               <TabContent activeTab={activeTab}>
@@ -165,6 +185,27 @@ function ProfileGroup(props) {
                     </ul>
                   </div>
                 </TabPane>
+                <TabPane tabId="4">
+                  <h6 className="mb-3 d-flex align-items-center justify-content-between">
+                    <span>Links</span>
+                  </h6>
+                  <div>
+                    <ul className="list-group list-group-flush">
+                      {links.map((message, i) => (
+                        <li className="list-group-item">
+                           <div className="message-response">
+                            <div>
+                              <div className="mini-preview-container mini-preview-container-url" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
+                              </div>
+                              <div className="word-break">{message.ogTitle}</div>
+                            </div>
+                          </div>
+                        </li>
+                      ))
+                      }
+                    </ul>
+                  </div>
+                </TabPane>
               </TabContent>
             </div>
           </PerfectScrollbar>
@@ -174,4 +215,4 @@ function ProfileGroup(props) {
   );
 }
 
-export default ProfileGroup;
+export default Media;

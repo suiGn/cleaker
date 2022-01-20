@@ -72,7 +72,10 @@ function UserProfile(props) {
           setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
         }
         setMedia(data.files)
-        let mediaPreviewArray = data.files? data.files.slice(0,4):[] 
+        let mediaImageArray = data.files.filter(function(item){
+          return item.is_image
+        })
+        let mediaPreviewArray = mediaImageArray? mediaImageArray.slice(0,4):[] 
         setMediaPreview(mediaPreviewArray)
         setFavorites(data.favorites)
         let i = 0;
@@ -164,7 +167,7 @@ function UserProfile(props) {
                         {mediaPreview.map((image, i) => (
                             <li>
                               <div>
-                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={media} position={i}/>
+                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={mediaPreview} position={i}/>
                               </div>
                             </li>
                             ))}
