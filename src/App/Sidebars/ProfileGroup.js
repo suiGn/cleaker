@@ -48,7 +48,7 @@ function ProfileGroup(props) {
   const [my_uid, setMy_uid] = useState("");
   const [isAdmin, setisAdmin] = useState(1);
   const [isExit, setisExit] = useState(1);
-  
+  const [mediaImages, setMediaImages] = useState([]);
 
   useEffect(() => {
     setActiveTab("1")
@@ -98,7 +98,11 @@ function ProfileGroup(props) {
       setAbout(about_chatD)
       setMembers(data.chats)
       setMedia(data.files) 
-      let mediaPreviewArray = data.files? data.files.slice(0,4):[] 
+      let mediaImageArray = data.files.filter(function(item){
+        return item.is_image
+      })
+      setMediaImages(mediaImageArray)
+      let mediaPreviewArray = mediaImageArray? mediaImageArray.slice(0,4):[] 
       setMediaPreview(mediaPreviewArray)
       let timeMessage = new Date(userData.creation_date);
       let timeLabel = timeformat(timeMessage)
@@ -505,7 +509,7 @@ function ProfileGroup(props) {
                         {mediaPreview.map((image, i) => (
                             <li>
                               <div>
-                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={media} position={i}/>
+                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={mediaImages} position={i}/>
                               </div>
                             </li>
                             ))}

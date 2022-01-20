@@ -36,6 +36,7 @@ function UserProfile(props) {
   const [p, setP] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [favoritesMedia, setFavoritesMedia] = useState([]);
+  const [mediaImages, setMediaImages] = useState([]);
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -75,6 +76,7 @@ function UserProfile(props) {
         let mediaImageArray = data.files.filter(function(item){
           return item.is_image
         })
+        setMediaImages(mediaImageArray)
         let mediaPreviewArray = mediaImageArray? mediaImageArray.slice(0,4):[] 
         setMediaPreview(mediaPreviewArray)
         setFavorites(data.favorites)
@@ -167,7 +169,7 @@ function UserProfile(props) {
                         {mediaPreview.map((image, i) => (
                             <li>
                               <div>
-                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={mediaPreview} position={i}/>
+                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={mediaImages} position={i}/>
                               </div>
                             </li>
                             ))}
