@@ -16,7 +16,6 @@ function Media(props) {
   };
 
   const openMediaToggler = (e) => {
-    toggle('1')
     setMediaProfileType(0)
     setOpenMedia(!openMedia)
     if (mediaProfileType == 1) {
@@ -50,6 +49,17 @@ function Media(props) {
     setImages(imagesL)
     setVideos(videosL)
     setLinks(linksL)
+    if(imagesL.length>0)
+    {
+      toggle('1')
+    }else if(videosL.length>0){
+      toggle('2')
+    }else if(filesL.length>0){
+      toggle('3')
+    }else if(linksL.length>0){
+    toggle('4')
+    }
+   
   }, [props.media]);
 
   return (
