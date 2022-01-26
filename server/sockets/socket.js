@@ -320,7 +320,7 @@ io.on("connection", function (socket) {
             function (err, chats) {
               orgboatDB.query(
                 `SELECT 
-                distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
+                distinct messages.chat_uid, CONVERT(FROM_BASE64( messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
                 messages.is_video, messages.is_image, messages.is_file, messages.ogTitle,
                 messages.ogDescription, messages.ogImage FROM messages
                 inner join usrs on messages.u_id = usrs.u_id
@@ -865,7 +865,7 @@ io.on("connection", function (socket) {
         function (err, rows) {
           orgboatDB.query(
             `SELECT 
-            distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
+            distinct messages.chat_uid, CONVERT(FROM_BASE64( messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
             messages.is_video, messages.is_image, messages.is_file,
             chats_users.group_exit, chats_users.admin_group, messages.ogTitle,
             messages.ogDescription, messages.ogImage FROM messages
