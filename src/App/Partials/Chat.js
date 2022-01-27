@@ -616,7 +616,7 @@ function Chat(props) {
                   className={"message-content position-relative img-chat" + search}
                 >
                   {
-                    (message.ogTitle!=null&&message.ogTitle!=="")?
+                    (message.ogDescription!=null&&message.ogDescription!=="")?
                     <div className="message-response">
                       <div>
                         <div className="mini-preview-container mini-preview-container-url" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>

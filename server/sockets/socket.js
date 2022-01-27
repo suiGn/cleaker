@@ -223,7 +223,7 @@ io.on("connection", function (socket) {
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
-      messages.response_file,  messages.unread_messages, messages.time_read,  messages.ogTitle, 
+      messages.response_file,  messages.unread_messages, messages.time_read,  CONCAT(SUBSTRING(messages.ogTitle, 1, 45), "...")   as ogTitle, 
       messages.ogDescription,  messages.ogImage, messages.isExitGroup
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
@@ -234,7 +234,7 @@ io.on("connection", function (socket) {
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
-      messages.response_file,  messages.unread_messages, messages.time_read,  messages.ogTitle, 
+      messages.response_file,  messages.unread_messages, messages.time_read,  CONCAT(SUBSTRING(messages.ogTitle, 1, 45), "...")   as ogTitle, 
       messages.ogDescription,  messages.ogImage, messages.isExitGroup
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
@@ -320,7 +320,6 @@ io.on("connection", function (socket) {
             WHERE messages.favorite_to=1 and messages.chat_uid in ('${data.chat_id}') 
             and messages.u_id ='${user.u_id}'`,
             function (err, chats) {
-              console.log(err)
               orgboatDB.query(
                 `SELECT 
                 distinct messages.chat_uid, CONVERT(FROM_BASE64( messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
