@@ -43,7 +43,7 @@ function Media(props) {
       return messages.is_file
     })
     var linksL = media.filter((messages) => {
-      return messages.ogTitle!=""
+      return messages.ogDescription!=""
     })
     setFiles(filesL)
     setImages(imagesL)

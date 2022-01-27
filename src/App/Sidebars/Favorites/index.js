@@ -109,6 +109,26 @@ function Index(props) {
                 </li>:
                 message.is_video?
                 "":
+                message.ogDescription!=""?
+                <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                  <div className="messages-container">
+                      <div className={"message-item padding-no-response " }>
+                        <div className={"message-content position-relative message-content-media"}>
+                          <div className="message-response">
+                            <div>
+                              <div className="mini-preview-container mini-preview-container-url" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
+                              </div>
+                              <div className="word-break">{message.ogTitle}</div>
+                            </div>
+                          </div>
+                          <div className="word-break ">
+                          <a href={message.message} target="_blank"><p class="url-message">{message.message}</p></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </li>
+                :
                 <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
                   <div class="messages-container">
                     <div id={message.message_id} className={"message-item"}>

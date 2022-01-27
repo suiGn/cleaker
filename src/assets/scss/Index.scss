@@ -494,6 +494,39 @@
             max-width: 75%;
             margin-bottom: 3rem;
 
+          .message-response{
+            position: relative;
+            right: 15px;
+            display: block;
+            border-radius: inherit;
+            max-width: 600px;
+            height: 60px;
+            width: 100%;
+            border-left: 7px solid #f3c96e;
+          }
+
+          
+          .mini-preview-container-url{
+            bottom: -2px !important;
+            width: 50px !important;
+            height: 50px !important;
+          }
+          .mini-preview-container{
+            left: 30px;
+            position: relative;
+            bottom: 37px;
+            background-size: cover; /* or contain */
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 60px;
+            height: 60px;
+            float: right;
+            .react-pdf__Page__canvas{
+              width: 100px !important;
+              height: 100px !important;
+            }
+          }
+
             &:last-child {
               margin-bottom: 0;
             }
