@@ -85,7 +85,7 @@ function Index(props) {
                 message.is_image?
                 <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
                     <div class="messages-container">
-                    <div id={message.message_id} className={"message-item"}>
+                      <div id={message.message_id} className={"message-item"}>
                       <div className="message-avatar">
                         <div>
                           <h5>{message.name}</h5>
@@ -108,7 +108,25 @@ function Index(props) {
                     </div> 
                 </li>:
                 message.is_video?
-                "":
+                <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                  <div class="messages-container">
+                    <div id={message.message_id} className={"message-item"}>
+                      <div className="message-avatar">
+                        <div>
+                          <h5>{message.name}</h5>
+                        </div>
+                      </div>
+                      <div class="message-content position-relative img-chat">
+                        <div>
+                          <video className="video-container" controls>
+                              <source src={message.file} />
+                          </video>
+                          <div className="word-break">{message.message}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                </li>:
                 message.ogDescription!=""?
                 <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
                   <div className="messages-container">
