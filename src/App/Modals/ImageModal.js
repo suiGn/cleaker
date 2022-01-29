@@ -104,15 +104,8 @@ function ImageModal(props) {
             </div>
             <div class="img-preview-container-header">
                 <div class="modal-body" style={{display: "contents"}}>
-                    <div class="img-preview-container" style={{
-                        position: "fixed",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)"
-                    }}>
-                        <img src={fileNow} class="img-preview" alt="image"  style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%"}}/>
+                    <div class="img-preview-container">
+                        <img src={fileNow} class="img-preview" alt="image"/>
                     </div>
                 </div>
             </div>

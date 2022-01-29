@@ -590,7 +590,7 @@ function ChatNoMessage(props) {
         <div>
             <Input
             type="text"
-            className="form-control"
+            className="form-control form-file"
             placeholder="Write a message."
             value={inputMsg}
             onChange={handleChange}
@@ -598,7 +598,7 @@ function ChatNoMessage(props) {
            />
           </div>
       </div>
-      <div className="chat-footer footer-file">
+      <div className="chat-footer footer-file chat-footer-file ">
         <div className="clearfix">
           <button className="btn float-right">
             <figure class="avatar send-file mb-3">

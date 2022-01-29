@@ -494,6 +494,39 @@
             max-width: 75%;
             margin-bottom: 3rem;
 
+          .message-response{
+            position: relative;
+            right: 15px;
+            display: block;
+            border-radius: inherit;
+            max-width: 600px;
+            height: 60px;
+            width: 100%;
+            border-left: 7px solid #f3c96e;
+          }
+
+          
+          .mini-preview-container-url{
+            bottom: -2px !important;
+            width: 50px !important;
+            height: 50px !important;
+          }
+          .mini-preview-container{
+            left: 30px;
+            position: relative;
+            bottom: 37px;
+            background-size: cover; /* or contain */
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 60px;
+            height: 60px;
+            float: right;
+            .react-pdf__Page__canvas{
+              width: 100px !important;
+              height: 100px !important;
+            }
+          }
+
             &:last-child {
               margin-bottom: 0;
             }
@@ -582,13 +615,35 @@
                 color: cornflowerblue;
               }
             }
+            .message-content-media {
+              display: block !important;
+
+            }
+          }
+
+          .messages-divider {
+            width: 100%;
+            max-width: 100%;
+            position: relative;
+
+            &:before {
+              content: attr(data-label);
+              display: block;
+              position: absolute;
+              top: -8px;
+              letter-spacing: 0.5px;
+              font-size: 11px;
+              padding: 2px 8px;
+              border-radius: 3px;
+              background-color: $style-color;
+              left: 50%;
+              transform: translateX(-50%);
+            }
           }
           //fin vista favoritos
 
           .card-img-top{
-            max-width: 50% !important;
-            position: relative;
-            left: 25%;
+            max-width: 100% !important;
           }
 
           .video-container{
@@ -850,12 +905,9 @@
           display: flex;
           text-align: center;
           .img-preview-container {
-            max-height: 374px;
-            position: relative;
-            top: 8%;
             .img-preview {
-              max-width: 80%;
-              max-height: 472px;
+              max-width: 68%;
+              max-height: 460px;
             }
           }.pdf-preview-container{
             max-height: 400px;
@@ -1142,7 +1194,7 @@
               
               .img-chat {
                 height: auto;
-                max-height: 400px;
+                max-height: 600px;
                 width: auto;
                 max-width: 250px;
               }
@@ -1367,7 +1419,9 @@
           }
         }
       }
-
+      .chat-footer-file {
+        border-top: 1px !important
+      }
       .chat-footer {
         border-top: 1px solid $style-color;
         padding: 17px 30px;
@@ -1385,8 +1439,8 @@
           padding: 10px;
           .send-file-button {
             position: relative;
-            bottom: 120%;
-            right: 2em;
+            bottom: 86%;
+            right: 30px;
           }
         }
 

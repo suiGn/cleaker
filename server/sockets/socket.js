@@ -41,7 +41,7 @@ io.on("connection", function (socket) {
       orgboatDB.query(
         `
 			select chats.chat_uid, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
-        m.u_id as last_message_user_uid,CONVERT(FROM_BASE64( m.message) USING utf8) as last_message_message, m.time as last_message_time,chats_users.archiveChat
+        m.u_id as last_message_user_uid,CONVERT(FROM_BASE64( m.message) USING utf8mb4) as last_message_message, m.time as last_message_time,chats_users.archiveChat
         ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
         chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage, chats_users.group_exit, chats_users.admin_group,
         chats.creation_date
@@ -218,23 +218,23 @@ io.on("connection", function (socket) {
       //initMsg
       orgboatDB.query(
         `
-			select messages.u_id as message_user_uid, CONVERT(FROM_BASE64(message) USING utf8) as message, messages.time, 
+			select messages.u_id as message_user_uid, CONVERT(FROM_BASE64(message) USING utf8mb4) as message, messages.time, 
       usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message,
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
-      messages.response_file,  messages.unread_messages, messages.time_read,  messages.ogTitle, 
+      messages.response_file,  messages.unread_messages, messages.time_read,  CONCAT(SUBSTRING(messages.ogTitle, 1, 45), "...")   as ogTitle, 
       messages.ogDescription,  messages.ogImage, messages.isExitGroup
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 
       union
-      select messages.u_id as message_user_uid, CONVERT(FROM_BASE64(message) USING utf8) as message, messages.time, 
+      select messages.u_id as message_user_uid, CONVERT(FROM_BASE64(message) USING utf8mb4) as message, messages.time, 
       usrs.name, chats.chat_type , usrs.pphoto, messages.message_id, messages.delete_message,
       messages.delete_message_to as delete_message_to, messages.favorite,messages.favorite_to, 
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
-      messages.response_file,  messages.unread_messages, messages.time_read,  messages.ogTitle, 
+      messages.response_file,  messages.unread_messages, messages.time_read,  CONCAT(SUBSTRING(messages.ogTitle, 1, 45), "...")   as ogTitle, 
       messages.ogDescription,  messages.ogImage, messages.isExitGroup
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
@@ -302,8 +302,9 @@ io.on("connection", function (socket) {
         function (err, rowsUser) {
           orgboatDB.query(
             `SELECT 
-            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id,
-            messages.file, messages.is_file, messages.is_image, messages.is_video FROM messages
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id,
+            messages.file, messages.is_file, messages.is_image, messages.is_video,CONCAT(SUBSTRING(messages.ogTitle, 1, 20), "...") as ogTitle,
+            messages.ogDescription, messages.ogImage  FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.favorite=1 and messages.chat_uid in ('${data.chat_id}') 
@@ -311,8 +312,9 @@ io.on("connection", function (socket) {
             and messages.u_id='${data.id}'
             UNION 
             SELECT 
-            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id,
-            messages.file, messages.is_file, messages.is_image, messages.is_video  FROM messages
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id,
+            messages.file, messages.is_file, messages.is_image, messages.is_video,CONCAT(SUBSTRING(messages.ogTitle, 1, 20), "...") as ogTitle,
+            messages.ogDescription, messages.ogImage   FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.favorite_to=1 and messages.chat_uid in ('${data.chat_id}') 
@@ -320,12 +322,13 @@ io.on("connection", function (socket) {
             function (err, chats) {
               orgboatDB.query(
                 `SELECT 
-                distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
-                messages.is_video, messages.is_image, messages.is_file FROM messages
+                distinct messages.chat_uid, CONVERT(FROM_BASE64( messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
+                messages.is_video, messages.is_image, messages.is_file, messages.ogTitle,
+                messages.ogDescription, messages.ogImage FROM messages
                 inner join usrs on messages.u_id = usrs.u_id
                 inner join chats_users on messages.u_id = chats_users.u_id
                 WHERE messages.delete_message = 0 
-                and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1)
+                and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1 or messages.ogTitle !="")
                 and messages.chat_uid =  '${data.chat_id}' order by time desc`,
                 function (err, chatsfile) {
                   io.to(user.u_id).emit("retrieve viewProfileUser", {
@@ -639,14 +642,21 @@ io.on("connection", function (socket) {
           chat_uids = chat_uids.replace(/,\s*$/, "");
           orgboatDB.query(
             `SELECT 
-            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id FROM messages
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8mb4) as message,
+            messages.time, usrs.name, message_id, messages.u_id ,
+            messages.is_file, messages.file, messages.is_image,messages.is_video ,CONCAT(SUBSTRING(messages.ogTitle, 1, 20), "...") as ogTitle,
+            messages.ogDescription, messages.ogImage 
+            FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.favorite=1 and messages.chat_uid in (${chat_uids}) 
             and messages.u_id!='${data.id}'
             UNION 
             SELECT 
-            distinct CONVERT(FROM_BASE64(messages.message) USING utf8) as message, messages.time, usrs.name, message_id, messages.u_id FROM messages
+            distinct CONVERT(FROM_BASE64(messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id ,
+            messages.is_file, messages.file, messages.is_image,messages.is_video, CONCAT(SUBSTRING(messages.ogTitle, 1, 20), "...")as ogTitle,
+            messages.ogDescription, messages.ogImage
+            FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.favorite_to=1 and messages.chat_uid in (${chat_uids}) 
@@ -859,13 +869,14 @@ io.on("connection", function (socket) {
         function (err, rows) {
           orgboatDB.query(
             `SELECT 
-            distinct messages.chat_uid, messages.message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
+            distinct messages.chat_uid, CONVERT(FROM_BASE64( messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
             messages.is_video, messages.is_image, messages.is_file,
-            chats_users.group_exit, chats_users.admin_group FROM messages
+            chats_users.group_exit, chats_users.admin_group, CONCAT(SUBSTRING(messages.ogTitle, 1, 10), "...") as ogTitle,
+            messages.ogDescription, messages.ogImage FROM messages
             inner join usrs on messages.u_id = usrs.u_id
             inner join chats_users on messages.u_id = chats_users.u_id
             WHERE messages.delete_message = 0 
-            and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1)
+            and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1 or messages.ogTitle !="")
             and messages.chat_uid =  '${data.chat_id}' group by messages.message_id order by time desc`,
             function (err, chatsfile) {
               io.to(user.u_id).emit("retrieve GetGrupo", {

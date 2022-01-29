@@ -36,6 +36,7 @@ function UserProfile(props) {
   const [p, setP] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [favoritesMedia, setFavoritesMedia] = useState([]);
+  const [mediaImages, setMediaImages] = useState([]);
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -72,10 +73,21 @@ function UserProfile(props) {
           setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
         }
         setMedia(data.files)
-        let mediaPreviewArray = data.files? data.files.slice(0,4):[] 
+        let mediaImageArray = data.files.filter(function(item){
+          return item.is_image
+        })
+        setMediaImages(mediaImageArray)
+        let mediaPreviewArray = mediaImageArray? mediaImageArray.slice(0,4):[] 
         setMediaPreview(mediaPreviewArray)
         setFavorites(data.favorites)
-        var favoritesMediaArray = data.favorites.filter(function(item){return item.is_image == 1})
+        let i = 0;
+        var favoritesMediaArray = data.favorites.filter(function(item){
+            if(item.is_image){
+              item.position = i
+              i++
+              return item
+          }
+        })
         setFavoritesMedia(favoritesMediaArray)
         setName(nameD);
         setCity(cityD);
@@ -157,7 +169,7 @@ function UserProfile(props) {
                         {mediaPreview.map((image, i) => (
                             <li>
                               <div>
-                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={media} position={i}/>
+                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={mediaImages} position={i}/>
                               </div>
                             </li>
                             ))}
@@ -241,7 +253,7 @@ function UserProfile(props) {
                               <div class="message-content position-relative img-chat">
                                   <div>
                                   <figure className="avatar img-chat">
-                                    <ImageModal  file={message.file} images={favoritesMedia} position={i}/>
+                                    <ImageModal  file={message.file} images={favoritesMedia} position={message.position}/>
                                   </figure>
                                     <div className="word-break">{message.message}</div>
                                   </div>
@@ -250,8 +262,46 @@ function UserProfile(props) {
                             </div> 
                         </li>:
                         message.is_video?
-                        "":
-                        <li onClick={() => SearchInsideBody(message.message_id)}  className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                        <li onClick={() => SearchInsideBody(message.message_id)} className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                          <div class="messages-container">
+                            <div id={message.message_id} className={"message-item"}>
+                              <div className="message-avatar">
+                                <div>
+                                  <h5>{message.name}</h5>
+                                </div>
+                              </div>
+                              <div class="message-content position-relative img-chat">
+                                <div>
+                                  <video className="video-container" controls>
+                                      <source src={message.file} />
+                                  </video>
+                                  <div className="word-break">{message.message}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div> 
+                        </li>:
+                        message.ogDescription!=""?
+                        <li onClick={() => SearchInsideBody(message.message_id)} className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
+                          <div className="messages-container">
+                              <div className={"message-item padding-no-response " }>
+                                <div className={"message-content position-relative message-content-media"}>
+                                  <div className="message-response">
+                                    <div>
+                                      <div className="mini-preview-container mini-preview-container-url" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
+                                      </div>
+                                      <div className="word-break">{message.ogTitle}</div>
+                                    </div>
+                                  </div>
+                                  <div className="word-break ">
+                                  <a href={message.message} target="_blank"><p class="url-message">{message.message}</p></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
+                        :
+                        <li onClick={() => SearchInsideBody(message.message_id)} className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
                           <div class="messages-container">
                             <div id={message.message_id} className={"message-item"}>
                             <div className="message-avatar">

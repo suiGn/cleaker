@@ -53,7 +53,11 @@ body.dark {
       border-color: $color-primary !important;
     }
   }
-
+  
+  .form-file{
+    position: relative;
+    z-index: 1;
+  }
   nav.navigation {
     background-color: $dark-mode;
     border-right-color: #3f4448;
@@ -104,6 +108,7 @@ body.dark {
               border: 1px solid $style-color;
               padding: 10px 15px;
             }
+            
           }
 
           .list-group-item {
