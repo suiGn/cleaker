@@ -617,6 +617,27 @@
             }
             .message-content-media {
               display: block !important;
+
+            }
+          }
+
+          .messages-divider {
+            width: 100%;
+            max-width: 100%;
+            position: relative;
+
+            &:before {
+              content: attr(data-label);
+              display: block;
+              position: absolute;
+              top: -8px;
+              letter-spacing: 0.5px;
+              font-size: 11px;
+              padding: 2px 8px;
+              border-radius: 3px;
+              background-color: $style-color;
+              left: 50%;
+              transform: translateX(-50%);
             }
           }
           //fin vista favoritos

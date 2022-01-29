@@ -15,6 +15,16 @@ function Media(props) {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
+  let dayN = 0;
+  let monthN = 0;
+  let yearN = 0;
+  let yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  let yesterdayLabel = getDateLabel(yesterday);
+  let todayLabel = getDateLabel(new Date());
+  let actualLabelDate = "";
+  let userID = ""
+
   const openMediaToggler = (e) => {
     setMediaProfileType(0)
     setOpenMedia(!openMedia)
@@ -61,6 +71,57 @@ function Media(props) {
     }
    
   }, [props.media]);
+
+  function getDateLabel(date) {
+    let dateLabelDate =
+      date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    let dateLabelMonth =
+      date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1;
+    let dateLabelYear = date.getFullYear();
+    let dateLabel = dateLabelDate + "/" + dateLabelMonth + "/" + dateLabelYear;
+    return dateLabel;
+  }
+
+  function getTodayLabel(dateLabel, message_user_uid) {
+    if (dateLabel == yesterdayLabel) {
+      dateLabel = "Ayer";
+    } else if (dateLabel == todayLabel) {
+      dateLabel = "Hoy";
+    }
+
+    if (actualLabelDate == dateLabel) {
+      if (message_user_uid != userID) {
+        userID = message_user_uid
+        return (
+          <br />
+        );
+      } else {
+        return "";
+      }
+    } else {
+      actualLabelDate = dateLabel;
+      userID = message_user_uid
+      return (
+        <div
+          className="message-item messages-divider sticky-top"
+          data-label={actualLabelDate}
+        ></div>
+      );
+    }
+  }
+
+  function getDateMessage(message){
+    var dateM = new Date(message.time);
+    const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
+    if (year != 0) {
+      yearN = yearN < year ? year : yearN
+      monthN = monthN < month ? month : monthN
+      dayN = dayN < day ? day : dayN
+    }
+    return dateM
+  }
 
   return (
     <div className={`sidebar-group ${openMedia ? "mobile-open" : ""} sidebar-media`}>
@@ -186,9 +247,18 @@ function Media(props) {
                     <ul className="list-group list-group-flush">
                       {files.map((message, i) => (
                         <li className="list-group-item">
-                          <a href={message.file} download>
-                            <FeatherIcon.Download /> {"file "}
-                          </a>
+                          <div className="messages-container">
+                            {getTodayLabel(getDateLabel(getDateMessage(message)), message.message_id)}
+                            <div className={"message-item padding-no-response " }>
+                              <div className={"message-content position-relative message-content-media"}>
+                                <div className="word-break ">
+                                <a href={message.file} download>
+                                  <FeatherIcon.File /> {message.file.replace("https://bucketeer-506dd049-2270-443e-b940-ab6a2c188752.s3.amazonaws.com/","")}
+                                </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </li>
                       ))
                       }
