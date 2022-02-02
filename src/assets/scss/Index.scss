@@ -491,7 +491,6 @@
 
           //vista favoritos
           .message-item {
-            max-width: 75%;
             margin-bottom: 3rem;
 
           .message-response{
@@ -624,7 +623,6 @@
           .messages-divider {
             width: 100%;
             max-width: 100%;
-            position: relative;
 
             &:before {
               content: attr(data-label);
@@ -635,7 +633,7 @@
               font-size: 11px;
               padding: 2px 8px;
               border-radius: 3px;
-              background-color: $style-color;
+              background-color: #303033;
               left: 50%;
               transform: translateX(-50%);
             }
