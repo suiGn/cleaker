@@ -112,7 +112,9 @@ function Media(props) {
     }
   }
 
-  function getDateMessage(message){
+
+  const ItemView = (props) => {
+    const { message } = props;
     var dateM = new Date(message.time);
     const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
     if (year != 0) {
@@ -120,7 +122,20 @@ function Media(props) {
       monthN = monthN < month ? month : monthN
       dayN = dayN < day ? day : dayN
     }
-    return dateM
+    return(
+      <div className="messages-container">
+        {year != 0 ? getTodayLabel(getDateLabel(dateM), message.message_user_uid) : ""}
+        <div className={"message-item padding-no-response " }>
+          <div className={"message-content position-relative message-content-media"}>
+            <div className="word-break ">
+            <a href={message.file} download>
+              <FeatherIcon.File /> {message.file.replace("https://bucketeer-506dd049-2270-443e-b940-ab6a2c188752.s3.amazonaws.com/","")}
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -247,18 +262,9 @@ function Media(props) {
                     <ul className="list-group list-group-flush">
                       {files.map((message, i) => (
                         <li className="list-group-item">
-                          <div className="messages-container">
-                            {getTodayLabel(getDateLabel(getDateMessage(message)), message.message_id)}
-                            <div className={"message-item padding-no-response " }>
-                              <div className={"message-content position-relative message-content-media"}>
-                                <div className="word-break ">
-                                <a href={message.file} download>
-                                  <FeatherIcon.File /> {message.file.replace("https://bucketeer-506dd049-2270-443e-b940-ab6a2c188752.s3.amazonaws.com/","")}
-                                </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          <ItemView
+                          message={message}
+                          ></ItemView>
                         </li>
                       ))
                       }
