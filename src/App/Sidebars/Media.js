@@ -114,7 +114,7 @@ function Media(props) {
 
 
   const ItemView = (props) => {
-    const { message } = props;
+    const { message, type } = props;
     var dateM = new Date(message.time);
     const [month, day, year] = [dateM.getMonth(), dateM.getDate(), dateM.getFullYear()];
     if (year != 0) {
@@ -125,15 +125,38 @@ function Media(props) {
     return(
       <div className="messages-container">
         {year != 0 ? getTodayLabel(getDateLabel(dateM), message.message_user_uid) : ""}
-        <div className={"message-item padding-no-response " }>
-          <div className={"message-content position-relative message-content-media"}>
-            <div className="word-break ">
-            <a href={message.file} download>
-              <FeatherIcon.File /> {message.file.replace("https://bucketeer-506dd049-2270-443e-b940-ab6a2c188752.s3.amazonaws.com/","")}
-            </a>
+        {
+          type==1?"":
+          type==2?"":
+          type==3?
+          <div className={"message-item padding-no-response" }>
+            <div className={"message-content position-relative message-content-media"}>
+              <div className="word-break ">
+              <a href={message.file} download>
+                <FeatherIcon.File /> {message.file.replace("https://bucketeer-506dd049-2270-443e-b940-ab6a2c188752.s3.amazonaws.com/","")}
+              </a>
+              </div>
             </div>
-          </div>
-        </div>
+          </div>:
+          type==4?
+          <div className="messages-container">
+            <div className={"message-item padding-no-response " }>
+              <div className={"message-content position-relative message-content-media"}>
+                <div className="message-response">
+                  <div>
+                    <div className="mini-preview-container mini-preview-container-url" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
+                    </div>
+                    <div className="word-break">{message.ogTitle}</div>
+                  </div>
+                </div>
+                <div className="word-break ">
+                <a href={message.message} target="_blank"><p class="url-message">{message.message}</p></a>
+                </div>
+              </div>
+            </div>
+          </div>:
+          ""
+        }
       </div>
     )
   }
@@ -264,6 +287,7 @@ function Media(props) {
                         <li className="list-group-item">
                           <ItemView
                           message={message}
+                          type={3}
                           ></ItemView>
                         </li>
                       ))
@@ -279,22 +303,10 @@ function Media(props) {
                     <ul className="list-group list-group-flush">
                       {links.map((message, i) => (
                         <li className="list-group-item">
-                          <div className="messages-container">
-                            <div className={"message-item padding-no-response " }>
-                              <div className={"message-content position-relative message-content-media"}>
-                                <div className="message-response">
-                                  <div>
-                                    <div className="mini-preview-container mini-preview-container-url" style={{ backgroundImage: "url(" + message.ogImage + ")" }}>
-                                    </div>
-                                    <div className="word-break">{message.ogTitle}</div>
-                                  </div>
-                                </div>
-                                <div className="word-break ">
-                                <a href={message.message} target="_blank"><p class="url-message">{message.message}</p></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                           <ItemView
+                            message={message}
+                            type={4}
+                          ></ItemView>
                         </li>
                       ))
                       }

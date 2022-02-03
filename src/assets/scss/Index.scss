@@ -1220,6 +1220,11 @@
                 color: white;
                 padding-bottom: 0px;
 
+                .url-message-download{
+                  position: relative;
+                  right: 15px;
+                }
+
                 .img-chat-cont{
                   cursor: pointer;
                   .loader-image-chat{
