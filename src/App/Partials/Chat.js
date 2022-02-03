@@ -525,7 +525,7 @@ function Chat(props) {
                       : message.is_file ?
                       <div>
                         <a href={message.file} download>
-                              <FeatherIcon.Download /> {"file "}
+                              <FeatherIcon.Download />{message.file.replace("https://bucketeer-506dd049-2270-443e-b940-ab6a2c188752.s3.amazonaws.com/","")}
                         </a>
                         <div className="word-break">{message.message}</div>
                       </div>
@@ -656,12 +656,23 @@ function Chat(props) {
                           <div className="word-break">{message.message}</div>
                         </div>
                         : message.is_file ?
-                          <div>
-                            <a href={message.file} download>
-                              <FeatherIcon.Download /> {"file "}
-                            </a>
-                            <div className="word-break">{message.message}</div>
-                          </div>
+                            message.message!=""?
+                            <div>
+                              <a className="url-message-download" href={message.file} download>
+                                <FeatherIcon.Download /> {message.file.replace("https://bucketeer-506dd049-2270-443e-b940-ab6a2c188752.s3.amazonaws.com/","")}
+                              </a>
+                              <div className="word-break"><p>{message.message}</p></div>
+                            </div>
+                            :
+                            <div>
+                              <div className="word-break">
+                                <p>
+                                  <a href={message.file} download>
+                                    <FeatherIcon.Download /> {message.file.replace("https://bucketeer-506dd049-2270-443e-b940-ab6a2c188752.s3.amazonaws.com/","")}
+                                  </a>
+                                </p>
+                              </div>
+                            </div>
                           :
                           <div>
                             <video className="video-container" controls preload="none">
