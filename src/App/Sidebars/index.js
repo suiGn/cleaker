@@ -70,6 +70,9 @@ function Index(props) {
               setOpenUserProfile={props.setOpenUserProfile}
               openGroupProfile={props.openGroupProfile}
               setOpenGroupProfile={props.setOpenGroupProfile}
+              setOpenSearchSidebar={props.setOpenSearchSidebar}
+              setClicked={props.setClicked}
+              my_uid={props.my_uid}
             />
           );
         }

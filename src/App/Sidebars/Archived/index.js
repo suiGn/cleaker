@@ -8,17 +8,10 @@ import { mobileSidebarAction } from "../../../Store/Actions/mobileSidebarAction"
 import * as FeatherIcon from "react-feather";
 
 function Index(props) {
-  const { socket } = props;
-  const { setOpenProfile } = props;
-  const { openProfile } = props;
-  const { setOpenUserProfile } = props;
-  const { openUserProfile } = props;
-  const { setOpenGroupProfile } = props;
-  const { openGroupProfile } = props;
+  const { socket ,setOpenProfile ,openProfile ,setOpenUserProfile , setOpenSearchSidebar,
+  openUserProfile , setOpenGroupProfile , openGroupProfile, setClicked, my_uid  } = props;
   const [archivedChats, setArchivedChats] = useState([]);
-  const [favoritearchivedChatsFiltered, setArchivedChatsFiltered] = useState(
-    []
-  );
+  const [favoritearchivedChatsFiltered, setArchivedChatsFiltered] = useState([]);
   const [searchArchivedChats, setSearchArchivedChats] = useState("");
   const [one, setIOne] = useState("");
 
@@ -53,6 +46,19 @@ function Index(props) {
       return val.name.toLowerCase().includes(wordToSearch.toLowerCase());
     });
     setArchivedChatsFiltered(resultFavorits);
+  }
+
+  function setClickedValue(e, chat) {
+    var element = document.getElementById("menu-hide");
+    element.classList.add("nav-hide");
+    e.preventDefault();
+    if(chat.last_message_user_uid != my_uid){
+      chat.unread_messages = 0;
+    }
+    setClicked(chat);
+    mobileSidebarClose();
+    setOpenSearchSidebar(false);
+    socket.off("retrieve messages");
   }
 
   return (
@@ -98,9 +104,9 @@ function Index(props) {
                 }
                 return (
                   <li key={i} className="list-group-item">
-                    <figure className="avatar">{p}</figure>
+                    <figure className="avatar" onClick={(e) => setClickedValue(e, chat)}>{p}</figure>
                     <div className="users-list-body">
-                      <div>
+                      <div onClick={(e) => setClickedValue(e, chat)}>
                         <h5>{chat.name}</h5>
                         <p>{chat.title}</p>
                       </div>

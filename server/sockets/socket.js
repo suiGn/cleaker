@@ -323,7 +323,7 @@ io.on("connection", function (socket) {
               orgboatDB.query(
                 `SELECT 
                 distinct messages.chat_uid, CONVERT(FROM_BASE64( messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
-                messages.is_video, messages.is_image, messages.is_file, messages.ogTitle,
+                messages.is_video, messages.is_image, messages.is_file,  CONCAT(SUBSTRING(messages.ogTitle, 1, 10), "...") as ogTitle,
                 messages.ogDescription, messages.ogImage FROM messages
                 inner join usrs on messages.u_id = usrs.u_id
                 inner join chats_users on messages.u_id = chats_users.u_id
@@ -550,7 +550,7 @@ io.on("connection", function (socket) {
             });
           }
           orgboatDB.query(
-            `UPDATE messages SET delete_message =1 WHERE chat_uid='${chatid.chat_uid}' AND u_id='${user.u_id}'`,
+            `UPDATE messages SET delete_message=1  WHERE chat_uid='${chatid.chat_uid}' AND u_id='${user.u_id}'`,
             (err, data) => {
               if (err) {
                 return json({
@@ -560,12 +560,11 @@ io.on("connection", function (socket) {
                   },
                 });
               }
-              orgboatDB.query(
-                `UPDATE messages SET delete_message_to = 1 WHERE chat_uid='${chatid.chat_uid}' AND u_id!='${user.u_id}'`
-              );
               io.to(user.u_id).emit("retrive delete chat");
             }
           );
+          orgboatDB.query(`UPDATE chats_users SET delete_chat_to = 1 WHERE chat_uid='${chatid.chat_uid}' AND u_id!='${user.u_id}'`)
+          orgboatDB.query(`UPDATE messages SET delete_message_to=1  WHERE chat_uid='${chatid.chat_uid}' AND u_id!='${user.u_id}'`)
         }
       );
     });
@@ -604,7 +603,7 @@ io.on("connection", function (socket) {
           }
           if (chats.length >= 1) {
             orgboatDB.query(
-              `UPDATE chats_users SET delete_chat = 0 WHERE chat_uid='${chat}' AND u_id='${user.u_id}'`,
+              `UPDATE chats_users SET delete_chat = 0, delete_chat_to = 0 WHERE chat_uid='${chat}' AND u_id='${user.u_id}'`,
               (err, data) => {
                 if (err) {
                   return json({
