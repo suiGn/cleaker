@@ -59,7 +59,7 @@ io.on("connection", function (socket) {
 						FROM messages z 
 						WHERE z.chat_uid = m.chat_uid
             and z.delete_message = 0
-            and z.delete_message_to = 1
+            and z.delete_message_to = 0
 					)
           where chats_users.u_id = '${user.u_id}' and chats_users.archiveChat = 0 and chats_users.delete_chat = 0
           order by time desc;
@@ -603,7 +603,7 @@ io.on("connection", function (socket) {
           }
           if (chats.length >= 1) {
             orgboatDB.query(
-              `UPDATE chats_users SET delete_chat = 0 WHERE chat_uid='${chat}' AND u_id='${user.u_id}'`,
+              `UPDATE chats_users SET delete_chat = 0, delete_chat_to = 0 WHERE chat_uid='${chat}' AND u_id='${user.u_id}'`,
               (err, data) => {
                 if (err) {
                   return json({
