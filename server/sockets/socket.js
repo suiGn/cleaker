@@ -59,7 +59,7 @@ io.on("connection", function (socket) {
 						FROM messages z 
 						WHERE z.chat_uid = m.chat_uid
             and z.delete_message = 0
-            and z.delete_message_to = 0
+            and z.delete_message_to = 1
 					)
           where chats_users.u_id = '${user.u_id}' and chats_users.archiveChat = 0 and chats_users.delete_chat = 0
           order by time desc;
@@ -550,7 +550,7 @@ io.on("connection", function (socket) {
             });
           }
           orgboatDB.query(
-            `UPDATE messages SET delete_message =1 WHERE chat_uid='${chatid.chat_uid}' AND u_id='${user.u_id}'`,
+            `UPDATE messages SET delete_message=1  WHERE chat_uid='${chatid.chat_uid}' AND u_id='${user.u_id}'`,
             (err, data) => {
               if (err) {
                 return json({
@@ -560,12 +560,11 @@ io.on("connection", function (socket) {
                   },
                 });
               }
-              orgboatDB.query(
-                `UPDATE messages SET delete_message_to = 1 WHERE chat_uid='${chatid.chat_uid}' AND u_id!='${user.u_id}'`
-              );
               io.to(user.u_id).emit("retrive delete chat");
             }
           );
+          orgboatDB.query(`UPDATE chats_users SET delete_chat_to = 1 WHERE chat_uid='${chatid.chat_uid}' AND u_id!='${user.u_id}'`)
+          orgboatDB.query(`UPDATE messages SET delete_message_to=1  WHERE chat_uid='${chatid.chat_uid}' AND u_id!='${user.u_id}'`)
         }
       );
     });
