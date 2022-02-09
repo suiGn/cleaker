@@ -323,7 +323,7 @@ io.on("connection", function (socket) {
               orgboatDB.query(
                 `SELECT 
                 distinct messages.chat_uid, CONVERT(FROM_BASE64( messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id, messages.file,
-                messages.is_video, messages.is_image, messages.is_file, messages.ogTitle,
+                messages.is_video, messages.is_image, messages.is_file,  CONCAT(SUBSTRING(messages.ogTitle, 1, 10), "...") as ogTitle,
                 messages.ogDescription, messages.ogImage FROM messages
                 inner join usrs on messages.u_id = usrs.u_id
                 inner join chats_users on messages.u_id = chats_users.u_id
