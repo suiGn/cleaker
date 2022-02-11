@@ -113,5 +113,21 @@ body:not(.no-blur-effect) {
       max-width: 100%;
       max-height: 100%;
     }
+    .img-preview-modal {
+      bottom: 0;
+      background-size: cover;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      width: 350px;
+      height: 469px;
+      margin: 1px;
+    }
+    /*.img-preview:hover {
+      transform:scale(1.5);
+      -ms-transform:scale(1.5); 
+      -moz-transform:scale(1.5); 
+      -webkit-transform:scale(1.5); 
+      -o-transform:scale(1.5); 
+    } */
   }
 }

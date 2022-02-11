@@ -20,6 +20,7 @@ import DeleteMessageModal from "../Modals/DeleteMessageModal";
 import ImageModal from "../Modals/ImageModal";
 
 function Chat(props) {
+  
   const [inputMsg, setInputMsg] = useState("");
 
   const [newMessage, setMessages] = useState(selectedChat);
@@ -420,6 +421,10 @@ function Chat(props) {
     let fav = "";
     let search = "";
     let isUrl = false;
+    let imageclass;
+    if(message.is_image){
+      imageclass = "message-content-image"
+    }
     if (message.favorite_to || message.favorite) {
       fav = " favorite-message";
     }
@@ -476,7 +481,7 @@ function Chat(props) {
               {message.media ? (
                 message.media
               ) : (
-                <div className={"message-content position-relative img-chat" + search}>
+                <div className={"message-content position-relative" + search + imageclass}>
                   <div className="message-response">
                       <div className="word-break response-from">
                         <p>{message.response_from}</p>
@@ -613,7 +618,7 @@ function Chat(props) {
                 message.media
               ) : (
                 <div
-                  className={"message-content position-relative img-chat" + search}
+                  className={"message-content position-relative " + search + imageclass}
                 >
                   {
                     (message.ogDescription!=null&&message.ogDescription!=="")?
@@ -638,23 +643,8 @@ function Chat(props) {
                         :<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
-                        <div className="img-chat-cont"> 
-                          
-                          {message.unread_messages == 2?
-                            <div className="loader-image-chat"></div>:
-                            ""
-                          }
-                          {message.unread_messages == 2 ?
-                            <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
-                              <ImageModal file={message.file} images={images} position={position}/>
-                            </figure>
-                            :
-                            <figure className="avatar img-chat">
-                              <ImageModal file={message.file} images={images} position={position}/>
-                            </figure>
-                          }
-                          <div className="word-break">{message.message}</div>
-                        </div>
+                        <ImageModal file={message.file} images={images} position={position} message={message}
+                        />
                         : message.is_file ?
                             message.message!=""?
                             <div>

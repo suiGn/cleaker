@@ -8,13 +8,17 @@ import * as FeatherIcon from "react-feather";
 
 function ImageModal(props) {
 
-    const{inputPreview, file, images, position, classP} = props
+    const{file, images, position, classP, message} = props
 
     const [modal, setModal] = useState(false);
 
     const [fileNow, setFileNow] = useState(false);
 
     const [positionNow, setPositionNow] = useState(0);
+
+    const [imageWidth, setImageWidth] = useState(0);
+
+    const [imageHeight, setImageHeight] = useState(0);
 
     const modalToggle = () => {
         setModal(!modal);
@@ -29,6 +33,7 @@ function ImageModal(props) {
             setFileNow(images[position].file)
             setPositionNow(position)
         }
+        ImageGet(file)
     },[file])
 
     function NextFileR(){
@@ -66,10 +71,25 @@ function ImageModal(props) {
         }
     }
 
-    return (
-        <div>
-            <img  onClick={modalToggle} className={classP?classP:"card-img-top"} src={file} alt="image"
+    function ImageGet(file){
+        const img = new Image();
+        img.src = file;
+        img.onload = () => {
+        let awidht = img.width* .20
+        let aheight = img.height* .20
+        setImageWidth(img.width-awidht)
+        setImageHeight(img.height-aheight)
+        };
+    }
+
+    const ContenModal = (props)=>{
+        const{file, images, classP} = props
+        return(
+        <div className={"modal-img-cont"} >
+            <img  onClick={modalToggle} className={classP?classP:"card-img-top image-modal-image"} src={file} alt="image"
             />
+            {/*<div onClick={modalToggle} className={classP?classP:"card-img-top img-modal-card"} style={{ backgroundImage: "url(" +file+ ")" }}></div>
+            */}
             <Modal
             className="modal-dialog-zoom"
             isOpen={modal}
@@ -102,10 +122,11 @@ function ImageModal(props) {
                 position: "absolute",
                 left: "1%"}}>image</span>
             </div>
-            <div class="img-preview-container-header">
-                <div class="modal-body" style={{display: "contents"}}>
-                    <div class="img-preview-container">
-                        <img src={fileNow} class="img-preview" alt="image"/>
+            <div className="img-preview-container-header">
+                <div className="modal-body" style={{display: "contents"}}>
+                    <div className="img-preview-container">
+                        <div onClick={modalToggle} className={"img-preview-modal"} style={{ backgroundImage: "url(" +fileNow+ ")" }}></div>
+                        {/*<img src={fileNow} className="img-preview" alt="image"/>*/}
                     </div>
                 </div>
             </div>
@@ -133,7 +154,27 @@ function ImageModal(props) {
                :""
             }
             </Modal>
-        </div>);
+        </div>)
+    }
+
+    return (
+        <div className="img-chat-cont" style={ {height: imageHeight,width: imageWidth}}>               
+            {message.unread_messages == 2?
+            <div className="loader-image-chat"></div>:
+            ""
+            }
+            {message.unread_messages == 2 ?
+            <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
+                <ContenModal file={message.file} images={images} position={position}/>
+            </figure>
+            :
+            <figure className="avatar img-chat">
+                <ContenModal file={message.file} images={images} position={position}/>
+            </figure>
+            }
+            <div className="word-break">{message.message}</div>
+        </div>
+        )
     }
 
 export default ImageModal;

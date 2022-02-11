@@ -17,7 +17,7 @@ const ChatsDropdown = (props) => {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   function DeleteChat() {
-    socket.emit("Delete Chat", { chat_uid: chat_uid });
+    socket.emit("Delete Chat", { chat_uid: chat_uid});
     socket.once("retrive delete chat", () => {
       socket.emit("get chats");
       setClicked([]);
