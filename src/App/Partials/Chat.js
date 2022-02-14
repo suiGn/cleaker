@@ -18,7 +18,7 @@ import ModalImage from "react-modal-image";
 import VideoThumbnail from 'react-video-thumbnail';
 import DeleteMessageModal from "../Modals/DeleteMessageModal";
 import ImageModal from "../Modals/ImageModal";
-
+import ImagePreview from "../Modals/ImagePreview"
 function Chat(props) {
   
   const [inputMsg, setInputMsg] = useState("");
@@ -523,7 +523,7 @@ function Chat(props) {
                       : message.is_image ?
                       <div>
                           <figure className="avatar img-chat">
-                            <ImageModal file={message.file} images={images} position={position}/>
+                            <ImagePreview file={message.file} images={images} position={position}/>
                           </figure>
                           <div className="word-break">{message.message}</div>
                         </div>

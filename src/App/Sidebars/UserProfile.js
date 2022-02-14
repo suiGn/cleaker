@@ -5,7 +5,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import WomenAvatar5 from "../../assets/img/women_avatar5.jpg";
 import classnames from "classnames";
 import ModalImage from "react-modal-image";
-import ImageModal from "../Modals/ImageModal";
+import ImagePreview from "../Modals/ImagePreview";
 
 function UserProfile(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile, 
@@ -169,7 +169,7 @@ function UserProfile(props) {
                         {mediaPreview.map((image, i) => (
                             <li>
                               <div>
-                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={mediaImages} position={i}/>
+                              <ImagePreview  classP={"mini-preview-container"}  file={image.file} images={mediaImages} position={i}/>
                               </div>
                             </li>
                             ))}
@@ -253,7 +253,7 @@ function UserProfile(props) {
                               <div class="message-content position-relative img-chat">
                                   <div>
                                   <figure className="avatar img-chat">
-                                    <ImageModal  file={message.file} images={favoritesMedia} position={message.position}/>
+                                    <ImagePreview file={message.file} images={favoritesMedia} position={message.position}/>
                                   </figure>
                                     <div className="word-break">{message.message}</div>
                                   </div>

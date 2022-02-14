@@ -22,8 +22,8 @@ function ImageModal(props) {
         img.onload = () => {
         let awidht = img.width* .20
         let aheight = img.height* .20
-        setImageWidth(img.width/2.5)
-        setImageHeight(img.height/2.5)
+        setImageWidth(img.width/1.5)
+        setImageHeight(img.height/1.5)
         };
     }
     useEffect(() => {
@@ -31,7 +31,6 @@ function ImageModal(props) {
     },[file])
 
     return (
-        message?
         <div className="img-chat-cont" style={ {height: imageHeight,width: imageWidth}}>               
             {message.unread_messages == 2?
             <div className="loader-image-chat"></div>:
@@ -48,7 +47,6 @@ function ImageModal(props) {
             }
             <div className="word-break">{message.message}</div>
         </div>
-        : <ImagePreview file={file} images={images} position={position} classP={classP}/>
         )
     }
 
