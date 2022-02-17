@@ -101,6 +101,37 @@ body:not(.no-blur-effect) {
   }
 }
 
+.modal-img{
+  display: contents;
+  .top-bar{
+      position: fixed;
+      background: dimgrey;
+      width: 276%;
+      float: revert;
+      right: -88%;
+      height: 4%;
+      z-index: 1;
+      .options{
+        position: absolute;
+        right: 32%;
+      }
+      .detail{
+        position: absolute;
+        left: 32%;
+      }
+  }
+  .right{
+    position: fixed;
+    right: 24px;
+    top: 50%;
+  }
+  .left{
+    position: fixed;
+    left: 3px;
+    top: 50%;
+  }
+}
+
 .img-preview-container-header .modal-body {
   display: flex;
   text-align: center;

@@ -23,10 +23,10 @@ function ImageModal(props) {
         const img = new Image();
         img.src = file;
         img.onload = () => {
-        let awidht = img.width* .20
-        let aheight = img.height* .20
-        setImageWidth(img.width/1.5)
-        setImageHeight(img.height/1.5)
+        let awidht = img.width* .60
+        let aheight = img.height* .60
+        setImageWidth(awidht)
+        setImageHeight(aheight)
         setLoaded(1)
         };
     }

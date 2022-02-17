@@ -69,25 +69,14 @@ function ImagePreview(props) {
             <img  onClick={modalToggle} className={classP?classP:"card-img-top image-modal-image"} src={file} alt="image"
             />
             <Modal
-            className="modal-dialog-zoom"
+            className="modal-dialog-zoom modal-img"
             isOpen={modal}
             toggle={modalToggle}
             centered
-            style={{
-                display: "contents"}}
             >
             <ToastContainer />
-            <div style={{
-                position: "fixed",
-                background: "dimgrey",
-                width: "276%",
-                float: "revert",
-                right: "-88%",
-                height: "4%",
-                zIndex: "1"}}>
-                <span style={{
-                position: "absolute",
-                right: "32%"}}>
+            <div className="top-bar">
+                <span className="options" >
                 <a href={fileNow} download="" style={{
                 position: "relative",
                 right: "10%"}}>
@@ -98,9 +87,7 @@ function ImagePreview(props) {
                     <FeatherIcon.X/>
                 </a>
                 </span>
-                <span style={{
-                position: "absolute",
-                left: "32%"}}>image</span>
+                <span className="detail">image</span>
             </div>
             <div className="img-preview-container-header">
                 <div className="modal-body" style={{display: "contents"}}>
@@ -112,11 +99,11 @@ function ImagePreview(props) {
                 </div>
             </div>
             {images.length>1?
-            <div style={{position: "fixed", right: "24px", top: "50%" }}>
+            <div className="right">
                 <FeatherIcon.ArrowRight style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileR()}/>
             </div>:""}
             {images.length>1?
-            <div style={{position: "fixed", left: "3px", top: "50%"}}>
+            <div className="left">
                 <FeatherIcon.ArrowLeft style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileL()}/>
             </div>:""}
             {images.length>1?
