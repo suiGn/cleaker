@@ -14,7 +14,7 @@ import ImagePreview from "../Modals/ImagePreview"
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
     openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
-    setMediaProfileType,mediaPreview, setMediaPreview} = props;
+    setMediaProfileType, setMediaPreview, mediaPreview} = props;
 
   const openGroupProfileToggler = (e) => {
     setOpenGroupProfile(!openGroupProfile);

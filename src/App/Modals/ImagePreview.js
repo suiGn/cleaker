@@ -14,7 +14,9 @@ function ImagePreview(props) {
     const [positionNow, setPositionNow] = useState(0);
 
     useEffect(() => {
-        if(position&&images.length>0){
+        if(position&&images.length>0&&images){
+            if(typeof images[position] === "undefined") {
+                return}
             setFileNow(images[position].file)
             setPositionNow(position)
         }
@@ -71,19 +73,21 @@ function ImagePreview(props) {
             isOpen={modal}
             toggle={modalToggle}
             centered
+            style={{
+                display: "contents"}}
             >
             <ToastContainer />
             <div style={{
                 position: "fixed",
-                top: "-28px",
                 background: "dimgrey",
                 width: "276%",
                 float: "revert",
                 right: "-88%",
-                height: "4%"}}>
+                height: "4%",
+                zIndex: "1"}}>
                 <span style={{
                 position: "absolute",
-                right: "3%"}}>
+                right: "32%"}}>
                 <a href={fileNow} download="" style={{
                 position: "relative",
                 right: "10%"}}>
@@ -96,7 +100,7 @@ function ImagePreview(props) {
                 </span>
                 <span style={{
                 position: "absolute",
-                left: "1%"}}>image</span>
+                left: "32%"}}>image</span>
             </div>
             <div className="img-preview-container-header">
                 <div className="modal-body" style={{display: "contents"}}>
@@ -108,11 +112,11 @@ function ImagePreview(props) {
                 </div>
             </div>
             {images.length>1?
-            <div style={{position: "fixed", right: "-380px"}}>
+            <div style={{position: "fixed", right: "24px", top: "50%" }}>
                 <FeatherIcon.ArrowRight style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileR()}/>
             </div>:""}
             {images.length>1?
-            <div style={{position: "fixed", right: "900px"}}>
+            <div style={{position: "fixed", left: "3px", top: "50%"}}>
                 <FeatherIcon.ArrowLeft style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileL()}/>
             </div>:""}
             {images.length>1?

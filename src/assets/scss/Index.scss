@@ -1749,10 +1749,11 @@
   position: fixed;
   top: 84%;
     .file-list{
-      display:flex;
+      display: flex;
       list-style-type: none;
-      position: absolute;
-      top: 35px;
+      position: relative;
+      /* top: 15px; */
+      left: 100%;
       .mini-preview-container{
         bottom:0%;
         background-size: cover; /* or contain */
