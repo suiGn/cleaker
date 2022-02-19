@@ -9,7 +9,7 @@ import ImagePreview from "./ImagePreview";
 
 function ImageModal(props) {
 
-    const{file, images, position, classP, message} = props
+    const{file, images, position, classP, message, imgHeights, imgWidths } = props
 
     const [imageWidth, setImageWidth] = useState(0);
 
@@ -27,16 +27,19 @@ function ImageModal(props) {
         let aheight = img.height* .60
         setImageWidth(awidht)
         setImageHeight(aheight)
-        setLoaded(1)
         };
     }
+
+    function ImageSize(file){
+        console.log(file)
+
+    }
+
     useEffect(() => {
-        setLoaded(0)
         ImageGet(file)
-    },[message])
+    },[imgWidths])
 
     return (
-        loaded?
         <div className="img-chat-cont" style={ {height: imageHeight,width: imageWidth}}>               
             {message.unread_messages == 2?
             <div className="loader-image-chat"></div>:
@@ -48,11 +51,16 @@ function ImageModal(props) {
             </figure>
             :
             <figure className="avatar img-chat">
-                <ImagePreview file={file} images={images} position={position} classP={classP}/>
+                <div className={"modal-img-cont"} >
+                    <img  className={classP?classP:"card-img-top image-modal-image"} 
+                    src={file} alt="image" onLoad={ImageSize(file)}
+                    />
+                </div>
+                
             </figure>
             }
             <div className="word-break">{message.message}</div>
-        </div>:""
+        </div>
         )
     }
 

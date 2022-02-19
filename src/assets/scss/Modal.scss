@@ -137,11 +137,11 @@ body:not(.no-blur-effect) {
   text-align: center;
   .img-preview-container {
     position: fixed;
-    top: 50%;
+    top: 48%;
     left: 50%;
     transform: translate(-50%, -50%);
     .img-preview {
-      max-width: 100%;
+      max-width: 75%;
       max-height: 100%;
     }
     .img-preview-modal {

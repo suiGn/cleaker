@@ -59,6 +59,9 @@ function Chat(props) {
 
   const [images, setImages] = useState([]);
 
+  const [imgHeights, setImgHeights] = useState([]);
+  const [imgWidths, setImageWidths] = useState([]);
+  
   let dayN = 0;
 
   let monthN = 0;
@@ -174,7 +177,22 @@ function Chat(props) {
         var imagesL = messages.filter((messages) => {
           return messages.is_image
         })
-        setImages(imagesL.reverse())
+        var imagesReverse = imagesL.reverse();
+        setImages(imagesReverse)
+        let imgHeights = []
+        let imgWidths = []
+        imagesReverse.forEach(imgUrl => {
+            let img = new Image();
+            img.src = imgUrl.file;
+            img.onload = () => {
+              let awidht = img.width* .60
+              let aheight = img.height* .60
+              imgHeights.push(aheight)
+              imgWidths.push(awidht)
+              setImgHeights(imgHeights)
+              setImageWidths(imgWidths)
+            };
+        })
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
@@ -643,7 +661,7 @@ function Chat(props) {
                         :<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
-                        <ImageModal file={message.file} images={images} position={position} message={message}
+                        <ImageModal file={message.file} images={images} position={position} message={message} imgHeights={imgHeights} imgWidths={imgWidths}
                         />
                         : message.is_file ?
                             message.message!=""?

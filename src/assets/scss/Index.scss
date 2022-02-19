@@ -1752,15 +1752,15 @@
       display: flex;
       list-style-type: none;
       position: relative;
-      /* top: 15px; */
-      left: 100%;
+      top: 45px;
+      left: 150%;
       .mini-preview-container{
         bottom:0%;
         background-size: cover; /* or contain */
         background-position: center center;
         background-repeat: no-repeat;
-        width: 70px;
-        height: 70px;
+        width: 50px;
+        height: 50px;
         margin:5px;
         background-color: #fff;
         border: 1px solid #ddd;
