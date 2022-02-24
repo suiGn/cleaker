@@ -27,6 +27,7 @@ function ImageModal(props) {
         let aheight = img.height* .60
         setImageWidth(awidht)
         setImageHeight(aheight)
+        setLoaded(1)
         };
     }
 
@@ -37,7 +38,7 @@ function ImageModal(props) {
 
     useEffect(() => {
         ImageGet(file)
-    },[imgWidths])
+    },[loaded])
 
     return (
         <div className="img-chat-cont" style={ {height: imageHeight,width: imageWidth}}>               
@@ -51,12 +52,12 @@ function ImageModal(props) {
             </figure>
             :
             <figure className="avatar img-chat">
-                <div className={"modal-img-cont"} >
+                {/*<div className={"modal-img-cont"} >
                     <img  className={classP?classP:"card-img-top image-modal-image"} 
                     src={file} alt="image" onLoad={ImageSize(file)}
                     />
-                </div>
-                
+            </div>*/}
+                <ImagePreview file={file} images={images} position={position} classP={classP}/>
             </figure>
             }
             <div className="word-break">{message.message}</div>

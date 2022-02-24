@@ -1143,6 +1143,14 @@
                   color: $color-primary;
                 }
               }
+              .misc-container-img{
+                position: relative;
+                right: 10px;
+              }
+              .misc-container-img-recived{
+                position: relative;
+                right: 20px;
+              }
               .misc-container {
                 flex: none;
                 align-self: flex-end;

@@ -440,8 +440,13 @@ function Chat(props) {
     let search = "";
     let isUrl = false;
     let imageclass;
+    let containerImg
     if(message.is_image){
       imageclass = "message-content-image"
+      containerImg = "misc-container-img"
+      if(message.message_user_uid != props.id){
+        containerImg = "misc-container-img-recived"
+      }
     }
     if (message.favorite_to || message.favorite) {
       fav = " favorite-message";
@@ -560,7 +565,7 @@ function Chat(props) {
                         <div className="word-break">{message.message}</div>
                       </div>
                   }
-                  <div className="misc-container">
+                  <div className={"misc-container " + containerImg}>
                     <div className={"time " + timeType}>
                       {fav.length > 0 ? (
                         <div className={fav}>
@@ -689,7 +694,7 @@ function Chat(props) {
                             <div className="word-break">{message.message}</div>
                           </div>
                   }
-                  <div className="misc-container">
+                  <div className={"misc-container " + containerImg}>
                     <div className={"time " + timeType}>
                       {fav.length > 0 ? (
                         <div className={fav}>
