@@ -1761,7 +1761,7 @@
       list-style-type: none;
       position: relative;
       top: 45px;
-      left: 150%;
+      // left: 150%;
       .mini-preview-container{
         bottom:0%;
         background-size: cover; /* or contain */
@@ -1769,10 +1769,10 @@
         background-repeat: no-repeat;
         width: 50px;
         height: 50px;
-        margin:5px;
+        margin:3px;
         background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 13px;
+        // border: 1px solid #ddd;
+        // border-radius: 13px;
         cursor: pointer;
         
         .react-thumbnail-generator{

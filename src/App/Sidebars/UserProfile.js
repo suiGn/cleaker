@@ -169,7 +169,8 @@ function UserProfile(props) {
                         {mediaPreview.map((image, i) => (
                             <li>
                               <div>
-                              <ImagePreview  classP={"mini-preview-container"}  file={image.file} images={mediaImages} position={i}/>
+                              <ImagePreview  classP={"mini-preview-container"}  file={image.file}
+                               images={mediaImages} position={i} name={name} p={p}/>
                               </div>
                             </li>
                             ))}
@@ -253,7 +254,7 @@ function UserProfile(props) {
                               <div class="message-content position-relative img-chat">
                                   <div>
                                   <figure className="avatar img-chat">
-                                    <ImagePreview file={message.file} images={favoritesMedia} position={message.position}/>
+                                    <ImagePreview file={message.file} images={favoritesMedia} position={message.position} name={name}/>
                                   </figure>
                                     <div className="word-break">{message.message}</div>
                                   </div>

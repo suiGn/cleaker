@@ -105,19 +105,21 @@ body:not(.no-blur-effect) {
   display: contents;
   .top-bar{
       position: fixed;
-      background: dimgrey;
+      background:#2a2f32;
       width: 276%;
       float: revert;
       right: -88%;
-      height: 4%;
+      height: 6%;
       z-index: 1;
       .options{
         position: absolute;
         right: 32%;
+        top: 22%;
       }
       .detail{
         position: absolute;
         left: 32%;
+        display: flex;
       }
   }
   .right{

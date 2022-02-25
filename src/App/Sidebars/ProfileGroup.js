@@ -509,7 +509,8 @@ function ProfileGroup(props) {
                         {mediaPreview.map((image, i) => (
                             <li>
                               <div>
-                              <ImagePreview  classP={"mini-preview-container"}  file={image.file} images={mediaImages} position={i}/>
+                              <ImagePreview  classP={"mini-preview-container"}  file={image.file} 
+                              images={mediaImages} position={i} name={name} p={p}/>
                               </div>
                             </li>
                             ))}

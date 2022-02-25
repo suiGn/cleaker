@@ -666,7 +666,8 @@ function Chat(props) {
                         :<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
-                        <ImageModal file={message.file} images={images} position={position} message={message} imgHeights={imgHeights} imgWidths={imgWidths}
+                        <ImageModal file={message.file} images={images} position={position} message={message} 
+                        imgHeights={imgHeights} imgWidths={imgWidths} name={clicked.name}
                         />
                         : message.is_file ?
                             message.message!=""?

@@ -9,7 +9,7 @@ import ImagePreview from "./ImagePreview";
 
 function ImageModal(props) {
 
-    const{file, images, position, classP, message, imgHeights, imgWidths } = props
+    const{file, images, position, classP, message, imgHeights, imgWidths, name } = props
 
     const [imageWidth, setImageWidth] = useState(0);
 
@@ -48,7 +48,7 @@ function ImageModal(props) {
             }
             {message.unread_messages == 2 ?
             <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
-                <ImagePreview file={file} images={images} position={position} classP={classP}/>
+                <ImagePreview file={file} images={images} position={position} classP={classP} name={name}/>
             </figure>
             :
             <figure className="avatar img-chat">
@@ -57,7 +57,7 @@ function ImageModal(props) {
                     src={file} alt="image" onLoad={ImageSize(file)}
                     />
             </div>*/}
-                <ImagePreview file={file} images={images} position={position} classP={classP}/>
+                <ImagePreview file={file} images={images} position={position} classP={classP} name={name}/>
             </figure>
             }
             <div className="word-break">{message.message}</div>

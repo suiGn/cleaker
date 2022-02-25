@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import * as FeatherIcon from "react-feather";
 
 function ImagePreview(props) {
-    const{file, images, classP, position} = props
+    const{file, images, classP, position, name, p} = props
 
     const [modal, setModal] = useState(false);
 
@@ -87,7 +87,18 @@ function ImagePreview(props) {
                     <FeatherIcon.X/>
                 </a>
                 </span>
-                <span className="detail">image</span>
+               
+                {p?
+                <span className="detail">
+                    <figure className="avatar auto-img-sm">{p}</figure>
+                    <div>
+                        <h5> {name?name:"image"}</h5>
+                    </div>
+                </span>:
+                <span className="detail">
+                    {name?name:"image"}
+                </span>}
+               
             </div>
             <div className="img-preview-container-header">
                 <div className="modal-body" style={{display: "contents"}}>
