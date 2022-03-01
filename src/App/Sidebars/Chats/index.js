@@ -193,7 +193,8 @@ function Index(props) {
                 {chat.name}
               </h5>
               <div className="last-message">
-              {(chat.deleted_message || chat.deleted_message_to)
+              {
+                (chat.deleted_message || chat.deleted_message_to)
                 ? "no messages"
                 : chat.is_file
                 ? "file"

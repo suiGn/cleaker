@@ -353,14 +353,6 @@ function Layout(props) {
           setMediaProfileType={setMediaProfileType}
           clicked={clicked}
         />
-        <SearchChat
-          socket={socket}
-          clicked={clicked}
-          my_uid={my_uid}
-          setOpenSearchSidebar={setOpenSearchSidebar}
-          openSearchSidebar={openSearchSidebar}
-          scrollEl={scrollEl}
-        />
         <ProfileGroup
           openUserProfile={openUserProfile}
           setOpenUserProfile={setOpenUserProfile}
@@ -381,6 +373,14 @@ function Layout(props) {
           setMediaPreview={setMediaPreview}
           mediaPreview={mediaPreview}
           setMediaProfileType={setMediaProfileType}
+        />
+        <SearchChat
+          socket={socket}
+          clicked={clicked}
+          my_uid={my_uid}
+          setOpenSearchSidebar={setOpenSearchSidebar}
+          openSearchSidebar={openSearchSidebar}
+          scrollEl={scrollEl}
         />
         <Media 
         media={media}

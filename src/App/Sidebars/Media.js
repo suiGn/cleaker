@@ -5,7 +5,7 @@ import {
 import PerfectScrollbar from "react-perfect-scrollbar";
 import classnames from "classnames";
 import * as FeatherIcon from "react-feather";
-import ImageModal from "../Modals/ImageModal";
+import ImagePreview from "../Modals/ImagePreview"
 
 function Media(props) {
   const {
@@ -253,7 +253,7 @@ function Media(props) {
                     <ul class="flex-container wrap" style={{ cursor: "pointer",width:"100%"}}>
                       {images.map((message, i) => (
                         <li class="flex-item">
-                          <ImageModal file={message.file} images={images} position={i}/>
+                          <ImagePreview file={message.file} images={images} position={i}/>
                         </li>
                       ))
                       }

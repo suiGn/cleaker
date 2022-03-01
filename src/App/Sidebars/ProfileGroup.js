@@ -9,12 +9,12 @@ import axios from "axios";
 import ProfileDropdown from "./ProfileDropDown.js";
 import DeleteUserGroupModal from "../Modals/DeleteUserGroupModal";
 import AddMembersForm from "./AddMembersForm";
-import ImageModal from "../Modals/ImageModal";
+import ImagePreview from "../Modals/ImagePreview"
 
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
     openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
-    setMediaProfileType,mediaPreview, setMediaPreview} = props;
+    setMediaProfileType, setMediaPreview, mediaPreview} = props;
 
   const openGroupProfileToggler = (e) => {
     setOpenGroupProfile(!openGroupProfile);
@@ -509,7 +509,8 @@ function ProfileGroup(props) {
                         {mediaPreview.map((image, i) => (
                             <li>
                               <div>
-                              <ImageModal classP={"mini-preview-container"}  file={image.file} images={mediaImages} position={i}/>
+                              <ImagePreview  classP={"mini-preview-container"}  file={image.file} 
+                              images={mediaImages} position={i} name={name} p={p}/>
                               </div>
                             </li>
                             ))}

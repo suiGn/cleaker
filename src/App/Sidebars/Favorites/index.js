@@ -99,7 +99,7 @@ function Index(props) {
                                 large={message.file}
                                 alt="image"
                               />*/}
-                              <ImageModal file={message.file} images={media} position={message.position}/>
+                              <ImageModal file={message.file} images={media} position={message.position} message={message}/>
                             </figure>
                             <div className="word-break">{message.message}</div>
                           </div>

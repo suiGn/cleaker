@@ -18,8 +18,9 @@ import ModalImage from "react-modal-image";
 import VideoThumbnail from 'react-video-thumbnail';
 import DeleteMessageModal from "../Modals/DeleteMessageModal";
 import ImageModal from "../Modals/ImageModal";
-
+import ImagePreview from "../Modals/ImagePreview"
 function Chat(props) {
+  
   const [inputMsg, setInputMsg] = useState("");
 
   const [newMessage, setMessages] = useState(selectedChat);
@@ -58,6 +59,9 @@ function Chat(props) {
 
   const [images, setImages] = useState([]);
 
+  const [imgHeights, setImgHeights] = useState([]);
+  const [imgWidths, setImageWidths] = useState([]);
+  
   let dayN = 0;
 
   let monthN = 0;
@@ -79,7 +83,7 @@ function Chat(props) {
     socket, clicked, scrollEl, setScrollEl, setOpenSearchSidebar, openSearchSidebar,
     messageRespond, setMessageRespond, viewChatAnswerPreview, setViewChatAnswerPreview,
     isResponse, setisResponse, openMessageDetail, setOpenMessageDetail, setMessageDetail,
-    filePreviewChange, setFilePreviewChange, setIdUserCall
+    filePreviewChange, setFilePreviewChange, setIdUserCall, setUser, my_uid
   } = props;
 
   useEffect(() => {
@@ -173,7 +177,22 @@ function Chat(props) {
         var imagesL = messages.filter((messages) => {
           return messages.is_image
         })
-        setImages(imagesL.reverse())
+        var imagesReverse = imagesL.reverse();
+        setImages(imagesReverse)
+        let imgHeights = []
+        let imgWidths = []
+        imagesReverse.forEach(imgUrl => {
+            let img = new Image();
+            img.src = imgUrl.file;
+            img.onload = () => {
+              let awidht = img.width* .60
+              let aheight = img.height* .60
+              imgHeights.push(aheight)
+              imgWidths.push(awidht)
+              setImgHeights(imgHeights)
+              setImageWidths(imgWidths)
+            };
+        })
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
@@ -397,7 +416,7 @@ function Chat(props) {
   }
 
   const MessagesView = (props) => {
-    const { message, group } = props;
+    const { message, group, name, pphoto } = props;
     var position
     if(message.is_image){
       for(var i = 0; i < images.length; i++) {
@@ -420,6 +439,15 @@ function Chat(props) {
     let fav = "";
     let search = "";
     let isUrl = false;
+    let imageclass;
+    let containerImg
+    if(message.is_image){
+      imageclass = "message-content-image"
+      containerImg = "misc-container-img"
+      if(message.message_user_uid != props.id){
+        containerImg = "misc-container-img-recived"
+      }
+    }
     if (message.favorite_to || message.favorite) {
       fav = " favorite-message";
     }
@@ -476,7 +504,7 @@ function Chat(props) {
               {message.media ? (
                 message.media
               ) : (
-                <div className={"message-content position-relative img-chat" + search}>
+                <div className={"message-content position-relative" + search + imageclass}>
                   <div className="message-response">
                       <div className="word-break response-from">
                         <p>{message.response_from}</p>
@@ -518,7 +546,7 @@ function Chat(props) {
                       : message.is_image ?
                       <div>
                           <figure className="avatar img-chat">
-                            <ImageModal file={message.file} images={images} position={position}/>
+                            <ImagePreview file={message.file} images={images} position={position}/>
                           </figure>
                           <div className="word-break">{message.message}</div>
                         </div>
@@ -537,7 +565,7 @@ function Chat(props) {
                         <div className="word-break">{message.message}</div>
                       </div>
                   }
-                  <div className="misc-container">
+                  <div className={"misc-container " + containerImg}>
                     <div className={"time " + timeType}>
                       {fav.length > 0 ? (
                         <div className={fav}>
@@ -613,7 +641,7 @@ function Chat(props) {
                 message.media
               ) : (
                 <div
-                  className={"message-content position-relative img-chat" + search}
+                  className={"message-content position-relative " + search + imageclass}
                 >
                   {
                     (message.ogDescription!=null&&message.ogDescription!=="")?
@@ -638,23 +666,9 @@ function Chat(props) {
                         :<p>{message.message}</p>}
                       </div>
                       : message.is_image ?
-                        <div className="img-chat-cont"> 
-                          
-                          {message.unread_messages == 2?
-                            <div className="loader-image-chat"></div>:
-                            ""
-                          }
-                          {message.unread_messages == 2 ?
-                            <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
-                              <ImageModal file={message.file} images={images} position={position}/>
-                            </figure>
-                            :
-                            <figure className="avatar img-chat">
-                              <ImageModal file={message.file} images={images} position={position}/>
-                            </figure>
-                          }
-                          <div className="word-break">{message.message}</div>
-                        </div>
+                        <ImageModal file={message.file} images={images} position={position} message={message} 
+                        imgHeights={imgHeights} imgWidths={imgWidths} name={name} pphoto={pphoto}
+                        />
                         : message.is_file ?
                             message.message!=""?
                             <div>
@@ -681,7 +695,7 @@ function Chat(props) {
                             <div className="word-break">{message.message}</div>
                           </div>
                   }
-                  <div className="misc-container">
+                  <div className={"misc-container " + containerImg}>
                     <div className={"time " + timeType}>
                       {fav.length > 0 ? (
                         <div className={fav}>
@@ -797,11 +811,11 @@ function Chat(props) {
   return clicked.chat_uid ? (
     <div className="chat" hidden={props.viewPreview}>
       <ChatHeader
-        data={props.clicked}
+        data={clicked}
         socket={socket}
-        chat_uid={props.clicked.chat_uid}
-        id={props.clicked.user_chat}
-        setUser={props.setUser}
+        chat_uid={clicked.chat_uid}
+        id={clicked.user_chat}
+        setUser={setUser}
         setGroup={props.setGroup}
         setOpenUserProfile={props.setOpenUserProfile}
         openUserProfile={props.openUserProfile}
@@ -837,14 +851,16 @@ function Chat(props) {
                 message={message}
                 key={i}
                 setColor={colorMessage}
-                id={props.clicked.user_chat}
-                my_uid={props.my_uid}
-                setUser={props.setUser}
-                chat_id={props.clicked.chat_uid}
-                group={props.clicked.chat_type}
+                id={clicked.user_chat}
+                my_uid={my_uid}
+                setUser={setUser}
+                chat_id={clicked.chat_uid}
+                group={clicked.chat_type}
                 setMessageRespond={setMessageRespond}
                 setViewChatAnswerPreview={setViewChatAnswerPreview}
                 setisResponse={setisResponse}
+                name={clicked.name}
+                pphoto={clicked.pphoto}
               />
             ))}
           </div>

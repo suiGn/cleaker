@@ -5,135 +5,74 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as FeatherIcon from "react-feather";
+import ImagePreview from "./ImagePreview";
 
 function ImageModal(props) {
 
-    const{inputPreview, file, images, position, classP} = props
+    const{file, images, position, classP, message, imgHeights, imgWidths, name, pphoto } = props
 
-    const [modal, setModal] = useState(false);
+    const [imageWidth, setImageWidth] = useState(0);
 
-    const [fileNow, setFileNow] = useState(false);
+    const [imageHeight, setImageHeight] = useState(0);
 
-    const [positionNow, setPositionNow] = useState(0);
+    const [loaded, setLoaded] = useState(0);
 
-    const modalToggle = () => {
-        setModal(!modal);
-        if(!modal){
-            setFileNow(images[position].file)
-            setPositionNow(position)
-        }
-    }
+    const [p, setP] = useState("");
+
+
     
-    useEffect(() => {
-        if(position&&images.length>0){
-            setFileNow(images[position].file)
-            setPositionNow(position)
-        }
-    },[file])
-
-    function NextFileR(){
-        let p =  positionNow<=(images.length-2)?positionNow+1:0
-        setFileNow(images[(p)].file)
-        setPositionNow(p)
-    }
-
-    function NextFileL(){
-        let p =  positionNow!=0?positionNow-1:(images.length-1)
-        setFileNow(images[(p)].file)
-        setPositionNow(p)
-    }
-
-    function ClickedFile(i){
-        setFileNow(images[(i)].file)
-        setPositionNow(i)
-        
-    }
-
-    useEffect(() => {
-        window.addEventListener("keydown", downHandler);
-
-        return () => {
-            window.removeEventListener("keydown", downHandler);
+    function ImageGet(file){
+        const img = new Image();
+        img.src = file;
+        img.onload = () => {
+        let awidht = img.width* .60
+        let aheight = img.height* .60
+        setImageWidth(awidht)
+        setImageHeight(aheight)
+        setLoaded(1)
         };
-    });
-
-    function downHandler(e){
-         if (e.keyCode == '37') {
-            NextFileL()
-        }
-        else if (e.keyCode == '39') {
-            NextFileR()
-        }
     }
+
+    function ImageSize(file){
+    }
+
+    useEffect(() => {
+        ImageGet(file)
+        if (pphoto === "" || pphoto === null) {
+            let chat_initial = name.substring(0, 1);
+            setP(
+              <span className="avatar-title bg-info rounded-circle">
+                {chat_initial}
+              </span>
+            );
+          } else {
+            setP(<img src={pphoto} className="rounded-circle" alt="image" />);
+        }
+    },[loaded])
 
     return (
-        <div>
-            <img  onClick={modalToggle} className={classP?classP:"card-img-top"} src={file} alt="image"
-            />
-            <Modal
-            className="modal-dialog-zoom"
-            isOpen={modal}
-            toggle={modalToggle}
-            centered
-            >
-            <ToastContainer />
-            <div style={{
-                position: "fixed",
-                top: "-28px",
-                background: "dimgrey",
-                width: "276%",
-                float: "revert",
-                right: "-88%",
-                height: "4%"}}>
-                <span style={{
-                position: "absolute",
-                right: "3%"}}>
-                <a href={fileNow} download="" style={{
-                position: "relative",
-                right: "10%"}}>
-                    <FeatherIcon.Download/>
-                </a>
-                <a  onClick={modalToggle} style={{
-                cursor: "pointer"}}>
-                    <FeatherIcon.X/>
-                </a>
-                </span>
-                <span style={{
-                position: "absolute",
-                left: "1%"}}>image</span>
-            </div>
-            <div class="img-preview-container-header">
-                <div class="modal-body" style={{display: "contents"}}>
-                    <div class="img-preview-container">
-                        <img src={fileNow} class="img-preview" alt="image"/>
-                    </div>
-                </div>
-            </div>
-            {images.length>1?
-            <div style={{position: "fixed", right: "-380px"}}>
-                <FeatherIcon.ArrowRight style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileR()}/>
-            </div>:""}
-            {images.length>1?
-            <div style={{position: "fixed", right: "900px"}}>
-                <FeatherIcon.ArrowLeft style={{cursor: "pointer", position: "absolute"}} onClick={()=>NextFileL()}/>
-            </div>:""}
-            {images.length>1?
-                <div className="image-modal">
-                    <ul className="file-list">
-                        {images.map((image, i) => (
-                            <li>
-                                <div className="mini-preview-container" 
-                                style={{backgroundImage:"url("+image.file+")"}}
-                                onClick={() => ClickedFile(i)}>
-                                </div>
-                            </li>
-                            ))}
-                    </ul>
-               </div> 
-               :""
+        <div className="img-chat-cont" style={ {height: imageHeight,width: imageWidth}}>               
+            {message.unread_messages == 2?
+            <div className="loader-image-chat"></div>:
+            ""
             }
-            </Modal>
-        </div>);
+            {message.unread_messages == 2 ?
+            <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
+                <ImagePreview file={file} images={images} position={position} classP={classP} name={name}  p={p}/>
+            </figure>
+            :
+            <figure className="avatar img-chat">
+                {/*<div className={"modal-img-cont"} >
+                    <img  className={classP?classP:"card-img-top image-modal-image"} 
+                    src={file} alt="image" onLoad={ImageSize(file)}
+                    />
+            </div>*/}
+                <ImagePreview file={file} images={images} position={position} classP={classP} name={name}  p={p}/>
+            </figure>
+            }
+            <div className="word-break">{message.message}</div>
+        </div>
+        )
     }
 
 export default ImageModal;
