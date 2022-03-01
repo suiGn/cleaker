@@ -91,7 +91,7 @@ function ImagePreview(props) {
                 {p?
                 <span className="detail">
                     <figure className="avatar auto-img-sm">{p}</figure>
-                    <div>
+                    <div className={"auto-img-modal"}>
                         <h5> {name?name:"image"}</h5>
                     </div>
                 </span>:

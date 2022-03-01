@@ -120,6 +120,11 @@ body:not(.no-blur-effect) {
         position: absolute;
         left: 32%;
         display: flex;
+        .auto-img-modal{
+          position: relative;
+          top: 5px;
+          left: 5px;
+        }
       }
   }
   .right{
