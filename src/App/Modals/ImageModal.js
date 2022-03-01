@@ -34,6 +34,8 @@ function ImageModal(props) {
     }
 
     function ImageSize(file){
+        console.log(file)
+
     }
 
     useEffect(() => {
