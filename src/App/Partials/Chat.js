@@ -83,7 +83,7 @@ function Chat(props) {
     socket, clicked, scrollEl, setScrollEl, setOpenSearchSidebar, openSearchSidebar,
     messageRespond, setMessageRespond, viewChatAnswerPreview, setViewChatAnswerPreview,
     isResponse, setisResponse, openMessageDetail, setOpenMessageDetail, setMessageDetail,
-    filePreviewChange, setFilePreviewChange, setIdUserCall
+    filePreviewChange, setFilePreviewChange, setIdUserCall, setUser, my_uid
   } = props;
 
   useEffect(() => {
@@ -416,7 +416,7 @@ function Chat(props) {
   }
 
   const MessagesView = (props) => {
-    const { message, group } = props;
+    const { message, group, name, pphoto } = props;
     var position
     if(message.is_image){
       for(var i = 0; i < images.length; i++) {
@@ -667,7 +667,7 @@ function Chat(props) {
                       </div>
                       : message.is_image ?
                         <ImageModal file={message.file} images={images} position={position} message={message} 
-                        imgHeights={imgHeights} imgWidths={imgWidths} name={clicked.name}
+                        imgHeights={imgHeights} imgWidths={imgWidths} name={name} pphoto={pphoto}
                         />
                         : message.is_file ?
                             message.message!=""?
@@ -811,11 +811,11 @@ function Chat(props) {
   return clicked.chat_uid ? (
     <div className="chat" hidden={props.viewPreview}>
       <ChatHeader
-        data={props.clicked}
+        data={clicked}
         socket={socket}
-        chat_uid={props.clicked.chat_uid}
-        id={props.clicked.user_chat}
-        setUser={props.setUser}
+        chat_uid={clicked.chat_uid}
+        id={clicked.user_chat}
+        setUser={setUser}
         setGroup={props.setGroup}
         setOpenUserProfile={props.setOpenUserProfile}
         openUserProfile={props.openUserProfile}
@@ -851,14 +851,16 @@ function Chat(props) {
                 message={message}
                 key={i}
                 setColor={colorMessage}
-                id={props.clicked.user_chat}
-                my_uid={props.my_uid}
-                setUser={props.setUser}
-                chat_id={props.clicked.chat_uid}
-                group={props.clicked.chat_type}
+                id={clicked.user_chat}
+                my_uid={my_uid}
+                setUser={setUser}
+                chat_id={clicked.chat_uid}
+                group={clicked.chat_type}
                 setMessageRespond={setMessageRespond}
                 setViewChatAnswerPreview={setViewChatAnswerPreview}
                 setisResponse={setisResponse}
+                name={clicked.name}
+                pphoto={clicked.pphoto}
               />
             ))}
           </div>

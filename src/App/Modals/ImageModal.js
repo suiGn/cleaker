@@ -9,13 +9,15 @@ import ImagePreview from "./ImagePreview";
 
 function ImageModal(props) {
 
-    const{file, images, position, classP, message, imgHeights, imgWidths, name } = props
+    const{file, images, position, classP, message, imgHeights, imgWidths, name, pphoto } = props
 
     const [imageWidth, setImageWidth] = useState(0);
 
     const [imageHeight, setImageHeight] = useState(0);
 
     const [loaded, setLoaded] = useState(0);
+
+    const [p, setP] = useState("");
 
 
     
@@ -38,6 +40,16 @@ function ImageModal(props) {
 
     useEffect(() => {
         ImageGet(file)
+        if (pphoto === "" || pphoto === null) {
+            let chat_initial = name.substring(0, 1);
+            setP(
+              <span className="avatar-title bg-info rounded-circle">
+                {chat_initial}
+              </span>
+            );
+          } else {
+            setP(<img src={pphoto} className="rounded-circle" alt="image" />);
+        }
     },[loaded])
 
     return (
@@ -48,7 +60,7 @@ function ImageModal(props) {
             }
             {message.unread_messages == 2 ?
             <figure className="avatar img-chat" style={{filter: "blur(8px)"}}>
-                <ImagePreview file={file} images={images} position={position} classP={classP} name={name}/>
+                <ImagePreview file={file} images={images} position={position} classP={classP} name={name}  p={p}/>
             </figure>
             :
             <figure className="avatar img-chat">
@@ -57,7 +69,7 @@ function ImageModal(props) {
                     src={file} alt="image" onLoad={ImageSize(file)}
                     />
             </div>*/}
-                <ImagePreview file={file} images={images} position={position} classP={classP} name={name}/>
+                <ImagePreview file={file} images={images} position={position} classP={classP} name={name}  p={p}/>
             </figure>
             }
             <div className="word-break">{message.message}</div>
