@@ -80,8 +80,8 @@ function ChatNoMessage(props) {
         file: newValue.file,
         responseFile: newValue.responseFile,
         response_type: newValue.response_type,
-        widht: newValue.awidht,
-        height: newValue.aheight
+        widht: newValue.widht,
+        height: newValue.height
       });
       socket.emit("get chats");
       socket.emit("get messages", {

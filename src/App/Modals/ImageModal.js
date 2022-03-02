@@ -22,7 +22,7 @@ function ImageModal(props) {
 
     
     function ImageGet(file){
-        const img = new Image();
+        /*const img = new Image();
         img.src = file;
         img.onload = () => {
             let awidht = img.width* .60
@@ -30,7 +30,7 @@ function ImageModal(props) {
             setImageWidth(awidht)
             setImageHeight(aheight)
             setLoaded(true)
-        };
+        };*/
     }
 
     useEffect(() => {
@@ -53,7 +53,7 @@ function ImageModal(props) {
 
 
     return (
-        <div className="img-chat-cont" style={ {height: imageHeight,width: imageWidth}}>               
+        <div className="img-chat-cont" style={ {height: message.height,width: message.width}}>               
             {message.unread_messages == 2?
             <div className="loader-image-chat"></div>:
             ""
