@@ -137,6 +137,8 @@ io.on("connection", function (socket) {
       ogDescription = msg.ogDescription?msg.ogDescription: "";
       ogImage = msg.ogImage?msg.ogImage: "";
       isExitGroup = msg.isExitGroup ? msg.isExitGroup : 0;
+      widht = msg.widht ? msg.widht : 0;
+      height = msg.height ? msg.height : 0;
       orgboatDB.query(
         `
 			select * from chats_users 
@@ -165,7 +167,9 @@ io.on("connection", function (socket) {
                 ogTitle: ogTitle,
                 ogDescription: ogDescription,
                 ogImage: ogImage,
-                isExitGroup: isExitGroup
+                isExitGroup: isExitGroup,
+                widht: widht,
+                height: height
               });
             }
           });
@@ -174,10 +178,11 @@ io.on("connection", function (socket) {
       timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
       orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,
         unread_messages,is_image,is_file,is_video,file,is_response,response,response_from
-        ,response_type,response_file,ogTitle, ogDescription, ogImage, isExitGroup) 
+        ,response_type,response_file,ogTitle, ogDescription, ogImage, isExitGroup, widht, height) 
       values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}'
       ,'${is_video}','${file}','${is_response}','${response}','${response_from}'
-      ,'${response_type}','${responseFile}','${ogTitle}','${ogDescription}','${ogImage}','${isExitGroup}')`);
+      ,'${response_type}','${responseFile}','${ogTitle}','${ogDescription}','${ogImage}'
+      ,'${isExitGroup}' ,'${widht}' ,'${height}')`);
     });
 
     //Client request the messages
