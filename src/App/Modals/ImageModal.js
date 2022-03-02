@@ -11,27 +11,7 @@ function ImageModal(props) {
 
     const{file, images, position, classP, message, imgHeights, imgWidths, name, pphoto } = props
 
-    const [imageWidth, setImageWidth] = useState(0);
-
-    const [imageHeight, setImageHeight] = useState(0);
-
-    const [loaded, setLoaded] = useState(false);
-
     const [p, setP] = useState("");
-
-
-    
-    function ImageGet(file){
-        /*const img = new Image();
-        img.src = file;
-        img.onload = () => {
-            let awidht = img.width* .60
-            let aheight = img.height* .60
-            setImageWidth(awidht)
-            setImageHeight(aheight)
-            setLoaded(true)
-        };*/
-    }
 
     useEffect(() => {
         if (pphoto === "" || pphoto === null) {
@@ -45,12 +25,6 @@ function ImageModal(props) {
             setP(<img src={pphoto} className="rounded-circle" alt="image" />);
         }
     },[file])
-
-    useEffect(() => {
-        //ImageGet(file)
-    },[]
-    )
-
 
     return (
         <div className="img-chat-cont" style={ {height: message.height,width: message.width}}>               
