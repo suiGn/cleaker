@@ -15,31 +15,25 @@ function ImageModal(props) {
 
     const [imageHeight, setImageHeight] = useState(0);
 
-    const [loaded, setLoaded] = useState(0);
+    const [loaded, setLoaded] = useState(false);
 
     const [p, setP] = useState("");
 
 
     
     function ImageGet(file){
-        const img = new Image();
+        /*const img = new Image();
         img.src = file;
         img.onload = () => {
-        let awidht = img.width* .60
-        let aheight = img.height* .60
-        setImageWidth(awidht)
-        setImageHeight(aheight)
-        setLoaded(1)
-        };
-    }
-
-    function ImageSize(file){
-        console.log(file)
-
+            let awidht = img.width* .60
+            let aheight = img.height* .60
+            setImageWidth(awidht)
+            setImageHeight(aheight)
+            setLoaded(true)
+        };*/
     }
 
     useEffect(() => {
-        ImageGet(file)
         if (pphoto === "" || pphoto === null) {
             let chat_initial = name.substring(0, 1);
             setP(
@@ -50,10 +44,16 @@ function ImageModal(props) {
           } else {
             setP(<img src={pphoto} className="rounded-circle" alt="image" />);
         }
-    },[loaded])
+    },[file])
+
+    useEffect(() => {
+        //ImageGet(file)
+    },[]
+    )
+
 
     return (
-        <div className="img-chat-cont" style={ {height: imageHeight,width: imageWidth}}>               
+        <div className="img-chat-cont" style={ {height: message.height,width: message.width}}>               
             {message.unread_messages == 2?
             <div className="loader-image-chat"></div>:
             ""

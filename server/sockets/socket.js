@@ -137,6 +137,8 @@ io.on("connection", function (socket) {
       ogDescription = msg.ogDescription?msg.ogDescription: "";
       ogImage = msg.ogImage?msg.ogImage: "";
       isExitGroup = msg.isExitGroup ? msg.isExitGroup : 0;
+      widht = msg.widht ? msg.widht : 0;
+      height = msg.height ? msg.height : 0;
       orgboatDB.query(
         `
 			select * from chats_users 
@@ -165,7 +167,9 @@ io.on("connection", function (socket) {
                 ogTitle: ogTitle,
                 ogDescription: ogDescription,
                 ogImage: ogImage,
-                isExitGroup: isExitGroup
+                isExitGroup: isExitGroup,
+                widht: widht,
+                height: height
               });
             }
           });
@@ -174,10 +178,11 @@ io.on("connection", function (socket) {
       timeDB = formatLocalDate().slice(0, 19).replace("T", " ");
       orgboatDB.query(`insert into messages(chat_uid, u_id, message,time,delete_message,
         unread_messages,is_image,is_file,is_video,file,is_response,response,response_from
-        ,response_type,response_file,ogTitle, ogDescription, ogImage, isExitGroup) 
+        ,response_type,response_file,ogTitle, ogDescription, ogImage, isExitGroup, widht, height) 
       values ('${chat}','${from}','${message}','${timeDB}',0,1,'${is_image}','${is_file}'
       ,'${is_video}','${file}','${is_response}','${response}','${response_from}'
-      ,'${response_type}','${responseFile}','${ogTitle}','${ogDescription}','${ogImage}','${isExitGroup}')`);
+      ,'${response_type}','${responseFile}','${ogTitle}','${ogDescription}','${ogImage}'
+      ,'${isExitGroup}' ,'${widht}' ,'${height}')`);
     });
 
     //Client request the messages
@@ -224,7 +229,7 @@ io.on("connection", function (socket) {
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
       messages.response_file,  messages.unread_messages, messages.time_read,  CONCAT(SUBSTRING(messages.ogTitle, 1, 45), "...")   as ogTitle, 
-      messages.ogDescription,  messages.ogImage, messages.isExitGroup
+      messages.ogDescription,  messages.ogImage, messages.isExitGroup, messages.widht, messages.height
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 0 
@@ -235,7 +240,7 @@ io.on("connection", function (socket) {
       chats.chat_uid, messages.is_image, messages.is_file, messages.is_video, messages.file,
       messages.is_response, messages.response, messages.response_from, messages.response_type, 
       messages.response_file,  messages.unread_messages, messages.time_read,  CONCAT(SUBSTRING(messages.ogTitle, 1, 45), "...")   as ogTitle, 
-      messages.ogDescription,  messages.ogImage, messages.isExitGroup
+      messages.ogDescription,  messages.ogImage, messages.isExitGroup, messages.widht, messages.height
 			from messages inner join usrs on messages.u_id = usrs.u_id
 			inner join chats on chats.chat_uid = messages.chat_uid
 			where  messages.chat_uid = '${msg.id}' AND messages.delete_message = 1 

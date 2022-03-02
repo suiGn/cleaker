@@ -79,7 +79,9 @@ function ChatNoMessage(props) {
         response_from:newValue.response_from,
         file: newValue.file,
         responseFile: newValue.responseFile,
-        response_type: newValue.response_type
+        response_type: newValue.response_type,
+        widht: newValue.widht,
+        height: newValue.height
       });
       socket.emit("get chats");
       socket.emit("get messages", {
@@ -153,14 +155,22 @@ function ChatNoMessage(props) {
               if(isResponse){
                 handleIsResponceImage(response);
               }else{
-                handleSubmit({
-                  text: inputMsg,
-                  chat_uid: props.chat_uid,
-                  is_image: 1,
-                  is_file: 0,
-                  is_video: 0,
-                  file: response.data.url
-                });
+                const img = new Image();
+                img.src = file;
+                img.onload = () => {
+                    let awidht = img.width* .60
+                    let aheight = img.height* .60
+                    handleSubmit({
+                      text: inputMsg,
+                      chat_uid: props.chat_uid,
+                      is_image: 1,
+                      is_file: 0,
+                      is_video: 0,
+                      file: response.data.url,
+                      widht: awidht,
+                      height: aheight
+                    });
+                };
               }
             })
             .catch((error) => {});
