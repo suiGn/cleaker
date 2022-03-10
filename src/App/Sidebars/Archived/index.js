@@ -14,10 +14,31 @@ function Index(props) {
   const [favoritearchivedChatsFiltered, setArchivedChatsFiltered] = useState([]);
   const [searchArchivedChats, setSearchArchivedChats] = useState("");
   const [one, setIOne] = useState("");
+  const [archivedL, setArchivedL] = useState([]);
+  
 
   function RetrieveChatsArchived(data) {
+    var chats = data.chats.filter((chats) => {
+      return chats.chat_type == 0;
+    });
+    var grupos = data.chats.filter((grupos) => {
+      return grupos.chat_type == 1 && grupos.user_chat == data.my_uid;
+    });
+    grupos.forEach((info) => {
+      info.name = info.chat_name;
+    });
+    chats.push.apply(chats, grupos);
+    chats.forEach((info) => {
+      if(!info.last_message_time){
+        info.last_message_time =  "0001-01-01T00:54:31.000Z";
+      }
+    });
+    chats.sort(function(a,b) {
+      return Date.parse(b.last_message_time) - Date.parse(a.last_message_time)
+    });
     setArchivedChats(data);
-    setArchivedChatsFiltered(data.chats);
+    setArchivedL(chats);
+    setArchivedChatsFiltered(chats);
   }
 
   useEffect(() => {
@@ -42,7 +63,7 @@ function Index(props) {
 
   function searchFav(wordToSearch) {
     setSearchArchivedChats(wordToSearch);
-    var resultFavorits = archivedChats.chats.filter((val) => {
+    var resultFavorits = archivedL.filter((val) => {
       return val.name.toLowerCase().includes(wordToSearch.toLowerCase());
     });
     setArchivedChatsFiltered(resultFavorits);
@@ -81,7 +102,7 @@ function Index(props) {
           <ul className="list-group list-group-flush">
             {archivedChats.chats &&
               favoritearchivedChatsFiltered.map((chat, i) => {
-                if (chat.user_chat == archivedChats.my_uid) {
+                if (chat.chat_type == 0 && chat.user_chat == archivedChats.my_uid) {
                   return "";
                 }
                 let chat_name = chat.name;
