@@ -74,7 +74,6 @@ const ChatsMessageDropdown = (props) => {
 
   function MessageInfo(){
     setOpenMessageDetail(!openMessageDetail)
-    console.log(props.message)
     setMessageDetail(props.message)
   }
 
@@ -96,7 +95,8 @@ const ChatsMessageDropdown = (props) => {
       }
       </div>
       <DropdownMenu>
-        {props.message.chat_type == 1 ? (
+        {props.message.chat_type == 1 ? 
+        (
           props.message.message_user_uid == props.prop_id?
             <DropdownItem onClick={() => MessageInfo(props.message)}>
             Message Info.
@@ -113,57 +113,32 @@ const ChatsMessageDropdown = (props) => {
         <DropdownItem onClick={() => DeleteMessage(props.message)}>
           Delete
         </DropdownItem>
-        {props.message.chat_type == 1 ? (
-          props.message.message_user_uid != props.prop_id &&
-          !props.message.favorite ? (
-            <DropdownItem onClick={() => AddFavorite(props.message)}>
-              Favorite
-            </DropdownItem>
-            
-          ) : (
-            ""
-          )
-        ) : props.message.message_user_uid == props.prop_id &&
-          !props.message.favorite ? (
+       
+        { props.message.message_user_uid == props.prop_id && !props.message.favorite ?
           <DropdownItem onClick={() => AddFavorite(props.message.message_id)}>
             Favorite
           </DropdownItem>
-        ) : props.message.message_user_uid != props.prop_id &&
-          !props.message.favorite_to ? (
+        :  props.message.message_user_uid != props.prop_id && !props.message.favorite_to ?
           <DropdownItem onClick={() => AddFavoriteTo(props.message.message_id)}>
             Favorite
-          </DropdownItem>
-        ) : (
-          ""
-        )}
-        {props.message.chat_type == 1 ? (
-          props.message.message_user_uid != props.prop_id &&
-          props.message.favorite ? (
-            <DropdownItem
-              onClick={() => RemoveFavorite(props.message.message_id)}
-            >
-              Remove Favorite
-            </DropdownItem>
-          ) : (
-            ""
-          )
-        ) : props.message.message_user_uid == props.prop_id &&
-          props.message.favorite ? (
+          </DropdownItem> 
+        : ""
+        }
+
+        {  props.message.message_user_uid == props.prop_id && props.message.favorite ?
           <DropdownItem
             onClick={() => RemoveFavorite(props.message.message_id)}
           >
             Remove Favorite
           </DropdownItem>
-        ) : props.message.message_user_uid != props.prop_id &&
-          props.message.favorite_to ? (
+        : props.message.message_user_uid != props.prop_id && props.message.favorite_to ? 
           <DropdownItem
             onClick={() => RemoveFavoriteTo(props.message.message_id)}
           >
             Remove Favorite
-          </DropdownItem>
-        ) : (
-          ""
-        )}
+          </DropdownItem> 
+        :""
+        }
       </DropdownMenu>
     </Dropdown>
   );
