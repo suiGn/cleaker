@@ -88,9 +88,11 @@ io.on("connection", function (socket) {
       console.log(`[Socket.io] - User ${user.usrname} asked for chats`);
       orgboatDB.query(
         `
-        select chats.chat_uid, chats.chat_name, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto,
-        m.u_id as last_message_user_uid, m.message as last_message_message, m.time as last_message_time,chats_users.archiveChat
-        ,chats_users.delete_chat, m.unread_messages as unread_messages
+        select chats.chat_uid, chats.chat_type, chats2.u_id as user_chat ,usrs.name,usrs.pphoto, chats.chat_name,
+        m.u_id as last_message_user_uid,CONVERT(FROM_BASE64( m.message) USING utf8mb4) as last_message_message, m.time as last_message_time,chats_users.archiveChat
+        ,chats_users.delete_chat, m.unread_messages as unread_messages,  m.delete_message as deleted_message, m.delete_message_to as deleted_message_to,
+        chats.groupphoto, m.is_file , m.is_image, m.is_video, m.time_read,  m.ogTitle,  m.ogDescription,  m.ogImage, chats_users.group_exit, chats_users.admin_group,
+        chats.creation_date
 			
 			from chats_users  
 
@@ -104,6 +106,8 @@ io.on("connection", function (socket) {
 						SELECT MAX(message_id) 
 						FROM messages z 
 						WHERE z.chat_uid = m.chat_uid
+            and z.delete_message = 0
+            and z.delete_message_to = 0
 					)
           where chats_users.u_id = '${user.u_id}' and chats_users.archiveChat = 1 and chats_users.delete_chat = 0
           order by time desc;
