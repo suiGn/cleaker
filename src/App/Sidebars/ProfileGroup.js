@@ -464,97 +464,97 @@ function ProfileGroup(props) {
                 </small>
               </div>
               <div>
-                {isAdmin==1&&isExit==0?
-                  <div className="mt-4 mb-4">
-                    <div className="d-flex">
-                      <div className="ml-3 mr-3">
-                        {(about==""||about==null) &&!openAboutEditable?
-                        <p contentEditable={openAboutEditable} onClick={(e) => openAboutEditableToggler(false, e)} className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
-                        :
-                        (about!=""||about!=null) &&!openAboutEditable?
-                        <p contentEditable={openAboutEditable} onClick={(e) => openAboutEditableToggler(false, e)} className="text-muted">{about}</p>
-                        :
-                        <p
-                          ref={aboutRef}
-                          className={
-                            openAboutEditable
-                              ? "outline-none selected-input text-muted mb-1 pl-2 pr-2 pb-2 pt-2"
-                              : "fake-border text-muted mb-1 pl-2 pr-2 pb-2 pt-2"
-                          }
-                          contentEditable={openAboutEditable}
-                          onBlur={(e) => handleSetAbout(e)}
-                          onKeyPress={(e) => handleKeyPress(e)}
-                          >
-                          {about}
-                        </p>
-                        }
-                      </div>
-                    </div>
-                    <p>Grupo creado el {createDate}</p>
-                  </div> 
-                  :
-                  <div className="mt-4 mb-4">
-                    <p  className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
-                    <p>Grupo creado el {createDate}</p>
+              {isAdmin==1&&isExit==0?
+              <div className="mt-4 mb-4">
+                <div className="d-flex">
+                  <div className="ml-3 mr-3">
+                    {(about==""||about==null) &&!openAboutEditable?
+                    <p contentEditable={openAboutEditable} onClick={(e) => openAboutEditableToggler(false, e)} className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
+                    :
+                    (about!=""||about!=null) &&!openAboutEditable?
+                    <p contentEditable={openAboutEditable} onClick={(e) => openAboutEditableToggler(false, e)} className="text-muted">{about}</p>
+                    :
+                    <p
+                      ref={aboutRef}
+                      className={
+                        openAboutEditable
+                          ? "outline-none selected-input text-muted mb-1 pl-2 pr-2 pb-2 pt-2"
+                          : "fake-border text-muted mb-1 pl-2 pr-2 pb-2 pt-2"
+                      }
+                      contentEditable={openAboutEditable}
+                      onBlur={(e) => handleSetAbout(e)}
+                      onKeyPress={(e) => handleKeyPress(e)}
+                      >
+                      {about}
+                    </p>
+                    }
                   </div>
-                  }
-                  {
-                    media.length>0? 
-                    <div className="media-show-preview">
-                      <div className="media-show-info">
-                        <p>Media, links and docs</p>
-                        <p className="media-show-arrow" onClick={(e) => ViewMedia(e)}> {media.length} <FeatherIcon.ArrowRight ></FeatherIcon.ArrowRight> </p>
-                      </div>
-                      <ul className="preview-list">
-                        {mediaPreview.map((image, i) => (
-                            <li>
-                              <div>
-                              <ImagePreview  classP={"mini-preview-container"}  file={image.file} 
-                              images={mediaImages} position={i} name={name} p={p}/>
-                              </div>
-                            </li>
-                            ))}
-                      </ul>
-                    </div>:""
-                  }
-                  <div className="sidebar-body">
-                    <div>{(members.length)} participantes</div>
-                    <PerfectScrollbar>
-                      <ul className="list-group list-group-flush">
-                        {isAdmin==1&&isExit==0?
-                        <li onClick={(e) => OpenModal(e)} className="list-group-item">
+                </div>
+                <p>Grupo creado el {createDate}</p>
+              </div> 
+              :
+              <div className="mt-4 mb-4">
+                <p  className="text-muted">{about==""||about==null?"Añade una descripción del grupo":about}</p>
+                <p>Grupo creado el {createDate}</p>
+              </div>
+              }
+              {
+                media.length>0? 
+                <div className="media-show-preview">
+                  <div className="media-show-info">
+                    <p>Media, links and docs</p>
+                    <p className="media-show-arrow" onClick={(e) => ViewMedia(e)}> {media.length} <FeatherIcon.ArrowRight ></FeatherIcon.ArrowRight> </p>
+                  </div>
+                  <ul className="preview-list">
+                    {mediaPreview.map((image, i) => (
+                        <li>
                           <div>
-                            <figure className="avatar">
-                              <span className="avatar-title bg-info rounded-circle">
-                                <FeatherIcon.UserPlus/>
-                              </span>
-                            </figure>
-                          </div>
-                          <div className="users-list-body">
-                            <div>
-                              <h5>
-                                Add members
-                              </h5>
-                            </div>
+                          <ImagePreview  classP={"mini-preview-container"}  file={image.file} 
+                          images={mediaImages} position={i} name={name} p={p}/>
                           </div>
                         </li>
-                        :
-                        ""}
-                        {members.map((chat, i) => (
-                          <MemberView
-                            chat={chat}
-                            key={i}
-                          />
-                        ))}  
-                        {isExit==0?
-                        <li  onClick={(e) => ExitGroup(e)} className="list-group-item">
-                        <FeatherIcon.LogOut />
-                          Exit group
-                        </li>
-                        :""}
-                      </ul>
-                    </PerfectScrollbar>
-                  </div>
+                        ))}
+                  </ul>
+                </div>:""
+              }
+              <div className="sidebar-body">
+                <div>{(members.length)} participantes</div>
+                <PerfectScrollbar>
+                  <ul className="list-group list-group-flush">
+                    {isAdmin==1&&isExit==0?
+                    <li onClick={(e) => OpenModal(e)} className="list-group-item">
+                      <div>
+                        <figure className="avatar">
+                          <span className="avatar-title bg-info rounded-circle">
+                            <FeatherIcon.UserPlus/>
+                          </span>
+                        </figure>
+                      </div>
+                      <div className="users-list-body">
+                        <div>
+                          <h5>
+                            Add members
+                          </h5>
+                        </div>
+                      </div>
+                    </li>
+                    :
+                    ""}
+                    {members.map((chat, i) => (
+                      <MemberView
+                        chat={chat}
+                        key={i}
+                      />
+                    ))}  
+                    {isExit==0?
+                    <li  onClick={(e) => ExitGroup(e)} className="list-group-item">
+                    <FeatherIcon.LogOut />
+                      Exit group
+                    </li>
+                    :""}
+                  </ul>
+                </PerfectScrollbar>
+              </div>
               </div>
             </div>
           </PerfectScrollbar>

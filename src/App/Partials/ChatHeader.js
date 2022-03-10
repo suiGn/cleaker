@@ -274,9 +274,12 @@ function ChatHeader(props) {
                     Profile
                   </DropdownItem>
                 )}
+                {props.data.chat_type == 0 ?
                 <DropdownItem onClick={() => ArchiveChat(props.chat_uid)}>
                   Add to archive
                 </DropdownItem>
+                :""
+                }
                 {/* <DropdownItem>Delete</DropdownItem> */}
                 {/* <DropdownItem divider />
                 <DropdownItem>Block</DropdownItem> */}
