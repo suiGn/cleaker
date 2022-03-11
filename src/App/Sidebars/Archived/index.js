@@ -88,7 +88,7 @@ function Index(props) {
     let chat_name;
     let p;
 
-    if (chat.chat_type == 1 || my_uid != chat.user_chat) {
+    if (chat.chat_type == 1 || my_uid.id != chat.user_chat) {
       chat_name = chat.name;
       if (chat.chat_type == 1) {
         chat.pphoto = chat.groupphoto;
