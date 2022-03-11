@@ -105,7 +105,7 @@ function Index(props) {
       }
       return (
         <li
-          className={"list-group-item open-chat"
+          className={"list-group-item"
           }
         >
           <div>
