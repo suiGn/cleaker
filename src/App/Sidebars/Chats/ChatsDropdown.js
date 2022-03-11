@@ -85,11 +85,9 @@ const ChatsDropdown = (props) => {
             Delete group
           </DropdownItem>:""
         }
-        {chat_type == 0 ? 
           <DropdownItem onClick={() => ArchiveChat()}>
             Add to archive
-          </DropdownItem>:""
-        }
+          </DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );
