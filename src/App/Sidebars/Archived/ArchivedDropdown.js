@@ -48,7 +48,7 @@ const ArchivedDropdown = (props) => {
       </DropdownToggle>
       <DropdownMenu>
         <DropdownItem onClick={() => Unarchive(props.chat_id)}>
-          Unarchived
+          Remove from archive
         </DropdownItem>
         <DropdownItem onClick={openUserProfileToggler}>Profile</DropdownItem>
         {/* <DropdownItem divider />

@@ -56,6 +56,15 @@ const ChatsDropdown = (props) => {
     }
   };
 
+  function ArchiveChat() {
+    socket.emit("archived chat", { chat: chat_uid });
+    socket.once("archived response", function () {
+      socket.emit("get chats");
+      socket.emit("get chats archived");
+      setClicked([]);
+    });
+  }
+
   return (
     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
       <DropdownToggle tag="span">
@@ -75,7 +84,10 @@ const ChatsDropdown = (props) => {
           <DropdownItem onClick={() => DeleteGroup()}>
             Delete group
           </DropdownItem>:""
-      }
+        }
+          <DropdownItem onClick={() => ArchiveChat()}>
+            Add to archive
+          </DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );

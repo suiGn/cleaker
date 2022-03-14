@@ -14,10 +14,31 @@ function Index(props) {
   const [favoritearchivedChatsFiltered, setArchivedChatsFiltered] = useState([]);
   const [searchArchivedChats, setSearchArchivedChats] = useState("");
   const [one, setIOne] = useState("");
+  const [archivedL, setArchivedL] = useState([]);
+  
 
   function RetrieveChatsArchived(data) {
+    var chats = data.chats.filter((chats) => {
+      return chats.chat_type == 0;
+    });
+    var grupos = data.chats.filter((grupos) => {
+      return grupos.chat_type == 1 && grupos.user_chat == data.my_uid;
+    });
+    grupos.forEach((info) => {
+      info.name = info.chat_name;
+    });
+    chats.push.apply(chats, grupos);
+    chats.forEach((info) => {
+      if(!info.last_message_time){
+        info.last_message_time =  "0001-01-01T00:54:31.000Z";
+      }
+    });
+    chats.sort(function(a,b) {
+      return Date.parse(b.last_message_time) - Date.parse(a.last_message_time)
+    });
     setArchivedChats(data);
-    setArchivedChatsFiltered(data.chats);
+    setArchivedL(chats);
+    setArchivedChatsFiltered(chats);
   }
 
   useEffect(() => {
@@ -42,7 +63,7 @@ function Index(props) {
 
   function searchFav(wordToSearch) {
     setSearchArchivedChats(wordToSearch);
-    var resultFavorits = archivedChats.chats.filter((val) => {
+    var resultFavorits = archivedL.filter((val) => {
       return val.name.toLowerCase().includes(wordToSearch.toLowerCase());
     });
     setArchivedChatsFiltered(resultFavorits);
@@ -60,6 +81,79 @@ function Index(props) {
     setOpenSearchSidebar(false);
     socket.off("retrieve messages");
   }
+
+  const ChatListView = (props) => {
+    const { chat } = props;
+    let chat_initial;
+    let chat_name;
+    let p;
+
+    if (chat.chat_type == 1 || my_uid.id != chat.user_chat) {
+      chat_name = chat.name;
+      if (chat.chat_type == 1) {
+        chat.pphoto = chat.groupphoto;
+      }
+      chat_initial = chat_name.substring(0, 1);
+      if (chat.pphoto === "" || chat.pphoto === null) {
+        p = (
+          <span className="avatar-title bg-info rounded-circle">
+            {chat_initial}
+          </span>
+        );
+      } else {
+        p = <img src={chat.pphoto} className="rounded-circle" alt="image" />;
+      }
+      return (
+        <li
+          className={"list-group-item"
+          }
+        >
+          <div>
+            <figure className="avatar" onClick={(e) => setClickedValue(e, chat)}>{p}</figure>
+          </div>
+          <div className="users-list-body">
+            <div i={chat.chat_uid} onClick={(e) => setClickedValue(e, chat)}>
+              <h5
+                i={chat.chat_uid}
+              >
+                {chat.name}
+              </h5>
+              <div className="last-message">
+              {
+                (chat.deleted_message || chat.deleted_message_to)
+                ? "no messages"
+                : chat.is_file
+                ? "file"
+                : chat.is_image
+                ? "picture"
+                : chat.is_video
+                ? "video"
+                : chat.last_message_message?
+                chat.last_message_message:"no messages"}
+              </div>
+            </div>
+            <div className="users-list-action">
+              <div className="action-toggle">
+                <ArchivedDropdown
+                  setOpenProfile={setOpenProfile}
+                  openProfile={openProfile}
+                  openUserProfile={openUserProfile}
+                  setOpenUserProfile={setOpenUserProfile}
+                  openGroupProfile={openGroupProfile}
+                  setOpenGroupProfile={setOpenGroupProfile}
+                  setUser={props.setUser}
+                  socket={socket}
+                  id={chat.user_chat}
+                  chat_id={chat.chat_uid}
+                />
+              </div>
+            </div>
+          </div>
+        </li>
+      );
+    }
+    return "";
+  };
 
   return (
     <div className="sidebar active">
@@ -80,56 +174,15 @@ function Index(props) {
         <PerfectScrollbar>
           <ul className="list-group list-group-flush">
             {archivedChats.chats &&
-              favoritearchivedChatsFiltered.map((chat, i) => {
-                if (chat.user_chat == archivedChats.my_uid) {
-                  return "";
-                }
-                let chat_name = chat.name;
-                let p;
-                let chat_initial = chat_name.substring(0, 1);
-                if (chat.pphoto === "" || chat.pphoto === null) {
-                  p = (
-                    <span className="avatar-title bg-info rounded-circle">
-                      {chat_initial}
-                    </span>
-                  );
-                } else {
-                  p = (
-                    <img
-                      src={chat.pphoto}
-                      className="rounded-circle"
-                      alt="image"
-                    />
-                  );
-                }
-                return (
-                  <li key={i} className="list-group-item">
-                    <figure className="avatar" onClick={(e) => setClickedValue(e, chat)}>{p}</figure>
-                    <div className="users-list-body">
-                      <div onClick={(e) => setClickedValue(e, chat)}>
-                        <h5>{chat.name}</h5>
-                        <p>{chat.title}</p>
-                      </div>
-                      <div className="users-list-action">
-                        <div className="action-toggle">
-                          <ArchivedDropdown
-                            setOpenProfile={setOpenProfile}
-                            openProfile={openProfile}
-                            openUserProfile={openUserProfile}
-                            setOpenUserProfile={setOpenUserProfile}
-                            openGroupProfile={openGroupProfile}
-                            setOpenGroupProfile={setOpenGroupProfile}
-                            setUser={props.setUser}
-                            socket={socket}
-                            id={chat.user_chat}
-                            chat_id={chat.chat_uid}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
+              favoritearchivedChatsFiltered.map((chat, i) => (
+                <ChatListView
+                  chat={chat}
+                  key={i}
+                  setClicked={setClicked}
+                  setUser={props.setUser}
+                  setGroup={props.setGroup}
+                />
+              ))}
           </ul>
         </PerfectScrollbar>
       </div>

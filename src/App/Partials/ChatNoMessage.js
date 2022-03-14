@@ -110,8 +110,6 @@ function ChatNoMessage(props) {
 
   function Send() {
     let file = imgPreview;
-    let type = imageOrFile;
-
     var dummy = {
       chat_type: clicked.chat_type,
       chat_uid: chat_uid,
@@ -137,7 +135,6 @@ function ChatNoMessage(props) {
       unread_messages: 2
     }
     setFilePreviewChange(dummy)
-
     for (var i = 0; i < files.length; i++)
     {
       const formData = new FormData();
@@ -240,18 +237,26 @@ function ChatNoMessage(props) {
         response_type:1
       });
     }else if(messageRespond.is_image){
-      handleSubmit({
-        text: inputMsg,
-        chat_uid: props.chat_uid,
-        is_image: 1,
-        is_file: 0,
-        is_video: 0,
-        file: response.data.url,
-        response: messageRespond.message,
-        response_from: messageRespond.name,
-        responseFile: messageRespond.file,
-        response_type:2
-      });
+      const img = new Image();
+      img.src = response.data.url;
+      img.onload = () => {
+          let awidht = img.width* .60
+          let aheight = img.height* .60
+          handleSubmit({
+            text: inputMsg,
+            chat_uid: props.chat_uid,
+            is_image: 1,
+            is_file: 0,
+            is_video: 0,
+            file: response.data.url,
+            response: messageRespond.message,
+            response_from: messageRespond.name,
+            responseFile: messageRespond.file,
+            response_type:2,
+            widht: awidht,
+            height: aheight
+          });
+      };
     }else if(messageRespond.is_video){
       handleSubmit({
         text: inputMsg,
