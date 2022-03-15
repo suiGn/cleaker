@@ -158,6 +158,9 @@ function ChatHeader(props) {
     socket.once("archived response", function () {
       socket.emit("get chats");
       socket.emit("get chats archived");
+      var element = document.getElementById("menu-hide");
+      element.classList.remove("nav-hide");
+      dispatch(mobileSidebarAction(true));
       props.setClicked([]);
     });
   }
