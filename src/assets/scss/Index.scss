@@ -1645,6 +1645,23 @@
   .hide-x-icon {
 		display: inline-flex;
 	}
+  .sidebar-body{
+    .scrollbar-container{
+      .list-group{
+        .list-group-item{
+          .users-list-body{
+            .users-list-action{
+              .check-mark{
+                right: 325px!important;
+                bottom: -4px!important;
+                position: absolute !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 
