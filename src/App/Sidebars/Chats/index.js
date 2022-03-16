@@ -214,7 +214,6 @@ function Index(props) {
                   className={
                     chat.unread_messages ? "text-primary" : "text-muted"
                   }
-                  className="text-muted"
                 >
                   {timeLabel}
                 </small>

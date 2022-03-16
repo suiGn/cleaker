@@ -10,7 +10,7 @@ import {
 import * as FeatherIcon from "react-feather";
 // import { searchChatAction } from "../../Store/Actions/searchChatAction";
 import { mobileSidebarAction } from "../../Store/Actions/mobileSidebarAction";
-import VideoCallModal from "../Modals/VideoCallModal"
+
 
 function ChatHeader(props) {
   const dispatch = useDispatch();

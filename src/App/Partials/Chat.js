@@ -559,7 +559,7 @@ function Chat(props) {
                       </div>
                       :
                       <div>
-                        <video className="video-container" controls preload="none" preload="metadata">
+                        <video className="video-container" controls preload="none" >
                           <source src={message.file} />
                         </video>
                         <div className="word-break">{message.message}</div>
@@ -916,7 +916,6 @@ function Chat(props) {
         messageToDelete={messageToDelete}
         my_uid={props.my_uid}
         chat_id={props.clicked.chat_uid}
-        socket={socket}
         page={page}
         limit={limit}
       />
