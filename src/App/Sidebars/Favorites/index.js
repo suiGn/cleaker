@@ -105,7 +105,7 @@ function Index(props) {
                     <div id={message.message_id} className={"message-item"}>
                       <div className="message-avatar">
                         <div>
-                          <h5>{message.name}</h5>
+                        <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                         </div>
                       </div>
                       <div class="message-content position-relative img-chat">
@@ -144,7 +144,7 @@ function Index(props) {
                     <div id={message.message_id} className={"message-item"}>
                     <div className="message-avatar">
                       <div>
-                        <h5>{message.name}</h5>
+                        <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                       </div>
                     </div>
                       <div class="message-content position-relative img-chat">
