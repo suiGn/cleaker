@@ -9,7 +9,7 @@ import ModalImage from "react-modal-image";
 import ImageModal from "../../Modals/ImageModal";
 
 function Index(props) {
-  const { socket } = props;
+  const { socket, my_uid } = props;
   const [favoriteChats, setfavoriteChats] = useState([]);
   const [favoriteChatsFiltered, setfavoriteChatsFiltered] = useState([]);
   const [searchFavorite, setSearchFavorite] = useState("");
@@ -17,7 +17,7 @@ function Index(props) {
 
   useEffect(() => {
     // inputRef.current.focus();
-    socket.emit("GetFavorites", props.my_uid);
+    socket.emit("GetFavorites", my_uid);
   }, props);
 
   function RetrieveGetFavorites(data) {
@@ -88,7 +88,7 @@ function Index(props) {
                       <div id={message.message_id} className={"message-item"}>
                         <div className="message-avatar">
                           <div>
-                            <h5>{message.name}</h5>
+                            <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                           </div>
                         </div>
                         <div class="message-content position-relative img-chat">
