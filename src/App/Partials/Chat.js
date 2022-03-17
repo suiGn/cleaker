@@ -58,9 +58,6 @@ function Chat(props) {
   const [lastIsImage, setlastIsImage] = useState(false);
 
   const [images, setImages] = useState([]);
-
-  const [imgHeights, setImgHeights] = useState([]);
-  const [imgWidths, setImageWidths] = useState([]);
   
   let dayN = 0;
 
@@ -179,20 +176,6 @@ function Chat(props) {
         })
         var imagesReverse = imagesL.reverse();
         setImages(imagesReverse)
-        let imgHeights = []
-        let imgWidths = []
-        imagesReverse.forEach(imgUrl => {
-            let img = new Image();
-            img.src = imgUrl.file;
-            img.onload = () => {
-              let awidht = img.width* .60
-              let aheight = img.height* .60
-              imgHeights.push(aheight)
-              imgWidths.push(awidht)
-              setImgHeights(imgHeights)
-              setImageWidths(imgWidths)
-            };
-        })
         props.setChat({ id: props.clicked.chat_uid });
         setCountrow(data.count[0].countrow);
       }
@@ -667,7 +650,7 @@ function Chat(props) {
                       </div>
                       : message.is_image ?
                         <ImageModal file={message.file} images={images} position={position} message={message} 
-                        imgHeights={imgHeights} imgWidths={imgWidths} name={name} pphoto={pphoto}
+                        name={name} pphoto={pphoto}
                         />
                         : message.is_file ?
                             message.message!=""?

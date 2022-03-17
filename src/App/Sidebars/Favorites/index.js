@@ -94,7 +94,6 @@ function Index(props) {
                         <div class="message-content position-relative img-chat">
                           <ImageModal file={message.file} images={media} position={message.position} message={message}
                           name={message.name} pphoto={message.pphoto}
-                          /* imgHeights={imgHeights} imgWidths={imgWidths} */
                           />
                         </div>
                       </div>
