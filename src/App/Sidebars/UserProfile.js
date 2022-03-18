@@ -10,7 +10,7 @@ import ImagePreview from "../Modals/ImagePreview";
 function UserProfile(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile, 
     setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia,
-    openMedia,setOpenMedia, media, setMediaProfileType,setMediaPreview,mediaPreview } = props;
+    openMedia,setOpenMedia, media, setMediaProfileType,setMediaPreview,mediaPreview,my_uid } = props;
 
   const openUserProfileToggler = (e) => {
     setOpenUserProfile(!openUserProfile);
@@ -248,7 +248,7 @@ function UserProfile(props) {
                             <div id={message.message_id} className={"message-item"}>
                               <div className="message-avatar">
                                 <div>
-                                  <h5>{message.name}</h5>
+                                <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                                 </div>
                               </div>
                               <div class="message-content position-relative img-chat">
@@ -268,7 +268,7 @@ function UserProfile(props) {
                             <div id={message.message_id} className={"message-item"}>
                               <div className="message-avatar">
                                 <div>
-                                  <h5>{message.name}</h5>
+                                  <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                                 </div>
                               </div>
                               <div class="message-content position-relative img-chat">
@@ -307,7 +307,7 @@ function UserProfile(props) {
                             <div id={message.message_id} className={"message-item"}>
                             <div className="message-avatar">
                               <div>
-                                <h5>{message.name}</h5>
+                                <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                               </div>
                             </div>
                               <div class="message-content position-relative img-chat">

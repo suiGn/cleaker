@@ -9,7 +9,7 @@ import ImagePreview from "./ImagePreview";
 
 function ImageModal(props) {
 
-    const{file, images, position, classP, message, imgHeights, imgWidths, name, pphoto } = props
+    const{file, images, position, classP, message, name, pphoto } = props
 
     const [p, setP] = useState("");
 

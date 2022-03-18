@@ -352,6 +352,7 @@ function Layout(props) {
           mediaPreview={mediaPreview}
           setMediaProfileType={setMediaProfileType}
           clicked={clicked}
+          my_uid={my_uid}
         />
         <ProfileGroup
           openUserProfile={openUserProfile}

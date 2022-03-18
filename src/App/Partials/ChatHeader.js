@@ -10,7 +10,7 @@ import {
 import * as FeatherIcon from "react-feather";
 // import { searchChatAction } from "../../Store/Actions/searchChatAction";
 import { mobileSidebarAction } from "../../Store/Actions/mobileSidebarAction";
-import VideoCallModal from "../Modals/VideoCallModal"
+
 
 function ChatHeader(props) {
   const dispatch = useDispatch();
@@ -158,6 +158,9 @@ function ChatHeader(props) {
     socket.once("archived response", function () {
       socket.emit("get chats");
       socket.emit("get chats archived");
+      var element = document.getElementById("menu-hide");
+      element.classList.remove("nav-hide");
+      dispatch(mobileSidebarAction(true));
       props.setClicked([]);
     });
   }

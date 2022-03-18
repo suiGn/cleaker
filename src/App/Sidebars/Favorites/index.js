@@ -9,7 +9,7 @@ import ModalImage from "react-modal-image";
 import ImageModal from "../../Modals/ImageModal";
 
 function Index(props) {
-  const { socket } = props;
+  const { socket, my_uid } = props;
   const [favoriteChats, setfavoriteChats] = useState([]);
   const [favoriteChatsFiltered, setfavoriteChatsFiltered] = useState([]);
   const [searchFavorite, setSearchFavorite] = useState("");
@@ -17,7 +17,7 @@ function Index(props) {
 
   useEffect(() => {
     // inputRef.current.focus();
-    socket.emit("GetFavorites", props.my_uid);
+    socket.emit("GetFavorites", my_uid);
   }, props);
 
   function RetrieveGetFavorites(data) {
@@ -86,23 +86,15 @@ function Index(props) {
                 <li className="list-group-item pl-0 pr-0 d-flex align-items-center fav-message">
                     <div class="messages-container">
                       <div id={message.message_id} className={"message-item"}>
-                      <div className="message-avatar">
-                        <div>
-                          <h5>{message.name}</h5>
-                        </div>
-                      </div>
-                      <div class="message-content position-relative img-chat">
+                        <div className="message-avatar">
                           <div>
-                            <figure className="avatar img-chat">
-                              {/*<ModalImage
-                                small={message.file}
-                                large={message.file}
-                                alt="image"
-                              />*/}
-                              <ImageModal file={message.file} images={media} position={message.position} message={message}/>
-                            </figure>
-                            <div className="word-break">{message.message}</div>
+                            <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                           </div>
+                        </div>
+                        <div class="message-content position-relative img-chat">
+                          <ImageModal file={message.file} images={media} position={message.position} message={message}
+                          name={message.name} pphoto={message.pphoto}
+                          />
                         </div>
                       </div>
                     </div> 
@@ -113,7 +105,7 @@ function Index(props) {
                     <div id={message.message_id} className={"message-item"}>
                       <div className="message-avatar">
                         <div>
-                          <h5>{message.name}</h5>
+                        <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                         </div>
                       </div>
                       <div class="message-content position-relative img-chat">
@@ -152,7 +144,7 @@ function Index(props) {
                     <div id={message.message_id} className={"message-item"}>
                     <div className="message-avatar">
                       <div>
-                        <h5>{message.name}</h5>
+                        <h5>{message.u_id==my_uid.id?"Tu":message.name}</h5>
                       </div>
                     </div>
                       <div class="message-content position-relative img-chat">
