@@ -1,6 +1,9 @@
 {
   "name": "cleaker",
   "version": "7.7.7",
+  "engines": {
+    "node": "17.x"
+  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
