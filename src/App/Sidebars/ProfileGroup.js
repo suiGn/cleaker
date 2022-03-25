@@ -518,6 +518,26 @@ function ProfileGroup(props) {
                 </div>:""
               }
               <div className="sidebar-body">
+                <ul className="list-group list-group-flush">
+                  {media.length>0?
+                  <li className="list-group-item"onClick={(e) => ViewMedia(e)}>
+                    <div>
+                      <figure className="avatar">
+                          <FeatherIcon.Star/>
+                      </figure>
+                    </div>
+                    <div className="users-list-body">
+                      <div>
+                        <h5>
+                          Mensajes destacados   {media.length}
+                        </h5>
+                      </div>
+                    </div>
+                  </li>
+                  :""}
+                </ul>
+              </div>
+              <div className="sidebar-body">
                 <div>{(members.length)} participantes</div>
                 <PerfectScrollbar>
                   <ul className="list-group list-group-flush">
