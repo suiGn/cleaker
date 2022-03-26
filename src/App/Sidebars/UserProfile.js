@@ -25,7 +25,6 @@ function UserProfile(props) {
     }
   };
   
-
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
