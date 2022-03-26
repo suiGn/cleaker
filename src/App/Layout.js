@@ -55,6 +55,7 @@ function Layout(props) {
   const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
   const [isResponse, setisResponse] = useState(false);
   const [media, setMedia] = useState([]);
+  const [fav, setFav] = useState([]);
   const [mediaPreview, setMediaPreview] = useState([]);
   const [mediaProfileType, setMediaProfileType] = useState(0);
   const [favProfileType, setFavProfileType] = useState(0);
