@@ -335,6 +335,8 @@ function Layout(props) {
           setOpenGroupProfile={setOpenGroupProfile}
           openMedia={openMedia}
           setOpenMedia={setOpenMedia}
+          openFav={openFav}
+          setOpenFav={setOpenFav}
           socket={socket}
           user={user}
         />
@@ -347,6 +349,8 @@ function Layout(props) {
           setOpenGroupProfile={setOpenGroupProfile}
           openMedia={openMedia}
           setOpenMedia={setOpenMedia}
+          openFav={openFav}
+          setOpenFav={setOpenFav}
           socket={socket}
           user={user}
           chat={chat}
@@ -357,6 +361,8 @@ function Layout(props) {
           setMediaProfileType={setMediaProfileType}
           clicked={clicked}
           my_uid={my_uid}
+          fav={fav}
+          setFav={setFav}
         />
         <ProfileGroup
           openUserProfile={openUserProfile}
@@ -367,6 +373,8 @@ function Layout(props) {
           setOpenGroupProfile={setOpenGroupProfile}
           openMedia={openMedia}
           setOpenMedia={setOpenMedia}
+          openFav={openFav}
+          setOpenFav={setOpenFav}
           socket={socket}
           group={group}
           clicked={clicked}
@@ -378,6 +386,8 @@ function Layout(props) {
           setMediaPreview={setMediaPreview}
           mediaPreview={mediaPreview}
           setMediaProfileType={setMediaProfileType}
+          fav={fav}
+          setFav={setFav}
         />
         <SearchChat
           socket={socket}
@@ -412,6 +422,7 @@ function Layout(props) {
         setOpenGroupProfile={setOpenGroupProfile}
         favProfileType={favProfileType}
         setFavProfileType={setFavProfileType}
+        my_uid={my_uid}
         />
         <MessageDetail
         setOpenUserProfile={setOpenUserProfile}
