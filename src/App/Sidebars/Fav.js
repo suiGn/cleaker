@@ -9,7 +9,7 @@ import ImagePreview from "../Modals/ImagePreview"
 
 function Fav(props) {
   const {fav,openFav,setOpenFav,setOpenUserProfile,openUserProfile,setOpenGroupProfile,openGroupProfile,
-    favProfileType,setFavProfileType, my_uid} = props;
+    favProfileType,setFavProfileType, my_uid, favMedia, setFavMedia} = props;
 
   const openFavToggler = (e) => {
     setFavProfileType(0)
@@ -59,11 +59,10 @@ function Fav(props) {
                                     </div>
                                     <div class="message-content position-relative img-chat">
                                         <div>
-                                        <figure className="avatar img-chat">
-                                        {/*<ImagePreview file={message.file} images={favoritesMedia} position={message.position} name={name}/>
-                                        */}
-                                        </figure>
-                                        <div className="word-break">{message.message}</div>
+                                            <figure className="avatar img-chat">
+                                                <ImagePreview file={message.file} images={favMedia} position={message.position} name={""}/>
+                                            </figure>
+                                            <div className="word-break">{message.message}</div>
                                         </div>
                                     </div>
                                     </div>

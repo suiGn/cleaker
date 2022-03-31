@@ -56,6 +56,7 @@ function Layout(props) {
   const [isResponse, setisResponse] = useState(false);
   const [media, setMedia] = useState([]);
   const [fav, setFav] = useState([]);
+  const [favMedia, setFavMedia] = useState([]);
   const [mediaPreview, setMediaPreview] = useState([]);
   const [mediaProfileType, setMediaProfileType] = useState(0);
   const [favProfileType, setFavProfileType] = useState(0);
@@ -363,6 +364,8 @@ function Layout(props) {
           my_uid={my_uid}
           fav={fav}
           setFav={setFav}
+          favMedia={favMedia}
+          setFavMedia={setFavMedia}
         />
         <ProfileGroup
           openUserProfile={openUserProfile}
@@ -388,6 +391,8 @@ function Layout(props) {
           setMediaProfileType={setMediaProfileType}
           fav={fav}
           setFav={setFav}
+          favMedia={favMedia}
+          setFavMedia={setFavMedia}
         />
         <SearchChat
           socket={socket}
@@ -423,6 +428,8 @@ function Layout(props) {
         favProfileType={favProfileType}
         setFavProfileType={setFavProfileType}
         my_uid={my_uid}
+        favMedia={favMedia}
+        setFavMedia={setFavMedia}
         />
         <MessageDetail
         setOpenUserProfile={setOpenUserProfile}

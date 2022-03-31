@@ -15,7 +15,8 @@ import ImagePreview from "../Modals/ImagePreview"
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
     openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
-    setMediaProfileType, setMediaPreview, mediaPreview, fav, setFav, openFav, setOpenFav} = props;
+    setMediaProfileType, setMediaPreview, mediaPreview, fav, setFav, openFav, setOpenFav,
+    favMedia, setFavMedia} = props;
 
   const openGroupProfileToggler = (e) => {
     setOpenGroupProfile(!openGroupProfile);
@@ -106,6 +107,15 @@ function ProfileGroup(props) {
       setMediaImages(mediaImageArray)
       let mediaPreviewArray = mediaImageArray? mediaImageArray.slice(0,4):[] 
       setMediaPreview(mediaPreviewArray)
+      let i = 0;
+      var favoritesMediaArray = data.favorites.filter(function(item){
+            if(item.is_image){
+              item.position = i
+              i++
+              return item
+          }
+      })
+      setFavMedia(favoritesMediaArray)
       let timeMessage = new Date(userData.creation_date);
       let timeLabel = timeformat(timeMessage)
       setCreateDate(timeLabel)
