@@ -16,7 +16,7 @@ function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
     openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
     setMediaProfileType, setMediaPreview, mediaPreview, fav, setFav, openFav, setOpenFav,
-    favMedia, setFavMedia} = props;
+    favMedia, setFavMedia, favMediaName, setFavMediaName, setFavP} = props;
 
   const openGroupProfileToggler = (e) => {
     setOpenGroupProfile(!openGroupProfile);
@@ -93,10 +93,17 @@ function ProfileGroup(props) {
             {chat_initial}
           </span>
         );
+        setFavP(
+          <span className="avatar-title bg-info rounded-circle">
+            {chat_initial}
+          </span>
+        );
       } else {
         setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
+        setFavP(<img src={pphotoD} className="rounded-circle" alt="image" />);
       }
       setName(nameD);
+      setFavMediaName(nameD)
       setAbout(about_chatD)
       setMembers(data.chats)
       setMedia(data.files) 

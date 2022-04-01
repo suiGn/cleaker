@@ -11,7 +11,7 @@ function UserProfile(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile, 
     setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia,
     openMedia,setOpenMedia, media, setMediaProfileType,setMediaPreview,mediaPreview,my_uid,
-    fav, setFav, openFav, setOpenFav, favMedia, setFavMedia} = props;
+    setFav, openFav, setOpenFav, favMedia, setFavMedia, setFavMediaName, setFavP} = props;
 
   const openUserProfileToggler = (e) => {
     setOpenUserProfile(!openUserProfile);
@@ -70,8 +70,14 @@ function UserProfile(props) {
               {chat_initial}
             </span>
           );
+          setFavP(
+            <span className="avatar-title bg-info rounded-circle">
+              {chat_initial}
+            </span>
+          );
         } else {
           setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
+          setFavP(<img src={pphotoD} className="rounded-circle" alt="image" />);
         }
         setMedia(data.files)
         let mediaImageArray = data.files.filter(function(item){
@@ -93,6 +99,7 @@ function UserProfile(props) {
         setFavoritesMedia(favoritesMediaArray)
         setFavMedia(favoritesMediaArray)
         setName(nameD);
+        setFavMediaName(nameD);
         setCity(cityD);
         setPhone(phoneD);
         setWebSite(websiteD);

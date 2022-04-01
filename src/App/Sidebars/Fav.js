@@ -8,8 +8,9 @@ import * as FeatherIcon from "react-feather";
 import ImagePreview from "../Modals/ImagePreview"
 
 function Fav(props) {
-  const {fav,openFav,setOpenFav,setOpenUserProfile,openUserProfile,setOpenGroupProfile,openGroupProfile,
-    favProfileType,setFavProfileType, my_uid, favMedia, setFavMedia} = props;
+  const {fav,openFav,setOpenFav,setOpenUserProfile,openUserProfile,
+    setOpenGroupProfile,openGroupProfile, favProfileType,setFavProfileType, my_uid, 
+    favMedia, setFavMedia, favMediaName, setFavMediaName, favP} = props;
 
   const openFavToggler = (e) => {
     setFavProfileType(0)
@@ -60,7 +61,7 @@ function Fav(props) {
                                     <div class="message-content position-relative img-chat">
                                         <div>
                                             <figure className="avatar img-chat">
-                                                <ImagePreview file={message.file} images={favMedia} position={message.position} name={""}/>
+                                                <ImagePreview file={message.file} images={favMedia} position={message.position} name={favMediaName}  p={favP}/>
                                             </figure>
                                             <div className="word-break">{message.message}</div>
                                         </div>
