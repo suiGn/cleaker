@@ -10,7 +10,8 @@ import ImagePreview from "../Modals/ImagePreview";
 function UserProfile(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile, 
     setOpenProfile, openGroupProfile, setOpenGroupProfile, setMedia,
-    openMedia,setOpenMedia, media, setMediaProfileType,setMediaPreview,mediaPreview,my_uid } = props;
+    openMedia,setOpenMedia, media, setMediaProfileType,setMediaPreview,mediaPreview,my_uid,
+    setFav, openFav, setOpenFav, favMedia, setFavMedia, setFavMediaName, setFavP} = props;
 
   const openUserProfileToggler = (e) => {
     setOpenUserProfile(!openUserProfile);
@@ -25,6 +26,7 @@ function UserProfile(props) {
     }
   };
   
+
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
@@ -68,8 +70,14 @@ function UserProfile(props) {
               {chat_initial}
             </span>
           );
+          setFavP(
+            <span className="avatar-title bg-info rounded-circle">
+              {chat_initial}
+            </span>
+          );
         } else {
           setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
+          setFavP(<img src={pphotoD} className="rounded-circle" alt="image" />);
         }
         setMedia(data.files)
         let mediaImageArray = data.files.filter(function(item){
@@ -79,6 +87,7 @@ function UserProfile(props) {
         let mediaPreviewArray = mediaImageArray? mediaImageArray.slice(0,4):[] 
         setMediaPreview(mediaPreviewArray)
         setFavorites(data.favorites)
+        setFav(data.favorites)
         let i = 0;
         var favoritesMediaArray = data.favorites.filter(function(item){
             if(item.is_image){
@@ -88,7 +97,9 @@ function UserProfile(props) {
           }
         })
         setFavoritesMedia(favoritesMediaArray)
+        setFavMedia(favoritesMediaArray)
         setName(nameD);
+        setFavMediaName(nameD);
         setCity(cityD);
         setPhone(phoneD);
         setWebSite(websiteD);

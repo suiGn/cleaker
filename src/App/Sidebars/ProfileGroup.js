@@ -11,10 +11,12 @@ import DeleteUserGroupModal from "../Modals/DeleteUserGroupModal";
 import AddMembersForm from "./AddMembersForm";
 import ImagePreview from "../Modals/ImagePreview"
 
+
 function ProfileGroup(props) {
   const { socket, openUserProfile, setOpenUserProfile, openProfile,setOpenProfile, 
     openGroupProfile, setOpenGroupProfile, setMedia, media, openMedia, setOpenMedia,
-    setMediaProfileType, setMediaPreview, mediaPreview} = props;
+    setMediaProfileType, setMediaPreview, mediaPreview, fav, setFav, openFav, setOpenFav,
+    favMedia, setFavMedia, favMediaName, setFavMediaName, setFavP} = props;
 
   const openGroupProfileToggler = (e) => {
     setOpenGroupProfile(!openGroupProfile);
@@ -91,19 +93,36 @@ function ProfileGroup(props) {
             {chat_initial}
           </span>
         );
+        setFavP(
+          <span className="avatar-title bg-info rounded-circle">
+            {chat_initial}
+          </span>
+        );
       } else {
         setP(<img src={pphotoD} className="rounded-circle" alt="image" />);
+        setFavP(<img src={pphotoD} className="rounded-circle" alt="image" />);
       }
       setName(nameD);
+      setFavMediaName(nameD)
       setAbout(about_chatD)
       setMembers(data.chats)
       setMedia(data.files) 
+      setFav(data.favorites)
       let mediaImageArray = data.files.filter(function(item){
         return item.is_image
       })
       setMediaImages(mediaImageArray)
       let mediaPreviewArray = mediaImageArray? mediaImageArray.slice(0,4):[] 
       setMediaPreview(mediaPreviewArray)
+      let i = 0;
+      var favoritesMediaArray = data.favorites.filter(function(item){
+            if(item.is_image){
+              item.position = i
+              i++
+              return item
+          }
+      })
+      setFavMedia(favoritesMediaArray)
       let timeMessage = new Date(userData.creation_date);
       let timeLabel = timeformat(timeMessage)
       setCreateDate(timeLabel)
@@ -366,6 +385,12 @@ function ProfileGroup(props) {
     setMediaProfileType(2)
   }
 
+  function ViewFavs(e){
+    setOpenGroupProfile(!openGroupProfile);
+    setOpenFav(!openFav)
+    setMediaProfileType(2)
+  }
+
   function handleKeyPress (e){
     if(e.key === 'Enter'){
       setOpenAboutEditable(!openAboutEditable);
@@ -517,6 +542,26 @@ function ProfileGroup(props) {
                   </ul>
                 </div>:""
               }
+              <div className="sidebar-body">
+                <ul className="list-group list-group-flush">
+                  {media.length>0?
+                  <li className="list-group-item"onClick={(e) => ViewFavs(e)}>
+                    <div>
+                      <figure className="avatar">
+                          <FeatherIcon.Star/>
+                      </figure>
+                    </div>
+                    <div className="users-list-body">
+                      <div>
+                        <h5>
+                          Mensajes destacados   {fav.length}
+                        </h5>
+                      </div>
+                    </div>
+                  </li>
+                  :""}
+                </ul>
+              </div>
               <div className="sidebar-body">
                 <div>{(members.length)} participantes</div>
                 <PerfectScrollbar>

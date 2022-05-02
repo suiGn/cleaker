@@ -19,6 +19,7 @@ import VoiceCallUserModal from "./Modals/VoiceCallUserModal";
 import VoiceCallModal from "./Modals/VoiceCallModal";
 import VideoCallModal from "./Modals/VideoCallModal";
 import CallView from "./Partials/CallView";
+import Fav from "./Sidebars/Fav";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://localhost:5000/";
 
@@ -38,6 +39,7 @@ function Layout(props) {
   const [openGroupProfile, setOpenGroupProfile] = useState(false);
   const [openSearchSidebar, setOpenSearchSidebar] = useState(false);
   const [openMedia, setOpenMedia] = useState(false);
+  const [openFav, setOpenFav] = useState(false);
   const [openMessageDetail, setOpenMessageDetail] = useState(false);
   const [scrollEl, setScrollEl] = useState();
   const [imgPreview, setImgPreview] = useState([]);
@@ -53,8 +55,13 @@ function Layout(props) {
   const [viewChatAnswerPreview, setViewChatAnswerPreview] = useState(true);
   const [isResponse, setisResponse] = useState(false);
   const [media, setMedia] = useState([]);
+  const [fav, setFav] = useState([]);
+  const [favMedia, setFavMedia] = useState([]);
+  const [favMediaName, setFavMediaName] = useState([]);
+  const [favP, setFavP] = useState([]);
   const [mediaPreview, setMediaPreview] = useState([]);
   const [mediaProfileType, setMediaProfileType] = useState(0);
+  const [favProfileType, setFavProfileType] = useState(0);
   const [messageDetail, setMessageDetail] = useState(0); 
 
   const [nameCallU, setNameCallU] = useState(""); 
@@ -331,6 +338,8 @@ function Layout(props) {
           setOpenGroupProfile={setOpenGroupProfile}
           openMedia={openMedia}
           setOpenMedia={setOpenMedia}
+          openFav={openFav}
+          setOpenFav={setOpenFav}
           socket={socket}
           user={user}
         />
@@ -343,6 +352,8 @@ function Layout(props) {
           setOpenGroupProfile={setOpenGroupProfile}
           openMedia={openMedia}
           setOpenMedia={setOpenMedia}
+          openFav={openFav}
+          setOpenFav={setOpenFav}
           socket={socket}
           user={user}
           chat={chat}
@@ -353,6 +364,13 @@ function Layout(props) {
           setMediaProfileType={setMediaProfileType}
           clicked={clicked}
           my_uid={my_uid}
+          fav={fav}
+          setFav={setFav}
+          favMedia={favMedia}
+          setFavMedia={setFavMedia}
+          favMediaName={favMediaName}
+          setFavMediaName={setFavMediaName}
+          setFavP={setFavP}
         />
         <ProfileGroup
           openUserProfile={openUserProfile}
@@ -363,6 +381,8 @@ function Layout(props) {
           setOpenGroupProfile={setOpenGroupProfile}
           openMedia={openMedia}
           setOpenMedia={setOpenMedia}
+          openFav={openFav}
+          setOpenFav={setOpenFav}
           socket={socket}
           group={group}
           clicked={clicked}
@@ -374,6 +394,13 @@ function Layout(props) {
           setMediaPreview={setMediaPreview}
           mediaPreview={mediaPreview}
           setMediaProfileType={setMediaProfileType}
+          fav={fav}
+          setFav={setFav}
+          favMedia={favMedia}
+          setFavMedia={setFavMedia}
+          favMediaName={favMediaName}
+          setFavMediaName={setFavMediaName}
+          setFavP={setFavP}
         />
         <SearchChat
           socket={socket}
@@ -395,6 +422,25 @@ function Layout(props) {
         setOpenGroupProfile={setOpenGroupProfile}
         mediaProfileType={mediaProfileType}
         setMediaProfileType={setMediaProfileType}
+        />
+        <Fav 
+        fav={fav}
+        openFav={openFav}
+        setOpenFav={setOpenFav}
+        openUserProfile={openUserProfile}
+        setOpenUserProfile={setOpenUserProfile}
+        setOpenProfile={setOpenProfile}
+        openProfile={openProfile}
+        openGroupProfile={openGroupProfile}
+        setOpenGroupProfile={setOpenGroupProfile}
+        favProfileType={favProfileType}
+        setFavProfileType={setFavProfileType}
+        my_uid={my_uid}
+        favMedia={favMedia}
+        setFavMedia={setFavMedia}
+        favMediaName={favMediaName}
+        setFavMediaName={setFavMediaName}
+        favP={favP}
         />
         <MessageDetail
         setOpenUserProfile={setOpenUserProfile}

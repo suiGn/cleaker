@@ -887,11 +887,33 @@ io.on("connection", function (socket) {
             and  (messages.is_image =1 or messages.is_video =1 or messages.is_file =1 or messages.ogTitle !="")
             and messages.chat_uid =  '${data.chat_id}' group by messages.message_id order by time desc`,
             function (err, chatsfile) {
-              io.to(user.u_id).emit("retrieve GetGrupo", {
-                chat_uid: data.id,
-                chats: rows,
-                files: chatsfile,
-              });
+              orgboatDB.query(
+                `SELECT 
+                distinct CONVERT(FROM_BASE64(messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id,
+                messages.file, messages.is_file, messages.is_image, messages.is_video,CONCAT(SUBSTRING(messages.ogTitle, 1, 20), "...") as ogTitle,
+                messages.ogDescription, messages.ogImage  FROM messages
+                inner join usrs on messages.u_id = usrs.u_id
+                inner join chats_users on messages.u_id = chats_users.u_id
+                WHERE messages.favorite=1 and messages.chat_uid in ('${data.chat_id}') 
+                and messages.u_id!='${user.u_id}'
+                and messages.u_id='${data.id}'
+                UNION 
+                SELECT 
+                distinct CONVERT(FROM_BASE64(messages.message) USING utf8mb4) as message, messages.time, usrs.name, message_id, messages.u_id,
+                messages.file, messages.is_file, messages.is_image, messages.is_video,CONCAT(SUBSTRING(messages.ogTitle, 1, 20), "...") as ogTitle,
+                messages.ogDescription, messages.ogImage   FROM messages
+                inner join usrs on messages.u_id = usrs.u_id
+                inner join chats_users on messages.u_id = chats_users.u_id
+                WHERE messages.favorite_to=1 and messages.chat_uid in ('${data.chat_id}') 
+                and messages.u_id ='${user.u_id}'`,
+                function(err,favorites){
+                  io.to(user.u_id).emit("retrieve GetGrupo", {
+                    chat_uid: data.id,
+                    chats: rows,
+                    files: chatsfile,
+                    favorites: favorites
+                  });
+                })
             }
           );
         }

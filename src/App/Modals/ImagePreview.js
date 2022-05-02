@@ -6,8 +6,11 @@ import * as FeatherIcon from "react-feather";
 
 function ImagePreview(props) {
     const{file, images, classP, position, name, p} = props
+
     const [modal, setModal] = useState(false);
+
     const [fileNow, setFileNow] = useState(false);
+
     const [positionNow, setPositionNow] = useState(0);
 
     useEffect(() => {

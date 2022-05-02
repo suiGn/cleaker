@@ -2,6 +2,7 @@
   "name": "cleaker",
   "version": "7.7.7",
   "description": "workspace",
+  "description": "Taking all points within a fixed distance.",
   "engines": {
     "node": "12.x"
   },
