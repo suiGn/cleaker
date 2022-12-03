@@ -1,11 +1,6 @@
-CLEAKER
+# Cleaker                                      *
 
-/*********************************************
-Cleaker                                      *
-Taking all points within a fixed distance.	 *           
-Sui Gn		                                 *
-admin@neurons.me                             *
-*********************************************/
+Taking all points within a fixed distance.
 
 Recommended way to start:
 npm start
