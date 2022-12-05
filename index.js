@@ -17,18 +17,4 @@ fs.readdir('/', function (err, files) {
 
 
   
-  const fs = require('fs');
-
-  async function readFileSync (fileName) {
-      return new Promise((resolve, reject) => {
-          fs.readFile(fileName, (err, data) => {
-              if (err) {
-                  reject(err);
-              }
-              resolve(data);
-          });
-      });
-  };
   
-
- 
