@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/suiGn/cleaker/issues"
   },
-  "homepage": "https://github.com/suiGn/cleaker#readme"
+  "homepage": "https://github.com/suiGn/cleaker#readme",
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
 }
