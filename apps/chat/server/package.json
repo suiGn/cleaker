@@ -23,7 +23,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^2.5.6",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-mysql-session": "^2.1.4",
     "express-session": "^1.17.1",
     "express-validator": "^6.5.0",
