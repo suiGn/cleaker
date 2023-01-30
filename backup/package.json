@@ -1,0 +1,27 @@
+{
+  "name": "cleaker",
+  "version": "3.2.2",
+  "description": "taking all points within a fixed distance.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suiGn/cleaker.git"
+  },
+  "keywords": [
+    "mLearning",
+    "lisa"
+  ],
+  "author": "suiGn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/suiGn/cleaker/issues"
+  },
+  "homepage": "https://github.com/suiGn/cleaker#readme",
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
+}

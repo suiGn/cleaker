@@ -1,0 +1,7 @@
+{
+  "name": "Cleaker",
+  "description": "Taking all points within a fixed distance.",
+  "repository": "https://github.com/suiGn/cleaker",
+  "keywords": ["node", "express", "heroku", "cleaker"],
+  "image": "heroku/nodejs"
+}

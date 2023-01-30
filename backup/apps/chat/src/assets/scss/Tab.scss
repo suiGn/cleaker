@@ -1,0 +1,42 @@
+.tab-content {
+	padding-top: 30px;
+
+	.form-item {
+		margin-bottom: .8rem;
+	}
+}
+
+.nav {
+	&.nav-tabs {
+		border: none;
+
+		.nav-item {
+			margin: 0;
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			&:last-child {
+				margin-right: 0;
+			}
+
+			.nav-link {
+				border: none;
+				color: black;
+				border-bottom: 2px solid transparent;
+				padding: 10px 15px;
+				padding-top: 0;
+
+				&:hover {
+					color: black + 150;
+				}
+
+				&.active {
+					color: $color-primary;
+					border-bottom-color: $color-primary
+				}
+			}
+		}
+	}
+}

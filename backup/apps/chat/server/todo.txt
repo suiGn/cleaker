@@ -1,0 +1,13 @@
+----------------------------------------------
+Avatar.
+--------
+Agregar Contactos by email or username.
+View Profile.
+Delete chat.
+Archive chat.
+
+
+
+
+
+
