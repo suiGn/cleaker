@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--  Last Published: Thu May 30 2019 06:17:23 GMT+0000 (UTC)  -->
+<html data-wf-page="5ce3922e8578a890c7d9082e" data-wf-site="5ce3922e8578a80b73d90821">
+<head>
+  <meta charset="utf-8">
+  <title>WTM - CLEAKER</title>
+<% include ../../partials/wtm/header.ejs %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.5/push.js"></script>
+</head>
+	
+<body class="natbody">		  
+  <div class="main-section">
+    <h1 class="heading-30">WRECKTHEMEDIA</h1>
+    <div class="columns w-row">
+      <div class="column-13 w-col w-col-3">
+   		   <% include ../../partials/wtm/public-channels.ejs %>
+         </div>
+        </div>
+        	<div class="onlineusers">
+ 		   	<% include ../../partials/wtm/online-users.ejs %>
+		</div>
+      </div>
+	   <div class="column-14 w-clearfix w-col w-col-9">
+				<script>
+				var channelRoom = <%- JSON.stringify(channel) %>;
+				var channelHash = <%- JSON.stringify(channelHash) %>;
+				</script>
+
+        <h1 class="channel-name">Channel Name: <%= channel %></h1>  
+        <div class="channel-options">
+          <div class="text-block-25">
+			<a href="/" class="disconnect text-span-7" style="text-decoration:none;"> LogOut</a>
+			<span class="text-span-5" data-ix="showonlineusers" id="p1"> - 132 Online Users</span> - 
+			<span data-w-id="312ff682-c7b7-fe85-5c22-697839e54554" class="text-span-2">Notifications </span>- 
+			Delete all my Messages 
+		</div>
+        </div>
+        <div class="conversation-container">
+			   <div id="content"></div>  
+        <!--<div class="msg-div w-clearfix">
+            <div class="msg-menu">
+              <div data-delay="0" class="w-dropdown">
+                <div class="dropdown-toggle w-dropdown-toggle">
+                  <div class="text-block-30">...</div>
+                </div>
+                <nav class="dropdown-list w-dropdown-list">
+					<a href="#" class="w-dropdown-link">Link 1</a>
+					<a href="#" class="w-dropdown-link">Link 2</a>
+					<a href="#" class="w-dropdown-link">Link 3</a>
+				</nav>
+              </div>
+            </div>
+            <div class="message sent">
+			<span class="msg-meta text-span sent-mtd">jOse @ 1:16:</span> This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.This is some text inside of a div block.
+		</div>
+          </div>
+        </div>
+          <div class="text-block-24">jOse joined Channel @ 1:16</div>
+          <div class="text-block-24 logout">jOse logOut Channel @ 1:16</div><!-->
+        <div class="input-comment-div">
+          <div class="w-form">
+			      <span id="status" style="float: left;">Connecting...</span>
+       <textarea placeholder="Start Typing..." maxlength="5000" id="wtmnptsndr" disabled="disabled" name="field" class="textarea w-input"></textarea>
+          </div>
+		</div>
+      </div>
+    </div>
+  </div>
+  
+	<script src="js/wbFrntEnd.js" type="text/javascript"></script>
+	<script src="js/wtm.js"></script>
+	 <script src="cleaker.js"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>
