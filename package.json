@@ -2,6 +2,7 @@
   "name": "cleaker",
   "version": "8.1.1",
   "private": true,
+  "description": "Taking all points within a fixed distance.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
