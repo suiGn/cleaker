@@ -1,38 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Cleaker
+Cleaker is an API module that allows developers and users to interact with Cleaker processes. It provides functionalities for chat, user identification, user IDs, crypto, and hashing. It can be used in conjunction with other modules, such as mLearning, to enhance the functionality of your applications.
 
-## Getting Started
+A noun is a person, place or thing.
 
-First, run the development server:
+## Features
+- Chat functionality: Send and receive messages through Cleaker's chat API.
+- User identification: Manage user authentication and identification.
+- User IDs: Generate unique user IDs for tracking and referencing users.
+- Crypto and hashing: Encrypt and hash sensitive information for secure storage and transmission.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Installation
+You can install the Cleaker module using npm:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```shell
+npm install cleaker
+Usage
+To use the Cleaker module in your Node.js application, require it as follows:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+const cleaker = require('cleaker');
+You can then access the different functionalities of Cleaker using the corresponding methods provided by the module.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Chat Functionality
+// Example code for sending a message
+cleaker.sendMessage('Hello, Cleaker!', 'user123', 'cleaker-bot');
+User Identification
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+// Example code for user authentication
+cleaker.authenticateUser('user123', 'password');
+User IDs
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+// Example code for generating a user ID
+const userID = cleaker.generateUserID();
+Crypto and Hashing
 
-## Learn More
+// Example code for encrypting data
+const encryptedData = cleaker.encryptData('secret data', 'encryption-key');
 
-To learn more about Next.js, take a look at the following resources:
+// Example code for hashing data
+const hashedData = cleaker.hashData('password123');
+Please refer to the Cleaker documentation for more detailed information on each functionality and their respective methods.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Contributing
+We welcome contributions from the community! If you have any bug reports, feature requests, or code improvements, please submit them to the GitHub repository for review.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+License
+Cleaker is released under the MIT License.
