@@ -1,3 +1,4 @@
+<img src="./_._.svg" alt="SVG Image" width="123" height="123" style="width123px; height:123px;">
 ## Cleaker Quickstart Guide
 
 Cleaker is a comprehensive module that facilitates various functionalities like retrieving system information, authentication, signing data, and user management. Here's how you can utilize Cleaker:
