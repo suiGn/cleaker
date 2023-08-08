@@ -1,47 +1,69 @@
-# Cleaker
-Cleaker is an API module that allows developers and users to interact with Cleaker processes. It provides functionalities for chat, user identification, user IDs, crypto, and hashing. It can be used in conjunction with other modules, such as mLearning, to enhance the functionality of your applications.
+## Cleaker Quickstart Guide
 
-A noun is a person, place or thing.
+Cleaker is a comprehensive module that facilitates various functionalities like retrieving system information, authentication, signing data, and user management. Here's how you can utilize Cleaker:
 
-## Features
-- Chat functionality: Send and receive messages through Cleaker's chat API.
-- User identification: Manage user authentication and identification.
-- User IDs: Generate unique user IDs for tracking and referencing users.
-- Crypto and hashing: Encrypt and hash sensitive information for secure storage and transmission.
+### Installation
 
-## Installation
-You can install the Cleaker module using npm:
+First, make sure to include the `cleaker.js` file in your project, and also have the required modules (`crypto` and `os`) available.
 
-```shell
-npm install cleaker
-Usage
-To use the Cleaker module in your Node.js application, require it as follows:
+### Basic Usage
 
-const cleaker = require('cleaker');
-You can then access the different functionalities of Cleaker using the corresponding methods provided by the module.
+1. **Importing Cleaker**: Import the Cleaker class by requiring it from where it's defined.
 
-Chat Functionality
-// Example code for sending a message
-cleaker.sendMessage('Hello, Cleaker!', 'user123', 'cleaker-bot');
-User Identification
+   ```js
+   const Cleaker = require('./cleaker');
+   ```
 
-// Example code for user authentication
-cleaker.authenticateUser('user123', 'password');
-User IDs
+2. **Creating an Instance**: Instantiate a Cleaker object by passing required details like username, password, IP address, etc.
 
-// Example code for generating a user ID
-const userID = cleaker.generateUserID();
-Crypto and Hashing
+   ```js
+   let cleaked = new Cleaker('username', 'password');
+   ```
 
-// Example code for encrypting data
-const encryptedData = cleaker.encryptData('secret data', 'encryption-key');
+3. **Accessing Network Interfaces**: You can access details about network interfaces using `cleaked.networkInterfaces`. This object contains information about each network interface, including IP addresses.
 
-// Example code for hashing data
-const hashedData = cleaker.hashData('password123');
-Please refer to the Cleaker documentation for more detailed information on each functionality and their respective methods.
+   ```js
+   console.log(cleaked.networkInterfaces['en0'].details); // Array of network interface details
+   console.log(cleaked.networkInterfaces['en0'].ip); // Array of IPv4 addresses
+   ```
 
-Contributing
-We welcome contributions from the community! If you have any bug reports, feature requests, or code improvements, please submit them to the GitHub repository for review.
+4. **Local IP, CPU & Memory Info**: Cleaker provides local IP, CPU architecture, model, and memory details.
 
-License
-Cleaker is released under the MIT License.
+   ```js
+   console.log("Local IP:", cleaked.localIP);
+   console.log("CPU Model:", cleaked.cpu.model);
+   console.log("Total Memory:", cleaked.memory.total);
+   ```
+
+5. **Authentication**: Cleaker provides methods for authentication and user management, such as `authenticate`, `login`, and `logout`.
+
+   ```js
+   if (cleaked.authenticate('username', 'password')) {
+      console.log('Authenticated successfully');
+   }
+   ```
+
+6. **Data Signing**: Cleaker can also sign data using the `sign` method if the user is authenticated.
+
+   ```js
+   if (cleaked.authenticated) {
+      const signature = cleaked.sign('some data');
+      console.log('Signature:', signature);
+   }
+   ```
+
+7. **Device Identification**: Cleaker can generate a unique device identifier.
+
+   ```js
+   console.log("Device Identifier:", cleaked.deviceIdentifier);
+   ```
+
+8. **Other Features**: Cleaker also provides functionalities like recording interactions, user login/logout, verification, and more. Explore the Cleaker class to understand these features.
+
+### Advanced Usage
+
+The Cleaker class can be extended and customized to add additional functionalities specific to your application. Its methods can be overridden, and new properties can be added as required.
+
+Remember to refer to the `cleaker.js` source code for precise understanding, as implementation details might vary.
+
+By employing Cleaker, you gain access to robust features that enhance the security and functionality of your application, enabling streamlined interactions with the operating system and network, and providing essential user management capabilities.

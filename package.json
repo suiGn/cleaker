@@ -1,11 +1,11 @@
 {
-  "name": "cleaker",
-  "version": "2.0.4",
-  "description": "Connecting all dots within a fixed distance.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "name": "cleaker",
+    "version": "2.2.9",
+    "description": "Connecting all dots within a fixed distance.",
+    "main": "cleaker.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
   "keywords": [
     "neurons",
     "cleaker",
