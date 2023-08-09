@@ -38,6 +38,14 @@ First, make sure to include the `cleaker.js` file in your project, and also have
 
 5. **Authentication**: Cleaker provides methods for authentication and user management, such as `authenticate`, `login`, and `logout`.
 
+Authentication is the process of verifying the identity of a user, system, or application. It answers the question, "Who are you?"
+
+Example: A user logging into a website with a username and password.
+Authorization is the process of granting or denying access to specific resources based on an authenticated user's or system's permissions. It answers the question, "What are you allowed to do?"
+
+Example: Once logged in, a user might be authorized to read content but not edit it.
+
+
    ```js
    if (cleaked.authenticate('username', 'password')) {
       console.log('Authenticated successfully');

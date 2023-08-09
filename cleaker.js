@@ -2,6 +2,8 @@
 const crypto = require('crypto');
 const os = require('os'); 
 const packageJson = require('./package.json');
+
+
 function getIPv4() {
   const networkInterfaces = os.networkInterfaces();
   const ipv4Addresses = {};
@@ -13,11 +15,11 @@ function getIPv4() {
   }
   return ipv4Addresses;
 }
-
 class Cleaker {
-  constructor(username, password, ipAddress, userCountry, userCity, referer) {
+  constructor(me, password, ipAddress, userCountry, userCity, referer) {
+    this.me = me || "not me";
     this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-    this.username = username || 'no_username';
+    this.host_session = os.userInfo().username ||  'no_username';
     this.setPassword(password);
     const networkInterfaces = os.networkInterfaces();
     const ipv4Addresses = getIPv4(); // Make sure to define this function as previously mentioned
@@ -98,8 +100,8 @@ class Cleaker {
   }
 }
 module.exports = Cleaker;
+let cleaked = new Cleaker();
 
-console.log('Cleaker loaded');
 
 
 
