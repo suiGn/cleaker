@@ -1,6 +1,6 @@
 {
     "name": "cleaker",
-    "version": "2.3.1",
+    "version": "2.3.2",
     "description": "Connecting all dots within a fixed distance.",
     "main": "cleaker.js",
     "scripts": {
