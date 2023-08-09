@@ -2,7 +2,7 @@
 const crypto = require('crypto');
 const os = require('os'); 
 const packageJson = require('./package.json');
-
+const { exec } = require("child_process");
 
 function getIPv4() {
   const networkInterfaces = os.networkInterfaces();
@@ -16,10 +16,11 @@ function getIPv4() {
   return ipv4Addresses;
 }
 class Cleaker {
-  constructor(me, password, ipAddress, userCountry, userCity, referer) {
+  constructor(me = null, password, ipAddress, userCountry, userCity, referer) {
     this.me = me || "not me";
     this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     this.host_session = os.userInfo().username ||  'no_username';
+    this.role = this.getRole(); 
     this.setPassword(password);
     const networkInterfaces = os.networkInterfaces();
     const ipv4Addresses = getIPv4(); // Make sure to define this function as previously mentioned
@@ -30,7 +31,6 @@ class Cleaker {
         ip: ipv4Addresses[name] || ['']
       };
     }
-
     this.localIP = ipAddress || Object.values(ipv4Addresses).flat()[0] || 'no_ip';
     this.cpu = { arch: os.arch(), model: os.cpus()[0].model }; // CPU information
     this.memory = { total: os.totalmem(), free: os.freemem() }; // Memory information
@@ -60,6 +60,41 @@ class Cleaker {
     }
     return this.authenticated;
   }
+  getRole() {
+    const execSync = require("child_process").execSync;
+    try {
+        let output;
+        switch (os.platform()) {
+            case 'win32':
+                output = execSync('net user ' + os.userInfo().username, { encoding: 'utf8' });
+                if (output.includes('Administrators')) {
+                    return 'Admin';
+                } else {
+                    return 'Guest or Standard User';
+                }
+            case 'linux':
+                output = execSync('groups ' + os.userInfo().username, { encoding: 'utf8' });
+                if (output.includes('sudo') || output.includes('root')) {
+                    return 'Admin';
+                } else {
+                    return 'Guest or Standard User';
+                }
+            case 'darwin':  // macOS platform
+                output = execSync('groups ' + os.userInfo().username, { encoding: 'utf8' });
+                if (output.includes('admin')) {
+                    return 'Admin';
+                } else {
+                    return 'Guest or Standard User';
+                }
+
+            default:
+                return 'Unknown OS';
+        }
+    } catch (error) {
+        console.error(`Error checking role: ${error}`);
+        return 'Error Determining Role';
+    }
+}
   // Method to generate a signature for a given data
   sign(data) {
     if (!this.authenticated) {
@@ -70,6 +105,11 @@ class Cleaker {
     // Assume privateKey is available in this scope
     return sign.sign(privateKey, 'hex');
   }
+   // Add a method to set or update the me instance later if required
+   cleakMe(me) {
+    this.me = me;
+}
+
   recordInteraction(interaction) {
     this.metadata.push({
       date: new Date(),
