@@ -14,16 +14,18 @@ node cleaked.js
 
 **Console output:**
 
-```json
-     | /
-    '  _  '
-   -  |_|  -
-    ' | | '
-    _,_|___
-   |   _ []|
-   |  (O)  |
-   |_______|it gets cleaked.
+```text
+  	| /
+  '  _  '
+ -  |_|  -
+  ' | | '
+  _,_|___
+ |   _ []|
+ |  (O)  |
+ |_______|it gets cleaked.
+```
 
+```json
 Cleaker {
   me: 'not me',
   onDate: 'Aug 10, 2023',
