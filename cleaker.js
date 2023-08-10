@@ -138,12 +138,15 @@ class Cleaker {
       return crypto.createHash('sha256').update(input).digest('hex');
   }
 
-
+  static cleak(me, password, ipAddress, userCountry, userCity, referer) {
+    // 1. Create the instance
+    const instance = new Cleaker(me, password, ipAddress, userCountry, userCity, referer);
+    // 2. Hash the instance's data
+    const cleakedHash = Cleaker.hash(JSON.stringify(instance));
+    // 3. Return the hash
+    return cleakedHash;
+  }
 }
+
 module.exports = Cleaker;
 let cleaked = new Cleaker();
-
-
-
-
-
