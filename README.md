@@ -29,8 +29,8 @@ node cleaked.js
 Cleaker {
   me: 'not me',
   onDate: 'Aug 10, 2023',
-  host_session: 'suign',
-  hostHome: '/Users/suign',
+  host_session: 'sui..n',
+  hostHome: '/Usr./sui..n',
   role: 'Admin',
   password: 'no_password',
   networkInterfaces: {
