@@ -1,6 +1,5 @@
 //cleaker.js
 const crypto = require('crypto');
-const { Network, Wallet, Transaction } = require('./crypto');
 const os = require('os'); 
 const packageJson = require('./package.json');
 const { exec } = require("child_process");
@@ -20,6 +19,7 @@ class Cleaker {
     this.me = me || "not me";
     this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     this.host_session = os.userInfo().username ||  'no_username';
+    this.hostHome = os.homedir() || 'no_home';
     this.role = this.getRole(); 
     this.setPassword(password);
     const networkInterfaces = os.networkInterfaces();
@@ -43,8 +43,6 @@ class Cleaker {
     };
     this.deviceIdentifier = this.identifyDevice(); // call method to identify device at construction time
     this.authenticated = false;
-    //cryptoWallets
-    this.wallets = {}; 
   }
   // Hash and set the password
   setPassword(password) {
@@ -88,7 +86,6 @@ class Cleaker {
                 } else {
                     return 'Guest or Standard User';
                 }
-
             default:
                 return 'Unknown OS';
         }
@@ -139,35 +136,6 @@ class Cleaker {
     // A global method to hash any input
   static hash(input) {
       return crypto.createHash('sha256').update(input).digest('hex');
-  }
-
-//CRYPTO WALLETS AND STUFF
-  createWallet(network) {
-    // For simplicity, we'll just generate a random ID to represent the wallet.
-    // In a real implementation, you'd integrate with a crypto library to generate private & public keys.
-    const walletID = crypto.randomBytes(16).toString("hex");
-    this.wallets[network] = {
-      id: walletID,
-      balance: 0  // Default balance, should be fetched from the network in a real-world scenario.
-    };
-    console.log(`Wallet for ${network} created with ID: ${walletID}`);
-  }
-  getWallet(network) {
-    return this.wallets[network];
-  }
-  listNetworks() {
-    return Object.keys(this.wallets);
-  }
-  checkBalance(network) {
-    const netInstance = new Network(network);
-    const wallet = this.getWallet(network);
-    if (wallet) {
-      const balance = netInstance.getBalance(wallet.id);
-      console.log(`Balance for wallet ${wallet.id} on ${network}: ${balance}`);
-      wallet.balance = balance;
-    } else {
-      console.log(`No wallet found for network: ${network}`);
-    }
   }
 
 
