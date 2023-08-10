@@ -25,7 +25,7 @@ node cleaked.js
  |_______|it gets cleaked.
 ```
 
-```json
+```javascript
 Cleaker {
   me: 'not me',
   onDate: 'Aug 10, 2023',
