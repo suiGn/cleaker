@@ -1,6 +1,6 @@
 {
     "name": "cleaker",
-    "version": "migrating crypto to this.wallet npm registry.",
+    "version": "2.3.7",
     "description": "Connecting all dots within a fixed distance.",
     "main": "cleaker.js",
     "scripts": {
