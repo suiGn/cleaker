@@ -1,9 +1,9 @@
 //cleaker.js
 const crypto = require('crypto');
+const { Network, Wallet, Transaction } = require('./crypto');
 const os = require('os'); 
 const packageJson = require('./package.json');
 const { exec } = require("child_process");
-
 function getIPv4() {
   const networkInterfaces = os.networkInterfaces();
   const ipv4Addresses = {};
@@ -43,6 +43,8 @@ class Cleaker {
     };
     this.deviceIdentifier = this.identifyDevice(); // call method to identify device at construction time
     this.authenticated = false;
+    //cryptoWallets
+    this.wallets = {}; 
   }
   // Hash and set the password
   setPassword(password) {
@@ -138,6 +140,37 @@ class Cleaker {
   static hash(input) {
       return crypto.createHash('sha256').update(input).digest('hex');
   }
+
+//CRYPTO WALLETS AND STUFF
+  createWallet(network) {
+    // For simplicity, we'll just generate a random ID to represent the wallet.
+    // In a real implementation, you'd integrate with a crypto library to generate private & public keys.
+    const walletID = crypto.randomBytes(16).toString("hex");
+    this.wallets[network] = {
+      id: walletID,
+      balance: 0  // Default balance, should be fetched from the network in a real-world scenario.
+    };
+    console.log(`Wallet for ${network} created with ID: ${walletID}`);
+  }
+  getWallet(network) {
+    return this.wallets[network];
+  }
+  listNetworks() {
+    return Object.keys(this.wallets);
+  }
+  checkBalance(network) {
+    const netInstance = new Network(network);
+    const wallet = this.getWallet(network);
+    if (wallet) {
+      const balance = netInstance.getBalance(wallet.id);
+      console.log(`Balance for wallet ${wallet.id} on ${network}: ${balance}`);
+      wallet.balance = balance;
+    } else {
+      console.log(`No wallet found for network: ${network}`);
+    }
+  }
+
+
 }
 module.exports = Cleaker;
 let cleaked = new Cleaker();
