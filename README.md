@@ -66,17 +66,11 @@ Cleaker {
   authenticated: false
 }
 ```
-
-
-
 ### Cleaker QuickStart Guide
-
 First, make sure to include the `cleaker.js` file in your project, and also have the required modules (`crypto` and `os`) available.
 
 ### Basic Usage
-
 1. **Importing Cleaker**: Import the Cleaker class by requiring it from where it's defined.
-
    ```js
    const Cleaker = require('./cleaker');
    ```
@@ -153,13 +147,40 @@ By employing Cleaker, you gain access to robust features that enhance the securi
 - [ ] Keep [i.mlearning](https://www.npmjs.com/package/i.mlearning).
 
 [neurons.me](https://www.neurons.me)
-
 [neurons.me/this](https://www.neurons.me/this)
 
-### License
+------
 
-This project is licensed under the **MIT License**. See the LICENSE file for details.
+# THIS DEMO Playground
+Welcome to the THIS.ME Playground, where the entire THIS.ME suite comes together with NEURONS.ME to provide a rich development and execution environment for your AI adventures.
+## DEMO Quick Start
+### 1. Clone the Repository
 
-This **README** provides an overview of the project, instructions for installation and usage, and highlights future projections. Feel free to modify or expand it as needed. Congratulations on building this exciting tool, and good luck with its continued development!
+```bash
+git clone https://github.com/suiGn/.me.git
+```
+### 2. Navigate to the Project Directory
+```bash
+cd .me
+```
+### 3. Install Dependencies
+You can use either Yarn or npm to install the necessary dependencies.
+Using Yarn:
+```bash
+yarn install 
+```
+Using npm:
+```bash
+npm install
+```
+### 4. Launch the Application
+```
+npx electron index.js
+```
 
-<img src="./_._.svg" alt="SVG Image" width="69" height="69" style="width69px; height:69px;">
+## Contributing
+If you have suggestions or issues, please open an issue. We encourage contributions from the community.
+## License & Policies
+- **License**: MIT License (see LICENSE for details).
+- **Privacy Policy**: Respects user privacy; no collection/storage of personal data.
+- **Terms of Usage**: Use responsibly. No guarantees/warranties provided. [Terms](https://www.neurons.me/terms-of-use) | [Privacy](https://www.neurons.me/privacy-policy)
