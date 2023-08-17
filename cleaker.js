@@ -2,47 +2,53 @@
 const crypto = require('crypto');
 const os = require('os'); 
 const packageJson = require('./package.json');
-const { exec } = require("child_process");
-function getIPv4() {
-  const networkInterfaces = os.networkInterfaces();
-  const ipv4Addresses = {};
-  for (const name of Object.keys(networkInterfaces)) {
-    const nets = networkInterfaces[name].filter((net) => net.family === 'IPv4' && !net.internal);
-    if (nets.length > 0) {
-      ipv4Addresses[name] = nets.map((net) => net.address);
-    }
-  }
-  return ipv4Addresses;
-}
+
 class Cleaker {
-  constructor(me = null, password, ipAddress, userCountry, userCity, referer) {
+  constructor(me, password, ipAddress, userCountry, userCity, referer) {
     this.me = me || "not me";
     this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     this.host_session = os.userInfo().username ||  'no_username';
     this.hostHome = os.homedir() || 'no_home';
     this.role = this.getRole(); 
     this.setPassword(password);
-    const networkInterfaces = os.networkInterfaces();
-    const ipv4Addresses = getIPv4(); // Make sure to define this function as previously mentioned
-    this.networkInterfaces = {};
-    for (const [name, nets] of Object.entries(networkInterfaces)) {
-      this.networkInterfaces[name] = {
-        details: nets,
-        ip: ipv4Addresses[name] || ['']
-      };
-    }
+    const ipv4Addresses = Cleaker.getIPv4();
+    this.networkInterfaces = Cleaker.getNetworkInterfaces(ipv4Addresses);
     this.localIP = ipAddress || Object.values(ipv4Addresses).flat()[0] || 'no_ip';
-    this.cpu = { arch: os.arch(), model: os.cpus()[0].model }; // CPU information
-    this.memory = { total: os.totalmem(), free: os.freemem() }; // Memory information
-    this.network = 'thishost'; // replace with actual host
+    this.cpu = { arch: os.arch(), model: os.cpus()[0].model };
+    this.memory = { total: os.totalmem(), free: os.freemem() };
+    this.network = 'thishost'; // Modify this with actual host if available
     this.usrCountry = userCountry;
     this.usrCity = userCity;
     this.referer = referer || 'Unknown';
     this.version = {
       cleaker: packageJson.version
     };
-    this.deviceIdentifier = this.identifyDevice(); // call method to identify device at construction time
+    this.deviceIdentifier = this.identifyDevice();
     this.authenticated = false;
+  }
+
+  static getIPv4() {
+    const networkInterfaces = os.networkInterfaces();
+    const ipv4Addresses = {};
+    for (const name of Object.keys(networkInterfaces)) {
+      const nets = networkInterfaces[name].filter((net) => net.family === 'IPv4' && !net.internal);
+      if (nets.length > 0) {
+        ipv4Addresses[name] = nets.map((net) => net.address);
+      }
+    }
+    return ipv4Addresses;
+  }
+
+  static getNetworkInterfaces(ipv4Addresses) {
+    const networkInterfaces = os.networkInterfaces();
+    const result = {};
+    for (const [name, nets] of Object.entries(networkInterfaces)) {
+      result[name] = {
+        details: nets,
+        ip: ipv4Addresses[name] || ['']
+      };
+    }
+    return result;
   }
   // Hash and set the password
   setPassword(password) {
