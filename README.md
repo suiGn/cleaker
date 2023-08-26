@@ -98,12 +98,12 @@ First, make sure to include the `cleaker.js` file in your project, and also have
 
 5. **Authentication**: Cleaker provides methods for authentication and user management, such as `authenticate`, `login`, and `logout`.
 
-Authentication is the process of verifying the identity of a user, system, or application. It answers the question, "Who are you?"
+Authentication is the process of verifying the identity of a user, system, or application. It answers the question, **"Who are you?"**
 
-Example: A user logging into a website with a username and password.
-Authorization is the process of granting or denying access to specific resources based on an authenticated user's or system's permissions. It answers the question, "What are you allowed to do?"
+**Example:** A user logging into a website with a username and password.
+Authorization is the process of granting or denying access to specific resources based on an authenticated user's or system's permissions. It answers the question, **"What are you allowed to do?"**
 
-Example: Once logged in, a user might be authorized to read content but not edit it.
+**Example:** Once logged in, a user might be authorized to read content but not edit it.
 
 
    ```js
@@ -137,22 +137,13 @@ Remember to refer to the `cleaker.js` source code for precise understanding, as 
 
 By employing Cleaker, you gain access to robust features that enhance the security and functionality of your application, enabling streamlined interactions with the operating system and network, and providing essential user management capabilities.
 
-### Conceptual Flow:
-
-- [ ] Set up your context with [this.me.](https://www.npmjs.com/package/this.me)
-- [ ] Create a neural network using [neurons.me](https://www.neurons.me).
-- [ ] Define the data you'd like your neural network to recognize or process with [this.](https://www.neurons.me/this) modules.
-- [ ] Use [this.be](https://www.npmjs.com/package/this.be) to maintain a state or context, - watching over  [This](https://www.neurons.me/this) and any other states you define for example.
-- [ ] Define desired status and handlers, [be.this](https://www.npmjs.com/package/be.this).
-- [ ] Keep [i.mlearning](https://www.npmjs.com/package/i.mlearning).
-
 [neurons.me](https://www.neurons.me)
 [neurons.me/this](https://www.neurons.me/this)
 
 ------
 
-# THIS DEMO Playground
-Welcome to the THIS.ME Playground, where the entire THIS.ME suite comes together with NEURONS.ME to provide a rich development and execution environment for your AI adventures.
+# DEMO Playground
+Welcome to the **Playground,** where the entire suite comes together with **NEURONS.ME** to provide a rich development and execution environment for your AI adventures.
 ## DEMO Quick Start
 ### 1. Clone the Repository
 
