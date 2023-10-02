@@ -6,15 +6,22 @@
 npm i cleaker
 ```
 
-Cleaker is a comprehensive module that facilitates various functionalities like retrieving system information, authentication, signing data, and user management. Here's how you can utilize Cleaker:
+### Summary & Insights:
+
+1. **Context Awareness:** Cleaker, being context-aware, is able to snapshot its state and surroundings, making it a versatile tool for different environments.
+2. **Flexibility:** Cleaker being the first point of contact when moving to a new space makes it flexible and modular, allowing it to adapt to different environments and manage resources accordingly.
+3. **Privacy & Security:** It’s evident that privacy and security are focal points in your design. Ensuring that sensitive information is protected while maintaining user privacy is paramount.
+4. **Unified Interface:** By acting as an entry point for your application in each level directory, Cleaker can serve as a unified interface, managing interactions between different components and the user.
+
+### Run:
 
 ```bash
 node cleaked.js
 ```
 
-**Console output:**
+You get a **Screenshot:**
 
-```text
+```javascript
   	| /
   '  _  '
  -  |_|  -
@@ -23,9 +30,7 @@ node cleaked.js
  |   _ []|
  |  (O)  |
  |_______|it gets cleaked.
-```
-
-```javascript
+ 
 Cleaker {
   me: 'not me',
   onDate: 'Aug 10, 2023',
@@ -35,23 +40,9 @@ Cleaker {
   password: 'no_password',
   networkInterfaces: {
     lo0: { details: [Array], ip: [Array] },
-    anpi1: { details: [Array], ip: [Array] },
-    anpi0: { details: [Array], ip: [Array] },
     en0: { details: [Array], ip: [Array] },
-    awdl0: { details: [Array], ip: [Array] },
-    llw0: { details: [Array], ip: [Array] },
-    utun0: { details: [Array], ip: [Array] },
     utun1: { details: [Array], ip: [Array] },
-    utun2: { details: [Array], ip: [Array] },
-    utun3: { details: [Array], ip: [Array] },
-    utun4: { details: [Array], ip: [Array] },
-    utun5: { details: [Array], ip: [Array] },
-    utun6: { details: [Array], ip: [Array] },
-    utun7: { details: [Array], ip: [Array] },
-    utun8: { details: [Array], ip: [Array] },
-    utun9: { details: [Array], ip: [Array] },
-    utun10: { details: [Array], ip: [Array] },
-    utun11: { details: [Array], ip: [Array] },
+												...
     utun12: { details: [Array], ip: [Array] }
   },
   localIP: '192.168.1.92',
@@ -67,9 +58,9 @@ Cleaker {
 }
 ```
 ### Cleaker QuickStart Guide
-First, make sure to include the `cleaker.js` file in your project, and also have the required modules (`crypto` and `os`) available.
+First, make sure to include the `cleaker.js` file in your project.
 
-### Basic Usage
+# Basic Usage
 1. **Importing Cleaker**: Import the Cleaker class by requiring it from where it's defined.
    ```js
    const Cleaker = require('./cleaker');
@@ -96,9 +87,13 @@ First, make sure to include the `cleaker.js` file in your project, and also have
    console.log("Total Memory:", cleaked.memory.total);
    ```
 
-5. **Authentication**: Cleaker provides methods for authentication and user management, such as `authenticate`, `login`, and `logout`.
+---------------------------------------------------
 
-Authentication is the process of verifying the identity of a user, system, or application. It answers the question, **"Who are you?"**
+# Authentication
+
+The process of verifying the identity of a user, system, or application. It answers the question, **"Who are you?"**
+
+**Cleaker** is a pronoun. A **person, place** or **thing** is **space** and **time.**
 
 **Example:** A user logging into a website with a username and password.
 Authorization is the process of granting or denying access to specific resources based on an authenticated user's or system's permissions. It answers the question, **"What are you allowed to do?"**
@@ -127,8 +122,6 @@ Authorization is the process of granting or denying access to specific resources
    console.log("Device Identifier:", cleaked.deviceIdentifier);
    ```
 
-8. **Other Features**: Cleaker also provides functionalities like recording interactions, user login/logout, verification, and more. Explore the Cleaker class to understand these features.
-
 ### Advanced Usage
 
 The Cleaker class can be extended and customized to add additional functionalities specific to your application. Its methods can be overridden, and new properties can be added as required.
@@ -139,35 +132,6 @@ By employing Cleaker, you gain access to robust features that enhance the securi
 
 [neurons.me](https://www.neurons.me)
 [neurons.me/this](https://www.neurons.me/this)
-
-------
-
-# DEMO Playground
-Welcome to the **Playground,** where the entire suite comes together with **NEURONS.ME** to provide a rich development and execution environment for your AI adventures.
-## DEMO Quick Start
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/suiGn/.me.git
-```
-### 2. Navigate to the Project Directory
-```bash
-cd .me
-```
-### 3. Install Dependencies
-You can use either Yarn or npm to install the necessary dependencies.
-Using Yarn:
-```bash
-yarn install 
-```
-Using npm:
-```bash
-npm install
-```
-### 4. Launch the Application
-```
-npx electron index.js
-```
 
 ## Contributing
 If you have suggestions or issues, please open an issue. We encourage contributions from the community.
