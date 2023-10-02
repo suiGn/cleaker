@@ -6,6 +6,7 @@ const packageJson = require('./package.json');
 class Cleaker {
   constructor(me, password, ipAddress, userCountry, userCity, referer) {
     this.me = me || "not me";
+    this.username = os.userInfo().username || 'no_username'; // Added username in constructor
     this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     this.host_session = os.userInfo().username ||  'no_username';
     this.hostHome = os.homedir() || 'no_home';
@@ -45,7 +46,7 @@ class Cleaker {
     for (const [name, nets] of Object.entries(networkInterfaces)) {
       result[name] = {
         details: nets,
-        ip: ipv4Addresses[name] || ['']
+        ip: ipv4Addresses[name] || ['no_ip'] // Adjusted fallback to ['no_ip']
       };
     }
     return result;
@@ -54,9 +55,10 @@ class Cleaker {
   setPassword(password) {
     this.password = password ? crypto.createHash('sha256').update(password).digest('hex') : 'no_password';
   }
+
+
   // Authentication method (replace with actual authentication logic)
   authenticate(username, password) {
-    // Example: Validate against stored hashed password
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
     if (this.username === username && this.password === hashedPassword) {
       this.authenticated = true;
@@ -66,7 +68,8 @@ class Cleaker {
     }
     return this.authenticated;
   }
-  getRole() {
+  
+  static getRole(username = os.userInfo().username) { 
     const execSync = require("child_process").execSync;
     try {
         let output;
@@ -110,10 +113,13 @@ class Cleaker {
     // Assume privateKey is available in this scope
     return sign.sign(privateKey, 'hex');
   }
+
    // Add a method to set or update the me instance later if required
    cleakMe(me) {
     this.me = me;
-}
+    // Optionally, recompute any dependent properties here.
+    // this.deviceIdentifier = this.identifyDevice(); // For example
+  }
 
   recordInteraction(interaction) {
     this.metadata.push({
