@@ -1,7 +1,7 @@
 //cleaker.js
 const crypto = require('crypto');
 const os = require('os'); 
-const packageJson = require('./package.json');
+const packageJson = require('../package.json');
 
 class Cleaker {
   constructor(me, password, ipAddress, userCountry, userCity, referer) {
@@ -10,7 +10,6 @@ class Cleaker {
     this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     this.host_session = os.userInfo().username ||  'no_username';
     this.hostHome = os.homedir() || 'no_home';
-    this.role = this.getRole(); 
     this.setPassword(password);
     const ipv4Addresses = Cleaker.getIPv4();
     this.networkInterfaces = Cleaker.getNetworkInterfaces(ipv4Addresses);
@@ -68,41 +67,7 @@ class Cleaker {
     }
     return this.authenticated;
   }
-  
-  static getRole(username = os.userInfo().username) { 
-    const execSync = require("child_process").execSync;
-    try {
-        let output;
-        switch (os.platform()) {
-            case 'win32':
-                output = execSync('net user ' + os.userInfo().username, { encoding: 'utf8' });
-                if (output.includes('Administrators')) {
-                    return 'Admin';
-                } else {
-                    return 'Guest or Standard User';
-                }
-            case 'linux':
-                output = execSync('groups ' + os.userInfo().username, { encoding: 'utf8' });
-                if (output.includes('sudo') || output.includes('root')) {
-                    return 'Admin';
-                } else {
-                    return 'Guest or Standard User';
-                }
-            case 'darwin':  // macOS platform
-                output = execSync('groups ' + os.userInfo().username, { encoding: 'utf8' });
-                if (output.includes('admin')) {
-                    return 'Admin';
-                } else {
-                    return 'Guest or Standard User';
-                }
-            default:
-                return 'Unknown OS';
-        }
-    } catch (error) {
-        console.error(`Error checking role: ${error}`);
-        return 'Error Determining Role';
-    }
-}
+
   // Method to generate a signature for a given data
   sign(data) {
     if (!this.authenticated) {
