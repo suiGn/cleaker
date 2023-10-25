@@ -1,8 +1,8 @@
 {
-    "name": "cleaker",
-    "version": "2.5.4",
+    "name": "tetragrammaton",
+    "version": "0.0.1",
     "description": "Connecting All Dots Within a Fixed Distance.",
-    "main": "cleaker.js",
+    "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -17,12 +17,12 @@
   "license": "MIT - LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/suiGn/cleaker"
+    "url": "https://github.com/suiGn/Tetragrammaton"
   },
   "bugs": {
-    "url": "https://github.com/suiGn/cleaker/issues"
+    "url": "https://github.com/suiGn/Tetragrammaton/issues"
   },
-  "homepage": "https://github.com/suiGn/cleaker#readme",
+  "homepage": "https://github.com/suiGn/Tetragrammaton#readme",
   "dependencies": {
   }
 }
