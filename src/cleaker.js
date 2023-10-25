@@ -1,30 +1,36 @@
 //cleaker.js
+
+//Cleaker is a person, place, thing, in space and time.
+// Person: me , Namespace: host_session/me
 const crypto = require('crypto');
 const os = require('os'); 
 const packageJson = require('../package.json');
 
 class Cleaker {
-  constructor(me, password, ipAddress, userCountry, userCity, referer) {
-    this.me = me || "not me";
-    this.username = os.userInfo().username || 'no_username'; // Added username in constructor
-    this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-    this.host_session = os.userInfo().username ||  'no_username';
+  constructor(person = 'not me', place = {}, thing = {}) {
+    // Person properties
+    this.me = person;
+    this.host_session = os.userInfo().username || 'no_username';
+    // Place properties
+    this.usrCountry = place.userCountry;
+    this.usrCity = place.userCity;
+    this.referer = place.referer || 'Unknown';
     this.hostHome = os.homedir() || 'no_home';
-    this.setPassword(password);
-    const ipv4Addresses = Cleaker.getIPv4();
-    this.networkInterfaces = Cleaker.getNetworkInterfaces(ipv4Addresses);
-    this.localIP = ipAddress || Object.values(ipv4Addresses).flat()[0] || 'no_ip';
+    // Thing properties
     this.cpu = { arch: os.arch(), model: os.cpus()[0].model };
     this.memory = { total: os.totalmem(), free: os.freemem() };
-    this.network = 'thishost'; // Modify this with actual host if available
-    this.usrCountry = userCountry;
-    this.usrCity = userCity;
-    this.referer = referer || 'Unknown';
-    this.version = {
-      cleaker: packageJson.version
-    };
+    this.version = { cleaker: packageJson.version };
     this.deviceIdentifier = this.identifyDevice();
+    // Authentication related
+    this.setPassword(thing.password);
     this.authenticated = false;
+    // Time
+    this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    //space
+    const ipv4Addresses = Cleaker.getIPv4();
+    this.networkInterfaces = Cleaker.getNetworkInterfaces(ipv4Addresses);
+    this.localIP = place.ipAddress || Object.values(ipv4Addresses).flat()[0] || 'no_ip';
+    
   }
 
   static getIPv4() {
@@ -50,13 +56,13 @@ class Cleaker {
     }
     return result;
   }
+
   // Hash and set the password
   setPassword(password) {
     this.password = password ? crypto.createHash('sha256').update(password).digest('hex') : 'no_password';
   }
 
-
-  // Authentication method (replace with actual authentication logic)
+  // Authentication method
   authenticate(username, password) {
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
     if (this.username === username && this.password === hashedPassword) {

@@ -1,10 +1,11 @@
 {
     "name": "cleaker",
-    "version": "2.5.4",
+    "version": "2.5.5",
     "description": "Connecting All Dots Within a Fixed Distance.",
     "main": "cleaker.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node cleaker.js"
     },
   "keywords": [
     "Person",
