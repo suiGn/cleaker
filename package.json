@@ -25,5 +25,6 @@
   },
   "homepage": "https://github.com/suiGn/cleaker#readme",
   "dependencies": {
-  }
+  },
+  "repoType": "NPM Package"
 }
