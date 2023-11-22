@@ -13,17 +13,18 @@
     "Thing",
     "Space",
     "Time"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/suiGn/cleaker"
+  ], 
+  "dependencies": {
   },
   "bugs": {
     "url": "https://github.com/suiGn/cleaker/issues"
   },
-  "homepage": "https://github.com/suiGn/cleaker#readme",
-  "dependencies": {
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suiGn/cleaker.git"
   },
+  "homepage": "https://www.npmjs.com/package/i.mlearning",
+  "docs": "https://suiGn.github.io/cleaker",
   "author": "suiGN",
   "license": "MIT",
   "repoType": "NPM Package"
