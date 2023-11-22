@@ -23,7 +23,7 @@
     "type": "git",
     "url": "git+https://github.com/suiGn/cleaker.git"
   },
-  "homepage": "https://www.npmjs.com/package/i.mlearning",
+  "homepage": "https://www.npmjs.com/package/cleaker",
   "docs": "https://suiGn.github.io/cleaker",
   "author": "suiGN",
   "license": "MIT",
