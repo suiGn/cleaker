@@ -1,13 +1,12 @@
-<img src="./_._.svg" alt="SVG Image" width="123" height="123" style="width123px; height:123px;">
+<img src="/_._.svg" alt="SVG Image" width="123" height="123" style="width123px; height:123px;">
 
-# Cleaker
-### Unique Digital Asset Identifier:
+Cleaker
 
-Each digital asset (like an image, document, etc.) is assigned a unique identifier. This identifier is crucial in tracking and managing access to the asset.
+## **Unique** Digital Asset Identifier:
 
-**Single-Instance** Sharing for Enhanced Control and Privacy
+- Each digital asset (like an image, document, etc.) is assigned a unique identifier. This identifier is crucial in tracking and managing access to the asset.
 
-## Install with npm.
+## Install with npm:
 ```bash
 npm i cleaker
 ```
@@ -21,7 +20,7 @@ npm i cleaker
 ### Run:
 
 ```bash
-node src/cleaked.js
+node cleaked.js
 ```
 
 You get a **Screenshot:**
