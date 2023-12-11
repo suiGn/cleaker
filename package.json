@@ -1,7 +1,7 @@
 {
     "name": "Cleaker",
     "version": "2.5.5",
-    "description": "Connecting the dots between the 4th dimension and the 5th dimension.",
+    "description": "Connecting all dots within a fixed distance.",
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"
