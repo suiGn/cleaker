@@ -1,7 +1,7 @@
 {
-    "name": "cleaker",
+    "name": "Tetragrammaton",
     "version": "2.5.5",
-    "description": "Connecting All Dots Within a Fixed Distance.",
+    "description": "Dots in circles.",
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,12 +17,12 @@
   "license": "MIT - LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/suiGn/Cleaker"
+    "url": "https://github.com/suiGn/Tetragrammaton"
   },
   "bugs": {
-    "url": "https://github.com/suiGn/Cleaker/issues"
+    "url": "https://github.com/suiGn/Tetragrammaton/issues"
   },
-  "homepage": "https://github.com/suiGn/Cleaker#readme",
+  "homepage": "https://github.com/suiGn/Tetragrammaton#readme",
   "dependencies": {
   }
 }
