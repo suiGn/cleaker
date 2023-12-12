@@ -1,1 +1,1 @@
-console.Console("Loaded Tetragrammaton.");
+console.Console("Loading Cleaker.");
