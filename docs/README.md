@@ -1,22 +1,10 @@
-<img src="https://suign.github.io/neurons.me/neurons_logo.png" alt="SVG Image" width="123" height="123" style="width123px; height:123px;">
+<img src="https://suign.github.io/neurons.me/neurons_logo.png" alt="SVG Image" width="123" height="123" align="left">
 
 # Cleaker
-### Unique Digital Asset Identifier:
-
-Each digital asset (like an image, document, etc.) is assigned a unique identifier. This identifier is crucial in tracking and managing access to the asset.
-
-**Single-Instance** Sharing for Enhanced Control and Privacy
-
 ## Install with npm.
 ```bash
 npm i cleaker
 ```
-
-### Summary & Insights:
-1. **Context Awareness:** Cleaker, being context-aware, is able to snapshot its state and surroundings, making it a versatile tool for different environments.
-2. **Flexibility:** Cleaker being the first point of contact when moving to a new space makes it flexible and modular, allowing it to adapt to different environments and manage resources accordingly.
-3. **Privacy & Security:** It’s evident that privacy and security are focal points in your design. Ensuring that sensitive information is protected while maintaining user privacy is paramount.
-4. **Unified Interface:** By acting as an entry point for your application in each level directory, Cleaker can serve as a unified interface, managing interactions between different components and the user.
 
 ### Run:
 
@@ -64,6 +52,7 @@ Cleaker {
 ```
 # Basic Usage
 1. **Importing Cleaker**: Import the Cleaker class by requiring it from where it's defined.
+   
    ```js
    const Cleaker = require('./cleaker');
    ```
