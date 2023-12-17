@@ -1,6 +1,9 @@
-<img src="https://suign.github.io/neurons.me/neurons_logo.png" alt="SVG Image" width="123" height="123" align="left">
+What is cleaker? [click here](https://suign.github.io/pages/cleaker.html).
 
 # Cleaker
+
+<img src="./computer_terminal_with_complex_coding_and_networking_data_displayed_on_the_screen._The_screen_shows_various_elemen-removebg-preview.png" alt="SVG Image" width="222" height="222" align="left">
+
 ## Install with npm.
 ```bash
 npm i cleaker
@@ -12,45 +15,10 @@ npm i cleaker
 node src/cleaked.js
 ```
 
-You get a **Screenshot:**
+You get a **Screenshot.**
 
-```javascript
-/*	 | /
-  '  _  '
- -  |_|  -
-  ' | | '
-  _,_|___
- |   _ []|
- |  (O)  |
- |_______|it gets cleaked.*/
- 
-Cleaker {
-  me: 'not me',
-  onDate: 'Aug 10, 2023',
-  host_session: 'sui..n',
-  hostHome: '/Usr./sui..n',
-  role: 'Admin',
-  password: 'no_password',
-  networkInterfaces: {
-    lo0: { details: [Array], ip: [Array] },
-    en0: { details: [Array], ip: [Array] },
-    utun1: { details: [Array], ip: [Array] },
-												...
-    utun12: { details: [Array], ip: [Array] }
-  },
-  localIP: '192.168.1.92',
-  cpu: { arch: 'arm64', model: 'Apple M2' },
-  memory: { total: 8589934592, free: 153600000 },
-  network: 'thishost',
-  usrCountry: undefined,
-  usrCity: undefined,
-  referer: 'Unknown',
-  version: { cleaker: '2.3.8' },
-  deviceIdentifier: 'efa909100a5ddc6d47d340498379e99d0b45f9b23768660ffedb86198cc73407',
-  authenticated: false
-}
-```
 # Basic Usage
+
 1. **Importing Cleaker**: Import the Cleaker class by requiring it from where it's defined.
    
    ```js
