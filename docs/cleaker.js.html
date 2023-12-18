@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   ...
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cleaker</title>
+  <title>Cleaker cleaker.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -111,105 +113,79 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-cleaker.html">cleaker</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Cleaker.html">Cleaker</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cleak">cleak</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>cleaker</h1>
+                    <p>Source</p>
+                    <h1>cleaker.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import os from 'os';
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Initializes and configures the cleaker server functionalities.</div>
-        
+/**
+ * Class representing a Cleaker entity.
+ * @class
+ */
+class Cleaker {
+  /**
+   * Create a Cleaker instance.
+   * @param {string} [me="not me"] - Identifier for the Cleaker instance.
+   * @param {string} [password="no_password"] - Password for the Cleaker instance.
+   * @param {string} [pin="no_pin"] - PIN for the Cleaker instance.
+   * @param {string} [ipAddress="no_ip"] - IP address for the Cleaker instance.
+   * @param {string} [userCountry="no_country"] - Country of the Cleaker instance.
+   * @param {string} [userCity="no_city"] - City of the Cleaker instance.
+   * @param {string} [referer="no_referer"] - Referer of the Cleaker instance.
+   */
+  constructor(me = "not me", password = "no_password", pin = "no_pin", ipAddress = "no_ip", userCountry = "no_country", userCity = "no_city", referer = "no_referer") {
+    this.me = me;
+    this.password = password;
+    this.pin = pin;
+    this.ipAddress = ipAddress;
+    this.userCountry = userCountry;
+    this.userCity = userCity;
+    this.referer = referer;
+    this.username = os.userInfo().username || 'no_username';
+    this.onDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    this.host_session = this.username;
+    this.hostHome = os.homedir() || 'no_home';
+  }
+}
 
-        
+/**
+ * Function to create and "cleak" a Cleaker instance.
+ * @param {string} me - Identifier for the Cleaker instance.
+ * @param {string} password - Password for the Cleaker instance.
+ * @param {string} ipAddress - IP address for the Cleaker instance.
+ * @param {string} userCountry - Country of the Cleaker instance.
+ * @param {string} userCity - City of the Cleaker instance.
+ * @param {string} referer - Referer of the Cleaker instance.
+ * @returns {Cleaker} A new instance of Cleaker.
+ */
+function cleak(me, password, ipAddress, userCountry, userCity, referer) {
+  // Create a new instance of Cleaker with the provided values
+  const cleakerInstance = new Cleaker(me, password, ipAddress, userCountry, userCity, referer);
+  
+  // Perform additional "cleaking" operations if necessary
+  // For example, logging the creation, storing in a database, etc.
 
+  return cleakerInstance; // Return the new "cleaked" Cleaker instance
+}
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="server.js.html" class="button">View Source</a>
-            <span>
-                <a href="server.js.html">server.js</a>, <a href="server.js.html#line6">line 6</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+export { Cleaker, cleak };
+</code></pre>
+        </article>
+    </section>
 
 
 

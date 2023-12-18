@@ -1,4 +1,4 @@
-// cleaker/scrc/server.js
+// cleaker/src/server.js
 //var connection = postgresql.createConnection({
 //	host: 'localhost',
 import express from 'express';
