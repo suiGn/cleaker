@@ -3,28 +3,46 @@
 <img src="./computer_terminal_with_complex_coding_and_networking_data_displayed_on_the_screen._The_screen_shows_various_elemen-removebg-preview.png" alt="SVG Image" width="244" height="244">
 
 # Cleaker
-Connecting all points within a fixed distance. **Cleaker** is a pronoun representing a [person](https://suign.github.io/this.me/), place, or thing in space and time. By defining namespaces based on Cleaker instances, you ensure that each namespace is unique, identifiable, and contextual to the specific [user](https://suign.github.io/this.me/), thus facilitating seamless and meaningful interactions within the network.
+Connecting all points within a fixed distance. 
+
+**Cleaker** is a pronoun representing a [person](https://suign.github.io/this.me/), place, or thing in space and time. 
 
 ##### What is cleaker? [click here](https://suign.github.io/pages/cleaker.html).
+
+Its role is to function as a Digital Identifier (DID) creator; make cleaker accept an object (like a .me profile) and return a unique DID for it.
 
 ## Install with npm.
 ```bash
 npm i cleaker
 ```
 
-# Basic Usage
-**Importing Cleaker**: Import the Cleaker class by requiring it from where it's defined.
+# Usage Example
 
-```js
-const Cleaker = require('cleaker');
+```javascript
+import { generateDID } from 'cleaker';
+
+const profile = { /* .me profile data */ };
+
+// Generate a DID using SHA-256
+const didSHA256 = generateDID(profile, 'SHA-256');
+console.log('DID (SHA-256):', didSHA256);
+
+// Generate a DID using Keccak-256
+const didKeccak256 = generateDID(profile, 'Keccak-256');
+console.log('DID (Keccak-256):', didKeccak256);
 ```
 
----------------------------------------------------
 
 
+By implementing both `SHA-256` and `Keccak-256`, `cleaker` becomes a versatile tool for creating DIDs that are compatible with major blockchain networks. This approach allows for the integration of **cleaker** with a variety of blockchain technologies and potentially opens up various use cases in the **blockchain domain.**
+
+### Test Case: 
+
+```bash
+node cleaker/tests/test.js
+```
 
 [namespaces](NameSpaces.html)
-
 [neurons.me](https://www.neurons.me)
 [neurons.me/this](https://www.neurons.me/this)
 
