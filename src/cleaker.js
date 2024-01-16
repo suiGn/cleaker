@@ -8,7 +8,7 @@ const { keccak256 } = pkg;
  * @param {string} algorithm - The hashing algorithm to use ('SHA-256' or 'Keccak-256').
  * @returns {string} The generated DID.
  */
-function cleak(data, algorithm = 'SHA-256') {
+function Cleaker(data, algorithm = 'SHA-256') {
   const dataString = JSON.stringify(data);
 
   let hash;
@@ -23,4 +23,4 @@ function cleak(data, algorithm = 'SHA-256') {
   return hash;
 }
 
-export { cleak };
+export default Cleaker;

@@ -111,7 +111,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Cleaker.html">Cleaker</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cleak">cleak</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Index.html">Index</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Cleaker">Cleaker</a></li></ul></div>
                 
             </nav>
         </div>
@@ -205,12 +205,12 @@
 
 
     
-    <h4 class="name" id="cleak">
-        <a class="href-link" href="#cleak">#</a>
+    <h4 class="name" id="Cleaker">
+        <a class="href-link" href="#Cleaker">#</a>
         
         <span class="code-name">
             
-                cleak<span class="signature">(me, password, ipAddress, userCountry, userCity, referer)</span><span class="type-signature"> &rarr; {<a href="Cleaker.html">Cleaker</a>}</span>
+                Cleaker<span class="signature">(data, algorithm)</span><span class="type-signature"> &rarr; {string}</span>
             
         </span>
     </h4>
@@ -219,7 +219,7 @@
     
     
     <div class="description">
-        Function to create and "cleak" a Cleaker instance.
+        Generates a Digital Identifier (DID) for an object using a specified hashing algorithm.
     </div>
     
 
@@ -246,6 +246,8 @@
             
 
             
+            <th>Default</th>
+            
 
             <th class="last">Description</th>
         </tr>
@@ -257,13 +259,13 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>me</code></td>
+      <td class="name"><code>data</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">string</code>
+<code class="param-type">Object</code>
 
 
   
@@ -272,8 +274,12 @@
   
 
   
+      <td class="default">
+      
+      </td>
+  
 
-  <td class="description last">Identifier for the Cleaker instance.</td>
+  <td class="description last">The object to be hashed.</td>
 </tr>
 
 
@@ -282,7 +288,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>password</code></td>
+      <td class="name"><code>algorithm</code></td>
   
 
   <td class="type">
@@ -297,108 +303,14 @@
   
 
   
-
-  <td class="description last">Password for the Cleaker instance.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>ipAddress</code></td>
-  
-
-  <td class="type">
-  
+      <td class="default">
       
-<code class="param-type">string</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">IP address for the Cleaker instance.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>userCountry</code></td>
-  
-
-  <td class="type">
-  
+          SHA-256
       
-<code class="param-type">string</code>
-
-
-  
-  </td>
-
+      </td>
   
 
-  
-
-  <td class="description last">Country of the Cleaker instance.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>userCity</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">string</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">City of the Cleaker instance.</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>referer</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">string</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">Referer of the Cleaker instance.</td>
+  <td class="description last">The hashing algorithm to use ('SHA-256' or 'Keccak-256').</td>
 </tr>
 
 
@@ -444,9 +356,9 @@
 
     
         <p class="tag-source">
-            <a href="cleaker.js.html" class="button">View Source</a>
+            <a href="src_cleaker.js.html" class="button">View Source</a>
             <span>
-                <a href="cleaker.js.html">cleaker.js</a>, <a href="cleaker.js.html#line43">line 43</a>
+                <a href="src_cleaker.js.html">src/cleaker.js</a>, <a href="src_cleaker.js.html#line11">line 11</a>
             </span>
         </p>
     
@@ -477,13 +389,13 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'>A new instance of Cleaker.</div>
+    <div class='param-desc column is-7'>The generated DID.</div>
     
     
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type"><a href="Cleaker.html">Cleaker</a></code>
+<code class="param-type">string</code>
 
 
     </div>

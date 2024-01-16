@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   ...
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cleaker Home</title>
+  <title>Cleaker src/cleaker.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -118,73 +120,45 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>src/cleaker.js</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><img src="./computer_terminal_with_complex_coding_and_networking_data_displayed_on_the_screen._The_screen_shows_various_elemen-removebg-preview.png" alt="SVG Image" width="244" height="244">
-<h1>Cleaker</h1>
-<p>Connecting all points within a fixed distance.</p>
-<p><strong>Cleaker</strong> is a pronoun representing a <a href="https://suign.github.io/this.me/">person</a>, place, or thing in space and time.</p>
-<h5>What is cleaker? <a href="https://suign.github.io/pages/cleaker.html">click here</a>.</h5>
-<p>Its role is to function as a Digital Identifier (DID) creator; make cleaker accept an object (like a .me profile) and return a unique DID for it.</p>
-<h2>Install with npm.</h2>
-<pre class="prettyprint source lang-bash"><code>npm i cleaker
-</code></pre>
-<h1>Usage Example</h1>
-<pre class="prettyprint source lang-javascript"><code>import { generateDID } from 'cleaker';
+        <article>
+            <pre class="prettyprint source linenums"><code>import crypto from 'crypto';
+import pkg from 'js-sha3';
+const { keccak256 } = pkg;
 
-const profile = { /* .me profile data */ };
+/**
+ * Generates a Digital Identifier (DID) for an object using a specified hashing algorithm.
+ * @param {Object} data - The object to be hashed.
+ * @param {string} algorithm - The hashing algorithm to use ('SHA-256' or 'Keccak-256').
+ * @returns {string} The generated DID.
+ */
+function Cleaker(data, algorithm = 'SHA-256') {
+  const dataString = JSON.stringify(data);
 
-// Generate a DID using SHA-256
-const didSHA256 = generateDID(profile, 'SHA-256');
-console.log('DID (SHA-256):', didSHA256);
+  let hash;
+  if (algorithm === 'SHA-256') {
+    hash = crypto.createHash('sha256').update(dataString).digest('hex');
+  } else if (algorithm === 'Keccak-256') {
+    hash = keccak256(dataString);
+  } else {
+    throw new Error('Unsupported hashing algorithm');
+  }
 
-// Generate a DID using Keccak-256
-const didKeccak256 = generateDID(profile, 'Keccak-256');
-console.log('DID (Keccak-256):', didKeccak256);
+  return hash;
+}
+
+export default Cleaker;
 </code></pre>
-<p>By implementing both <code>SHA-256</code> and <code>Keccak-256</code>, <code>cleaker</code> becomes a versatile tool for creating DIDs that are compatible with major blockchain networks. This approach allows for the integration of <strong>cleaker</strong> with a variety of blockchain technologies and potentially opens up various use cases in the <strong>blockchain domain.</strong></p>
-<h3>Test Case:</h3>
-<pre class="prettyprint source lang-bash"><code>node cleaker/tests/test.js
-</code></pre>
-<p><a href="NameSpaces.html">namespaces</a>
-<a href="https://www.neurons.me">neurons.me</a>
-<a href="https://www.neurons.me/this">neurons.me/this</a></p>
-<h2>Contributing</h2>
-<p>If you have suggestions or issues, please open an issue. We encourage contributions from the community.</p>
-<h2>License &amp; Policies</h2>
-<ul>
-<li><strong>License</strong>: MIT License (see LICENSE for details).</li>
-<li><strong>Privacy Policy</strong>: Respects user privacy; no collection/storage of personal data.</li>
-<li><strong>Terms of Usage</strong>: Use responsibly. No guarantees/warranties provided. <a href="https://www.neurons.me/terms-of-use">Terms</a> | <a href="https://www.neurons.me/privacy-policy">Privacy</a></li>
-</ul></article>
+        </article>
     </section>
-
-
 
 
 
