@@ -28,5 +28,5 @@
         "js-sha3": "^0.9.3"
     },
       "repoType": "NPM Package",
-      "category": "dataformatter"
+      "category": "utils"
 }

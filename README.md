@@ -1,6 +1,6 @@
 
 
-<img src="./computer_terminal_with_complex_coding_and_networking_data_displayed_on_the_screen._The_screen_shows_various_elemen-removebg-preview.png" alt="SVG Image" width="244" height="244">
+<img src="https://suign.github.io/assets/imgs/cleaker_me.png" alt="Cleaker Me" width="244" height="244">
 
 # Cleaker
 Connecting all points within a fixed distance. 
@@ -17,6 +17,8 @@ npm i cleaker
 ```
 
 # Usage Example
+
+Currently under development.
 
 ```javascript
 import { generateDID } from 'cleaker';
@@ -36,15 +38,9 @@ console.log('DID (Keccak-256):', didKeccak256);
 
 By implementing both `SHA-256` and `Keccak-256`, `cleaker` becomes a versatile tool for creating DIDs that are compatible with major blockchain networks. This approach allows for the integration of **cleaker** with a variety of blockchain technologies and potentially opens up various use cases in the **blockchain domain.**
 
-### Test Case: 
 
-```bash
-node cleaker/tests/test.js
-```
 
-[namespaces](NameSpaces.html)
-[neurons.me](https://www.neurons.me)
-[neurons.me/this](https://www.neurons.me/this)
+https://www.neurons.me/
 
 ## Contributing
 If you have suggestions or issues, please open an issue. We encourage contributions from the community.
