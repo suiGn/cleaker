@@ -14,8 +14,6 @@
         "Space",
         "Time"
     ],
-    "author": "Sui Gn",
-    "license": "MIT - LICENSE",
     "repository": {
         "type": "git",
         "url": "https://github.com/suiGn/Cleaker.git"
@@ -23,10 +21,13 @@
     "bugs": {
         "url": "https://github.com/suiGn/Cleaker/issues"
     },
-    "homepage": "https://github.com/suiGn/Cleaker#readme",
     "dependencies": {
         "js-sha3": "^0.9.3"
     },
-      "repoType": "NPM Package",
-      "category": "utils"
+    "homepage": "https://www.npmjs.com/package/cleaker",
+    "docs": "https://suign.github.io/cleaker",
+    "author": "Sui Gn",
+    "license": "MIT License",
+    "repoType": "NPM Package",
+    "category": "utils"
 }
