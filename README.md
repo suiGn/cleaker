@@ -1,6 +1,6 @@
 
 
-<img src="https://suign.github.io/assets/imgs/cleaker_me.png" alt="Cleaker Me" width="244" height="244">
+<img src="https://suign.github.io/assets/imgs/cleaker_me.png" alt="Cleaker Me" width="377" height="377">
 
 # Cleaker
 Connecting all points within a fixed distance. 
